@@ -27,7 +27,10 @@ function rowlenByRange(d, r1, r2, cfg) {
     }
 
     let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+
     canvas.textBaseline = 'top'; //textBaseline以top计算
+
+    canvas.font = "15px Arial";
 
     for(let r = r1; r <= r2; r++){
         if (cfg_clone["rowhidden"] != null && cfg_clone["rowhidden"][r] != null) {
