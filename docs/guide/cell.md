@@ -230,7 +230,7 @@ The available settings are as follows:
 | Date | AM/PM h:mm:ss | d | 1:30:30 PM ||
 | Date | MM-dd AM/PM hh:mm | d | Next 08-05 01:30 PM ||
 | <br><br><br>**Currency Format** | | | | |
-| Currency: RMB | "¥" 0.00 | n | ¥ 123.00 | Also supports ¥ #.00 or ¥0.00|
+| Currency: RMB | "$" 0.00 | n | $ 123.00 | Also supports $ #.00 or $0.00|
 | Currency: US Dollar | "$" 0.00 | n | $ 123.00 ||
 | Currency: Euro | "€" 0.00 | n | € 123.00 ||
 | Currency: British Pound | "￡" 0.00 | n | ￡ 123.00 ||
