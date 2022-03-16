@@ -248,7 +248,10 @@
 }
 
 .luckysheet-iconfont-jine:before {
-  content: "\e7a9";
+  content: "$";
+  font-size: 15px;
+  position: relative;
+  top: -4px;
 }
 
 .luckysheet-iconfont-caidan1:before {

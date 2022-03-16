@@ -197,7 +197,7 @@ The available settings are as follows:
 | Score | # ??/?? | n | 1234 14/25 ||
 | Ten thousand | w | n |123 thousand and 456||
 | Ten thousand two decimal places | w0.00 | n |123 thousand and 3456.00 ||
-| Accounting | ¥(0.00) | n ||
+| Accounting | $(0.00) | n ||
 | More number formats | #,##0 | n | 1,235 ||
 | More number formats | #,##0.00 | n | 1,234.56 ||
 | More number formats | `#,##0_);(#,##0)` | n | 1,235 ||
