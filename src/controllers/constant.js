@@ -842,7 +842,7 @@ function customLoadingConfig() {
     const info = _locale.info;
     const config = {
         enable: true,
-        image: 'https://heyrobotassets.s3.us-west-1.amazonaws.com/luckysheet/dist/css/loading.gif',
+        image: 'https://heyrobotassets.s3.us-west-1.amazonaws.com/robot-loader.gif',
         text: info.loading,
         viewBox: "32 32 64 64", // 只有为path时，才会使用
         imageClass: '',
