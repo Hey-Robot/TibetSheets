@@ -801,12 +801,12 @@ const luckysheetMoreFormat = {
         const locale_button = locale().button;
 
         this.moneyFmtList = [
-            {'name': currencyDetail.RMB,'pos': 'before','value': '$'},
             {'name': currencyDetail.USdollar,'pos': 'before','value': '$'},
             {'name': currencyDetail.EUR,'pos': 'before','value': '€'},
             {'name': currencyDetail.GBP,'pos': 'before','value': '￡'},
             {'name': currencyDetail.HK,'pos': 'before','value': '$'},
             {'name': currencyDetail.JPY,'pos': 'before','value': '￥'},
+            { 'name': currencyDetail.RMB, 'pos': 'before', 'value': '￥'},
             {'name': currencyDetail.AlbanianLek,'pos': 'before','value': 'Lek'},
             {'name': currencyDetail.AlgerianDinar,'pos': 'before','value': 'din'},
             {'name': currencyDetail.Afghani,'pos': 'after','value': 'Af'},

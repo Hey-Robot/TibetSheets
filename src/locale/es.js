@@ -8967,12 +8967,12 @@ export default {
         pageInfoFull:'Total ${total}，página ${totalPage}，Se muestran todos los datos',
     },
     currencyDetail:{
-        RMB:'RMB',
         USdollar:'Dólar US',
         EUR:'EUR',
         GBP:'GBP',
         HK:'HK',
         JPY:'JPY',
+        RMB:'RMB',
         AlbanianLek:'Albanian Lek',
         AlgerianDinar:'Algerian Dinar',
         Afghani:'Afghani',

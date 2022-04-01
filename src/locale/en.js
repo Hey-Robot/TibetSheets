@@ -8983,12 +8983,12 @@ export default {
         pageInfoFull: 'Total ${total}，${totalPage} page，All data displayed',
     },
     currencyDetail: {
-        RMB: 'RMB',
         USdollar: 'US dollar',
         EUR: 'EUR',
         GBP: 'GBP',
         HK: 'HK',
         JPY: 'JPY',
+        RMB: 'RMB',
         AlbanianLek: 'Albanian Lek',
         AlgerianDinar: 'Algerian Dinar',
         Afghani: 'Afghani',
