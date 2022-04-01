@@ -1156,8 +1156,8 @@ var make_ssf = function make_ssf(SSF) {
                     ++i;
                     break;
                 default:
-                    // if ("¤฿BsBr₵₡₫ƒFtRs.₭kr£₤Lm₥₦₱PQRSkRp৲৳R$S/.〒₮₩$NT￥zł₴₪៛руб€＄,$-+/():!^&'~{}<>=€acfijklopqrtuvwxzP".indexOf(c) === -1) throw new Error('unrecognized character ' + c + ' in ' + fmt);
-                    if ("¤฿BsBr₵₡₫ƒFtRs.₭kr£₤Lm₥₦₱PQRSkRp৲৳R$S/.〒₮₩$NT￥zł₴₪៛руб€＄,$-+/():!^&'~{}<>=€acfijklopqrtuvwxzP$￥LekdinAf$dhAflRial?￡BirrKzMOPPGKRsGsB/R$ррlevkrKMzBsPNuFBuKPkrRD$NfkCFA?CVEGMDFrCDHTGNAfLFdjKGSFGGHSRielKCFknKshLSLL￡LtRFRONArRfMWKRMMURsMROS/KMDLMTnRC$kr€GELCHFSLLSCRDbSZLSDGSOSSomFCFPTShT$VUVQUGXгрнsomWSTNT$FtDramRpZMWFCFA".indexOf(c) === -1) throw new Error('unrecognized character ' + c + ' in ' + fmt);
+                    // if ("¤฿BsBr₵₡₫ƒFtRs.₭kr£₤Lm₥₦₱PQRSkRp৲৳R$S/.〒₮₩¥NT￥zł₴₪៛руб€＄,$-+/():!^&'~{}<>=€acfijklopqrtuvwxzP".indexOf(c) === -1) throw new Error('unrecognized character ' + c + ' in ' + fmt);
+                    if ("¤฿BsBr₵₡₫ƒFtRs.₭kr£₤Lm₥₦₱PQRSkRp৲৳R$S/.〒₮₩¥NT￥zł₴₪៛руб€＄,$-+/():!^&'~{}<>=€acfijklopqrtuvwxzP$￥LekdinAf$dhAflRial?￡BirrKzMOPPGKRsGsB/R$ррlevkrKMzBsPNuFBuKPkrRD$NfkCFA?CVEGMDFrCDHTGNAfLFdjKGSFGGHSRielKCFknKshLSLL￡LtRFRONArRfMWKRMMURsMROS/KMDLMTnRC$kr€GELCHFSLLSCRDbSZLSDGSOSSomFCFPTShT$VUVQUGXгрнsomWSTNT$FtDramRpZMWFCFA".indexOf(c) === -1) throw new Error('unrecognized character ' + c + ' in ' + fmt);
                     out[out.length] = {
                         t: 't',
                         v: c
