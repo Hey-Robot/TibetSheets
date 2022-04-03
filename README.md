@@ -1,17 +1,30 @@
+
 <div align="center">
+        
+# Tibet Sheets
+Open source excel-like spreadsheet web application.
+<br>
+        
+<a href="https://www.economist.com/china/2022/04/02/deciphering-a-tibetan-pop-stars-self-immolation">
+  <img src="https://user-images.githubusercontent.com/9451001/161445678-a8b9ce29-7ee7-49c3-b4fc-fc66975cf3ef.jpg" alt="Learn More">
+</a>
+        
 
-![logo](/docs/.vuepress/public/img/logo_text.png)
 
-[![Join the chat at https://gitter.im/mengshukeji/Luckysheet](https://badges.gitter.im/mengshukeji/Luckysheet.svg)](https://gitter.im/mengshukeji/Luckysheet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-<a href="https://twitter.com/intent/follow?screen_name=luckysheet">
-        <img src="https://img.shields.io/twitter/follow/luckysheet?style=social&logo=twitter"
-            alt="follow on Twitter"></a>
+<br>
+<br>   
+<br>   
+Forked from:
+<br>     
+        
+<a href="https://github.com/mengshukeji/Luckysheet">
+ <img src="https://github.com/mengshukeji/Luckysheet/blob/master/docs/.vuepress/public/img/logo_text.png" alt="Learn More"></a>
 
 </div>
 
 # Luckysheet 3.x is currently being rewritten in Typescript
 
-English| [简体中文](./README-zh.md)
+English | [简体中文](./README-zh.md)
 
 ## Introduction
 🚀Luckysheet is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.
