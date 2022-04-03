@@ -2,7 +2,7 @@
 <div align="center">
         
 # Tibet Sheets
-Open source excel-like spreadsheet web application.
+Open source spreadsheet web application.
 <br>
         
 <a href="https://www.economist.com/china/2022/04/02/deciphering-a-tibetan-pop-stars-self-immolation">
