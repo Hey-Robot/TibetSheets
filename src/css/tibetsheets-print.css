@@ -1,4 +1,4 @@
-.luckysheet-print-viewList{
+.tibetsheets-print-viewList{
     position: relative;
     float: right;
     width:126px;
@@ -13,7 +13,7 @@
     user-select: none;
 }
 
-.luckysheet-print-viewBtn {
+.tibetsheets-print-viewBtn {
     position: absolute;
     top: 0;
     left: 0px;
@@ -24,32 +24,32 @@
     cursor: pointer;
 }
 
-.luckysheet-print-viewBtn .iconfont{
+.tibetsheets-print-viewBtn .iconfont{
     font-size: 22px;
 }
 
-.luckysheet-print-viewBtn:hover{
+.tibetsheets-print-viewBtn:hover{
     background: #E1E4E8;
 }
 
-.luckysheet-print-viewBtn-active{
+.tibetsheets-print-viewBtn-active{
     background: #dcdcdc;
     cursor: default;
 }
 
-.luckysheet-print-viewBtn-active:hover{
+.tibetsheets-print-viewBtn-active:hover{
     background: #dcdcdc;
 }
 
-.luckysheet-print-viewNormal{
+.tibetsheets-print-viewNormal{
     left: 0px;
 }
 
-.luckysheet-print-viewLayout{
+.tibetsheets-print-viewLayout{
     left: 42px;
 }
 
-.luckysheet-print-viewPage{
+.tibetsheets-print-viewPage{
     left: 84px;
 }
 

@@ -5,20 +5,20 @@ import sheetmanage from './sheetmanage';
 import {changeSheetContainerSize} from './resize';
 import { jfrefreshgrid_rhcw } from '../global/refresh';
 import server from './server';
-import luckysheetPostil from './postil';
+import tibetsheetsPostil from './postil';
 import imageCtrl from './imageCtrl';
 
 
 
-let luckysheetZoomTimeout = null;
+let tibetsheetsZoomTimeout = null;
 
 export function zoomChange(ratio){
     if(Store.flowdata==null || Store.flowdata.length==0){
         return;
     }
 
-    clearTimeout(luckysheetZoomTimeout);
-    luckysheetZoomTimeout = setTimeout(() => {
+    clearTimeout(tibetsheetsZoomTimeout);
+    tibetsheetsZoomTimeout = setTimeout(() => {
         if (Store.clearjfundo) {
             Store.jfredo.push({ 
                 "type": "zoomChange", 
@@ -33,7 +33,7 @@ export function zoomChange(ratio){
         let currentSheet = sheetmanage.getSheetByIndex();
 
         //批注
-        luckysheetPostil.buildAllPs(currentSheet.data);
+        tibetsheetsPostil.buildAllPs(currentSheet.data);
 
         //图片
         imageCtrl.images = currentSheet.images;
@@ -63,7 +63,7 @@ export function zoomChange(ratio){
 }
 
 export function zoomRefreshView(){
-    // let $scrollLeft = $("#luckysheet-scrollbar-x"), $scrollTop = $("#luckysheet-scrollbar-y");
+    // let $scrollLeft = $("#tibetsheets-scrollbar-x"), $scrollTop = $("#tibetsheets-scrollbar-y");
     // let sl = $scrollLeft.scrollLeft(), st = $scrollTop.scrollTop();
 
     // let wp = $scrollLeft.find("div").width(), hp = $scrollTop.find("div").height();
@@ -88,7 +88,7 @@ export function zoomInitial(){
     const MAX_ZOOM_RATIO = 4;
     const MIN_ZOOM_RATIO = .1;
     
-    $("#luckysheet-zoom-minus").click(function(){
+    $("#tibetsheets-zoom-minus").click(function(){
         let currentRatio;
         if(Store.zoomRatio==null){
             currentRatio = Store.zoomRatio = 1;
@@ -112,7 +112,7 @@ export function zoomInitial(){
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-plus").click(function(){
+    $("#tibetsheets-zoom-plus").click(function(){
         let currentRatio;
         if(Store.zoomRatio==null){
             currentRatio = Store.zoomRatio = 1;
@@ -136,7 +136,7 @@ export function zoomInitial(){
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-slider").mousedown(function(e){
+    $("#tibetsheets-zoom-slider").mousedown(function(e){
         let xoffset = $(this).offset().left, pageX = e.pageX;
 
         let currentRatio = positionToRatio(pageX-xoffset);
@@ -145,15 +145,15 @@ export function zoomInitial(){
         zoomNumberDomBind(currentRatio);
     });
 
-    $("#luckysheet-zoom-cursor").mousedown(function(e){
-        let curentX = e.pageX,cursorLeft = parseFloat($("#luckysheet-zoom-cursor").css("left"));
-        $("#luckysheet-zoom-cursor").css("transition","none");
+    $("#tibetsheets-zoom-cursor").mousedown(function(e){
+        let curentX = e.pageX,cursorLeft = parseFloat($("#tibetsheets-zoom-cursor").css("left"));
+        $("#tibetsheets-zoom-cursor").css("transition","none");
         $(document).off("mousemove.zoomCursor").on("mousemove.zoomCursor",function(event){
             let moveX = event.pageX;
             let offsetX = moveX - curentX;
             // console.log(moveX, curentX, offsetX);
             // curentX = moveX;
-            // let left = parseFloat($("#luckysheet-zoom-cursor").css("left"));
+            // let left = parseFloat($("#tibetsheets-zoom-cursor").css("left"));
             let pos = cursorLeft + offsetX; 
             let currentRatio = positionToRatio(pos);
 
@@ -170,13 +170,13 @@ export function zoomInitial(){
             // Store.zoomRatio = currentRatio;
             zoomChange(currentRatio);
             let r = Math.round(currentRatio*100) + "%";
-            $("#luckysheet-zoom-ratioText").html(r);
-            $("#luckysheet-zoom-cursor").css("left", pos-4);
+            $("#tibetsheets-zoom-ratioText").html(r);
+            $("#tibetsheets-zoom-cursor").css("left", pos-4);
         });
 
         $(document).off("mouseup.zoomCursor").on("mouseup.zoomCursor",function(event){
             $(document).off(".zoomCursor");
-            $("#luckysheet-zoom-cursor").css("transition","all 0.3s");
+            $("#tibetsheets-zoom-cursor").css("transition","all 0.3s");
         });
 
         e.stopPropagation();
@@ -184,7 +184,7 @@ export function zoomInitial(){
         e.stopPropagation();
     });
 
-    $("#luckysheet-zoom-ratioText").click(function(){
+    $("#tibetsheets-zoom-ratioText").click(function(){
         // Store.zoomRatio = 1;
         zoomChange(1);
         zoomNumberDomBind(1);
@@ -272,12 +272,12 @@ function zoomSlierDomBind(ratio){
     else if(ratio>1){
         domPos = Math.round((ratio - 1)*100 / 0.6)/10+50;
     }
-    $("#luckysheet-zoom-cursor").css("left", domPos-4);
+    $("#tibetsheets-zoom-cursor").css("left", domPos-4);
 }
 
 export function zoomNumberDomBind(ratio){
     let r = Math.round(ratio*100) + "%";
-    $("#luckysheet-zoom-ratioText").html(r);
+    $("#tibetsheets-zoom-ratioText").html(r);
     zoomSlierDomBind(ratio);
 }
 

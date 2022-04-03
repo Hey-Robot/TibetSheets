@@ -1,28 +1,28 @@
 import { selectionCopyShow, selectIsOverlap } from './select';
 import { luckyColor, iconfontObjects } from './constant';
-import luckysheetConfigsetting from './luckysheetConfigsetting';
-import luckysheetMoreFormat from './moreFormat';
+import tibetsheetsConfigsetting from './tibetsheetsConfigsetting';
+import tibetsheetsMoreFormat from './moreFormat';
 import alternateformat from './alternateformat';
 import conditionformat from './conditionformat';
 import server from './server';
-import { luckysheet_searcharray } from './sheetSearch';
-import luckysheetFreezen from './freezen';
-import luckysheetsizeauto from './resize';
+import { tibetsheets_searcharray } from './sheetSearch';
+import tibetsheetsFreezen from './freezen';
+import tibetsheetssizeauto from './resize';
 import { createFilter } from './filter';
-import luckysheetSearchReplace from './searchReplace';
-import luckysheetLocationCell from './locationCell';
+import tibetsheetsSearchReplace from './searchReplace';
+import tibetsheetsLocationCell from './locationCell';
 import ifFormulaGenerator from './ifFormulaGenerator';
-import {luckysheetupdateCell} from './updateCell';
+import {tibetsheetsupdateCell} from './updateCell';
 import insertFormula from './insertFormula';
 import sheetmanage from './sheetmanage';
-import luckysheetPostil from './postil';
+import tibetsheetsPostil from './postil';
 import { isRealNum, isRealNull, isEditMode, hasPartMC, checkIsAllowEdit } from '../global/validate';
 import tooltip from '../global/tooltip';
 import editor from '../global/editor';
 import { genarate, update, is_date } from '../global/format';
-import { jfrefreshgrid, luckysheetrefreshgrid } from '../global/refresh';
+import { jfrefreshgrid, tibetsheetsrefreshgrid } from '../global/refresh';
 import { sortSelection } from '../global/sort';
-import luckysheetformula from '../global/formula';
+import tibetsheetsformula from '../global/formula';
 import { rowLocationByIndex, colLocationByIndex } from '../global/location';
 import { isdatatypemulti } from '../global/datecontroll';
 import { rowlenByRange, getCellTextSplitArr } from '../global/getRowlen';
@@ -30,27 +30,27 @@ import { setcellvalue } from '../global/setdata';
 import { getFontStyleByCell, checkstatusByCell} from '../global/getdata';
 import { countfunc } from '../global/count';
 import { hideMenuByCancel } from '../global/cursorPos';
-import { getSheetIndex, getRangetxt, getluckysheetfile } from '../methods/get';
-import { setluckysheetfile } from '../methods/set';
+import { getSheetIndex, getRangetxt, gettibetsheetsfile } from '../methods/get';
+import { settibetsheetsfile } from '../methods/set';
 import {isInlineStringCell,isInlineStringCT,updateInlineStringFormat,convertCssToStyleList,inlineStyleAffectAttribute,updateInlineStringFormatOutside} from './inlineString';
-import { replaceHtml, getObjType, rgbTohex, mouseclickposition, luckysheetfontformat,luckysheetContainerFocus } from '../utils/util';
+import { replaceHtml, getObjType, rgbTohex, mouseclickposition, tibetsheetsfontformat,tibetsheetsContainerFocus } from '../utils/util';
 import {openProtectionModal,checkProtectionFormatCells,checkProtectionNotEnable} from './protection';
 import Store from '../store';
 import locale from '../locale/locale';
 import { checkTheStatusOfTheSelectedCells, frozenFirstRow, frozenFirstColumn } from '../global/api';
 
 const menuButton = {
-    "menu": '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-menuButton ${subclass} luckysheet-mousedown-cancel" id="luckysheet-icon-${id}-menuButton">${item}</div>',
-    // "item": '<div itemvalue="${value}" itemname="${name}" class="luckysheet-cols-menuitem ${sub} luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 0px 3px 1px;"><span style="margin-right:3px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span> ${name} <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;">${example}</span></div></div>',
-    "item": '<div itemvalue="${value}" itemname="${name}" class="luckysheet-cols-menuitem ${sub} luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 0px 3px 1px;"><span style="margin-right:3px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span> ${name} <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel ${iconClass}" style="user-select: none;">${example}</span></div></div>',
-    "split": '<div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>',
-    "color": '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-mousedown-cancel luckysheet-menuButton ${sub}" id="${id}"><div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel luckysheet-color-reset"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">${resetColor}</div></div> <div class="luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <input type="text" class="luckysheet-color-selected" /> </div> </div> <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div> ${coloritem}</div>',
-    "coloritem": '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel ${class}"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">${name}</div></div>',
-    "subcolor": '<div id="luckysheet-icon-${id}-menuButton" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-rightgclick-menu-sub luckysheet-menuButton-sub luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <div class="luckysheet-mousedown-cancel"> <input type="text" class="luckysheet-color-selected" /> </div> </div></div>',
+    "menu": '<div class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-menuButton ${subclass} tibetsheets-mousedown-cancel" id="tibetsheets-icon-${id}-menuButton">${item}</div>',
+    // "item": '<div itemvalue="${value}" itemname="${name}" class="tibetsheets-cols-menuitem ${sub} tibetsheets-mousedown-cancel"><div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 0px 3px 1px;"><span style="margin-right:3px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span> ${name} <span class="tibetsheets-submenu-arrow tibetsheets-mousedown-cancel" style="user-select: none;">${example}</span></div></div>',
+    "item": '<div itemvalue="${value}" itemname="${name}" class="tibetsheets-cols-menuitem ${sub} tibetsheets-mousedown-cancel"><div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 0px 3px 1px;"><span style="margin-right:3px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span> ${name} <span class="tibetsheets-submenu-arrow tibetsheets-mousedown-cancel ${iconClass}" style="user-select: none;">${example}</span></div></div>',
+    "split": '<div class="tibetsheets-menuseparator tibetsheets-mousedown-cancel" role="separator"></div>',
+    "color": '<div class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-rightgclick-menu-sub tibetsheets-mousedown-cancel tibetsheets-menuButton ${sub}" id="${id}"><div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel tibetsheets-color-reset"><div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel">${resetColor}</div></div> <div class="tibetsheets-mousedown-cancel"> <div class="tibetsheets-mousedown-cancel"> <input type="text" class="tibetsheets-color-selected" /> </div> </div> <div class="tibetsheets-menuseparator tibetsheets-mousedown-cancel" role="separator"></div> ${coloritem}</div>',
+    "coloritem": '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel ${class}"><div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel">${name}</div></div>',
+    "subcolor": '<div id="tibetsheets-icon-${id}-menuButton" class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-rightgclick-menu-sub tibetsheets-menuButton-sub tibetsheets-mousedown-cancel"> <div class="tibetsheets-mousedown-cancel"> <div class="tibetsheets-mousedown-cancel"> <input type="text" class="tibetsheets-color-selected" /> </div> </div></div>',
     "rightclickmenu": null,
     "submenuhide": {},
     focus: function($obj, value){
-        if($obj.attr("id")=="luckysheet-icon-font-family-menuButton"){
+        if($obj.attr("id")=="tibetsheets-icon-font-family-menuButton"){
             if (isdatatypemulti(value)["num"]) {
                  let  _locale = locale();
                 const locale_fontarray = _locale.fontarray;
@@ -60,12 +60,12 @@ const menuButton = {
                 }
             }
         }
-        $obj.find(".luckysheet-cols-menuitem").find("span.icon").html("");
+        $obj.find(".tibetsheets-cols-menuitem").find("span.icon").html("");
         if(value == null){
-            $obj.find(".luckysheet-cols-menuitem").eq(0).find("span.icon").html('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+            $obj.find(".tibetsheets-cols-menuitem").eq(0).find("span.icon").html('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
         }
         else{
-            $obj.find(".luckysheet-cols-menuitem[itemvalue='"+ value +"']").find("span.icon").html('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+            $obj.find(".tibetsheets-cols-menuitem[itemvalue='"+ value +"']").find("span.icon").html('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
         }
     },
     createButtonMenu: function(itemdata){
@@ -80,8 +80,8 @@ const menuButton = {
             }
             else{
                 if(item.example=="more"){
-                    // itemset += replaceHtml(_this.item, {"value": item.value, "name": item.text, "example": "►", "sub": "luckysheet-cols-submenu"});
-                    itemset += replaceHtml(_this.item, {"value": item.value, "name": item.text, "example": "", "sub": "luckysheet-cols-submenu", "iconClass": "iconfont luckysheet-iconfont-youjiantou"});
+                    // itemset += replaceHtml(_this.item, {"value": item.value, "name": item.text, "example": "►", "sub": "tibetsheets-cols-submenu"});
+                    itemset += replaceHtml(_this.item, {"value": item.value, "name": item.text, "example": "", "sub": "tibetsheets-cols-submenu", "iconClass": "iconfont tibetsheets-iconfont-youjiantou"});
 
                 }
                 else{
@@ -95,30 +95,30 @@ const menuButton = {
     cancelPaintModel: function(){
         let _this = this;
 
-        $("#luckysheet-sheettable_0").removeClass("luckysheetPaintCursor");
+        $("#tibetsheets-sheettable_0").removeClass("tibetsheetsPaintCursor");
 
-        if(Store.luckysheet_copy_save["dataSheetIndex"] == Store.currentSheetIndex){
-            Store.luckysheet_selection_range = [];
+        if(Store.tibetsheets_copy_save["dataSheetIndex"] == Store.currentSheetIndex){
+            Store.tibetsheets_selection_range = [];
             selectionCopyShow();
         }
         else{
-            Store.luckysheetfile[getSheetIndex(Store.luckysheet_copy_save["dataSheetIndex"])].luckysheet_selection_range = [];
+            Store.tibetsheetsfile[getSheetIndex(Store.tibetsheets_copy_save["dataSheetIndex"])].tibetsheets_selection_range = [];
         }
         
-        Store.luckysheet_copy_save = {};
+        Store.tibetsheets_copy_save = {};
 
-        _this.luckysheetPaintModelOn = false;
-        $("#luckysheetpopover").fadeOut(200,function(){
-            $("#luckysheetpopover").remove();
+        _this.tibetsheetsPaintModelOn = false;
+        $("#tibetsheetspopover").fadeOut(200,function(){
+            $("#tibetsheetspopover").remove();
         });
     },
-    luckysheetPaintModelOn:false,
-    luckysheetPaintSingle: false,
+    tibetsheetsPaintModelOn:false,
+    tibetsheetsPaintSingle: false,
     initialMenuButton: function(){
         let _this = this;
 
         //格式刷
-        $("#luckysheet-icon-paintformat").click(function(e){
+        $("#tibetsheets-icon-paintformat").click(function(e){
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
                 tooltip.info("", locale().pivotTable.errorNotAllowEdit);
@@ -128,7 +128,7 @@ const menuButton = {
             let _locale = locale();
             let locale_paint = _locale.paint;
 
-            if(Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0){
+            if(Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0){
                 if(isEditMode()){
                     alert(locale_paint.tipSelectRange);
                 }
@@ -137,7 +137,7 @@ const menuButton = {
                 }
                 return;
             }
-            else if(Store.luckysheet_select_save.length > 1){
+            else if(Store.tibetsheets_select_save.length > 1){
                 if(isEditMode()){
                     alert(locale_paint.tipNotMulti);
                 }
@@ -152,11 +152,11 @@ const menuButton = {
 
             let has_PartMC = false;
 
-            let r1 = Store.luckysheet_select_save[0].row[0], 
-                r2 = Store.luckysheet_select_save[0].row[1];
+            let r1 = Store.tibetsheets_select_save[0].row[0], 
+                r2 = Store.tibetsheets_select_save[0].row[1];
 
-            let c1 = Store.luckysheet_select_save[0].column[0], 
-                c2 = Store.luckysheet_select_save[0].column[1];
+            let c1 = Store.tibetsheets_select_save[0].column[0], 
+                c2 = Store.tibetsheets_select_save[0].column[1];
 
             has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -171,15 +171,15 @@ const menuButton = {
                 _this.cancelPaintModel();
             });
             
-            $("#luckysheet-sheettable_0").addClass("luckysheetPaintCursor");
+            $("#tibetsheets-sheettable_0").addClass("tibetsheetsPaintCursor");
 
-            Store.luckysheet_selection_range = [{ "row": Store.luckysheet_select_save[0].row, "column": Store.luckysheet_select_save[0].column }];
+            Store.tibetsheets_selection_range = [{ "row": Store.tibetsheets_select_save[0].row, "column": Store.tibetsheets_select_save[0].column }];
 
             selectionCopyShow();
 
             let RowlChange = false, HasMC = false;
 
-            for(let r = Store.luckysheet_select_save[0].row[0]; r <= Store.luckysheet_select_save[0].row[1]; r++){
+            for(let r = Store.tibetsheets_select_save[0].row[0]; r <= Store.tibetsheets_select_save[0].row[1]; r++){
                 if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
                     continue;
                 }
@@ -188,7 +188,7 @@ const menuButton = {
                     RowlChange = true;
                 }
 
-                for(let c = Store.luckysheet_select_save[0].column[0]; c <= Store.luckysheet_select_save[0].column[1]; c++){
+                for(let c = Store.tibetsheets_select_save[0].column[0]; c <= Store.tibetsheets_select_save[0].column[1]; c++){
                     let cell = Store.flowdata[r][c];
                     
                     if(getObjType(cell) == "object" && ("mc" in cell) && cell.mc.rs != null){
@@ -196,12 +196,12 @@ const menuButton = {
                     }
                 }
             }
-            Store.luckysheet_copy_save = { "dataSheetIndex": Store.currentSheetIndex, "copyRange": [{ "row": Store.luckysheet_select_save[0].row, "column": Store.luckysheet_select_save[0].column }], "RowlChange": RowlChange, "HasMC": HasMC };
+            Store.tibetsheets_copy_save = { "dataSheetIndex": Store.currentSheetIndex, "copyRange": [{ "row": Store.tibetsheets_select_save[0].row, "column": Store.tibetsheets_select_save[0].column }], "RowlChange": RowlChange, "HasMC": HasMC };
 
-            _this.luckysheetPaintModelOn = true;
-            _this.luckysheetPaintSingle = true;
+            _this.tibetsheetsPaintModelOn = true;
+            _this.tibetsheetsPaintSingle = true;
         });
-        $("#luckysheet-icon-paintformat").dblclick(function(){
+        $("#tibetsheets-icon-paintformat").dblclick(function(){
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
                 tooltip.info("", locale().pivotTable.errorNotAllowEdit);
@@ -209,7 +209,7 @@ const menuButton = {
             }
             let _locale = locale();
             let locale_paint = _locale.paint;
-            if(Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0){
+            if(Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0){
                 if(isEditMode()){
                     alert(locale_paint.tipSelectRange);
                 }
@@ -218,7 +218,7 @@ const menuButton = {
                 }
                 return;
             }
-            else if(Store.luckysheet_select_save.length > 1){
+            else if(Store.tibetsheets_select_save.length > 1){
                 if(isEditMode()){
                     alert(locale_paint.tipNotMulti);
                 }
@@ -231,13 +231,13 @@ const menuButton = {
             tooltip.popover("<i class='fa fa-paint-brush'></i> "+locale_paint.start, "topCenter", true, null, locale_paint.end,function(){
                 _this.cancelPaintModel();
             });
-            $("#luckysheet-sheettable_0").addClass("luckysheetPaintCursor");
+            $("#tibetsheets-sheettable_0").addClass("tibetsheetsPaintCursor");
 
-            Store.luckysheet_selection_range = [{ "row": Store.luckysheet_select_save[0].row, "column": Store.luckysheet_select_save[0].column }];
+            Store.tibetsheets_selection_range = [{ "row": Store.tibetsheets_select_save[0].row, "column": Store.tibetsheets_select_save[0].column }];
             selectionCopyShow();
 
             let RowlChange = false, HasMC = false;
-            for(let r = Store.luckysheet_select_save[0].row[0]; r <= Store.luckysheet_select_save[0].row[1]; r++){
+            for(let r = Store.tibetsheets_select_save[0].row[0]; r <= Store.tibetsheets_select_save[0].row[1]; r++){
                 if (Store.config["rowhidden"] != null && Store.config["rowhidden"][r] != null) {
                     continue;
                 }
@@ -246,7 +246,7 @@ const menuButton = {
                     RowlChange = true;
                 }
 
-                for(let c = Store.luckysheet_select_save[0].column[0]; c <= Store.luckysheet_select_save[0].column[1]; c++){
+                for(let c = Store.tibetsheets_select_save[0].column[0]; c <= Store.tibetsheets_select_save[0].column[1]; c++){
                     let cell = Store.flowdata[r][c];
                     
                     if(getObjType(cell) == "object" && ("mc" in cell) && cell.mc.rs != null){
@@ -254,31 +254,31 @@ const menuButton = {
                     }
                 }
             }
-            Store.luckysheet_copy_save = { "dataSheetIndex": Store.currentSheetIndex, "copyRange": [{ "row": Store.luckysheet_select_save[0].row, "column": Store.luckysheet_select_save[0].column }], "RowlChange": RowlChange, "HasMC": HasMC };
+            Store.tibetsheets_copy_save = { "dataSheetIndex": Store.currentSheetIndex, "copyRange": [{ "row": Store.tibetsheets_select_save[0].row, "column": Store.tibetsheets_select_save[0].column }], "RowlChange": RowlChange, "HasMC": HasMC };
             
-            _this.luckysheetPaintModelOn = true;
-            _this.luckysheetPaintSingle = false;
+            _this.tibetsheetsPaintModelOn = true;
+            _this.tibetsheetsPaintSingle = false;
         });
 
         //货币格式
-        $("#luckysheet-icon-currency").click(function(){
+        $("#tibetsheets-icon-currency").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
 
             _this.updateFormat(d, "ct", "$0.00");
         });
 
         //百分比
-        $("#luckysheet-icon-percent").click(function(){
+        $("#tibetsheets-icon-percent").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
 
             _this.updateFormat(d, "ct", "0.00%");
         });
 
         //减少小数位数
-        $("#luckysheet-icon-fmt-decimal-decrease").click(function(){
+        $("#tibetsheets-icon-fmt-decimal-decrease").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
-            let row_index = Store.luckysheet_select_save[0]["row_focus"], 
-                col_index = Store.luckysheet_select_save[0]["column_focus"];
+            let row_index = Store.tibetsheets_select_save[0]["row_focus"], 
+                col_index = Store.tibetsheets_select_save[0]["column_focus"];
             let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
             let cell = d[row_index][col_index];
 
@@ -352,10 +352,10 @@ const menuButton = {
         });
 
         //增加小数位数
-        $("#luckysheet-icon-fmt-decimal-increase").click(function(){
+        $("#tibetsheets-icon-fmt-decimal-increase").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
-            let row_index = Store.luckysheet_select_save[0]["row_focus"], 
-                col_index = Store.luckysheet_select_save[0]["column_focus"];
+            let row_index = Store.tibetsheets_select_save[0]["row_focus"], 
+                col_index = Store.tibetsheets_select_save[0]["column_focus"];
             let foucsStatus = _this.checkstatus(d, row_index, col_index, "ct");
             let cell = d[row_index][col_index];
 
@@ -440,7 +440,7 @@ const menuButton = {
         });
 
         //更多格式
-        $("#luckysheet-icon-fmt-other").click(function(){
+        $("#tibetsheets-icon-fmt-other").click(function(){
             const _locale = locale();
             const locale_format = _locale.format;
             const locale_defaultFmt = _locale.defaultFmt;
@@ -453,7 +453,7 @@ const menuButton = {
 
                 let itemset = _this.createButtonMenu(itemdata);
 
-                // luckysheet-menuButton-sub
+                // tibetsheets-menuButton-sub
                 let menu = replaceHtml(_this.menu, {"id": "fmt-other", "item": itemset, "subclass": "", "sub": ""});
 
                 let subitemdata = [
@@ -462,19 +462,19 @@ const menuButton = {
                     {"text":locale_format.moreNumber+"...", "value":"moredigit", "example":""}
                 ];
                 let subitemset = _this.createButtonMenu(subitemdata);
-                let submenu = replaceHtml(_this.menu, {"id": "fmtOtherSelf", "item": subitemset, "subclass": "luckysheet-menuButton-sub"});
+                let submenu = replaceHtml(_this.menu, {"id": "fmtOtherSelf", "item": subitemset, "subclass": "tibetsheets-menuButton-sub"});
                 
-                //luckysheet-icon-fmt-other-menuButton_sub
+                //tibetsheets-icon-fmt-other-menuButton_sub
                 $("body").first().append(menu+submenu);
                 $menuButton = $("#" + menuButtonId).width(250);
                 _this.focus($menuButton);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue"),itemname = $t.attr("itemname");
-                    $("#luckysheet-icon-fmt-other").find(".luckysheet-toolbar-menu-button-caption").html(" "+ itemname +" ");
+                    $("#tibetsheets-icon-fmt-other").find(".tibetsheets-toolbar-menu-button-caption").html(" "+ itemname +" ");
 
                     if(itemvalue == "fmtOtherSelf"){
                         return;
@@ -487,18 +487,18 @@ const menuButton = {
                 });
 
                 //更多格式
-                $("#luckysheet-icon-fmtOtherSelf-menuButton").find(".luckysheet-cols-menuitem").click(function(){
+                $("#tibetsheets-icon-fmtOtherSelf-menuButton").find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-fmtOtherSelf-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-fmtOtherSelf-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let itemvalue = $(this).attr("itemvalue");
 
-                    luckysheetMoreFormat.createDialog(itemvalue);
-                    luckysheetMoreFormat.init();
+                    tibetsheetsMoreFormat.createDialog(itemvalue);
+                    tibetsheetsMoreFormat.init();
                 })
             } else {
-                const text =$(this).find(".luckysheet-toolbar-menu-button-caption").text().trim();
+                const text =$(this).find(".tibetsheets-toolbar-menu-button-caption").text().trim();
                 const format = locale_defaultFmt.find(f => f.text === text);
                 if(format) {
                     _this.focus($menuButton, format.value);
@@ -516,7 +516,7 @@ const menuButton = {
         });
 
         //字体设置
-        $("#luckysheet-icon-font-family").mousedown(function(e){
+        $("#tibetsheets-icon-font-family").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -530,7 +530,7 @@ const menuButton = {
                 //     let fItem = locale_fontarray[a];
                 //     let ret = {};
                 //     ret.value = a;
-                //     ret.text = "<span class='luckysheet-mousedown-cancel' style='font-size:11px;font-family:"+fItem+"'>"+fItem+"</span>";
+                //     ret.text = "<span class='tibetsheets-mousedown-cancel' style='font-size:11px;font-family:"+fItem+"'>"+fItem+"</span>";
                 //     ret.example = "";
                 //     itemdata.push(ret);
                 // }
@@ -543,13 +543,13 @@ const menuButton = {
                 $menuButton = $("#"+menuButtonId).width(200);
                 _this.focus($menuButton);
 
-                $menuButton.on("click", ".luckysheet-cols-menuitem", function(){
+                $menuButton.on("click", ".tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue"), itemname = $t.attr("itemname");
                     _this.focus($menuButton, itemvalue);
-                    $("#luckysheet-icon-font-family").find(".luckysheet-toolbar-menu-button-caption").html(" "+ itemname +" ");
+                    $("#tibetsheets-icon-font-family").find(".tibetsheets-toolbar-menu-button-caption").html(" "+ itemname +" ");
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
 
@@ -568,7 +568,7 @@ const menuButton = {
         });
 
         //字体颜色
-        $("#luckysheet-icon-text-color").mousedown(function(e){
+        $("#tibetsheets-icon-text-color").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -580,7 +580,7 @@ const menuButton = {
             _this.updateFormat(d, "fc", color);
         });
 
-        $("#luckysheet-icon-text-color-menu").mousedown(function(e){
+        $("#tibetsheets-icon-text-color-menu").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -593,18 +593,18 @@ const menuButton = {
                 const locale_button = _locale.button;
                 const locale_alternatingColors = _locale.alternatingColors;
                 let itemdata = [
-                    {"name":locale_toolbar.alternatingColors+"...", "id":"luckysheet-color-alternate", "example":""}
+                    {"name":locale_toolbar.alternatingColors+"...", "id":"tibetsheets-color-alternate", "example":""}
                 ];
 
                 let itemset = _this.createButtonMenu(itemdata);
                 let subid = "text-color-self";
-                let coloritem = replaceHtml(_this.coloritem, {"class": "luckysheet-icon-alternateformat", "name": locale_toolbar.alternatingColors+"..."});
+                let coloritem = replaceHtml(_this.coloritem, {"class": "tibetsheets-icon-alternateformat", "name": locale_toolbar.alternatingColors+"..."});
                 let menu = replaceHtml(_this.color, {"id":menuButtonId, "coloritem": coloritem, "colorself": subid, "sub": "","resetColor":locale_toolbar.resetColor});
 
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId);
 
-                $("#" + menuButtonId).find(".luckysheet-color-selected").spectrum({
+                $("#" + menuButtonId).find(".tibetsheets-color-selected").spectrum({
                     showPalette: true,
                     showPaletteOnly: true,
                     preferredFormat: "hex",
@@ -622,7 +622,7 @@ const menuButton = {
                     togglePaletteLessText: locale_toolbar.collapse,
                     togglePaletteOnly: true,
                     clearText: locale_toolbar.clearText,
-                    color: luckysheetConfigsetting.defaultTextColor,
+                    color: tibetsheetsConfigsetting.defaultTextColor,
                     noColorSelectedText: locale_toolbar.noColorSelectedText,
                     localStorageKey: "spectrum.textcolor" + server.gridKey,
                     palette: [["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
@@ -643,39 +643,39 @@ const menuButton = {
                         }
 
                         let oldcolor = null;
-                        // $("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", color);
+                        // $("#tibetsheets-icon-text-color .tibetsheets-color-menu-button-indicator").css("border-bottom-color", color);
                         // 下边框换成了一个DIV
-                        $("#luckysheet-icon-text-color .text-color-bar").css("background-color", color);
-                        $("#luckysheet-icon-text-color").attr("color", color);
+                        $("#tibetsheets-icon-text-color .text-color-bar").css("background-color", color);
+                        $("#tibetsheets-icon-text-color").attr("color", color);
 
                         let d = editor.deepCopyFlowData(Store.flowdata);
                         _this.updateFormat(d, "fc", color);
 
                         $menuButton.hide();
-                        luckysheetContainerFocus();
+                        tibetsheetsContainerFocus();
                     },
                 });
 
-                $menuButton.find(".luckysheet-color-reset").click(function(){
+                $menuButton.find(".tibetsheets-color-reset").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
-                    let $input = $("#"+ menuButtonId).find(".luckysheet-color-selected");
+                    let $input = $("#"+ menuButtonId).find(".tibetsheets-color-selected");
                     $input.val("#000000");
-                    $("#luckysheet-icon-text-color").attr("color", null);
+                    $("#tibetsheets-icon-text-color").attr("color", null);
                     $input.spectrum("set", "#000000");
-                    $("#luckysheet-icon-text-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", "#000000");
+                    $("#tibetsheets-icon-text-color .tibetsheets-color-menu-button-indicator").css("border-bottom-color", "#000000");
                     
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "fc", null);
                 });
 
                 //交替颜色
-                $menuButton.find(".luckysheet-icon-alternateformat").click(function(){
+                $menuButton.find(".tibetsheets-icon-alternateformat").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
-                    if(Store.luckysheet_select_save.length > 1){
+                    if(Store.tibetsheets_select_save.length > 1){
                         if(isEditMode()){
                             alert(locale_alternatingColors.errorInfo);
                         }
@@ -685,7 +685,7 @@ const menuButton = {
                         return;
                     }
 
-                    let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
+                    let range = $.extend(true, {}, Store.tibetsheets_select_save[0]);
 
                     let isExists = alternateformat.rangeIsExists(range)[0];
                     if(!isExists){
@@ -708,14 +708,14 @@ const menuButton = {
 
             let offsetTop = $(this).offset().top+26;
             setTimeout(function(){
-                let $input = $("#" + menuButtonId).find(".luckysheet-color-selected");
+                let $input = $("#" + menuButtonId).find(".tibetsheets-color-selected");
                 $input.spectrum("set", $input.val());
                 mouseclickposition($menuButton, menuleft-28, offsetTop, "lefttop");
             }, 1);
         });
 
         //背景颜色
-        $("#luckysheet-icon-cell-color").click(function(){
+        $("#tibetsheets-icon-cell-color").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);
             let color =  $(this).attr("color");
             if(color == null){
@@ -724,7 +724,7 @@ const menuButton = {
             _this.updateFormat(d, "bg", color);
         });
 
-        $("#luckysheet-icon-cell-color-menu").click(function(){
+        $("#tibetsheets-icon-cell-color-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -736,13 +736,13 @@ const menuButton = {
                 const locale_button = _locale.button;
                 const locale_alternatingColors = _locale.alternatingColors;
 
-                let coloritem = replaceHtml(_this.coloritem, { "class": "luckysheet-icon-alternateformat", "name": locale_toolbar.alternatingColors+"..." });
+                let coloritem = replaceHtml(_this.coloritem, { "class": "tibetsheets-icon-alternateformat", "name": locale_toolbar.alternatingColors+"..." });
                 let menu = replaceHtml(_this.color, { "id": menuButtonId, "coloritem": coloritem, "colorself": subid, "sub": "","resetColor":locale_toolbar.resetColor });
                 
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId);
 
-                $("#" + menuButtonId).find(".luckysheet-color-selected").spectrum({
+                $("#" + menuButtonId).find(".tibetsheets-color-selected").spectrum({
                     showPalette: true,
                     showPaletteOnly: true,
                     preferredFormat: "hex",
@@ -754,7 +754,7 @@ const menuButton = {
                     showSelectionPalette: true,
                     maxPaletteSize: 8,
                     maxSelectionSize: 8,
-                    color: luckysheetConfigsetting.defaultCellColor,
+                    color: tibetsheetsConfigsetting.defaultCellColor,
                     cancelText: locale_button.cancel,
                     chooseText: locale_button.confirm,
                     togglePaletteMoreText: locale_toolbar.customColor,
@@ -783,44 +783,44 @@ const menuButton = {
                         }
 
                         let oldcolor = null;
-                        // $("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", color);
+                        // $("#tibetsheets-icon-cell-color .tibetsheets-color-menu-button-indicator").css("border-bottom-color", color);
                         // 下边框换成了一个DIV
-                        $("#luckysheet-icon-cell-color .text-color-bar").css("background-color", color);
+                        $("#tibetsheets-icon-cell-color .text-color-bar").css("background-color", color);
                         
-                        $("#luckysheet-icon-cell-color").attr("color", color);
+                        $("#tibetsheets-icon-cell-color").attr("color", color);
                         let d = editor.deepCopyFlowData(Store.flowdata);
                         _this.updateFormat(d, "bg", color);
 
                         $menuButton.hide();
-                        luckysheetContainerFocus();
+                        tibetsheetsContainerFocus();
                     }
                 });
 
-                $menuButton.find(".luckysheet-color-reset").click(function(){
+                $menuButton.find(".tibetsheets-color-reset").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
-                    let $input = $("#" + menuButtonId).find(".luckysheet-color-selected");
+                    let $input = $("#" + menuButtonId).find(".tibetsheets-color-selected");
                     $input.val("#ffffff");
-                    $("#luckysheet-icon-cell-color").attr("color", null);
+                    $("#tibetsheets-icon-cell-color").attr("color", null);
                     $input.spectrum("set", "#ffffff");
-                    $("#luckysheet-icon-cell-color .luckysheet-color-menu-button-indicator").css("border-bottom-color", "#ffffff");
+                    $("#tibetsheets-icon-cell-color .tibetsheets-color-menu-button-indicator").css("border-bottom-color", "#ffffff");
                     
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "bg", null);
                 });
 
                 //交替颜色
-                $menuButton.find(".luckysheet-icon-alternateformat").click(function(){
+                $menuButton.find(".tibetsheets-icon-alternateformat").click(function(){
                     // *如果禁止前台编辑，则中止下一步操作
                     if (!checkIsAllowEdit()) {
                         tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                         return
                     }
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
-                    if(Store.luckysheet_select_save.length > 1){
+                    if(Store.tibetsheets_select_save.length > 1){
                         if(isEditMode()){
                             alert(locale_alternatingColors.errorInfo);
                         }
@@ -830,7 +830,7 @@ const menuButton = {
                         return;
                     }
 
-                    let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
+                    let range = $.extend(true, {}, Store.tibetsheets_select_save[0]);
 
                     let isExists = alternateformat.rangeIsExists(range)[0];
                     if(!isExists){
@@ -842,7 +842,7 @@ const menuButton = {
                     alternateformat.perfect();
                 });
 
-                $("#" + menuButtonId).find(".luckysheet-color-selected").val("#fff");
+                $("#" + menuButtonId).find(".tibetsheets-color-selected").val("#fff");
             }
 
             let userlen = $(this).outerWidth();
@@ -855,7 +855,7 @@ const menuButton = {
 
             let offsetTop = $(this).offset().top + 26;
             setTimeout(function(){
-                let $input = $("#"+ menuButtonId).find(".luckysheet-color-selected");
+                let $input = $("#"+ menuButtonId).find(".tibetsheets-color-selected");
                 $input.spectrum("set", $input.val());
                 mouseclickposition($menuButton, menuleft - 28, offsetTop, "lefttop");
             }, 1);
@@ -863,9 +863,9 @@ const menuButton = {
 
 
         //字体大小
-        let luckysheet_fs_setTimeout = null;
-        $("#luckysheet-icon-font-size").mousedown(function(e){
-            if (parseInt($("#luckysheet-input-box").css("top")) > 0){
+        let tibetsheets_fs_setTimeout = null;
+        $("#tibetsheets-icon-font-size").mousedown(function(e){
+            if (parseInt($("#tibetsheets-input-box").css("top")) > 0){
                 let w = window.getSelection();
                 if(w.type!="None"){
                     let range = w.getRangeAt(0);
@@ -907,26 +907,26 @@ const menuButton = {
                 $menuButton = $("#" + menuButtonId).width(150);
                 _this.focus($menuButton, 10);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
-                    let $t = $(this), itemvalue = $t.attr("itemvalue"), $input = $("#luckysheet-icon-font-size input");
-                    $("#luckysheet-icon-font-size").attr("itemvalue", itemvalue);
+                    let $t = $(this), itemvalue = $t.attr("itemvalue"), $input = $("#tibetsheets-icon-font-size input");
+                    $("#tibetsheets-icon-font-size").attr("itemvalue", itemvalue);
                     _this.focus($menuButton, itemvalue);
                     $input.val(itemvalue);
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "fs", itemvalue);
                     
-                    clearTimeout(luckysheet_fs_setTimeout);
+                    clearTimeout(tibetsheets_fs_setTimeout);
                 });
             }
 
             let userlen = $(this).outerWidth();
             let tlen = $menuButton.outerWidth();
 
-            let defualtvalue = $("#luckysheet-icon-font-size").attr("itemvalue");
+            let defualtvalue = $("#tibetsheets-icon-font-size").attr("itemvalue");
             if(defualtvalue == null){
                 defualtvalue = 10;
             }
@@ -940,7 +940,7 @@ const menuButton = {
 
 
         })
-        .find("input.luckysheet-toolbar-textinput").keydown(function(e){
+        .find("input.tibetsheets-toolbar-textinput").keydown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).keyup(function(e){
@@ -951,20 +951,20 @@ const menuButton = {
             let $this = $(this);
 
             let itemvalue = parseInt($this.val());
-            let $menuButton = $("#luckysheet-icon-font-size-menuButton");
+            let $menuButton = $("#tibetsheets-icon-font-size-menuButton");
             _this.focus($menuButton, itemvalue);
             
             let d = editor.deepCopyFlowData(Store.flowdata);
             _this.updateFormat(d, "fs", itemvalue);
             
-            luckysheet_fs_setTimeout = setTimeout(function(){
+            tibetsheets_fs_setTimeout = setTimeout(function(){
                 $menuButton.hide();
                 $this.blur();
             }, 200);
         });
 
         //边框设置
-        $("#luckysheet-icon-border-all").click(function(){
+        $("#tibetsheets-icon-border-all").click(function(){
             // *如果禁止前台编辑，则中止下一步操作
             if (!checkIsAllowEdit()) {
                 tooltip.info("", locale().pivotTable.errorNotAllowEdit);
@@ -981,9 +981,9 @@ const menuButton = {
                 type = "border-all";
             }
 
-            let subcolormenuid = "luckysheet-icon-borderColor-menuButton";
-            let color = $("#" + subcolormenuid).find(".luckysheet-color-selected").val();
-            let style = $("#luckysheetborderSizepreview").attr("itemvalue");
+            let subcolormenuid = "tibetsheets-icon-borderColor-menuButton";
+            let color = $("#" + subcolormenuid).find(".tibetsheets-color-selected").val();
+            let style = $("#tibetsheetsborderSizepreview").attr("itemvalue");
 
             if(color == null || color == ""){
                 color = "#000";
@@ -1003,7 +1003,7 @@ const menuButton = {
                 "borderType": type,
                 "color": color,
                 "style": style,
-                "range": $.extend(true, [], Store.luckysheet_select_save)
+                "range": $.extend(true, [], Store.tibetsheets_select_save)
             }
 
             cfg["borderInfo"].push(borderInfo);
@@ -1026,14 +1026,14 @@ const menuButton = {
             server.saveParam("cg", Store.currentSheetIndex, cfg["borderInfo"], { "k": "borderInfo" });
 
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         });
 
-        $("#luckysheet-icon-border-menu").click(function(){
+        $("#tibetsheets-icon-border-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
 
@@ -1044,21 +1044,21 @@ const menuButton = {
                 const locale_toolbar = _locale.toolbar;
                 const locale_button = _locale.button;
                 let itemdata = [
-                    {"text": locale_border.borderTop, "value": "border-top", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-top iconfont luckysheet-iconfont-shangbiankuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderBottom, "value":"border-bottom", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-bottom iconfont luckysheet-iconfont-xiabiankuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderLeft, "value":"border-left", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-left iconfont luckysheet-iconfont-zuobiankuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderRight, "value":"border-right", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-right iconfont luckysheet-iconfont-youbiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderTop, "value": "border-top", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-top iconfont tibetsheets-iconfont-shangbiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderBottom, "value":"border-bottom", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-bottom iconfont tibetsheets-iconfont-xiabiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderLeft, "value":"border-left", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-left iconfont tibetsheets-iconfont-zuobiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderRight, "value":"border-right", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-right iconfont tibetsheets-iconfont-youbiankuang" style="user-select: none;"> </div> </div>'},
                     {"text": "", "value": "split", "example":""},
-                    {"text": locale_border.borderNone, "value": "border-none", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-none iconfont luckysheet-iconfont-wubiankuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderAll, "value": "border-all", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-all iconfont luckysheet-iconfont-quanjiabiankuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderOutside, "value": "border-outside", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-outside iconfont luckysheet-iconfont-sizhoujiabiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderNone, "value": "border-none", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-none iconfont tibetsheets-iconfont-wubiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderAll, "value": "border-all", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-all iconfont tibetsheets-iconfont-quanjiabiankuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderOutside, "value": "border-outside", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-outside iconfont tibetsheets-iconfont-sizhoujiabiankuang" style="user-select: none;"> </div> </div>'},
                     {"text": "", "value": "split", "example": ""},
-                    {"text": locale_border.borderInside, "value": "border-inside", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-inside iconfont luckysheet-iconfont-neikuangxian" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderHorizontal, "value": "border-horizontal", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-horizontal iconfont luckysheet-iconfont-neikuanghengxian" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_border.borderVertical, "value": "border-vertical", "example": '<div class="luckysheet-icon luckysheet-inline-block luckysheet-material-icon luckysheet-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-border-vertical iconfont luckysheet-iconfont-neikuangshuxian" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderInside, "value": "border-inside", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-inside iconfont tibetsheets-iconfont-neikuangxian" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderHorizontal, "value": "border-horizontal", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-horizontal iconfont tibetsheets-iconfont-neikuanghengxian" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_border.borderVertical, "value": "border-vertical", "example": '<div class="tibetsheets-icon tibetsheets-inline-block tibetsheets-material-icon tibetsheets-mousedown-cancel" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-border-vertical iconfont tibetsheets-iconfont-neikuangshuxian" style="user-select: none;"> </div> </div>'},
                     {"text": "", "value": "split", "example": ""},
-                    {"text": "<span id='luckysheet-icon-borderColor-linecolor' class='luckysheet-mousedown-cancel' style='border-bottom:3px solid #000;'>"+ locale_border.borderColor +"</span>", "value":"borderColor", "example":"more"},
-                    {"text": ""+ locale_border.borderSize +"<img id='luckysheetborderSizepreview' width=100 height=10 src='data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==' style='position:absolute;bottom:-5px;right:0px;width:100px;height:10px;'>", "value":"borderSize", "example":"more"}
+                    {"text": "<span id='tibetsheets-icon-borderColor-linecolor' class='tibetsheets-mousedown-cancel' style='border-bottom:3px solid #000;'>"+ locale_border.borderColor +"</span>", "value":"borderColor", "example":"more"},
+                    {"text": ""+ locale_border.borderSize +"<img id='tibetsheetsborderSizepreview' width=100 height=10 src='data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==' style='position:absolute;bottom:-5px;right:0px;width:100px;height:10px;'>", "value":"borderSize", "example":"more"}
                 ];
 
                 // itemvalue to iconfont
@@ -1086,10 +1086,10 @@ const menuButton = {
                 ];
 
                 let subitemset = _this.createButtonMenu(subitemdata);
-                let submenu = replaceHtml(_this.menu, { "id": "borderSize", "item": subitemset, "subclass": "luckysheet-menuButton-sub" });
-                let submenuid = "luckysheet-icon-borderSize-menuButton";
-                let subcolormenuid = "luckysheet-icon-borderColor-menuButton";
-                let colormenu = replaceHtml(_this.color, { "id": subcolormenuid, "coloritem": "", "colorself": "", "sub": "luckysheet-menuButton-sub",resetColor:locale_toolbar.resetColor });
+                let submenu = replaceHtml(_this.menu, { "id": "borderSize", "item": subitemset, "subclass": "tibetsheets-menuButton-sub" });
+                let submenuid = "tibetsheets-icon-borderSize-menuButton";
+                let subcolormenuid = "tibetsheets-icon-borderColor-menuButton";
+                let colormenu = replaceHtml(_this.color, { "id": subcolormenuid, "coloritem": "", "colorself": "", "sub": "tibetsheets-menuButton-sub",resetColor:locale_toolbar.resetColor });
 
                 $("body").first().append(menu + colormenu + submenu);
                 $menuButton = $("#" + menuButtonId).width(170);
@@ -1097,8 +1097,8 @@ const menuButton = {
 
                 $("#" + submenuid + " canvas").each(function(i){
                     let type = $(this).attr("type");
-                    let itemvalue = $(this).closest(".luckysheet-cols-menuitem").attr("itemvalue");
-                    let canvasborder = $(this).addClass("luckysheet-mousedown-cancel").get(0).getContext("2d");
+                    let itemvalue = $(this).closest(".tibetsheets-cols-menuitem").attr("itemvalue");
+                    let canvasborder = $(this).addClass("tibetsheets-mousedown-cancel").get(0).getContext("2d");
                     canvasborder.translate(0.5, 0.5);
 
                     _this.setLineDash(canvasborder, itemvalue, "h", 0, 5, 100, 5);
@@ -1108,32 +1108,32 @@ const menuButton = {
                     canvasborder.closePath();
                 });
 
-                $("#" + submenuid + " .luckysheet-cols-menuitem").click(function(){
+                $("#" + submenuid + " .tibetsheets-cols-menuitem").click(function(){
                     $("#"+ submenuid).hide();
 
                     let $t = $(this), 
                         itemvalue = $t.attr("itemvalue");
                     
                     if(itemvalue == 0){
-                        $("#luckysheetborderSizepreview").attr("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==").attr("itemvalue", null);
+                        $("#tibetsheetsborderSizepreview").attr("src", "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==").attr("itemvalue", null);
                     }
                     else{
                         let bg = $t.find("canvas").get(0).toDataURL("image/png");
-                        $("#luckysheetborderSizepreview").attr("src", bg).attr("itemvalue", itemvalue);
+                        $("#tibetsheetsborderSizepreview").attr("src", bg).attr("itemvalue", itemvalue);
                     }
                     
                     _this.focus($("#" + submenuid), itemvalue);
                 });
                 
                 // border choose menu
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     // *如果禁止前台编辑，则中止下一步操作
                     if (!checkIsAllowEdit()) {
                         tooltip.info("", locale().pivotTable.errorNotAllowEdit);
                         return
                     }
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     if(itemvalue == "borderColor" || itemvalue == "borderSize"){
@@ -1146,8 +1146,8 @@ const menuButton = {
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
 
-                    let color = $("#"+ subcolormenuid).find(".luckysheet-color-selected").val();
-                    let style = $("#luckysheetborderSizepreview").attr("itemvalue");
+                    let color = $("#"+ subcolormenuid).find(".tibetsheets-color-selected").val();
+                    let style = $("#tibetsheetsborderSizepreview").attr("itemvalue");
 
                     if(color == null || color == ""){
                         color = "#000";
@@ -1167,7 +1167,7 @@ const menuButton = {
                         "borderType": itemvalue,
                         "color": color,
                         "style": style,
-                        "range": $.extend(true, [], Store.luckysheet_select_save)
+                        "range": $.extend(true, [], Store.tibetsheets_select_save)
                     }
 
                     cfg["borderInfo"].push(borderInfo);
@@ -1190,23 +1190,23 @@ const menuButton = {
                     server.saveParam("cg", Store.currentSheetIndex, cfg["borderInfo"], { "k": "borderInfo" });
 
                     Store.config = cfg;
-                    Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+                    Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
                     setTimeout(function () {
-                        luckysheetrefreshgrid();
+                        tibetsheetsrefreshgrid();
                     }, 1);
 
-                    $("#luckysheet-icon-border-all").attr("type", itemvalue);
+                    $("#tibetsheets-icon-border-all").attr("type", itemvalue);
 
-                    let $icon = $("#luckysheet-icon-border-all").find(".luckysheet-icon-img-container");
+                    let $icon = $("#tibetsheets-icon-border-all").find(".tibetsheets-icon-img-container");
 
                     // add iconfont
-                    $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-" + itemvalue + iconfontObject[itemvalue]);
+                    $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-" + itemvalue + iconfontObject[itemvalue]);
 
                     _this.focus($menuButton, itemvalue);
                 });
 
-                $("#" + subcolormenuid).find(".luckysheet-color-selected").spectrum({
+                $("#" + subcolormenuid).find(".tibetsheets-color-selected").spectrum({
                     showPalette: true,
                     showPaletteOnly: true,
                     preferredFormat: "hex",
@@ -1247,17 +1247,17 @@ const menuButton = {
                         }
 
                         let oldcolor = null;
-                        $("#luckysheet-icon-borderColor-linecolor").css("border-bottom-color", color);
-                        $("#"+ subcolormenuid).find(".luckysheet-color-selected").val(color);
+                        $("#tibetsheets-icon-borderColor-linecolor").css("border-bottom-color", color);
+                        $("#"+ subcolormenuid).find(".tibetsheets-color-selected").val(color);
                     }
                 });
 
-                $("#"+ subcolormenuid).find(".luckysheet-color-reset").click(function(){
-                    let $input = $("#"+ subcolormenuid).find(".luckysheet-color-selected");
+                $("#"+ subcolormenuid).find(".tibetsheets-color-reset").click(function(){
+                    let $input = $("#"+ subcolormenuid).find(".tibetsheets-color-selected");
                     $input.val("#000");
-                    $("#luckysheet-icon-cell-color").attr("color", null);
+                    $("#tibetsheets-icon-cell-color").attr("color", null);
                     $input.spectrum("set", "#000");
-                    $("#luckysheet-icon-borderColor-linecolor").css("border-bottom-color", "#000");
+                    $("#tibetsheets-icon-borderColor-linecolor").css("border-bottom-color", "#000");
                 });
             }
 
@@ -1272,7 +1272,7 @@ const menuButton = {
         });
 
         //合并单元格
-        $("#luckysheet-icon-merge-button").click(function(){
+        $("#tibetsheets-icon-merge-button").click(function(){
             if(!checkProtectionNotEnable(Store.currentSheetIndex)){
                 return;
             }
@@ -1290,11 +1290,11 @@ const menuButton = {
             if(Store.config["merge"] != null){
                 let has_PartMC = false;
 
-                for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                    let r1 = Store.luckysheet_select_save[s].row[0], 
-                        r2 = Store.luckysheet_select_save[s].row[1];
-                    let c1 = Store.luckysheet_select_save[s].column[0], 
-                        c2 = Store.luckysheet_select_save[s].column[1];
+                for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                    let r1 = Store.tibetsheets_select_save[s].row[0], 
+                        r2 = Store.tibetsheets_select_save[s].row[1];
+                    let c1 = Store.tibetsheets_select_save[s].column[0], 
+                        c2 = Store.tibetsheets_select_save[s].column[1];
 
                     has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -1318,7 +1318,7 @@ const menuButton = {
             _this.updateFormat_mc(d, "mergeAll");
         });
 
-        $("#luckysheet-icon-merge-menu").click(function(){
+        $("#tibetsheets-icon-merge-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1341,9 +1341,9 @@ const menuButton = {
                 $menuButton = $("#"+menuButtonId);
                 _this.focus($menuButton);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     if(selectIsOverlap()){
                         if(isEditMode()){
@@ -1358,11 +1358,11 @@ const menuButton = {
                     if(Store.config["merge"] != null){
                         let has_PartMC = false;
 
-                        for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                            let r1 = Store.luckysheet_select_save[s].row[0], 
-                                r2 = Store.luckysheet_select_save[s].row[1];
-                            let c1 = Store.luckysheet_select_save[s].column[0], 
-                                c2 = Store.luckysheet_select_save[s].column[1];
+                        for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                            let r1 = Store.tibetsheets_select_save[s].row[0], 
+                                r2 = Store.tibetsheets_select_save[s].row[1];
+                            let c1 = Store.tibetsheets_select_save[s].column[0], 
+                                c2 = Store.tibetsheets_select_save[s].column[1];
 
                             has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -1401,8 +1401,8 @@ const menuButton = {
         });
 
         //水平对齐
-        $("#luckysheet-icon-align").click(function(){
-        	let itemvalue = $("#luckysheet-icon-align").attr("type");
+        $("#tibetsheets-icon-align").click(function(){
+        	let itemvalue = $("#tibetsheets-icon-align").attr("type");
         	if(itemvalue == null){
         		itemvalue = "left";
         	}
@@ -1411,7 +1411,7 @@ const menuButton = {
             _this.updateFormat(d, "ht", itemvalue);
         });
 
-        $("#luckysheet-icon-align-menu").click(function(){
+        $("#tibetsheets-icon-align-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1419,9 +1419,9 @@ const menuButton = {
                 const _locale = locale();
                 const locale_align = _locale.align;
                 let itemdata = [
-                    {"text": locale_align.left, "value": "left", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-left iconfont luckysheet-iconfont-wenbenzuoduiqi" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_align.center, "value": "center", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-center iconfont luckysheet-iconfont-wenbenjuzhongduiqi" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_align.right, "value": "right", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-right iconfont luckysheet-iconfont-wenbenyouduiqi" style="user-select: none;"> </div> </div>'}
+                    {"text": locale_align.left, "value": "left", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-align-left iconfont tibetsheets-iconfont-wenbenzuoduiqi" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_align.center, "value": "center", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-align-center iconfont tibetsheets-iconfont-wenbenjuzhongduiqi" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_align.right, "value": "right", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-align-right iconfont tibetsheets-iconfont-wenbenyouduiqi" style="user-select: none;"> </div> </div>'}
                 ];
 
                 // itemvalue to iconfont
@@ -1435,17 +1435,17 @@ const menuButton = {
                 $menuButton = $("#" + menuButtonId).width(120);
                 _this.focus($menuButton);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     _this.focus($menuButton, itemvalue);
 
-                    let $icon = $("#luckysheet-icon-align").attr("type", itemvalue).find(".luckysheet-icon-img-container");
+                    let $icon = $("#tibetsheets-icon-align").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
 
                     // add iconfont
-                    $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue]);
+                    $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-align-" + itemvalue + iconfontObject[itemvalue]);
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "ht", itemvalue);
@@ -1463,8 +1463,8 @@ const menuButton = {
         });
 
         //垂直对齐
-        $("#luckysheet-icon-valign").click(function(){
-        	let itemvalue = $("#luckysheet-icon-valign").attr("type");
+        $("#tibetsheets-icon-valign").click(function(){
+        	let itemvalue = $("#tibetsheets-icon-valign").attr("type");
         	if(itemvalue == null){
         		itemvalue = "bottom";
         	}
@@ -1473,16 +1473,16 @@ const menuButton = {
             _this.updateFormat(d, "vt", itemvalue);
         });
 
-        $("#luckysheet-icon-valign-menu").click(function(){
+        $("#tibetsheets-icon-valign-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             const _locale = locale();
             const locale_align = _locale.align;
             if($menuButton.length == 0){
                 let itemdata = [
-                    {"text": locale_align.top, "value": "top", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-top iconfont luckysheet-iconfont-dingbuduiqi" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_align.middle, "value": "middle", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-middle iconfont luckysheet-iconfont-shuipingduiqi" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_align.bottom, "value": "bottom", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-bottom iconfont luckysheet-iconfont-dibuduiqi" style="user-select: none;"> </div> </div>'}
+                    {"text": locale_align.top, "value": "top", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-valign-top iconfont tibetsheets-iconfont-dingbuduiqi" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_align.middle, "value": "middle", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-valign-middle iconfont tibetsheets-iconfont-shuipingduiqi" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_align.bottom, "value": "bottom", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-valign-bottom iconfont tibetsheets-iconfont-dibuduiqi" style="user-select: none;"> </div> </div>'}
                 ];
 
                 // itemvalue to iconfont
@@ -1496,17 +1496,17 @@ const menuButton = {
                 $menuButton = $("#" + menuButtonId).width(120);
                 _this.focus($menuButton, "bottom");
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     _this.focus($menuButton, itemvalue);
 
-                    let $icon = $("#luckysheet-icon-valign").attr("type", itemvalue).find(".luckysheet-icon-img-container");
+                    let $icon = $("#tibetsheets-icon-valign").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
 
                     // add iconfont
-                    $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue + iconfontObject[itemvalue]);
+                    $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-valign-" + itemvalue + iconfontObject[itemvalue]);
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "vt", itemvalue);
@@ -1524,7 +1524,7 @@ const menuButton = {
         });
 
         //文本换行
-        $("#luckysheet-icon-textwrap-menu").click(function(){
+        $("#tibetsheets-icon-textwrap-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1532,9 +1532,9 @@ const menuButton = {
                 const _locale = locale();
                 const locale_textWrap = _locale.textWrap;
                 let itemdata = [
-                    {"text": locale_textWrap.overflow, "value": "overflow", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-overflow iconfont luckysheet-iconfont-yichu1" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_textWrap.wrap, "value": "wrap", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-wrap iconfont luckysheet-iconfont-zidonghuanhang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_textWrap.clip, "value": "clip", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-clip iconfont luckysheet-iconfont-jieduan" style="user-select: none;"> </div> </div>'}
+                    {"text": locale_textWrap.overflow, "value": "overflow", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-textwrap-overflow iconfont tibetsheets-iconfont-yichu1" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_textWrap.wrap, "value": "wrap", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-textwrap-wrap iconfont tibetsheets-iconfont-zidonghuanhang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_textWrap.clip, "value": "clip", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-textwrap-clip iconfont tibetsheets-iconfont-jieduan" style="user-select: none;"> </div> </div>'}
                 ];
 
                 // itemvalue to iconfont
@@ -1548,17 +1548,17 @@ const menuButton = {
                 $menuButton = $("#" + menuButtonId).width(120);
                 _this.focus($menuButton, "clip");
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     _this.focus($menuButton, itemvalue);
 
-                    let $icon = $("#luckysheet-icon-textwrap").attr("type", itemvalue).find(".luckysheet-icon-img-container");
+                    let $icon = $("#tibetsheets-icon-textwrap").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
 
                     // add iconfont
-                    $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
+                    $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
 
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "tb", itemvalue);
@@ -1576,7 +1576,7 @@ const menuButton = {
         });
 
         //文本旋转
-        $("#luckysheet-icon-rotation-menu").click(function(){
+        $("#tibetsheets-icon-rotation-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1584,12 +1584,12 @@ const menuButton = {
                 const _locale = locale();
                 const locale_rotation = _locale.rotation;
                 let itemdata = [
-                    {"text": locale_rotation.none, "value": "none", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none iconfont luckysheet-iconfont-wuxuanzhuang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_rotation.angleup, "value": "angleup", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-angleup iconfont luckysheet-iconfont-xiangshangqingxie" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_rotation.angledown, "value": "angledown", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-angledown iconfont luckysheet-iconfont-xiangxiaqingxie" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_rotation.vertical, "value": "vertical", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-vertical iconfont luckysheet-iconfont-shupaiwenzi" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_rotation.rotationUp, "value": "rotation-up", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-rotation-up iconfont luckysheet-iconfont-wenbenxiangshang" style="user-select: none;"> </div> </div>'},
-                    {"text": locale_rotation.rotationDown, "value": "rotation-down", "example": '<div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-rotation-down iconfont luckysheet-iconfont-xiangxia90" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.none, "value": "none", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-none iconfont tibetsheets-iconfont-wuxuanzhuang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.angleup, "value": "angleup", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-angleup iconfont tibetsheets-iconfont-xiangshangqingxie" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.angledown, "value": "angledown", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-angledown iconfont tibetsheets-iconfont-xiangxiaqingxie" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.vertical, "value": "vertical", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-vertical iconfont tibetsheets-iconfont-shupaiwenzi" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.rotationUp, "value": "rotation-up", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-rotation-up iconfont tibetsheets-iconfont-wenbenxiangshang" style="user-select: none;"> </div> </div>'},
+                    {"text": locale_rotation.rotationDown, "value": "rotation-down", "example": '<div class="tibetsheets-icon tibetsheets-inline-block" style="user-select: none;opacity:1;"> <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-rotation-down iconfont tibetsheets-iconfont-xiangxia90" style="user-select: none;"> </div> </div>'},
                 ];
 
                 // itemvalue to iconfont
@@ -1605,17 +1605,17 @@ const menuButton = {
                 $menuButton = $("#" + menuButtonId).width(160);
                 _this.focus($menuButton);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     _this.focus($menuButton, itemvalue);
 
-                    let $icon = $("#luckysheet-icon-rotation").attr("type", itemvalue).find(".luckysheet-icon-img-container");
+                    let $icon = $("#tibetsheets-icon-rotation").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
 
                     // add iconfont
-                    $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue]);
+                    $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-" + itemvalue + iconfontObject[itemvalue]);
                     
                     let d = editor.deepCopyFlowData(Store.flowdata);
                     _this.updateFormat(d, "tr", itemvalue);
@@ -1633,7 +1633,7 @@ const menuButton = {
         });
 
         //冻结行列
-        $("#luckysheet-icon-freezen-menu").click(function(){
+        $("#tibetsheets-icon-freezen-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1659,9 +1659,9 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId).width(170);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     _this.focus($menuButton, itemvalue);
@@ -1670,94 +1670,94 @@ const menuButton = {
                     }
 
                     // store frozen
-                    luckysheetFreezen.saveFrozen(itemvalue);
+                    tibetsheetsFreezen.saveFrozen(itemvalue);
 
                     if(itemvalue == "freezenRow"){ //首行冻结
                         frozenFirstRow();
-                        // let scrollTop = $("#luckysheet-cell-main").scrollTop();
-                        // let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+                        // let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+                        // let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
                         // if(row_st == -1){
                         //     row_st = 0;
                         // }
                         // let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-                        // let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
-                        // luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                        // let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                        // tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-                        // if (luckysheetFreezen.freezenverticaldata != null) {
-                        //     luckysheetFreezen.cancelFreezenVertical();
-                        //     luckysheetFreezen.createAssistCanvas();
-                        //     luckysheetrefreshgrid();
+                        // if (tibetsheetsFreezen.freezenverticaldata != null) {
+                        //     tibetsheetsFreezen.cancelFreezenVertical();
+                        //     tibetsheetsFreezen.createAssistCanvas();
+                        //     tibetsheetsrefreshgrid();
                         // }
 
-                        // luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-                        // luckysheetFreezen.createAssistCanvas();
-                        // luckysheetrefreshgrid();
+                        // tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+                        // tibetsheetsFreezen.createAssistCanvas();
+                        // tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenColumn"){ //首列冻结
                         frozenFirstColumn();
-                        // let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                        // let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+                        // let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                        // let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
                         // if(col_st == -1){
                         //     col_st = 0;
                         // }
                         // let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-                        // let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
-                        // luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+                        // let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                        // tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-                        // if (luckysheetFreezen.freezenhorizontaldata != null) {
-                        //     luckysheetFreezen.cancelFreezenHorizontal();
-                        //     luckysheetFreezen.createAssistCanvas();
-                        //     luckysheetrefreshgrid();
+                        // if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+                        //     tibetsheetsFreezen.cancelFreezenHorizontal();
+                        //     tibetsheetsFreezen.createAssistCanvas();
+                        //     tibetsheetsrefreshgrid();
                         // }
 
-                        // luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
-                        // luckysheetFreezen.createAssistCanvas();
-                        // luckysheetrefreshgrid();
+                        // tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
+                        // tibetsheetsFreezen.createAssistCanvas();
+                        // tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenRC"){ //首行列冻结
-                        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
                             let row_st = 0;
                             let top = Store.visibledatarow[row_st] - 2 + Store.columnHeaderHeight;
-                            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
-                            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-                            luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+                            tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
                             let col_st = 0;
                             let left = Store.visibledatacolumn[col_st] - 2 + Store.rowHeaderWidth;
-                            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
-                            luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+                            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                            tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-                            luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
+                            tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
                         } else {
-                            let scrollTop = $("#luckysheet-cell-main").scrollTop();
-                            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+                            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+                            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
                             if(row_st == -1){
                                 row_st = 0;
                             }
                             let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-                            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
-                            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-                            luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+                            tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-                            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+                            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
                             if(col_st == -1){
                                 col_st = 0;
                             }
                             let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-                            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
-                            luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+                            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                            tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-                            luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
+                            tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
                         }
-                        luckysheetFreezen.createAssistCanvas();
-                        luckysheetrefreshgrid();
+                        tibetsheetsFreezen.createAssistCanvas();
+                        tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenRowRange"){ //选区行冻结
 
-                        if(Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(locale_freezen.noSeletionError);
                             }
@@ -1768,14 +1768,14 @@ const menuButton = {
                             return;
                         }
                         // 固定超出屏幕范围
-                        let rangeTop = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].top;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn && rangeTop > $("#luckysheet-cell-main").height()) {
+                        let rangeTop = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].top;
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn && rangeTop > $("#tibetsheets-cell-main").height()) {
                             return  tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
                         }
-                        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-                        let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+                        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+                        let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
                         let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
 
                         if(row_focus > row_st){
@@ -1786,27 +1786,27 @@ const menuButton = {
                             row_st = 0;
                         }
                         let top,freezenhorizontaldata;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
                             top = Store.visibledatarow[row_st] - 2 + Store.columnHeaderHeight;
-                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
                         } else {
                             top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
                         }
-                        luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                        tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-                        if (luckysheetFreezen.freezenverticaldata != null) {
-                            luckysheetFreezen.cancelFreezenVertical();
-                            luckysheetFreezen.createAssistCanvas();
-                            luckysheetrefreshgrid();
+                        if (tibetsheetsFreezen.freezenverticaldata != null) {
+                            tibetsheetsFreezen.cancelFreezenVertical();
+                            tibetsheetsFreezen.createAssistCanvas();
+                            tibetsheetsrefreshgrid();
                         }
 
-                        luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-                        luckysheetFreezen.createAssistCanvas();
-                        luckysheetrefreshgrid();
+                        tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+                        tibetsheetsFreezen.createAssistCanvas();
+                        tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenColumnRange"){ //选区列冻结
-                        if(Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(locale_freezen.noSeletionError);
                             }
@@ -1817,14 +1817,14 @@ const menuButton = {
                             return;
                         }
                         // 固定超出屏幕范围
-                        let rangeLeft = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].left;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn && rangeLeft > $("#luckysheet-cell-main").width()) {
+                        let rangeLeft = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].left;
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn && rangeLeft > $("#tibetsheets-cell-main").width()) {
                             return  tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
                         }
-                        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                        let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+                        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                        let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
                         let column_focus = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
 
                         if(column_focus > col_st){
@@ -1835,27 +1835,27 @@ const menuButton = {
                             col_st = 0;
                         }
                         let left,freezenverticaldata;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
                             left = Store.visibledatacolumn[col_st] - 2 + Store.rowHeaderWidth;
-                            freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                            freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
                         } else {
                             left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-                            freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                            freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
                         }
-                        luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+                        tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-                        if (luckysheetFreezen.freezenhorizontaldata != null) {
-                            luckysheetFreezen.cancelFreezenHorizontal();
-                            luckysheetFreezen.createAssistCanvas();
-                            luckysheetrefreshgrid();
+                        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+                            tibetsheetsFreezen.cancelFreezenHorizontal();
+                            tibetsheetsFreezen.createAssistCanvas();
+                            tibetsheetsrefreshgrid();
                         }
 
-                        luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
-                        luckysheetFreezen.createAssistCanvas();
-                        luckysheetrefreshgrid();
+                        tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
+                        tibetsheetsFreezen.createAssistCanvas();
+                        tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenRCRange"){ //选区行列冻结
-                        if(Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(locale_freezen.noSeletionError);
                             }
@@ -1867,16 +1867,16 @@ const menuButton = {
                         }
 
                         // 固定超出屏幕范围
-                        let rangeTop = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].top;
-                        let rangeLeft = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].left;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn && (rangeTop > $("#luckysheet-cell-main").height() || rangeLeft > $("#luckysheet-cell-main").width())) {
+                        let rangeTop = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].top;
+                        let rangeLeft = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].left;
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn && (rangeTop > $("#tibetsheets-cell-main").height() || rangeLeft > $("#tibetsheets-cell-main").width())) {
                             return  tooltip.info(locale_freezen.rangeRCOverErrorTitle, locale_freezen.rangeRCOverError);
                         }
                         
-                        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-                        let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+                        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+                        let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
                         let row_focus = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
 
                         if(row_focus > row_st){
@@ -1887,20 +1887,20 @@ const menuButton = {
                             row_st = 0;
                         }
                         let top,freezenhorizontaldata;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
                             top = Store.visibledatarow[row_st] - 2 + Store.columnHeaderHeight;
-                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
-                            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
                         } else {
                             top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
-                            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+                            freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+                            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
                         }
 
-                        luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+                        tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-                        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                        let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+                        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                        let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
                         let column_focus = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
 
@@ -1912,38 +1912,38 @@ const menuButton = {
                             col_st = 0;
                         }
                         let left,freezenverticaldata;
-                        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+                        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
                            left = Store.visibledatacolumn[col_st] - 2 + Store.rowHeaderWidth;
-                           freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                           freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, 0, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
                         } else {
                            left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-                           freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+                           freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
                         }
-                        luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+                        tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-                        luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
+                        tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
                         
-                        luckysheetFreezen.createAssistCanvas();
-                        luckysheetrefreshgrid();
+                        tibetsheetsFreezen.createAssistCanvas();
+                        tibetsheetsrefreshgrid();
                     }
                     else if(itemvalue == "freezenCancel"){ //Cancel freezen
-                        if (luckysheetFreezen.freezenverticaldata != null) {
-                            luckysheetFreezen.cancelFreezenVertical();
-                            luckysheetFreezen.createAssistCanvas();
-                            luckysheetrefreshgrid();
+                        if (tibetsheetsFreezen.freezenverticaldata != null) {
+                            tibetsheetsFreezen.cancelFreezenVertical();
+                            tibetsheetsFreezen.createAssistCanvas();
+                            tibetsheetsrefreshgrid();
                         }
 
-                        if (luckysheetFreezen.freezenhorizontaldata != null) {
-                            luckysheetFreezen.cancelFreezenHorizontal();
-                            luckysheetFreezen.createAssistCanvas();
-                            luckysheetrefreshgrid();
+                        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+                            tibetsheetsFreezen.cancelFreezenHorizontal();
+                            tibetsheetsFreezen.createAssistCanvas();
+                            tibetsheetsrefreshgrid();
                         }
 
-                        luckysheetFreezen.scrollAdapt();
+                        tibetsheetsFreezen.scrollAdapt();
                     }
 
                     setTimeout(function(){
-                        luckysheetsizeauto();
+                        tibetsheetssizeauto();
                     },0);
                 });
             }
@@ -1959,7 +1959,7 @@ const menuButton = {
         });
 
         //过滤和排序
-        $("#luckysheet-icon-autofilter").click(function(){
+        $("#tibetsheets-icon-autofilter").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -1968,12 +1968,12 @@ const menuButton = {
                 const locale_sort = _locale.sort;
                 const locale_filter = _locale.filter;
                 let itemdata = [
-                    {"text": locale_sort.asc, "value": "asc", "example": '<i class="iconfont luckysheet-iconfont-shengxu" aria-hidden="true"></i>'},
-                    {"text": locale_sort.desc, "value": "desc", "example": '<i class="iconfont luckysheet-iconfont-jiangxu" aria-hidden="true"></i>'},
-                    {"text": locale_sort.custom+"...", "value": "diysort", "example": '<i class="iconfont luckysheet-iconfont-zidingyipaixu" aria-hidden="true"></i>'},
+                    {"text": locale_sort.asc, "value": "asc", "example": '<i class="iconfont tibetsheets-iconfont-shengxu" aria-hidden="true"></i>'},
+                    {"text": locale_sort.desc, "value": "desc", "example": '<i class="iconfont tibetsheets-iconfont-jiangxu" aria-hidden="true"></i>'},
+                    {"text": locale_sort.custom+"...", "value": "diysort", "example": '<i class="iconfont tibetsheets-iconfont-zidingyipaixu" aria-hidden="true"></i>'},
                     {"text": "", "value": "split", "example": ""},
-                    {"text": locale_filter.filter, "value": "filter", "example": '<i class="iconfont luckysheet-iconfont-shaixuan2" aria-hidden="true"></i>'},
-                    {"text": locale_filter.clearFilter, "value": "clearfilter", "example": '<i class="iconfont luckysheet-iconfont-qingchushaixuan" aria-hidden="true"></i>'}
+                    {"text": locale_filter.filter, "value": "filter", "example": '<i class="iconfont tibetsheets-iconfont-shaixuan2" aria-hidden="true"></i>'},
+                    {"text": locale_filter.clearFilter, "value": "clearfilter", "example": '<i class="iconfont tibetsheets-iconfont-qingchushaixuan" aria-hidden="true"></i>'}
                 ];
 
                 let itemset = _this.createButtonMenu(itemdata);
@@ -1983,14 +1983,14 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId).width(150);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
                     if(itemvalue == "diysort"){
-                        $("#luckysheetorderby").click();
+                        $("#tibetsheetsorderby").click();
                     }
                     else if(itemvalue == "asc"){
                         sortSelection(true);
@@ -1999,15 +1999,15 @@ const menuButton = {
                         sortSelection(false);
                     }
                     else if(itemvalue == "filter"){
-                        if($('#luckysheet-filter-options-sheet' + Store.currentSheetIndex).length > 0){
-                            $("#luckysheet-filter-initial").click();
+                        if($('#tibetsheets-filter-options-sheet' + Store.currentSheetIndex).length > 0){
+                            $("#tibetsheets-filter-initial").click();
                         }
                         else{
                             createFilter();
                         }
                     }
                     else if(itemvalue == "clearfilter"){
-                        $("#luckysheet-filter-initial").click();
+                        $("#tibetsheets-filter-initial").click();
                     }
                 });
             }
@@ -2023,18 +2023,18 @@ const menuButton = {
         });
 
         //查找和替换
-        $("#luckysheet-icon-seachmore").click(function(){
+        $("#tibetsheets-icon-seachmore").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             const _locale = locale();
             const locale_findAndReplace = _locale.findAndReplace;
             if($menuButton.length == 0){
                 let itemdata = [
-                    {"text": locale_findAndReplace.find+" ...", "value": "search", "example": '<i class="iconfont luckysheet-iconfont-sousuo" aria-hidden="true"></i>'},
-                    {"text": locale_findAndReplace.replace+" ...", "value": "replace", "example": '<i class="iconfont luckysheet-iconfont-tihuan" aria-hidden="true"></i>'},
-                    // {"text": locale_findAndReplace.goto+" ...", "value": "goto", "example": '<i class="iconfont luckysheet-iconfont-zhuandao1" aria-hidden="true"></i>'},
+                    {"text": locale_findAndReplace.find+" ...", "value": "search", "example": '<i class="iconfont tibetsheets-iconfont-sousuo" aria-hidden="true"></i>'},
+                    {"text": locale_findAndReplace.replace+" ...", "value": "replace", "example": '<i class="iconfont tibetsheets-iconfont-tihuan" aria-hidden="true"></i>'},
+                    // {"text": locale_findAndReplace.goto+" ...", "value": "goto", "example": '<i class="iconfont tibetsheets-iconfont-zhuandao1" aria-hidden="true"></i>'},
                     {"text": "", "value": "split", "example": ""},
-                    {"text": locale_findAndReplace.location+" ...", "value": "location", "example": '<i class="iconfont luckysheet-iconfont-dingwei" aria-hidden="true"></i>'},
+                    {"text": locale_findAndReplace.location+" ...", "value": "location", "example": '<i class="iconfont tibetsheets-iconfont-dingwei" aria-hidden="true"></i>'},
                     {"text": locale_findAndReplace.formula, "value": "locationFormula", "example": locale_findAndReplace.locationExample},
                     {"text": locale_findAndReplace.date, "value": "locationConstantDate", "example": locale_findAndReplace.locationExample},
                     {"text": locale_findAndReplace.number, "value": "locationConstantNumber", "example": locale_findAndReplace.locationExample},
@@ -2052,61 +2052,61 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId).width(180);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
                     if(itemvalue == "search" || itemvalue == "replace"){ //查找替换
                         if(itemvalue == "search"){
-                            luckysheetSearchReplace.createDialog(0);
+                            tibetsheetsSearchReplace.createDialog(0);
                         }
                         else if(itemvalue == "replace"){
-                            luckysheetSearchReplace.createDialog(1);    
+                            tibetsheetsSearchReplace.createDialog(1);    
                         }
                         
-                        luckysheetSearchReplace.init();
+                        tibetsheetsSearchReplace.init();
 
-                        $("#luckysheet-search-replace #searchInput input").focus();
+                        $("#tibetsheets-search-replace #searchInput input").focus();
                     }
                     else if(itemvalue == "location"){ //定位条件
-                        luckysheetLocationCell.createDialog();
-                        luckysheetLocationCell.init();
+                        tibetsheetsLocationCell.createDialog();
+                        tibetsheetsLocationCell.init();
                     }
                     else if(itemvalue == "locationFormula" || itemvalue == "locationConstantDate" || itemvalue == "locationConstantNumber" || itemvalue == "locationConstantString" || itemvalue == "locationConstantError" || itemvalue == "locationCF"){ 
-                        let last = Store.luckysheet_select_save[0];
+                        let last = Store.tibetsheets_select_save[0];
                         
                         let range;
-                        if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1])){
+                        if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && last.row[0] == last.row[1] && last.column[0] == last.column[1])){
                             //单个单元格
                             range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
                         }
                         else{
-                            range = $.extend(true, [], Store.luckysheet_select_save);
+                            range = $.extend(true, [], Store.tibetsheets_select_save);
                         }
 
                         if(itemvalue == "locationFormula"){               //公式
-                            luckysheetLocationCell.apply(range, "locationFormula", "all");
+                            tibetsheetsLocationCell.apply(range, "locationFormula", "all");
                         }
                         else if(itemvalue == "locationConstantDate"){     //日期
-                            luckysheetLocationCell.apply(range, "locationConstant", "d");
+                            tibetsheetsLocationCell.apply(range, "locationConstant", "d");
                         }
                         else if(itemvalue == "locationConstantNumber"){   //数字
-                            luckysheetLocationCell.apply(range, "locationConstant", "n");
+                            tibetsheetsLocationCell.apply(range, "locationConstant", "n");
                         }
                         else if(itemvalue == "locationConstantString"){   //字符
-                            luckysheetLocationCell.apply(range, "locationConstant", "s,g");
+                            tibetsheetsLocationCell.apply(range, "locationConstant", "s,g");
                         }
                         else if(itemvalue == "locationConstantError"){    //错误
-                            luckysheetLocationCell.apply(range, "locationConstant", "e");
+                            tibetsheetsLocationCell.apply(range, "locationConstant", "e");
                         }
                         else if(itemvalue == "locationCF"){               //条件格式
-                            luckysheetLocationCell.apply(range, "locationCF");
+                            tibetsheetsLocationCell.apply(range, "locationCF");
                         }
                     }
                     else if(itemvalue == "locationStepRow"){ //间隔行
-                        if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1])){
+                        if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].row[0] == Store.tibetsheets_select_save[0].row[1])){
                             if(isEditMode()){
                                 alert(locale_findAndReplace.lessTwoRowTip);
                             }
@@ -2116,12 +2116,12 @@ const menuButton = {
                             return;                            
                         }
 
-                        let range = $.extend(true, [], Store.luckysheet_select_save);
+                        let range = $.extend(true, [], Store.tibetsheets_select_save);
 
-                        luckysheetLocationCell.apply(range, "locationStepRow");
+                        tibetsheetsLocationCell.apply(range, "locationStepRow");
                     }
                     else if(itemvalue == "locationStepColumn"){ //间隔列
-                        if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                        if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].column[0] == Store.tibetsheets_select_save[0].column[1])){
                             if(isEditMode()){
                                 alert(locale_findAndReplace.lessTwoColumnTip);
                             }
@@ -2131,9 +2131,9 @@ const menuButton = {
                             return;                            
                         }
 
-                        let range = $.extend(true, [], Store.luckysheet_select_save);
+                        let range = $.extend(true, [], Store.tibetsheets_select_save);
 
-                        luckysheetLocationCell.apply(range, "locationStepColumn");
+                        tibetsheetsLocationCell.apply(range, "locationStepColumn");
                     }
                 });
             }
@@ -2149,12 +2149,12 @@ const menuButton = {
         });
 
         //公式
-        $("#luckysheet-icon-function").click(function(){
+        $("#tibetsheets-icon-function").click(function(){
             _this.autoSelectionFormula("SUM");
         });
 
         //公式菜单
-        $("#luckysheet-icon-function-menu").click(function(){
+        $("#tibetsheets-icon-function-menu").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
 
@@ -2180,14 +2180,14 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId).width(180);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
                     if(itemvalue == "if"){
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
                         let r = last["row_focus"] == null ? last["row"][0] : last["row_focus"];
                         let c = last["column_focus"] == null ? last["column"][0] : last["column_focus"];
 
@@ -2215,7 +2215,7 @@ const menuButton = {
                     }
                     else if(itemvalue == "formula"){
                         //点击函数查找弹出框
-                        if(Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(locale_formula.tipSelectCell);
                             }
@@ -2226,16 +2226,16 @@ const menuButton = {
                             return;
                         }
 
-                        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
                         let row_index = last["row_focus"], col_index = last["column_focus"];
 
-                        luckysheetupdateCell(row_index, col_index, Store.flowdata);
+                        tibetsheetsupdateCell(row_index, col_index, Store.flowdata);
                         
                         let cell = Store.flowdata[row_index][col_index];
                         if(cell != null && cell.f != null){
                             //单元格有计算
-                            let functionStr = luckysheetformula.getfunctionParam(cell.f);
+                            let functionStr = tibetsheetsformula.getfunctionParam(cell.f);
                             if(functionStr.fn != null){
                                 //有函数公式
                                 insertFormula.formulaParmDialog(functionStr.fn, functionStr.param);
@@ -2247,8 +2247,8 @@ const menuButton = {
                         }
                         else{
                             //单元格无计算
-                            $("#luckysheet-rich-text-editor").html('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
-                            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+                            $("#tibetsheets-rich-text-editor").html('<span dir="auto" class="tibetsheets-formula-text-color">=</span>');
+                            $("#tibetsheets-functionbox-cell").html($("#tibetsheets-rich-text-editor").html());
                             insertFormula.formulaListDialog();
                         }
 
@@ -2271,7 +2271,7 @@ const menuButton = {
         });
 
         //加粗
-        $("#luckysheet-icon-bold").mousedown(function(e){
+        $("#tibetsheets-icon-bold").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(e){
@@ -2284,7 +2284,7 @@ const menuButton = {
         });
 
         //斜体
-        $("#luckysheet-icon-italic").mousedown(function(e){
+        $("#tibetsheets-icon-italic").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -2297,7 +2297,7 @@ const menuButton = {
         });
 
         //删除线
-        $("#luckysheet-icon-strikethrough").mousedown(function(e){
+        $("#tibetsheets-icon-strikethrough").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -2309,7 +2309,7 @@ const menuButton = {
         });
 
         //下划线
-        $("#luckysheet-icon-underline").mousedown(function(e){
+        $("#tibetsheets-icon-underline").mousedown(function(e){
             hideMenuByCancel(e);
             e.stopPropagation();
         }).click(function(){
@@ -2321,7 +2321,7 @@ const menuButton = {
         });
 
         //条件格式
-        $("#luckysheet-icon-conditionformat").click(function(){
+        $("#tibetsheets-icon-conditionformat").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
 
@@ -2353,7 +2353,7 @@ const menuButton = {
                     { "text": conditionformat_text.duplicateValue, "value": "duplicateValue", "example": "##" }
                 ];
                 let subitemset = _this.createButtonMenu(subitemdata);
-                let submenu = replaceHtml(_this.menu, {"id": "highlightCellRule", "item": subitemset, "subclass": "luckysheet-menuButton-sub"});
+                let submenu = replaceHtml(_this.menu, {"id": "highlightCellRule", "item": subitemset, "subclass": "tibetsheets-menuButton-sub"});
                 
                 //项目选取规则子菜单
                 let subitemdata2 = [
@@ -2365,85 +2365,85 @@ const menuButton = {
                     { "text": conditionformat_text.belowAverage, "value": "SubAverage", "example": conditionformat_text.below }
                 ];
                 let subitemset2 = _this.createButtonMenu(subitemdata2);
-                let submenu2 = replaceHtml(_this.menu, {"id": "projectSelectRule", "item": subitemset2, "subclass": "luckysheet-menuButton-sub"});
+                let submenu2 = replaceHtml(_this.menu, {"id": "projectSelectRule", "item": subitemset2, "subclass": "tibetsheets-menuButton-sub"});
                 
                 //数据条子菜单
-                let submenu3 = `<div id="luckysheet-icon-dataBar-menuButton" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-menuButton luckysheet-menuButton-sub luckysheet-mousedown-cancel" style="width: 126px;padding: 5px;top: 118.5px;left: 1321.48px;display: none;">
-                                    <div itemvalue="0" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 0;" title="${conditionformat_text.gradientDataBar_1}"></div>
+                let submenu3 = `<div id="tibetsheets-icon-dataBar-menuButton" class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-menuButton tibetsheets-menuButton-sub tibetsheets-mousedown-cancel" style="width: 126px;padding: 5px;top: 118.5px;left: 1321.48px;display: none;">
+                                    <div itemvalue="0" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 0;" title="${conditionformat_text.gradientDataBar_1}"></div>
                                     </div>
-                                    <div itemvalue="1" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px 0;" title="${conditionformat_text.gradientDataBar_2}"></div>
+                                    <div itemvalue="1" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px 0;" title="${conditionformat_text.gradientDataBar_2}"></div>
                                     </div>
-                                    <div itemvalue="2" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px 0;" title="${conditionformat_text.gradientDataBar_3}"></div>
+                                    <div itemvalue="2" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px 0;" title="${conditionformat_text.gradientDataBar_3}"></div>
                                     </div>
-                                    <div itemvalue="3" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 -36px;" title="${conditionformat_text.gradientDataBar_4}"></div>
+                                    <div itemvalue="3" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 -36px;" title="${conditionformat_text.gradientDataBar_4}"></div>
                                     </div>
-                                    <div itemvalue="4" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px -36px;" title="${conditionformat_text.gradientDataBar_5}"></div>
+                                    <div itemvalue="4" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px -36px;" title="${conditionformat_text.gradientDataBar_5}"></div>
                                     </div>
-                                    <div itemvalue="5" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px -36px;" title="${conditionformat_text.gradientDataBar_6}"></div>
+                                    <div itemvalue="5" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px -36px;" title="${conditionformat_text.gradientDataBar_6}"></div>
                                     </div>
-                                    <div itemvalue="6" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 -72px;" title="${conditionformat_text.solidColorDataBar_1}"></div>
+                                    <div itemvalue="6" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 -72px;" title="${conditionformat_text.solidColorDataBar_1}"></div>
                                     </div>
-                                    <div itemvalue="7" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px -72px;" title="${conditionformat_text.solidColorDataBar_2}"></div>
+                                    <div itemvalue="7" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px -72px;" title="${conditionformat_text.solidColorDataBar_2}"></div>
                                     </div>
-                                    <div itemvalue="8" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px -72px;" title="${conditionformat_text.solidColorDataBar_3}"></div>
+                                    <div itemvalue="8" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px -72px;" title="${conditionformat_text.solidColorDataBar_3}"></div>
                                     </div>
-                                    <div itemvalue="9" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 -108px;" title="${conditionformat_text.solidColorDataBar_4}"></div>
+                                    <div itemvalue="9" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 -108px;" title="${conditionformat_text.solidColorDataBar_4}"></div>
                                     </div>
-                                    <div itemvalue="10" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px -108px;" title="${conditionformat_text.solidColorDataBar_5}"></div>
+                                    <div itemvalue="10" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px -108px;" title="${conditionformat_text.solidColorDataBar_5}"></div>
                                     </div>
-                                    <div itemvalue="11" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px -108px;" title="${conditionformat_text.solidColorDataBar_6}"></div>
+                                    <div itemvalue="11" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px -108px;" title="${conditionformat_text.solidColorDataBar_6}"></div>
                                     </div>
                                 </div>`;
 
                 //色阶
-                let submenu4 = `<div id="luckysheet-icon-colorGradation-menuButton" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-menuButton luckysheet-menuButton-sub luckysheet-mousedown-cancel" style="width: 126px;padding: 5px;top: 143.5px;left: 1321.48px;display: none;">
-                                    <div itemvalue="0" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 0;" title="${conditionformat_text.colorGradation_1}"></div>
+                let submenu4 = `<div id="tibetsheets-icon-colorGradation-menuButton" class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-menuButton tibetsheets-menuButton-sub tibetsheets-mousedown-cancel" style="width: 126px;padding: 5px;top: 143.5px;left: 1321.48px;display: none;">
+                                    <div itemvalue="0" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 0;" title="${conditionformat_text.colorGradation_1}"></div>
                                     </div>
-                                    <div itemvalue="1" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px 0;" title="${conditionformat_text.colorGradation_2}"></div>
+                                    <div itemvalue="1" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px 0;" title="${conditionformat_text.colorGradation_2}"></div>
                                     </div>
-                                    <div itemvalue="2" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px 0;" title="${conditionformat_text.colorGradation_3}"></div>
+                                    <div itemvalue="2" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px 0;" title="${conditionformat_text.colorGradation_3}"></div>
                                     </div>
-                                    <div itemvalue="3" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -114px 0;" title="${conditionformat_text.colorGradation_4}"></div>
+                                    <div itemvalue="3" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -114px 0;" title="${conditionformat_text.colorGradation_4}"></div>
                                     </div>
-                                    <div itemvalue="4" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 -36px;" title="${conditionformat_text.colorGradation_5}"></div>
+                                    <div itemvalue="4" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 -36px;" title="${conditionformat_text.colorGradation_5}"></div>
                                     </div>
-                                    <div itemvalue="5" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px -36px;" title="${conditionformat_text.colorGradation_6}"></div>
+                                    <div itemvalue="5" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px -36px;" title="${conditionformat_text.colorGradation_6}"></div>
                                     </div>
-                                    <div itemvalue="6" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px -36px;" title="${conditionformat_text.colorGradation_7}"></div>
+                                    <div itemvalue="6" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px -36px;" title="${conditionformat_text.colorGradation_7}"></div>
                                     </div>
-                                    <div itemvalue="7" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -114px -36px;" title="${conditionformat_text.colorGradation_8}"></div>
+                                    <div itemvalue="7" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -114px -36px;" title="${conditionformat_text.colorGradation_8}"></div>
                                     </div>
-                                    <div itemvalue="8" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: 0 -72px;" title="${conditionformat_text.colorGradation_9}"></div>
+                                    <div itemvalue="8" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: 0 -72px;" title="${conditionformat_text.colorGradation_9}"></div>
                                     </div>
-                                    <div itemvalue="9" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -38px -72px;" title="${conditionformat_text.colorGradation_10}"></div>
+                                    <div itemvalue="9" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -38px -72px;" title="${conditionformat_text.colorGradation_10}"></div>
                                     </div>
-                                    <div itemvalue="10" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -76px -72px;" title="${conditionformat_text.colorGradation_11}"></div>
+                                    <div itemvalue="10" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -76px -72px;" title="${conditionformat_text.colorGradation_11}"></div>
                                     </div>
-                                    <div itemvalue="11" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
-                                        <div class="luckysheet-mousedown-cancel bgImgBox" style="background-position: -114px -72px;" title="${conditionformat_text.colorGradation_12}"></div>
+                                    <div itemvalue="11" class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" style="width: 28px; height: 26px;padding: 5px;float: left;">
+                                        <div class="tibetsheets-mousedown-cancel bgImgBox" style="background-position: -114px -72px;" title="${conditionformat_text.colorGradation_12}"></div>
                                     </div>
                                 </div>`;
 
@@ -2452,21 +2452,21 @@ const menuButton = {
                     { "text": conditionformat_text.deleteSheetRule, "value": "delSheet", "example": "" }
                 ];
                 let subitemset6 = _this.createButtonMenu(subitemdata6);
-                let submenu6 = replaceHtml(_this.menu, {"id": "deleteRule", "item": subitemset6, "subclass":"luckysheet-menuButton-sub"});
+                let submenu6 = replaceHtml(_this.menu, {"id": "deleteRule", "item": subitemset6, "subclass":"tibetsheets-menuButton-sub"});
 
                 $("body").first().append(menu + submenu + submenu2 + submenu3 + submenu4 + submenu6);
                 $menuButton = $("#" + menuButtonId).width(190);
-                $("#luckysheet-icon-highlightCellRule-menuButton").width(160);
-                $("#luckysheet-icon-projectSelectRule-menuButton").width(180);
+                $("#tibetsheets-icon-highlightCellRule-menuButton").width(160);
+                $("#tibetsheets-icon-projectSelectRule-menuButton").width(180);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
                     if(itemvalue == "icons"){
-                        if(Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(conditionformat_text.pleaseSelectRange);
                             }
@@ -2480,7 +2480,7 @@ const menuButton = {
                         conditionformat.init();
                     }
                     else if(itemvalue == "newRule"){
-                        if(Store.luckysheet_select_save.length == 0){
+                        if(Store.tibetsheets_select_save.length == 0){
                             if(isEditMode()){
                                 alert(conditionformat_text.pleaseSelectRange);
                             }
@@ -2495,7 +2495,7 @@ const menuButton = {
                     }
                     else if(itemvalue == "administerRule"){
                         let loadSheetUrl = server.loadSheetUrl;
-                        let file = getluckysheetfile();
+                        let file = gettibetsheetsfile();
 
                         if(loadSheetUrl != "" && loadSheetUrl != null){
                             let sheetindex = [];
@@ -2521,7 +2521,7 @@ const menuButton = {
                                     otherfile["data"] = sheetmanage.buildGridData(otherfile);
                                 }
 
-                                setluckysheetfile(file);
+                                settibetsheetsfile(file);
 
                                 conditionformat.fileClone =  $.extend(true, [], file);
                                 conditionformat.administerRuleDialog();
@@ -2537,14 +2537,14 @@ const menuButton = {
                 });
 
                 //突出显示单元格规则子菜单点击事件
-                $(document).off("click.CFhighlightCellRule").on("click.CFhighlightCellRule", "#luckysheet-icon-highlightCellRule-menuButton .luckysheet-cols-menuitem", function(){
+                $(document).off("click.CFhighlightCellRule").on("click.CFhighlightCellRule", "#tibetsheets-icon-highlightCellRule-menuButton .tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-highlightCellRule-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-highlightCellRule-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
-                    if(Store.luckysheet_select_save.length == 0){
+                    if(Store.tibetsheets_select_save.length == 0){
                         if(isEditMode()){
                             alert(conditionformat_text.pleaseSelectRange);
                         }
@@ -2655,14 +2655,14 @@ const menuButton = {
                 });
 
                 //项目选取规则子菜单点击事件
-                $(document).off("click.CFprojectSelectRule").on("click.CFprojectSelectRule", "#luckysheet-icon-projectSelectRule-menuButton .luckysheet-cols-menuitem", function(){
+                $(document).off("click.CFprojectSelectRule").on("click.CFprojectSelectRule", "#tibetsheets-icon-projectSelectRule-menuButton .tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-projectSelectRule-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-projectSelectRule-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
-                    if(Store.luckysheet_select_save.length == 0){
+                    if(Store.tibetsheets_select_save.length == 0){
                         if(isEditMode()){
                             alert(conditionformat_text.pleaseSelectRange);
                         }
@@ -2759,15 +2759,15 @@ const menuButton = {
                 });
 
                 //数据条子菜单点击事件
-                $(document).off("click.CFdataBar").on("click.CFdataBar", "#luckysheet-icon-dataBar-menuButton .luckysheet-cols-menuitem", function(){
+                $(document).off("click.CFdataBar").on("click.CFdataBar", "#tibetsheets-icon-dataBar-menuButton .tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-dataBar-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-dataBar-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
-                    if(Store.luckysheet_select_save.length > 0){
-                        let cellrange = $.extend(true, [], Store.luckysheet_select_save);
+                    if(Store.tibetsheets_select_save.length > 0){
+                        let cellrange = $.extend(true, [], Store.tibetsheets_select_save);
                         let format = conditionformat.dataBarList[itemvalue]["format"];
 
                         conditionformat.updateItem("dataBar", cellrange, format);
@@ -2775,15 +2775,15 @@ const menuButton = {
                 });
 
                 //色阶子菜单点击事件
-                $(document).off("click.CFcolorGradation").on("click.CFcolorGradation", "#luckysheet-icon-colorGradation-menuButton .luckysheet-cols-menuitem", function(){
+                $(document).off("click.CFcolorGradation").on("click.CFcolorGradation", "#tibetsheets-icon-colorGradation-menuButton .tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-colorGradation-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-colorGradation-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
-                    if(Store.luckysheet_select_save.length > 0){
-                        let cellrange = $.extend(true, [], Store.luckysheet_select_save);
+                    if(Store.tibetsheets_select_save.length > 0){
+                        let cellrange = $.extend(true, [], Store.tibetsheets_select_save);
                         let format = conditionformat.colorGradationList[itemvalue]["format"];
 
                         conditionformat.updateItem("colorGradation", cellrange, format);
@@ -2791,10 +2791,10 @@ const menuButton = {
                 });
 
                 //清除规则子菜单点击事件
-                $(document).off("click.CFdeleteRule").on("click.CFdeleteRule", "#luckysheet-icon-deleteRule-menuButton .luckysheet-cols-menuitem", function(){
+                $(document).off("click.CFdeleteRule").on("click.CFdeleteRule", "#tibetsheets-icon-deleteRule-menuButton .tibetsheets-cols-menuitem", function(){
                     $menuButton.hide();
-                    $("#luckysheet-icon-deleteRule-menuButton").hide();
-                    luckysheetContainerFocus();
+                    $("#tibetsheets-icon-deleteRule-menuButton").hide();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
@@ -2815,7 +2815,7 @@ const menuButton = {
         });
 
         //批注
-        $("#luckysheet-icon-postil").click(function(){
+        $("#tibetsheets-icon-postil").click(function(){
             let menuButtonId = $(this).attr("id")+"-menuButton";
             let $menuButton = $("#" + menuButtonId);
             
@@ -2824,9 +2824,9 @@ const menuButton = {
             $menuButton.remove();
 
             // if($menuButton.length == 0){
-                luckysheetPostil.removeActivePs();
+                tibetsheetsPostil.removeActivePs();
 
-                let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+                let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
                 
                 let row_index = last["row_focus"];
                 if(row_index == null){
@@ -2862,26 +2862,26 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#"+menuButtonId).width(150);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
                     
                     if(itemvalue == "newPs"){
-                        luckysheetPostil.newPs(row_index, col_index);
+                        tibetsheetsPostil.newPs(row_index, col_index);
                     }
                     else if(itemvalue == "editPs"){
-                        luckysheetPostil.editPs(row_index, col_index);
+                        tibetsheetsPostil.editPs(row_index, col_index);
                     }
                     else if(itemvalue == "delPs"){
-                        luckysheetPostil.delPs(row_index, col_index);
+                        tibetsheetsPostil.delPs(row_index, col_index);
                     }
                     else if(itemvalue == "showHidePs"){
-                        luckysheetPostil.showHidePs(row_index, col_index);
+                        tibetsheetsPostil.showHidePs(row_index, col_index);
                     }
                     else if(itemvalue == "showHideAllPs"){
-                        luckysheetPostil.showHideAllPs();
+                        tibetsheetsPostil.showHideAllPs();
                     }
                 });
             // }
@@ -2897,24 +2897,24 @@ const menuButton = {
         });
         
         //sheet protection
-        $("#luckysheet-icon-protection").click(function(){
+        $("#tibetsheets-icon-protection").click(function(){
             let sheetFile = sheetmanage.getSheetByIndex();
             openProtectionModal(sheetFile);
         });
 
         //print
-        $("#luckysheet-icon-print").click(function(){
+        $("#tibetsheets-icon-print").click(function(){
             let menuButtonId = $(this).attr("id") + "-menuButton";
             let $menuButton = $("#" + menuButtonId);
             const _locale = locale();
             const locale_print = _locale.print;
             if($menuButton.length == 0){
                 let itemdata = [
-                    {"text": locale_print.menuItemPrint, "value": "print", "example": '<i class="iconfont luckysheet-iconfont-dayin" aria-hidden="true"></i>'},
+                    {"text": locale_print.menuItemPrint, "value": "print", "example": '<i class="iconfont tibetsheets-iconfont-dayin" aria-hidden="true"></i>'},
                     {"text": "", "value": "split", "example": ""},
-                    {"text": locale_print.menuItemAreas, "value": "areas", "example": '<i class="iconfont luckysheet-iconfont-tihuan" aria-hidden="true"></i>'},
-                    {"text": locale_print.menuItemRows, "value": "rows", "example": '<i class="iconfont luckysheet-iconfont-zhuandao1" aria-hidden="true"></i>'},
-                    {"text": locale_print.menuItemColumns, "value": "columns", "example": '<i class="iconfont luckysheet-iconfont-dingwei" aria-hidden="true"></i>'},
+                    {"text": locale_print.menuItemAreas, "value": "areas", "example": '<i class="iconfont tibetsheets-iconfont-tihuan" aria-hidden="true"></i>'},
+                    {"text": locale_print.menuItemRows, "value": "rows", "example": '<i class="iconfont tibetsheets-iconfont-zhuandao1" aria-hidden="true"></i>'},
+                    {"text": locale_print.menuItemColumns, "value": "columns", "example": '<i class="iconfont tibetsheets-iconfont-dingwei" aria-hidden="true"></i>'},
                 ];
 
                 let itemset = _this.createButtonMenu(itemdata);
@@ -2924,9 +2924,9 @@ const menuButton = {
                 $("body").first().append(menu);
                 $menuButton = $("#" + menuButtonId).width(180);
 
-                $menuButton.find(".luckysheet-cols-menuitem").click(function(){
+                $menuButton.find(".tibetsheets-cols-menuitem").click(function(){
                     $menuButton.hide();
-                    luckysheetContainerFocus();
+                    tibetsheetsContainerFocus();
 
                     let $t = $(this), itemvalue = $t.attr("itemvalue");
 
@@ -2949,9 +2949,9 @@ const menuButton = {
             mouseclickposition($menuButton, menuleft, $(this).offset().top + 25, "lefttop");
         });
         
-        $("body").first().on("mouseover mouseleave",".luckysheet-menuButton .luckysheet-cols-submenu", function(e){
+        $("body").first().on("mouseover mouseleave",".tibetsheets-menuButton .tibetsheets-cols-submenu", function(e){
             let $t = $(this), attrid = $t.attr("itemvalue"), 
-                $attr = $("#luckysheet-icon-" + attrid + "-menuButton");
+                $attr = $("#tibetsheets-icon-" + attrid + "-menuButton");
             
             if (e.type === "mouseover") {
                 let $con = $t.parent();
@@ -2974,13 +2974,13 @@ const menuButton = {
                 clearTimeout(_this.submenuhide[$attr.attr('id')]);
                 _this.submenuhide[$attr.attr('id')] = setTimeout(function () { $attr.hide(); }, 200);
             }
-        }).on("mouseover mouseleave",".luckysheet-menuButton-sub", function(e){
+        }).on("mouseover mouseleave",".tibetsheets-menuButton-sub", function(e){
             if (e.type === "mouseover") {
-                _this.rightclickmenu.addClass("luckysheet-cols-menuitem-hover");
+                _this.rightclickmenu.addClass("tibetsheets-cols-menuitem-hover");
                 clearTimeout(_this.submenuhide[$(this).attr('id')]);
             } 
             else {
-                _this.rightclickmenu.removeClass("luckysheet-cols-menuitem-hover");
+                _this.rightclickmenu.removeClass("tibetsheets-cols-menuitem-hover");
                 $(this).hide();
             }
         });
@@ -3205,11 +3205,11 @@ const menuButton = {
         let canvas = canvasElement.getContext("2d");
 
         if(attr in inlineStyleAffectAttribute ){
-            if (parseInt($("#luckysheet-input-box").css("top")) > 0 ) {
-                let value = $("#luckysheet-input-box").text();
+            if (parseInt($("#tibetsheets-input-box").css("top")) > 0 ) {
+                let value = $("#tibetsheets-input-box").text();
                 if(value.substr(0,1)!="="){
-                    let cell = d[Store.luckysheetCellUpdate[0]][Store.luckysheetCellUpdate[1]];
-                    updateInlineStringFormat(cell, attr, foucsStatus, luckysheetformula.rangeResizeTo);
+                    let cell = d[Store.tibetsheetsCellUpdate[0]][Store.tibetsheetsCellUpdate[1]];
+                    updateInlineStringFormat(cell, attr, foucsStatus, tibetsheetsformula.rangeResizeTo);
                     // return;
                 }
             }
@@ -3220,11 +3220,11 @@ const menuButton = {
             cfg["rowlen"] = {};
         }
 
-        for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-            let row_st = Store.luckysheet_select_save[s]["row"][0], 
-                row_ed = Store.luckysheet_select_save[s]["row"][1];
-            let col_st = Store.luckysheet_select_save[s]["column"][0], 
-                col_ed = Store.luckysheet_select_save[s]["column"][1];
+        for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+            let row_st = Store.tibetsheets_select_save[s]["row"][0], 
+                row_ed = Store.tibetsheets_select_save[s]["row"][1];
+            let col_st = Store.tibetsheets_select_save[s]["column"][0], 
+                col_ed = Store.tibetsheets_select_save[s]["column"][1];
 
             this.updateFormatCell(d, attr, foucsStatus, row_st, row_ed, col_st, col_ed);
 
@@ -3241,7 +3241,7 @@ const menuButton = {
             }
         }
 
-        jfrefreshgrid(d, Store.luckysheet_select_save, allParam, false);
+        jfrefreshgrid(d, Store.tibetsheets_select_save, allParam, false);
     },
     updateFormat_mc: function(d, foucsStatus){
         // *如果禁止前台编辑，则中止下一步操作
@@ -3259,8 +3259,8 @@ const menuButton = {
         }
 
         if(foucsStatus == "mergeCancel"){
-            for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                let range = Store.luckysheet_select_save[i];
+            for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                let range = Store.tibetsheets_select_save[i];
                 let r1 = range["row"][0], r2 = range["row"][1];
                 let c1 = range["column"][0], c2 = range["column"][1];
 
@@ -3303,8 +3303,8 @@ const menuButton = {
         else{
             let isHasMc = false; //选区是否含有 合并的单元格
 
-            for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                let range = Store.luckysheet_select_save[i];
+            for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                let range = Store.tibetsheets_select_save[i];
                 let r1 = range["row"][0], r2 = range["row"][1];
                 let c1 = range["column"][0], c2 = range["column"][1];
 
@@ -3321,8 +3321,8 @@ const menuButton = {
             }
 
             if(isHasMc){//选区有合并单元格（选区都执行 取消合并）
-                for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                    let range = Store.luckysheet_select_save[i];
+                for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                    let range = Store.tibetsheets_select_save[i];
                     let r1 = range["row"][0], r2 = range["row"][1];
                     let c1 = range["column"][0], c2 = range["column"][1];
 
@@ -3363,8 +3363,8 @@ const menuButton = {
                 }
             }
             else{
-                for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                    let range = Store.luckysheet_select_save[i];
+                for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                    let range = Store.tibetsheets_select_save[i];
                     let r1 = range["row"][0], r2 = range["row"][1];
                     let c1 = range["column"][0], c2 = range["column"][1];
 
@@ -3446,14 +3446,14 @@ const menuButton = {
                 "sheetIndex": Store.currentSheetIndex,
                 "data": Store.flowdata,
                 "curData": d,
-                "range": $.extend(true, [], Store.luckysheet_select_save),
+                "range": $.extend(true, [], Store.tibetsheets_select_save),
                 "config": $.extend(true, {}, Store.config),
                 "curConfig": cfg
             });
         }
 
         Store.clearjfundo = false;
-        jfrefreshgrid(d, Store.luckysheet_select_save, {"cfg": cfg});
+        jfrefreshgrid(d, Store.tibetsheets_select_save, {"cfg": cfg});
         Store.clearjfundo = true;
     },
     borderfix: function(d, r, c){
@@ -3483,38 +3483,38 @@ const menuButton = {
 
         if(attr == "bl"){
             if(foucsStatus != "0"){
-                $("#luckysheet-icon-bold").addClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-bold").addClass("tibetsheets-toolbar-button-hover");
             }
             else{
-                $("#luckysheet-icon-bold").removeClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-bold").removeClass("tibetsheets-toolbar-button-hover");
             }
         }
         else if(attr == "it"){
             if(foucsStatus != "0"){
-                $("#luckysheet-icon-italic").addClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-italic").addClass("tibetsheets-toolbar-button-hover");
             }
             else{
-                $("#luckysheet-icon-italic").removeClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-italic").removeClass("tibetsheets-toolbar-button-hover");
             }
         }
         else if(attr == "cl"){
             if(foucsStatus != "0"){
-                $("#luckysheet-icon-strikethrough").addClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-strikethrough").addClass("tibetsheets-toolbar-button-hover");
             }
             else{
-                $("#luckysheet-icon-strikethrough").removeClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-strikethrough").removeClass("tibetsheets-toolbar-button-hover");
             }
         }
         else if(attr == "un"){
             if(foucsStatus != "0"){
-                $("#luckysheet-icon-underline").addClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-underline").addClass("tibetsheets-toolbar-button-hover");
             }
             else{
-                $("#luckysheet-icon-underline").removeClass("luckysheet-toolbar-button-hover");
+                $("#tibetsheets-icon-underline").removeClass("tibetsheets-toolbar-button-hover");
             }
         }
         else if(attr == "ff"){
-            let menuButtonId = "luckysheet-icon-font-family-menuButton";
+            let menuButtonId = "tibetsheets-icon-font-family-menuButton";
             let $menuButton = $("#" + menuButtonId);
             // const locale_fontarray = locale().fontarray;
             let itemname = locale_fontarray[0], itemvalue = 0;
@@ -3541,18 +3541,18 @@ const menuButton = {
             }
 
             _this.focus($menuButton, itemvalue);
-            $("#luckysheet-icon-font-family").find(".luckysheet-toolbar-menu-button-caption").html(" "+ itemname +" ");
+            $("#tibetsheets-icon-font-family").find(".tibetsheets-toolbar-menu-button-caption").html(" "+ itemname +" ");
         }
         else if(attr == "fs"){
-            let $menuButton = $("#luckysheet-icon-font-size-menuButton");
-            let itemvalue = foucsStatus, $input = $("#luckysheet-icon-font-size input");
+            let $menuButton = $("#tibetsheets-icon-font-size-menuButton");
+            let itemvalue = foucsStatus, $input = $("#tibetsheets-icon-font-size input");
             _this.focus($menuButton, itemvalue);
-            $("#luckysheet-icon-font-size").attr("itemvalue", itemvalue);
+            $("#tibetsheets-icon-font-size").attr("itemvalue", itemvalue);
             $input.val(itemvalue);
         }
         else if(attr == "ht"){
-            let $menuButton = $("#luckysheet-icon-align-menu-menuButton");
-            let $t = $("luckysheet-icon-align"), itemvalue = "left";
+            let $menuButton = $("#tibetsheets-icon-align-menu-menuButton");
+            let $t = $("tibetsheets-icon-align"), itemvalue = "left";
             
             if(foucsStatus == "0"){
                 itemvalue = "center";
@@ -3566,13 +3566,13 @@ const menuButton = {
             // add iconfont
             const iconfontObject = iconfontObjects.align;
 
-            let $icon = $("#luckysheet-icon-align").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-align-" + itemvalue + iconfontObject[itemvalue]);
+            let $icon = $("#tibetsheets-icon-align").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
+            $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-align-" + itemvalue + iconfontObject[itemvalue]);
             $menuButton.hide();
         }
         else if(attr == "vt"){
-            let $menuButton = $("#luckysheet-icon-valign-menu-menuButton");
-            let $t = $("luckysheet-icon-valign"), itemvalue = "bottom";
+            let $menuButton = $("#tibetsheets-icon-valign-menu-menuButton");
+            let $t = $("tibetsheets-icon-valign"), itemvalue = "bottom";
             
             if(foucsStatus == "1"){
                 itemvalue = "top";
@@ -3586,13 +3586,13 @@ const menuButton = {
             // add iconfont
             const iconfontObject = iconfontObjects.align;
 
-            let $icon = $("#luckysheet-icon-valign").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-valign-" + itemvalue+ iconfontObject[itemvalue]);
+            let $icon = $("#tibetsheets-icon-valign").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
+            $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-valign-" + itemvalue+ iconfontObject[itemvalue]);
             $menuButton.hide();
         }
         else if(attr == "tb"){
-            let $menuButton = $("#luckysheet-icon-textwrap-menu-menuButton");
-            let $t = $("luckysheet-icon-textwrap"), itemvalue = "clip";
+            let $menuButton = $("#tibetsheets-icon-textwrap-menu-menuButton");
+            let $t = $("tibetsheets-icon-textwrap"), itemvalue = "clip";
             
             if(foucsStatus == "1"){
                 itemvalue = "overflow";
@@ -3606,13 +3606,13 @@ const menuButton = {
             // add iconfont
             const iconfontObject = iconfontObjects.textWrap;
 
-            let $icon = $("#luckysheet-icon-textwrap").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
+            let $icon = $("#tibetsheets-icon-textwrap").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
+            $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-textwrap-" + itemvalue + iconfontObject[itemvalue]);
             $menuButton.hide();
         }
         else if(attr == "tr"){
-            let $menuButton = $("#luckysheet-icon-rotation-menu-menuButton");
-            let $t = $("luckysheet-icon-rotation"), itemvalue = "none";
+            let $menuButton = $("#tibetsheets-icon-rotation-menu-menuButton");
+            let $t = $("tibetsheets-icon-rotation"), itemvalue = "none";
             
             if(foucsStatus == "1"){
                 itemvalue = "angleup";
@@ -3635,25 +3635,25 @@ const menuButton = {
             // add iconfont
             const iconfontObject = iconfontObjects.rotation;
 
-            let $icon = $("#luckysheet-icon-rotation").attr("type", itemvalue).find(".luckysheet-icon-img-container");
-            $icon.removeAttr("class").addClass("luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-" + itemvalue + iconfontObject[itemvalue]);
+            let $icon = $("#tibetsheets-icon-rotation").attr("type", itemvalue).find(".tibetsheets-icon-img-container");
+            $icon.removeAttr("class").addClass("tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-rotation-" + itemvalue + iconfontObject[itemvalue]);
             $menuButton.hide();
         }
         else if(attr == "ct") {
-            let $menuButton = $("#luckysheet-icon-fmt-other");
+            let $menuButton = $("#tibetsheets-icon-fmt-other");
             const _locale = locale();
             const locale_defaultFmt = _locale.defaultFmt;
             if(!foucsStatus) {
-                $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" "+ locale_defaultFmt[0].text +" ");
+                $menuButton.find(".tibetsheets-toolbar-menu-button-caption").html(" "+ locale_defaultFmt[0].text +" ");
                 return;
             }
             const {fa} = foucsStatus;
             const format = locale_defaultFmt.find(f => f.value === fa);
             if(format) {
-                $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" "+ format.text +" ");
+                $menuButton.find(".tibetsheets-toolbar-menu-button-caption").html(" "+ format.text +" ");
             } else {
                 const otherFormat = locale_defaultFmt.find(f => f.value === "fmtOtherSelf");
-                $menuButton.find(".luckysheet-toolbar-menu-button-caption").html(" "+ otherFormat.text +" ");
+                $menuButton.find(".tibetsheets-toolbar-menu-button-caption").html(" "+ otherFormat.text +" ");
             }
         }
     },
@@ -4056,7 +4056,7 @@ const menuButton = {
             }
         }
         else{
-            let config = getluckysheetfile()[getSheetIndex(Store.currentSheetIndex)]["config"];
+            let config = gettibetsheetsfile()[getSheetIndex(Store.currentSheetIndex)]["config"];
             
             if (config["columnlen"] != null && config["columnlen"][cell_c] != null) {
                 width = config["columnlen"][cell_c];
@@ -4080,11 +4080,11 @@ const menuButton = {
             return _this.getTextHeightCache[f];
         }
 
-        if($("#luckysheetTextSizeTest").length == 0){
-            $('<span id="luckysheetTextSizeTest" style="float:left;white-space:nowrap;visibility:hidden;margin:0;padding:0;">' + text + '</span>').appendTo($('body'));
+        if($("#tibetsheetsTextSizeTest").length == 0){
+            $('<span id="tibetsheetsTextSizeTest" style="float:left;white-space:nowrap;visibility:hidden;margin:0;padding:0;">' + text + '</span>').appendTo($('body'));
         }
 
-        let o = $("#luckysheetTextSizeTest").text(text).css({'font': f}),
+        let o = $("#tibetsheetsTextSizeTest").text(text).css({'font': f}),
             w = o.innerWidth(), 
             h = o.innerHeight();
 
@@ -4099,16 +4099,16 @@ const menuButton = {
             isnull = false;
         }
 
-        luckysheetupdateCell(row_index, col_index, Store.flowdata, true);
+        tibetsheetsupdateCell(row_index, col_index, Store.flowdata, true);
 
         if(isnull){
-            let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
+            let formulaTxt = '<span dir="auto" class="tibetsheets-formula-text-color">=</span><span dir="auto" class="tibetsheets-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="tibetsheets-formula-text-color">(</span><span dir="auto" class="tibetsheets-formula-text-color">)</span>';
 
-            $("#luckysheet-rich-text-editor").html(formulaTxt);
+            $("#tibetsheets-rich-text-editor").html(formulaTxt);
 
             let currSelection = window.getSelection();
-            let $span = $("#luckysheet-rich-text-editor").find("span");
-            luckysheetformula.setCaretPosition($span.get($span.length-2), 0, 1);
+            let $span = $("#tibetsheets-rich-text-editor").find("span");
+            tibetsheetsformula.setCaretPosition($span.get($span.length-2), 0, 1);
 
             return;
         }
@@ -4118,16 +4118,16 @@ const menuButton = {
             col_pre = colLocationByIndex(columnh[0])[0], 
             col = colLocationByIndex(columnh[1])[1];
 
-        let formulaTxt = '<span dir="auto" class="luckysheet-formula-text-color">=</span><span dir="auto" class="luckysheet-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="luckysheet-formula-text-color">(</span><span class="luckysheet-formula-functionrange-cell" rangeindex="0" dir="auto" style="color:'+ luckyColor[0] +';">'+ getRangetxt(Store.currentSheetIndex, {"row":rowh, "column":columnh }, Store.currentSheetIndex) +'</span><span dir="auto" class="luckysheet-formula-text-color">)</span>';
-        $("#luckysheet-rich-text-editor").html(formulaTxt);
+        let formulaTxt = '<span dir="auto" class="tibetsheets-formula-text-color">=</span><span dir="auto" class="tibetsheets-formula-text-color">'+ formula.toUpperCase() +'</span><span dir="auto" class="tibetsheets-formula-text-color">(</span><span class="tibetsheets-formula-functionrange-cell" rangeindex="0" dir="auto" style="color:'+ luckyColor[0] +';">'+ getRangetxt(Store.currentSheetIndex, {"row":rowh, "column":columnh }, Store.currentSheetIndex) +'</span><span dir="auto" class="tibetsheets-formula-text-color">)</span>';
+        $("#tibetsheets-rich-text-editor").html(formulaTxt);
 
-        luckysheetformula.israngeseleciton();
-        luckysheetformula.rangestart = true;
-        luckysheetformula.rangedrag_column_start = false;
-        luckysheetformula.rangedrag_row_start = false;
-        luckysheetformula.rangechangeindex = 0;
-        luckysheetformula.rangeSetValue({ "row": rowh, "column": columnh });
-        luckysheetformula.func_selectedrange = { 
+        tibetsheetsformula.israngeseleciton();
+        tibetsheetsformula.rangestart = true;
+        tibetsheetsformula.rangedrag_column_start = false;
+        tibetsheetsformula.rangedrag_row_start = false;
+        tibetsheetsformula.rangechangeindex = 0;
+        tibetsheetsformula.rangeSetValue({ "row": rowh, "column": columnh });
+        tibetsheetsformula.func_selectedrange = { 
             "left": col_pre, 
             "width": col - col_pre - 1, 
             "top": row_pre, 
@@ -4140,18 +4140,18 @@ const menuButton = {
             "column": [col_index, col_index] 
         };
         
-        $("#luckysheet-formula-functionrange-select").css({ "left": col_pre, "width": col - col_pre - 1, "top": row_pre, "height": row - row_pre - 1 }).show();
+        $("#tibetsheets-formula-functionrange-select").css({ "left": col_pre, "width": col - col_pre - 1, "top": row_pre, "height": row - row_pre - 1 }).show();
 
-        $("#luckysheet-formula-help-c").hide();
+        $("#tibetsheets-formula-help-c").hide();
     },
     backFormulaInput: function(d, r, c, rowh, columnh, formula){
         let _this = this;
 
         let f = '='+ formula.toUpperCase() +'('+ getRangetxt(Store.currentSheetIndex, {"row":rowh, "column":columnh }, Store.currentSheetIndex) +')';
-        let v = luckysheetformula.execfunction(f, r, c);
+        let v = tibetsheetsformula.execfunction(f, r, c);
         let value = { "v": v[1], "f": v[2] };
         setcellvalue(r, c, d, value);
-        luckysheetformula.execFunctionExist.push({ "r": r, "c": c, "i": Store.currentSheetIndex });
+        tibetsheetsformula.execFunctionExist.push({ "r": r, "c": c, "i": Store.currentSheetIndex });
 
         server.historyParam(d, Store.currentSheetIndex, {"row": [r, r], "column": [c, c]});
     },
@@ -4370,7 +4370,7 @@ const menuButton = {
         let d = editor.deepCopyFlowData(Store.flowdata);
         let nullfindnum = 40;
         let isfalse = true;
-        luckysheetformula.execFunctionExist = [];
+        tibetsheetsformula.execFunctionExist = [];
 
         let execFormulaInput_c = function(d, st_r, ed_r, st_c, ed_c, formula){
             let st_c_c = _this.getNoNullValue(d, st_r, ed_c, "c");
@@ -4394,13 +4394,13 @@ const menuButton = {
             }
         }
 
-        for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-            let st_r = Store.luckysheet_select_save[s].row[0], 
-                ed_r = Store.luckysheet_select_save[s].row[1];
-            let st_c = Store.luckysheet_select_save[s].column[0], 
-                ed_c = Store.luckysheet_select_save[s].column[1];
-            let row_index = Store.luckysheet_select_save[s].row_focus, 
-                col_index = Store.luckysheet_select_save[s].column_focus;
+        for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+            let st_r = Store.tibetsheets_select_save[s].row[0], 
+                ed_r = Store.tibetsheets_select_save[s].row[1];
+            let st_c = Store.tibetsheets_select_save[s].column[0], 
+                ed_c = Store.tibetsheets_select_save[s].column[1];
+            let row_index = Store.tibetsheets_select_save[s].row_focus, 
+                col_index = Store.tibetsheets_select_save[s].column_focus;
 
             if(st_r == ed_r && st_c == ed_c){
                 if(ed_r - 1 < 0 && ed_c - 1 < 0){
@@ -4442,9 +4442,9 @@ const menuButton = {
         }
 
         if(!isfalse){
-            luckysheetformula.execFunctionExist.reverse();
-            luckysheetformula.execFunctionGroup(null, null, null, null, d);
-            jfrefreshgrid(d, Store.luckysheet_select_save);
+            tibetsheetsformula.execFunctionExist.reverse();
+            tibetsheetsformula.execFunctionGroup(null, null, null, null, d);
+            jfrefreshgrid(d, Store.tibetsheets_select_save);
 
             clearTimeout(Store.jfcountfuncTimeout);
             Store.jfcountfuncTimeout = setTimeout(function () { countfunc() }, 500);
@@ -4588,11 +4588,11 @@ const menuButton = {
             ret.value = fontName;
             ret.index = this.fontSelectList.length;
             ret.type = "userDefined";
-            ret.text = "<span class='luckysheet-mousedown-cancel' style='font-size:11px;font-family:"+fontName+"'>"+fontName+"</span>";
+            ret.text = "<span class='tibetsheets-mousedown-cancel' style='font-size:11px;font-family:"+fontName+"'>"+fontName+"</span>";
             ret.example = "";
             this.fontSelectList.push(ret);
 
-            let $menuButton = $("#luckysheet-icon-font-family-menuButton");
+            let $menuButton = $("#tibetsheets-icon-font-family-menuButton");
             let itemset = this.createButtonMenu(this.fontSelectList);
             $menuButton.html(itemset);
         }
@@ -4606,7 +4606,7 @@ const menuButton = {
             ret.value = fItem;
             ret.index = a;
             ret.type = "inner";
-            ret.text = "<span class='luckysheet-mousedown-cancel' style='font-size:11px;font-family:"+fItem+"'>"+fItem+"</span>";
+            ret.text = "<span class='tibetsheets-mousedown-cancel' style='font-size:11px;font-family:"+fItem+"'>"+fItem+"</span>";
             ret.example = "";
             itemdata.push(ret);
         }
@@ -4618,7 +4618,7 @@ const menuButton = {
                 ret.value = fItem.fontName;
                 ret.index = a;
                 ret.type = "userDefined";
-                ret.text = "<span class='luckysheet-mousedown-cancel' style='font-size:11px;font-family:"+fItem.fontName+"'>"+fItem.fontName+"</span>";
+                ret.text = "<span class='tibetsheets-mousedown-cancel' style='font-size:11px;font-family:"+fItem.fontName+"'>"+fItem.fontName+"</span>";
                 ret.example = "";
                 itemdata.push(ret);
 

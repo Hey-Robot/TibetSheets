@@ -2,11 +2,11 @@
 npm run build
 cd dist
 git init
-git remote add origin https://github.com/mengshukeji/LuckysheetDemo.git
+git remote add origin https://github.com/mengshukeji/TibetsheetsDemo.git
 git config --local user.email "1414556676@qq.com"
 git config --local user.name "Dushusir"
 git add .
-git commit -m 'deploy Luckysheet demo'
+git commit -m 'deploy Tibetsheets demo'
 git push -f origin master:gh-pages
 
 # ===============================================
@@ -15,9 +15,9 @@ git push -f origin master:gh-pages
 npm run docs:build
 cd docs/.vuepress/dist
 git init
-git remote add origin https://github.com/mengshukeji/LuckysheetDocs.git
+git remote add origin https://github.com/mengshukeji/TibetsheetsDocs.git
 git add .
-git commit -m 'deploy Luckysheet docs'
+git commit -m 'deploy Tibetsheets docs'
 git push -f origin master:gh-pages
 
 # ===============================================
@@ -77,7 +77,7 @@ git branch -d dev
 ## 2. git clone 到本地
 
 ## 3. 上游建立连接
-git remote add upstream https://github.com/mengshukeji/Luckysheet.git
+git remote add upstream https://github.com/mengshukeji/Tibetsheets.git
 
 ## 4. 创建开发分支
 git checkout -b dev

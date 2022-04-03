@@ -1,14 +1,14 @@
-import { replaceHtml, getObjType, chatatABC, ABCatNum, luckysheetfontformat } from '../utils/util';
-import { getSheetIndex, getRangetxt, getluckysheetfile } from '../methods/get';
-import { setluckysheetfile } from '../methods/set';
+import { replaceHtml, getObjType, chatatABC, ABCatNum, tibetsheetsfontformat } from '../utils/util';
+import { getSheetIndex, getRangetxt, gettibetsheetsfile } from '../methods/get';
+import { settibetsheetsfile } from '../methods/set';
 import { luckyColor } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
 import menuButton from '../controllers/menuButton';
 import server from '../controllers/server';
-import luckysheetFreezen from '../controllers/freezen';
+import tibetsheetsFreezen from '../controllers/freezen';
 import { checkProtectionLocked, checkProtectionCellHidden } from '../controllers/protection';
 import dataVerificationCtrl from '../controllers/dataVerificationCtrl';
-import { seletedHighlistByindex, luckysheet_count_show } from '../controllers/select';
+import { seletedHighlistByindex, tibetsheets_count_show } from '../controllers/select';
 import { isRealNum, isRealNull, valueIsError, isEditMode } from './validate';
 import { isdatetime, isdatatype } from './datecontroll';
 import { getCellTextSplitArr, getCellTextInfo } from '../global/getRowlen';
@@ -18,18 +18,18 @@ import { genarate, valueShowEs } from './format';
 import editor from './editor';
 import tooltip from './tooltip';
 import { rowLocation, colLocation, colLocationByIndex, mouseposition } from './location';
-import { luckysheetRangeLast } from './cursorPos';
+import { tibetsheetsRangeLast } from './cursorPos';
 import { jfrefreshgrid } from './refresh';
 import { isInlineStringCell, convertSpanToShareString } from '../controllers/inlineString';
-// import luckysheet_function from '../function/luckysheet_function';
+// import tibetsheets_function from '../function/tibetsheets_function';
 // import functionlist from '../function/functionlist';
-import { luckysheet_compareWith, luckysheet_getarraydata, luckysheet_getcelldata, luckysheet_parseData, luckysheet_getValue, luckysheet_indirect_check, luckysheet_indirect_check_return, luckysheet_offset_check, luckysheet_calcADPMM, luckysheet_getSpecialReference } from '../function/func';
+import { tibetsheets_compareWith, tibetsheets_getarraydata, tibetsheets_getcelldata, tibetsheets_parseData, tibetsheets_getValue, tibetsheets_indirect_check, tibetsheets_indirect_check_return, tibetsheets_offset_check, tibetsheets_calcADPMM, tibetsheets_getSpecialReference } from '../function/func';
 import Store from '../store';
 import locale from '../locale/locale';
 import json from './json';
 import method from './method';
 
-const luckysheetformula = {
+const tibetsheetsformula = {
     error: {
         v: "#VALUE!",    //错误的参数或运算符
         n: "#NAME?",     //公式名称错误
@@ -191,7 +191,7 @@ const luckysheetformula = {
         return dataformat;
     },
     //sparklines添加
-    //获得函数里某个参数的值，使用此函数需要在函数中执行luckysheet_getValue方法
+    //获得函数里某个参数的值，使用此函数需要在函数中执行tibetsheets_getValue方法
     getValueByFuncData: function (value, arg) {
         if (value == null) {
             return null;
@@ -201,14 +201,14 @@ const luckysheetformula = {
 
         if (getObjType(value) == "array") {
             if (arg == "avg") {
-                return luckysheet_function.AVERAGE.f.apply(luckysheet_function.AVERAGE, value);
+                return tibetsheets_function.AVERAGE.f.apply(tibetsheets_function.AVERAGE, value);
             }
             else if (arg == "sum") {
-                return luckysheet_function.SUM.f.apply(luckysheet_function.SUM, value);
+                return tibetsheets_function.SUM.f.apply(tibetsheets_function.SUM, value);
             }
             else {
                 if (getObjType(value[0]) == "object") {
-                    return luckysheet.mask.getValueByFormat(value[0]);
+                    return tibetsheets.mask.getValueByFormat(value[0]);
                 }
                 else {
                     return value[0];
@@ -216,7 +216,7 @@ const luckysheetformula = {
             }
         }
         else if (getObjType(value) == "object") {
-            return luckysheet.mask.getValueByFormat(value);
+            return tibetsheets.mask.getValueByFormat(value);
         }
         else {
             return value;
@@ -314,8 +314,8 @@ const luckysheetformula = {
     oldvalue: null,
     dontupdate: function () {
         let _this = this;
-        Store.luckysheetCellUpdate.length = 0; //clear array
-        $("#luckysheet-functionbox-cell, #luckysheet-rich-text-editor").html(_this.oldvalue);
+        Store.tibetsheetsCellUpdate.length = 0; //clear array
+        $("#tibetsheets-functionbox-cell, #tibetsheets-rich-text-editor").html(_this.oldvalue);
         _this.cancelNormalSelected();
         if (_this.rangetosheet != Store.currentSheetIndex) {
             sheetmanage.changeSheetExec(_this.rangetosheet);
@@ -328,7 +328,7 @@ const luckysheetformula = {
     fucntionboxshow: function(r, c) {
 
         if (!checkProtectionCellHidden(r, c, Store.currentSheetIndex)) {
-            $("#luckysheet-functionbox-cell").html("");
+            $("#tibetsheets-functionbox-cell").html("");
             return;
         }
 
@@ -352,7 +352,7 @@ const luckysheetformula = {
         }
         value = this.xssDeal(value);
         _this.oldvalue = value;
-        $("#luckysheet-functionbox-cell").html(value);
+        $("#tibetsheets-functionbox-cell").html(value);
     },
     //获得某个单元格或区域的偏移一定距离后的单元格( Sheet1!B6:C8 格式)
     cellOffset: function (range, rows, cols, height, width) {// 参数：range or cell , rows,cols,height,width
@@ -601,7 +601,7 @@ const luckysheetformula = {
         let flag = false;
 
         if (isRealNum(b)) {
-            flag = luckysheet_compareWith(a, "==", b);
+            flag = tibetsheets_compareWith(a, "==", b);
         }
         else if (typeof (b) == "string") { //条件输入字符串，如：">233"
             if (b.indexOf("*") != -1 || b.indexOf("?") != -1) { // 正则匹配：输入通配符："黑*","白?",以及"白?黑*~*"
@@ -611,10 +611,10 @@ const luckysheetformula = {
             else if (_this.isCompareOperator(b).flag) { //"黑糖"
                 let ope = _this.isCompareOperator(b).ope;
                 let num = _this.isCompareOperator(b).num;
-                flag = luckysheet_compareWith(a, ope, num);
+                flag = tibetsheets_compareWith(a, ope, num);
             }
             else {
-                flag = luckysheet_compareWith(a, "==", b);
+                flag = tibetsheets_compareWith(a, "==", b);
             }
         }
 
@@ -699,7 +699,7 @@ const luckysheetformula = {
             sheetIndex = null,
             sheetdata = null;
 
-        let luckysheetfile = getluckysheetfile();
+        let tibetsheetsfile = gettibetsheetsfile();
 
         if (txt.indexOf("!") > -1) {
             if (txt in this.cellTextToIndexList) {
@@ -714,10 +714,10 @@ const luckysheetformula = {
             if (sheettxt.substr(0, 1) == "'" && sheettxt.substr(sheettxt.length - 1, 1) == "'") {
                 sheettxt = sheettxt.substring(1, sheettxt.length - 1);
             }
-            for (let i in luckysheetfile) {
-                if (sheettxt == luckysheetfile[i].name) {
-                    sheetIndex = luckysheetfile[i].index;
-                    sheetdata = luckysheetfile[i].data;
+            for (let i in tibetsheetsfile) {
+                if (sheettxt == tibetsheetsfile[i].name) {
+                    sheetIndex = tibetsheetsfile[i].index;
+                    sheetdata = tibetsheetsfile[i].data;
                     break;
                 }
             }
@@ -731,8 +731,8 @@ const luckysheetformula = {
                 return this.cellTextToIndexList[txt + "_" + i];
             }
             let index = getSheetIndex(i);
-            sheettxt = luckysheetfile[index].name;
-            sheetIndex = luckysheetfile[index].index;
+            sheettxt = tibetsheetsfile[index].name;
+            sheetIndex = tibetsheetsfile[index].index;
             sheetdata = Store.flowdata;
             rangetxt = txt;
         }
@@ -789,46 +789,46 @@ const luckysheetformula = {
             return item;
         }
     },
-    rangeHightlightHTML: '<div id="luckysheet-formula-functionrange-highlight-${id}" rangeindex="${id}"  class="luckysheet-selection-highlight luckysheet-formula-functionrange-highlight"><div data-type="top" class="luckysheet-selection-copy-top luckysheet-copy"></div><div data-type="right" class="luckysheet-selection-copy-right luckysheet-copy"></div><div data-type="bottom" class="luckysheet-selection-copy-bottom luckysheet-copy"></div><div data-type="left" class="luckysheet-selection-copy-left luckysheet-copy"></div><div class="luckysheet-selection-copy-hc"></div><div data-type="lt" class="luckysheet-selection-highlight-topleft luckysheet-highlight"></div><div data-type="rt" class="luckysheet-selection-highlight-topright luckysheet-highlight"></div><div data-type="lb" class="luckysheet-selection-highlight-bottomleft luckysheet-highlight"></div><div data-type="rb" class="luckysheet-selection-highlight-bottomright luckysheet-highlight"></div></div>',
+    rangeHightlightHTML: '<div id="tibetsheets-formula-functionrange-highlight-${id}" rangeindex="${id}"  class="tibetsheets-selection-highlight tibetsheets-formula-functionrange-highlight"><div data-type="top" class="tibetsheets-selection-copy-top tibetsheets-copy"></div><div data-type="right" class="tibetsheets-selection-copy-right tibetsheets-copy"></div><div data-type="bottom" class="tibetsheets-selection-copy-bottom tibetsheets-copy"></div><div data-type="left" class="tibetsheets-selection-copy-left tibetsheets-copy"></div><div class="tibetsheets-selection-copy-hc"></div><div data-type="lt" class="tibetsheets-selection-highlight-topleft tibetsheets-highlight"></div><div data-type="rt" class="tibetsheets-selection-highlight-topright tibetsheets-highlight"></div><div data-type="lb" class="tibetsheets-selection-highlight-bottomleft tibetsheets-highlight"></div><div data-type="rb" class="tibetsheets-selection-highlight-bottomright tibetsheets-highlight"></div></div>',
     createRangeHightlight: function () {
         let _this = this;
 
-        let $span = $("#luckysheet-rich-text-editor").find("span.luckysheet-formula-functionrange-cell");
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
+        let $span = $("#tibetsheets-rich-text-editor").find("span.tibetsheets-formula-functionrange-cell");
+        $("#tibetsheets-formula-functionrange .tibetsheets-formula-functionrange-highlight").remove();
 
         $span.each(function () {
             let rangeindex = $(this).attr("rangeindex"),
                 range = $(this).text();
 
-            $("#luckysheet-formula-functionrange").append(replaceHtml(_this.rangeHightlightHTML, {
+            $("#tibetsheets-formula-functionrange").append(replaceHtml(_this.rangeHightlightHTML, {
                 "id": rangeindex
             }));
 
             let cellrange = _this.getcellrange(range);
-            let rangeid = "luckysheet-formula-functionrange-highlight-" + rangeindex;
+            let rangeid = "tibetsheets-formula-functionrange-highlight-" + rangeindex;
 
             if (cellrange == null) {
 
             }
             else if (cellrange.sheetIndex == Store.currentSheetIndex || (cellrange.sheetIndex == -1 && _this.rangetosheet == Store.currentSheetIndex)) {
                 $("#" + rangeid).data("range", cellrange)
-                    .find(".luckysheet-copy")
+                    .find(".tibetsheets-copy")
                     .css({ "background": luckyColor[rangeindex] })
                     .end()
-                    .find(".luckysheet-highlight")
+                    .find(".tibetsheets-highlight")
                     .css({ "background": luckyColor[rangeindex] })
                     .end()
-                    .find(".luckysheet-selection-copy-hc")
+                    .find(".tibetsheets-selection-copy-hc")
                     .css({ "background": luckyColor[rangeindex] });
 
                 seletedHighlistByindex(rangeid, cellrange.row[0], cellrange.row[1], cellrange.column[0], cellrange.column[1]);
             }
         });
 
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").show();
+        $("#tibetsheets-formula-functionrange .tibetsheets-formula-functionrange-highlight").show();
     },
-    searchHTML: '<div id="luckysheet-formula-search-c" class="luckysheet-formula-search-c"></div>',
-    helpHTML: '<div id="luckysheet-formula-help-c" class="luckysheet-formula-help-c"> <div class="luckysheet-formula-help-close" title="${helpClose}"><i class="fa fa-times" aria-hidden="true"></i></div> <div class="luckysheet-formula-help-collapse" title="${helpCollapse}"><i class="fa fa-angle-up" aria-hidden="true"></i></div> <div class="luckysheet-formula-help-title"><div class="luckysheet-formula-help-title-formula"> <span class="luckysheet-arguments-help-function-name">SUM</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> <span class="luckysheet-arguments-help-parameter luckysheet-arguments-help-parameter-active" dir="auto">A2:A100</span>, <span class="luckysheet-arguments-help-parameter" dir="auto">101</span> </span> <span class="luckysheet-arguments-paren">)</span> </div></div> <div class="luckysheet-formula-help-content"> <div class="luckysheet-formula-help-content-example"> <div class="luckysheet-arguments-help-section-title">${helpExample}</div> <div class="luckysheet-arguments-help-formula"> <span class="luckysheet-arguments-help-function-name">SUM</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> <span class="luckysheet-arguments-help-parameter luckysheet-arguments-help-parameter-active" dir="auto">A2:A100</span>, <span class="luckysheet-arguments-help-parameter" dir="auto">101</span> </span> <span class="luckysheet-arguments-paren">)</span> </div> </div> <div class="luckysheet-formula-help-content-detail"> <div class="luckysheet-arguments-help-section"> <div class="luckysheet-arguments-help-section-title luckysheet-arguments-help-parameter-name">${helpAbstract}</div> <span class="luckysheet-arguments-help-parameter-content">${helpAbstract}</span> </div> </div> <div class="luckysheet-formula-help-content-param"> ${param} </div> </div> <div class="luckysheet-formula-help-foot"></div></div>',
+    searchHTML: '<div id="tibetsheets-formula-search-c" class="tibetsheets-formula-search-c"></div>',
+    helpHTML: '<div id="tibetsheets-formula-help-c" class="tibetsheets-formula-help-c"> <div class="tibetsheets-formula-help-close" title="${helpClose}"><i class="fa fa-times" aria-hidden="true"></i></div> <div class="tibetsheets-formula-help-collapse" title="${helpCollapse}"><i class="fa fa-angle-up" aria-hidden="true"></i></div> <div class="tibetsheets-formula-help-title"><div class="tibetsheets-formula-help-title-formula"> <span class="tibetsheets-arguments-help-function-name">SUM</span> <span class="tibetsheets-arguments-paren">(</span> <span class="tibetsheets-arguments-parameter-holder"> <span class="tibetsheets-arguments-help-parameter tibetsheets-arguments-help-parameter-active" dir="auto">A2:A100</span>, <span class="tibetsheets-arguments-help-parameter" dir="auto">101</span> </span> <span class="tibetsheets-arguments-paren">)</span> </div></div> <div class="tibetsheets-formula-help-content"> <div class="tibetsheets-formula-help-content-example"> <div class="tibetsheets-arguments-help-section-title">${helpExample}</div> <div class="tibetsheets-arguments-help-formula"> <span class="tibetsheets-arguments-help-function-name">SUM</span> <span class="tibetsheets-arguments-paren">(</span> <span class="tibetsheets-arguments-parameter-holder"> <span class="tibetsheets-arguments-help-parameter tibetsheets-arguments-help-parameter-active" dir="auto">A2:A100</span>, <span class="tibetsheets-arguments-help-parameter" dir="auto">101</span> </span> <span class="tibetsheets-arguments-paren">)</span> </div> </div> <div class="tibetsheets-formula-help-content-detail"> <div class="tibetsheets-arguments-help-section"> <div class="tibetsheets-arguments-help-section-title tibetsheets-arguments-help-parameter-name">${helpAbstract}</div> <span class="tibetsheets-arguments-help-parameter-content">${helpAbstract}</span> </div> </div> <div class="tibetsheets-formula-help-content-param"> ${param} </div> </div> <div class="tibetsheets-formula-help-foot"></div></div>',
     getrangeseleciton: function () {
         let currSelection = window.getSelection();
         let anchor = $(currSelection.anchorNode);
@@ -849,7 +849,7 @@ const luckysheetformula = {
                 return anchor.parent();
             }
         }
-        else if (anchor.is("#luckysheet-rich-text-editor") || anchor.is("#luckysheet-functionbox-cell")) {
+        else if (anchor.is("#tibetsheets-rich-text-editor") || anchor.is("#tibetsheets-functionbox-cell")) {
             let txt = $.trim(anchor.find("span").last().text());
 
             if (txt.length == 0 && anchor.find("span").length > 1) {
@@ -861,7 +861,7 @@ const luckysheetformula = {
                 return anchor.find("span").last();
             }
         }
-        else if (anchor.parent().is("#luckysheet-rich-text-editor") || anchor.parent().is("#luckysheet-functionbox-cell") || anchorOffset == 0) {
+        else if (anchor.parent().is("#tibetsheets-rich-text-editor") || anchor.parent().is("#tibetsheets-functionbox-cell") || anchorOffset == 0) {
             if (anchorOffset == 0) {
                 anchor = anchor.parent();
             }
@@ -900,7 +900,7 @@ const luckysheetformula = {
         else {
             top = y + $editor.outerHeight();
             if (!isparam) {
-                $menu.html($menu.find(".luckysheet-formula-search-item").get().reverse());
+                $menu.html($menu.find(".tibetsheets-formula-search-item").get().reverse());
             }
         }
 
@@ -972,33 +972,33 @@ const luckysheetformula = {
         }
 
         let listHTML = _this.searchFunctionHTML(list);
-        $("#luckysheet-formula-search-c").html(listHTML).show();
-        $("#luckysheet-formula-help-c").hide();
+        $("#tibetsheets-formula-search-c").html(listHTML).show();
+        $("#tibetsheets-formula-help-c").hide();
 
         let $c = $editer.parent(),
             offset = $c.offset();
-        _this.searchFunctionPosition($("#luckysheet-formula-search-c"), $c, offset.left, offset.top);
+        _this.searchFunctionPosition($("#tibetsheets-formula-search-c"), $c, offset.left, offset.top);
     },
     searchFunctionEnter: function ($obj) {
         let _this = this;
 
         let functxt = $obj.data("func");
-        _this.searchFunctionCell.text(functxt).after('<span dir="auto" class="luckysheet-formula-text-color">(</span>');
+        _this.searchFunctionCell.text(functxt).after('<span dir="auto" class="tibetsheets-formula-text-color">(</span>');
         _this.setCaretPosition(_this.searchFunctionCell.next().get(0), 0, 1);
-        $("#luckysheet-formula-search-c").hide();
+        $("#tibetsheets-formula-search-c").hide();
         _this.helpFunctionExe(_this.searchFunctionCell.closest("div"), _this.searchFunctionCell.next());
     },
     searchFunctionHTML: function (list) {
         let _this = this;
 
-        if ($("#luckysheet-formula-search-c").length == 0) {
+        if ($("#tibetsheets-formula-search-c").length == 0) {
             $("body").first().append(_this.searchHTML);
-            $("#luckysheet-formula-search-c").on("mouseover", ".luckysheet-formula-search-item", function () {
-                $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
-                $(this).addClass("luckysheet-formula-search-item-active");
-            }).on("mouseout", ".luckysheet-formula-search-item", function () {
+            $("#tibetsheets-formula-search-c").on("mouseover", ".tibetsheets-formula-search-item", function () {
+                $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item").removeClass("tibetsheets-formula-search-item-active");
+                $(this).addClass("tibetsheets-formula-search-item-active");
+            }).on("mouseout", ".tibetsheets-formula-search-item", function () {
 
-            }).on("click", ".luckysheet-formula-search-item", function () {
+            }).on("click", ".tibetsheets-formula-search-item", function () {
                 if (_this.searchFunctionCell == null) {
                     return;
                 }
@@ -1006,7 +1006,7 @@ const luckysheetformula = {
             });
         }
 
-        let itemHTML = '<div data-func="${n}" class="luckysheet-formula-search-item ${class}"><div class="luckysheet-formula-search-func">${n}</div><div class="luckysheet-formula-search-detail">${a}</div></div>';
+        let itemHTML = '<div data-func="${n}" class="tibetsheets-formula-search-item ${class}"><div class="tibetsheets-formula-search-func">${n}</div><div class="tibetsheets-formula-search-detail">${a}</div></div>';
         let retHTML = "";
 
         for (let i = 0; i < list.length; i++) {
@@ -1014,7 +1014,7 @@ const luckysheetformula = {
 
             if (i == list.length - 1) {
                 retHTML += replaceHtml(itemHTML, {
-                    "class": "luckysheet-formula-search-item-active",
+                    "class": "tibetsheets-formula-search-item-active",
                     "n": item.n,
                     "a": item.a
                 });
@@ -1043,12 +1043,12 @@ const luckysheetformula = {
         let _locale = locale();
         let locale_formulaMore = _locale.formulaMore;
 
-        $("#luckysheet-formula-help-c .luckysheet-arguments-help-function-name").html($func.n);
-        $("#luckysheet-formula-help-c .luckysheet-arguments-help-parameter-content").html($func.d);
+        $("#tibetsheets-formula-help-c .tibetsheets-arguments-help-function-name").html($func.n);
+        $("#tibetsheets-formula-help-c .tibetsheets-arguments-help-parameter-content").html($func.d);
 
-        let helpformula = '<span class="luckysheet-arguments-help-function-name">${name}</span> <span class="luckysheet-arguments-paren">(</span> <span class="luckysheet-arguments-parameter-holder"> ${param} </span> <span class="luckysheet-arguments-paren">)</span>';
-        let helpformulaItem = '<span class="luckysheet-arguments-help-parameter" dir="auto">${param}</span>';
-        let helpformulaArg = '<div class="luckysheet-arguments-help-section"><div class="luckysheet-arguments-help-section-title">${param}</div><span class="luckysheet-arguments-help-parameter-content">${content}</span></div>';
+        let helpformula = '<span class="tibetsheets-arguments-help-function-name">${name}</span> <span class="tibetsheets-arguments-paren">(</span> <span class="tibetsheets-arguments-parameter-holder"> ${param} </span> <span class="tibetsheets-arguments-paren">)</span>';
+        let helpformulaItem = '<span class="tibetsheets-arguments-help-parameter" dir="auto">${param}</span>';
+        let helpformulaArg = '<div class="tibetsheets-arguments-help-section"><div class="tibetsheets-arguments-help-section-title">${param}</div><span class="tibetsheets-arguments-help-parameter-content">${content}</span></div>';
 
         //"n": "AVERAGE",
         //"t": "1",
@@ -1068,15 +1068,15 @@ const luckysheetformula = {
 
             if (paramitem.repeat == "y") {
                 name += ", ...";
-                nameli += '<span class="luckysheet-arguments-help-argument-info">...-' + locale_formulaMore.allowRepeatText + '</span>';
+                nameli += '<span class="tibetsheets-arguments-help-argument-info">...-' + locale_formulaMore.allowRepeatText + '</span>';
             }
             if (paramitem.require == "o") {
                 name = "[" + name + "]";
-                nameli += '<span class="luckysheet-arguments-help-argument-info">-[' + locale_formulaMore.allowOptionText + ']</span>';
+                nameli += '<span class="tibetsheets-arguments-help-argument-info">-[' + locale_formulaMore.allowOptionText + ']</span>';
             }
 
-            fht += '<span class="luckysheet-arguments-help-parameter" dir="auto">' + name + '</span>, ';
-            ahf += '<span class="luckysheet-arguments-help-parameter" dir="auto">' + paramitem.example + '</span>, ';
+            fht += '<span class="tibetsheets-arguments-help-parameter" dir="auto">' + name + '</span>, ';
+            ahf += '<span class="tibetsheets-arguments-help-parameter" dir="auto">' + paramitem.example + '</span>, ';
             fhcp += replaceHtml(helpformulaArg, {
                 "param": nameli,
                 "content": paramitem.detail
@@ -1086,49 +1086,49 @@ const luckysheetformula = {
         fht = fht.substr(0, fht.length - 2);
         ahf = ahf.substr(0, ahf.length - 2);
 
-        $("#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder").html(fht); //介绍
-        $("#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder").html(ahf); //示例
-        $("#luckysheet-formula-help-c .luckysheet-formula-help-content-param").html(fhcp); //参数
+        $("#tibetsheets-formula-help-c .tibetsheets-formula-help-title .tibetsheets-arguments-parameter-holder").html(fht); //介绍
+        $("#tibetsheets-formula-help-c .tibetsheets-arguments-help-formula .tibetsheets-arguments-parameter-holder").html(ahf); //示例
+        $("#tibetsheets-formula-help-c .tibetsheets-formula-help-content-param").html(fhcp); //参数
 
         if (paramIndex == null) {
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "bold");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-title-formula .tibetsheets-arguments-help-function-name").css("font-weight", "bold");
         }
         else {
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-title-formula .luckysheet-arguments-help-function-name").css("font-weight", "normal");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-title-formula .tibetsheets-arguments-help-function-name").css("font-weight", "normal");
             let index = paramIndex >= $func.p.length ? $func.p.length - 1 : paramIndex;
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-title .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").eq(index).addClass("luckysheet-arguments-help-parameter-active");
-            $("#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").removeClass("luckysheet-arguments-help-parameter-active");
-            $("#luckysheet-formula-help-c .luckysheet-arguments-help-formula .luckysheet-arguments-parameter-holder .luckysheet-arguments-help-parameter").eq(index).addClass("luckysheet-arguments-help-parameter-active");
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-content-param .luckysheet-arguments-help-section").removeClass("luckysheet-arguments-help-parameter-active");
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-content-param .luckysheet-arguments-help-section").eq(index).addClass("luckysheet-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-title .tibetsheets-arguments-parameter-holder .tibetsheets-arguments-help-parameter").removeClass("tibetsheets-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-title .tibetsheets-arguments-parameter-holder .tibetsheets-arguments-help-parameter").eq(index).addClass("tibetsheets-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-arguments-help-formula .tibetsheets-arguments-parameter-holder .tibetsheets-arguments-help-parameter").removeClass("tibetsheets-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-arguments-help-formula .tibetsheets-arguments-parameter-holder .tibetsheets-arguments-help-parameter").eq(index).addClass("tibetsheets-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-content-param .tibetsheets-arguments-help-section").removeClass("tibetsheets-arguments-help-parameter-active");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-content-param .tibetsheets-arguments-help-section").eq(index).addClass("tibetsheets-arguments-help-parameter-active");
         }
 
         let $c = $editer.parent(),
             offset = $c.offset();
-        _this.searchFunctionPosition($("#luckysheet-formula-help-c"), $c, offset.left, offset.top, true);
+        _this.searchFunctionPosition($("#tibetsheets-formula-help-c"), $c, offset.left, offset.top, true);
     },
     helpFunctionExe: function ($editer, currSelection) {
         let _this = this;
         let functionlist = Store.functionlist;
         let _locale = locale();
         let locale_formulaMore = _locale.formulaMore;
-        if ($("#luckysheet-formula-help-c").length == 0) {
+        if ($("#tibetsheets-formula-help-c").length == 0) {
             $("body").first().after(replaceHtml(_this.helpHTML, {
                 helpClose: locale_formulaMore.helpClose,
                 helpCollapse: locale_formulaMore.helpCollapse,
                 helpExample: locale_formulaMore.helpExample,
                 helpAbstract: locale_formulaMore.helpAbstract,
             }));
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-close").click(function () {
-                $("#luckysheet-formula-help-c").hide();
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-close").click(function () {
+                $("#tibetsheets-formula-help-c").hide();
             });
-            $("#luckysheet-formula-help-c .luckysheet-formula-help-collapse").click(function () {
-                let $content = $("#luckysheet-formula-help-c .luckysheet-formula-help-content");
+            $("#tibetsheets-formula-help-c .tibetsheets-formula-help-collapse").click(function () {
+                let $content = $("#tibetsheets-formula-help-c .tibetsheets-formula-help-content");
                 $content.slideToggle(100, function () {
                     let $c = _this.rangeResizeTo.parent(),
                         offset = $c.offset();
-                    _this.searchFunctionPosition($("#luckysheet-formula-help-c"), $c, offset.left, offset.top, true);
+                    _this.searchFunctionPosition($("#tibetsheets-formula-help-c"), $c, offset.left, offset.top, true);
                 });
 
                 if ($content.is(":hidden")) {
@@ -1160,7 +1160,7 @@ const luckysheetformula = {
 
         let funcName = null, paramindex = null;
 
-        if ($span.eq(i).is(".luckysheet-formula-text-func")) {
+        if ($span.eq(i).is(".tibetsheets-formula-text-func")) {
             funcName = $span.eq(i).text();
         }
         else {
@@ -1169,7 +1169,7 @@ const luckysheetformula = {
             while (--i > 0) {
                 $cur = $span.eq(i);
 
-                if ($cur.is(".luckysheet-formula-text-func") || $.trim($cur.text()).toUpperCase() in _this.functionlistPosition) {
+                if ($cur.is(".tibetsheets-formula-text-func") || $.trim($cur.text()).toUpperCase() in _this.functionlistPosition) {
                     funcName = $cur.text();
                     paramindex = null;
                     let endstate = true;
@@ -1184,14 +1184,14 @@ const luckysheetformula = {
                         }
 
                         $cur = $span.eq(a);
-                        if ($cur.is(".luckysheet-formula-text-rpar")) {
+                        if ($cur.is(".tibetsheets-formula-text-rpar")) {
                             exceptIndex = [i, a];
                             funcName = null;
                             endstate = false;
                             break;
                         }
 
-                        if ($cur.is(".luckysheet-formula-text-comma")) {
+                        if ($cur.is(".tibetsheets-formula-text-comma")) {
                             paramindex++;
                         }
                     }
@@ -1213,22 +1213,22 @@ const luckysheetformula = {
         let _this = this;
 
         let currSelection = _this.getrangeseleciton();
-        $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc").css("opacity", "0.03");
-        $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+        $("#tibetsheets-formula-search-c, #tibetsheets-formula-help-c").hide();
+        $("#tibetsheets-formula-functionrange .tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-hc").css("opacity", "0.03");
+        $("#tibetsheets-formula-search-c, #tibetsheets-formula-help-c").hide();
         _this.helpFunctionExe($editer, currSelection);
 
-        // console.log(currSelection, $(currSelection).closest(".luckysheet-formula-functionrange-cell").length);
-        if ($(currSelection).closest(".luckysheet-formula-functionrange-cell").length == 0) {
+        // console.log(currSelection, $(currSelection).closest(".tibetsheets-formula-functionrange-cell").length);
+        if ($(currSelection).closest(".tibetsheets-formula-functionrange-cell").length == 0) {
             _this.searchFunction($editer);
             return;
         }
 
-        let $anchorOffset = $(currSelection).closest(".luckysheet-formula-functionrange-cell");
+        let $anchorOffset = $(currSelection).closest(".tibetsheets-formula-functionrange-cell");
         let rangeindex = $anchorOffset.attr("rangeindex");
-        let rangeid = "luckysheet-formula-functionrange-highlight-" + rangeindex;
+        let rangeid = "tibetsheets-formula-functionrange-highlight-" + rangeindex;
 
-        $("#" + rangeid).find(".luckysheet-selection-copy-hc").css({
+        $("#" + rangeid).find(".tibetsheets-selection-copy-hc").css({
             "opacity": "0.13"
         });
     },
@@ -1236,7 +1236,7 @@ const luckysheetformula = {
 
         let _this = this;
 
-        let $input = $("#luckysheet-rich-text-editor");
+        let $input = $("#tibetsheets-rich-text-editor");
         let inputText = $input.text(), inputHtml = $input.html();
 
 
@@ -1347,7 +1347,7 @@ const luckysheetformula = {
             }
         }
 
-        window.luckysheet_getcelldata_cache = null;
+        window.tibetsheets_getcelldata_cache = null;
 
         let isRunExecFunction = true;
 
@@ -1383,7 +1383,7 @@ const luckysheetformula = {
                         dynamicArrayItem = v[3].data;
                     }
                 }
-                // from API setCellValue,luckysheet.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
+                // from API setCellValue,tibetsheets.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
                 else if (getObjType(value) == "object") {
                     let valueFunction = value.f;
 
@@ -1414,7 +1414,7 @@ const luckysheetformula = {
                             dynamicArrayItem = v[3].data;
                         }
                     }
-                    // from API setCellValue,luckysheet.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
+                    // from API setCellValue,tibetsheets.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
                     else {
                         for (let attr in value) {
                             curv[attr] = value[attr];
@@ -1506,7 +1506,7 @@ const luckysheetformula = {
                     dynamicArrayItem = v[3].data;
                 }
             }
-            // from API setCellValue,luckysheet.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
+            // from API setCellValue,tibetsheets.setCellValue(0, 0, {f: "=sum(D1)", bg:"#0188fb"}),value is an object, so get attribute f as value
             else if (getObjType(value) == "object") {
                 let valueFunction = value.f;
 
@@ -1557,7 +1557,7 @@ const luckysheetformula = {
         _this.cancelNormalSelected();
 
         let RowlChange = false;
-        let cfg = $.extend(true, {}, getluckysheetfile()[getSheetIndex(Store.currentSheetIndex)]["config"]);
+        let cfg = $.extend(true, {}, gettibetsheetsfile()[getSheetIndex(Store.currentSheetIndex)]["config"]);
         if (cfg["rowlen"] == null) {
             cfg["rowlen"] = {};
         }
@@ -1565,10 +1565,10 @@ const luckysheetformula = {
         if ((d[r][c].tb == "2" && d[r][c].v != null) || isInlineStringCell(d[r][c])) {//自动换行
             let defaultrowlen = Store.defaultrowlen;
 
-            let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+            let canvas = $("#tibetsheetsTableContent").get(0).getContext("2d");
             // offlinecanvas.textBaseline = 'top'; //textBaseline以top计算
 
-            // let fontset = luckysheetfontformat(d[r][c]);
+            // let fontset = tibetsheetsfontformat(d[r][c]);
             // offlinecanvas.font = fontset;
 
             if (cfg["customHeight"] && cfg["customHeight"][r] == 1) {
@@ -1623,7 +1623,7 @@ const luckysheetformula = {
         //动态数组
         let dynamicArray = null;
         if (!!dynamicArrayItem) {
-            // let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            // let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
             dynamicArray = $.extend(true, [], this.insertUpdateDynamicArray(dynamicArrayItem));
             // dynamicArray.push(dynamicArrayItem);
 
@@ -1648,7 +1648,7 @@ const luckysheetformula = {
 
         if (isRefresh) {
             jfrefreshgrid(d, [{ "row": [r, r], "column": [c, c] }], allParam, isRunExecFunction);
-            // Store.luckysheetCellUpdate.length = 0; //clear array
+            // Store.tibetsheetsCellUpdate.length = 0; //clear array
             _this.execFunctionGlobalData = null; //销毁
         }
         else {
@@ -1663,20 +1663,20 @@ const luckysheetformula = {
 
         _this.canceFunctionrangeSelected();
 
-        $("#luckysheet-formula-functionrange .luckysheet-formula-functionrange-highlight").remove();
-        $("#luckysheet-input-box").removeAttr("style");
-        $("#luckysheet-input-box-index").hide();
-        $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").removeClass("luckysheet-wa-calculate-active");
+        $("#tibetsheets-formula-functionrange .tibetsheets-formula-functionrange-highlight").remove();
+        $("#tibetsheets-input-box").removeAttr("style");
+        $("#tibetsheets-input-box-index").hide();
+        $("#tibetsheets-wa-functionbox-cancel, #tibetsheets-wa-functionbox-confirm").removeClass("tibetsheets-wa-calculate-active");
 
         _this.rangestart = false;
         _this.rangedrag_column_start = false;
         _this.rangedrag_row_start = false;
     },
     canceFunctionrangeSelected: function () {
-        $("#luckysheet-formula-functionrange-select").hide();
-        $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
-        // $("#luckysheet-cols-h-selected, #luckysheet-rows-h-selected").hide();
-        $("#luckysheet-formula-search-c, #luckysheet-formula-help-c").hide();
+        $("#tibetsheets-formula-functionrange-select").hide();
+        $("#tibetsheets-row-count-show, #tibetsheets-column-count-show").hide();
+        // $("#tibetsheets-cols-h-selected, #tibetsheets-rows-h-selected").hide();
+        $("#tibetsheets-formula-search-c, #tibetsheets-formula-help-c").hide();
     },
     iscellformat: function (txt) {
         let re_abc = /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ][123456789]/;
@@ -2491,7 +2491,7 @@ const luckysheetformula = {
                 return true;
             }
         }
-        else if (anchor.is("#luckysheet-rich-text-editor") || anchor.is("#luckysheet-functionbox-cell")) {
+        else if (anchor.is("#tibetsheets-rich-text-editor") || anchor.is("#tibetsheets-functionbox-cell")) {
             let txt = $.trim(anchor.find("span").last().text()),
                 lasttxt;
 
@@ -2509,7 +2509,7 @@ const luckysheetformula = {
                 return true;
             }
         }
-        else if (anchor.parent().is("#luckysheet-rich-text-editor") || anchor.parent().is("#luckysheet-functionbox-cell") || anchorOffset == 0) {
+        else if (anchor.parent().is("#tibetsheets-rich-text-editor") || anchor.parent().is("#tibetsheets-functionbox-cell") || anchorOffset == 0) {
             if (anchorOffset == 0) {
                 anchor = anchor.parent();
             }
@@ -2550,14 +2550,14 @@ const luckysheetformula = {
         let $editor;
 
         if (_this.rangestart || _this.rangedrag_column_start || _this.rangedrag_row_start) {
-            if ($("#luckysheet-search-formula-parm").is(":visible") || $("#luckysheet-search-formula-parm-select").is(":visible")) {
+            if ($("#tibetsheets-search-formula-parm").is(":visible") || $("#tibetsheets-search-formula-parm-select").is(":visible")) {
                 //公式参数框选取范围
-                $editor = $("#luckysheet-rich-text-editor");
-                $("#luckysheet-search-formula-parm-select-input").val(range);
-                $("#luckysheet-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".txt input").val(range);
+                $editor = $("#tibetsheets-rich-text-editor");
+                $("#tibetsheets-search-formula-parm-select-input").val(range);
+                $("#tibetsheets-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".txt input").val(range);
 
                 //参数对应值显示
-                let txtdata = luckysheet_getcelldata(range).data;
+                let txtdata = tibetsheets_getcelldata(range).data;
                 if (txtdata instanceof Array) {
                     //参数为多个单元格选区
                     let txtArr = [];
@@ -2573,18 +2573,18 @@ const luckysheetformula = {
                         }
                     }
 
-                    $("#luckysheet-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".val").text(" = {" + txtArr.join(",") + "}");
+                    $("#tibetsheets-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".val").text(" = {" + txtArr.join(",") + "}");
                 }
                 else {
                     //参数为单个单元格选区
-                    $("#luckysheet-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".val").text(" = {" + txtdata.v + "}");
+                    $("#tibetsheets-search-formula-parm .parmBox").eq(_this.data_parm_index).find(".val").text(" = {" + txtdata.v + "}");
                 }
 
                 //计算结果显示
                 let isVal = true; //参数不为空
                 let parmValArr = []; //参数值集合
                 let lvi = -1; //最后一个有值的参数索引
-                $("#luckysheet-search-formula-parm .parmBox").each(function (i, e) {
+                $("#tibetsheets-search-formula-parm .parmBox").each(function (i, e) {
                     let parmtxt = $(e).find(".txt input").val();
                     if (parmtxt == "" && $(e).find(".txt input").attr("data_parm_require") == "m") {
                         isVal = false;
@@ -2597,27 +2597,27 @@ const luckysheetformula = {
                 //单元格显示
                 let functionHtmlTxt;
                 if (lvi == -1) {
-                    functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "()";
+                    functionHtmlTxt = "=" + $("#tibetsheets-search-formula-parm .tibetsheets-modal-dialog-title-text").text() + "()";
                 }
                 else if (lvi == 0) {
-                    functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "(" + $("#luckysheet-search-formula-parm .parmBox").eq(0).find(".txt input").val() + ")";
+                    functionHtmlTxt = "=" + $("#tibetsheets-search-formula-parm .tibetsheets-modal-dialog-title-text").text() + "(" + $("#tibetsheets-search-formula-parm .parmBox").eq(0).find(".txt input").val() + ")";
                 }
                 else {
                     for (let j = 0; j <= lvi; j++) {
-                        parmValArr.push($("#luckysheet-search-formula-parm .parmBox").eq(j).find(".txt input").val());
+                        parmValArr.push($("#tibetsheets-search-formula-parm .parmBox").eq(j).find(".txt input").val());
                     }
-                    functionHtmlTxt = "=" + $("#luckysheet-search-formula-parm .luckysheet-modal-dialog-title-text").text() + "(" + parmValArr.join(",") + ")";
+                    functionHtmlTxt = "=" + $("#tibetsheets-search-formula-parm .tibetsheets-modal-dialog-title-text").text() + "(" + parmValArr.join(",") + ")";
                 }
 
                 let function_str = _this.functionHTMLGenerate(functionHtmlTxt);
-                $("#luckysheet-rich-text-editor").html(function_str);
-                $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+                $("#tibetsheets-rich-text-editor").html(function_str);
+                $("#tibetsheets-functionbox-cell").html($("#tibetsheets-rich-text-editor").html());
 
                 if (isVal) {
                     //公式计算
-                    let fp = $.trim(_this.functionParserExe($("#luckysheet-rich-text-editor").text()));
+                    let fp = $.trim(_this.functionParserExe($("#tibetsheets-rich-text-editor").text()));
                     let result = new Function("return " + fp)();
-                    $("#luckysheet-search-formula-parm .result span").text(result);
+                    $("#tibetsheets-search-formula-parm .result span").text(result);
                 }
             }
             else {
@@ -2631,7 +2631,7 @@ const luckysheetformula = {
             }
         }
         else {
-            let function_str = '<span class="luckysheet-formula-functionrange-cell" rangeindex="' + _this.functionHTMLIndex + '" dir="auto" style="color:' + luckyColor[_this.functionHTMLIndex] + ';">' + range + '</span>';
+            let function_str = '<span class="tibetsheets-formula-functionrange-cell" rangeindex="' + _this.functionHTMLIndex + '" dir="auto" style="color:' + luckyColor[_this.functionHTMLIndex] + ';">' + range + '</span>';
             let $t = $(function_str).insertAfter(_this.rangeSetValueTo);
             _this.rangechangeindex = _this.functionHTMLIndex;
             $editor = $(_this.rangeSetValueTo).closest("div");
@@ -2640,19 +2640,19 @@ const luckysheetformula = {
             _this.functionHTMLIndex++;
         }
 
-        if ($editor.attr("id") == "luckysheet-rich-text-editor") {
-            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+        if ($editor.attr("id") == "tibetsheets-rich-text-editor") {
+            $("#tibetsheets-functionbox-cell").html($("#tibetsheets-rich-text-editor").html());
         }
         else {
-            $("#luckysheet-rich-text-editor").html($("#luckysheet-functionbox-cell").html());
+            $("#tibetsheets-rich-text-editor").html($("#tibetsheets-functionbox-cell").html());
         }
     },
     rangedrag: function (event) {
         let _this = this;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
         let row_location = rowLocation(y),
             row = row_location[1],
@@ -2704,10 +2704,10 @@ const luckysheetformula = {
             columnseleted = [_this.func_selectedrange.column[0], col_index];
         }
 
-        rowseleted[0] = luckysheetFreezen.changeFreezenIndex(rowseleted[0], "h");
-        rowseleted[1] = luckysheetFreezen.changeFreezenIndex(rowseleted[1], "h");
-        columnseleted[0] = luckysheetFreezen.changeFreezenIndex(columnseleted[0], "v");
-        columnseleted[1] = luckysheetFreezen.changeFreezenIndex(columnseleted[1], "v");
+        rowseleted[0] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[0], "h");
+        rowseleted[1] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[1], "h");
+        columnseleted[0] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[0], "v");
+        columnseleted[1] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[1], "v");
 
         let changeparam = menuButton.mergeMoveMain(columnseleted, rowseleted, _this.func_selectedrange, top, height, left, width);
         if (changeparam != null) {
@@ -2727,19 +2727,19 @@ const luckysheetformula = {
         _this.func_selectedrange["top_move"] = top;
         _this.func_selectedrange["height_move"] = height;
 
-        luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
+        tibetsheets_count_show(left, top, width, height, rowseleted, columnseleted);
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": left,
             "width": width,
             "top": top,
             "height": height
         }).show();
 
-        if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
+        if ($("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
             //if公式生成器 选择范围
             let range = getRangetxt(Store.currentSheetIndex, { "row": rowseleted, "column": columnseleted }, Store.currentSheetIndex);
-            $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+            $("#tibetsheets-ifFormulaGenerator-multiRange-dialog input").val(range);
         }
         else {
             _this.rangeSetValue({
@@ -2748,7 +2748,7 @@ const luckysheetformula = {
             });
         }
 
-        luckysheetFreezen.scrollFreezen(rowseleted, columnseleted);
+        tibetsheetsFreezen.scrollFreezen(rowseleted, columnseleted);
     },
     rangedrag_column_start: false,
     rangedrag_row_start: false,
@@ -2756,8 +2756,8 @@ const luckysheetformula = {
         let _this = this;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
         let visibledatarow = Store.visibledatarow;
         let row_index = visibledatarow.length - 1,
@@ -2789,10 +2789,10 @@ const luckysheetformula = {
             columnseleted = [_this.func_selectedrange.column[0], col_index];
         }
 
-        //rowseleted[0] = luckysheetFreezen.changeFreezenIndex(rowseleted[0], "h");
-        //rowseleted[1] = luckysheetFreezen.changeFreezenIndex(rowseleted[1], "h");
-        columnseleted[0] = luckysheetFreezen.changeFreezenIndex(columnseleted[0], "v");
-        columnseleted[1] = luckysheetFreezen.changeFreezenIndex(columnseleted[1], "v");
+        //rowseleted[0] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[0], "h");
+        //rowseleted[1] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[1], "h");
+        columnseleted[0] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[0], "v");
+        columnseleted[1] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[1], "v");
 
         let changeparam = menuButton.mergeMoveMain(columnseleted, [0, row_index], _this.func_selectedrange, row_pre, row - row_pre - 1, left, width);
         if (changeparam != null) {
@@ -2808,28 +2808,28 @@ const luckysheetformula = {
         _this.func_selectedrange["left_move"] = left;
         _this.func_selectedrange["width_move"] = width;
 
-        luckysheet_count_show(left, row_pre, width, row - row_pre - 1, [0, row_index], columnseleted);
+        tibetsheets_count_show(left, row_pre, width, row - row_pre - 1, [0, row_index], columnseleted);
 
         _this.rangeSetValue({
             "row": [null, null],
             "column": columnseleted
         });
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": left,
             "width": width,
             "top": row_pre,
             "height": row - row_pre - 1
         }).show();
 
-        luckysheetFreezen.scrollFreezen([0, row_index], columnseleted);
+        tibetsheetsFreezen.scrollFreezen([0, row_index], columnseleted);
     },
     rangedrag_row: function (event) {
         let _this = this;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
         let row_location = rowLocation(y),
             row = row_location[1],
@@ -2861,10 +2861,10 @@ const luckysheetformula = {
             rowseleted = [_this.func_selectedrange.row[0], row_index];
         }
 
-        rowseleted[0] = luckysheetFreezen.changeFreezenIndex(rowseleted[0], "h");
-        rowseleted[1] = luckysheetFreezen.changeFreezenIndex(rowseleted[1], "h");
-        // columnseleted[0] = luckysheetFreezen.changeFreezenIndex(columnseleted[0], "v");
-        // columnseleted[1] = luckysheetFreezen.changeFreezenIndex(columnseleted[1], "v");
+        rowseleted[0] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[0], "h");
+        rowseleted[1] = tibetsheetsFreezen.changeFreezenIndex(rowseleted[1], "h");
+        // columnseleted[0] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[0], "v");
+        // columnseleted[1] = tibetsheetsFreezen.changeFreezenIndex(columnseleted[1], "v");
 
         let changeparam = menuButton.mergeMoveMain([0, col_index], rowseleted, _this.func_selectedrange, top, height, col_pre, col - col_pre - 1);
         if (changeparam != null) {
@@ -2880,21 +2880,21 @@ const luckysheetformula = {
         _this.func_selectedrange["top_move"] = top;
         _this.func_selectedrange["height_move"] = height;
 
-        luckysheet_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
+        tibetsheets_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
 
         _this.rangeSetValue({
             "row": rowseleted,
             "column": [null, null]
         });
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": col_pre,
             "width": col - col_pre - 1,
             "top": top,
             "height": height
         }).show();
 
-        luckysheetFreezen.scrollFreezen(rowseleted, [0, col_index]);
+        tibetsheetsFreezen.scrollFreezen(rowseleted, [0, col_index]);
     },
     rangedragged: function () { },
     rangeResizeObj: null,
@@ -2904,11 +2904,11 @@ const luckysheetformula = {
     rangeResizeWinH: null,
     rangeResizeWinW: null,
     rangeResizeTo: null,
-    rangeResizeDraging: function (event, luckysheetCurrentChartResizeObj, luckysheetCurrentChartResizeXy, luckysheetCurrentChartResize, luckysheetCurrentChartResizeWinW, luckysheetCurrentChartResizeWinH, ch_width, rh_height) {
+    rangeResizeDraging: function (event, tibetsheetsCurrentChartResizeObj, tibetsheetsCurrentChartResizeXy, tibetsheetsCurrentChartResize, tibetsheetsCurrentChartResizeWinW, tibetsheetsCurrentChartResizeWinH, ch_width, rh_height) {
         let _this = this;
 
-        let scrollTop = $("#luckysheet-scrollbar-y").scrollTop(),
-            scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft();
+        let scrollTop = $("#tibetsheets-scrollbar-y").scrollTop(),
+            scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft();
         let mouse = mouseposition(event.pageX, event.pageY);
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
@@ -2926,37 +2926,37 @@ const luckysheetformula = {
             return false;
         }
 
-        let topchange = row_pre - luckysheetCurrentChartResizeXy[1],
-            leftchange = col_pre - luckysheetCurrentChartResizeXy[0];
-        let top = luckysheetCurrentChartResizeXy[5],
-            height = luckysheetCurrentChartResizeXy[3],
-            left = luckysheetCurrentChartResizeXy[4],
-            width = luckysheetCurrentChartResizeXy[2];
+        let topchange = row_pre - tibetsheetsCurrentChartResizeXy[1],
+            leftchange = col_pre - tibetsheetsCurrentChartResizeXy[0];
+        let top = tibetsheetsCurrentChartResizeXy[5],
+            height = tibetsheetsCurrentChartResizeXy[3],
+            left = tibetsheetsCurrentChartResizeXy[4],
+            width = tibetsheetsCurrentChartResizeXy[2];
 
-        if (luckysheetCurrentChartResize == "lt" || luckysheetCurrentChartResize == "lb") {
-            if (luckysheetCurrentChartResizeXy[0] + luckysheetCurrentChartResizeXy[2] < col_pre) {
+        if (tibetsheetsCurrentChartResize == "lt" || tibetsheetsCurrentChartResize == "lb") {
+            if (tibetsheetsCurrentChartResizeXy[0] + tibetsheetsCurrentChartResizeXy[2] < col_pre) {
                 return;
             }
 
             left = col_pre;
-            width = luckysheetCurrentChartResizeXy[2] - leftchange;
+            width = tibetsheetsCurrentChartResizeXy[2] - leftchange;
 
-            if (left > luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[4] - col + col_pre) {
-                left = luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[4] - col + col_pre;
-                width = luckysheetCurrentChartResizeXy[2] - (luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[4] - col + col_pre - luckysheetCurrentChartResizeXy[0]);
+            if (left > tibetsheetsCurrentChartResizeXy[2] + tibetsheetsCurrentChartResizeXy[4] - col + col_pre) {
+                left = tibetsheetsCurrentChartResizeXy[2] + tibetsheetsCurrentChartResizeXy[4] - col + col_pre;
+                width = tibetsheetsCurrentChartResizeXy[2] - (tibetsheetsCurrentChartResizeXy[2] + tibetsheetsCurrentChartResizeXy[4] - col + col_pre - tibetsheetsCurrentChartResizeXy[0]);
             }
             else if (left <= 0) {
                 left = 0;
-                width = luckysheetCurrentChartResizeXy[2] + luckysheetCurrentChartResizeXy[0];
+                width = tibetsheetsCurrentChartResizeXy[2] + tibetsheetsCurrentChartResizeXy[0];
             }
         }
 
-        if (luckysheetCurrentChartResize == "rt" || luckysheetCurrentChartResize == "rb") {
-            if (luckysheetCurrentChartResizeXy[6] - luckysheetCurrentChartResizeXy[2] > col) {
+        if (tibetsheetsCurrentChartResize == "rt" || tibetsheetsCurrentChartResize == "rb") {
+            if (tibetsheetsCurrentChartResizeXy[6] - tibetsheetsCurrentChartResizeXy[2] > col) {
                 return;
             }
 
-            width = luckysheetCurrentChartResizeXy[2] + col - luckysheetCurrentChartResizeXy[6];
+            width = tibetsheetsCurrentChartResizeXy[2] + col - tibetsheetsCurrentChartResizeXy[6];
 
             if (width < col - col_pre - 1) {
                 width = col - col_pre - 1;
@@ -2966,30 +2966,30 @@ const luckysheetformula = {
             }
         }
 
-        if (luckysheetCurrentChartResize == "lt" || luckysheetCurrentChartResize == "rt") {
-            if (luckysheetCurrentChartResizeXy[1] + luckysheetCurrentChartResizeXy[3] < row_pre) {
+        if (tibetsheetsCurrentChartResize == "lt" || tibetsheetsCurrentChartResize == "rt") {
+            if (tibetsheetsCurrentChartResizeXy[1] + tibetsheetsCurrentChartResizeXy[3] < row_pre) {
                 return;
             }
 
             top = row_pre;
-            height = luckysheetCurrentChartResizeXy[3] - topchange;
+            height = tibetsheetsCurrentChartResizeXy[3] - topchange;
 
-            if (top > luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[5] - row + row_pre) {
-                top = luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[5] - row + row_pre;
-                height = luckysheetCurrentChartResizeXy[3] - (luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[5] - row + row_pre - luckysheetCurrentChartResizeXy[1]);
+            if (top > tibetsheetsCurrentChartResizeXy[3] + tibetsheetsCurrentChartResizeXy[5] - row + row_pre) {
+                top = tibetsheetsCurrentChartResizeXy[3] + tibetsheetsCurrentChartResizeXy[5] - row + row_pre;
+                height = tibetsheetsCurrentChartResizeXy[3] - (tibetsheetsCurrentChartResizeXy[3] + tibetsheetsCurrentChartResizeXy[5] - row + row_pre - tibetsheetsCurrentChartResizeXy[1]);
             }
             else if (top <= 0) {
                 top = 0;
-                height = luckysheetCurrentChartResizeXy[3] + luckysheetCurrentChartResizeXy[1];
+                height = tibetsheetsCurrentChartResizeXy[3] + tibetsheetsCurrentChartResizeXy[1];
             }
         }
 
-        if (luckysheetCurrentChartResize == "lb" || luckysheetCurrentChartResize == "rb") {
-            if (luckysheetCurrentChartResizeXy[7] - luckysheetCurrentChartResizeXy[3] > row) {
+        if (tibetsheetsCurrentChartResize == "lb" || tibetsheetsCurrentChartResize == "rb") {
+            if (tibetsheetsCurrentChartResizeXy[7] - tibetsheetsCurrentChartResizeXy[3] > row) {
                 return;
             }
 
-            height = luckysheetCurrentChartResizeXy[3] + row - luckysheetCurrentChartResizeXy[7];
+            height = tibetsheetsCurrentChartResizeXy[3] + row - tibetsheetsCurrentChartResizeXy[7];
 
             if (height < row - row_pre - 1) {
                 height = row - row_pre - 1;
@@ -3009,8 +3009,8 @@ const luckysheetformula = {
         let range = _this.getSelectedFromRange(selected);
         let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
         let $span = _this.rangeResizeTo.find("span[rangeindex='" + rangeindex + "']").html(rangetxt);
-        luckysheetRangeLast(_this.rangeResizeTo[0]);
-        luckysheetCurrentChartResizeObj.css(selected).data("range", range);
+        tibetsheetsRangeLast(_this.rangeResizeTo[0]);
+        tibetsheetsCurrentChartResizeObj.css(selected).data("range", range);
     },
     getSelectedFromRange: function (obj) {
         let row_st = obj.top + 2,
@@ -3031,53 +3031,53 @@ const luckysheetformula = {
 
         return ret;
     },
-    rangeResizeDragged: function (event, luckysheetCurrentChartResizeObj, luckysheetCurrentChartResizeXy, luckysheetCurrentChartResize, luckysheetCurrentChartResizeWinW, luckysheetCurrentChartResizeWinH) {
+    rangeResizeDragged: function (event, tibetsheetsCurrentChartResizeObj, tibetsheetsCurrentChartResizeXy, tibetsheetsCurrentChartResize, tibetsheetsCurrentChartResizeWinW, tibetsheetsCurrentChartResizeWinH) {
         let _this = this;
 
         _this.rangeResize = null;
-        $("#luckysheet-formula-functionrange-highlight-" + _this.rangeResizeIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.03);
+        $("#tibetsheets-formula-functionrange-highlight-" + _this.rangeResizeIndex).find(".tibetsheets-selection-copy-hc").css("opacity", 0.03);
     },
     rangeMovexy: null,
     rangeMove: false,
     rangeMoveObj: null,
     rangeMoveIndex: null,
     rangeMoveRangedata: null,
-    rangeMoveDraging: function (event, luckysheet_cell_selected_move_index, luckysheet_select_save, obj, sheetBarHeight, statisticBarHeight) {
+    rangeMoveDraging: function (event, tibetsheets_cell_selected_move_index, tibetsheets_select_save, obj, sheetBarHeight, statisticBarHeight) {
         let _this = this;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft();
-        let scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+        let scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft();
+        let scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
 
         let winH = $(window).height() + scrollTop - sheetBarHeight - statisticBarHeight,
             winW = $(window).width() + scrollLeft;
 
-        let row_index_original = luckysheet_cell_selected_move_index[0],
-            col_index_original = luckysheet_cell_selected_move_index[1];
-        let row_s = luckysheet_select_save["row"][0] - row_index_original + rowLocation(y)[2],
-            row_e = luckysheet_select_save["row"][1] - row_index_original + rowLocation(y)[2];
-        let col_s = luckysheet_select_save["column"][0] - col_index_original + colLocation(x)[2],
-            col_e = luckysheet_select_save["column"][1] - col_index_original + colLocation(x)[2];
+        let row_index_original = tibetsheets_cell_selected_move_index[0],
+            col_index_original = tibetsheets_cell_selected_move_index[1];
+        let row_s = tibetsheets_select_save["row"][0] - row_index_original + rowLocation(y)[2],
+            row_e = tibetsheets_select_save["row"][1] - row_index_original + rowLocation(y)[2];
+        let col_s = tibetsheets_select_save["column"][0] - col_index_original + colLocation(x)[2],
+            col_e = tibetsheets_select_save["column"][1] - col_index_original + colLocation(x)[2];
 
         if (row_s < 0 || y < 0) {
             row_s = 0;
-            row_e = luckysheet_select_save["row"][1] - luckysheet_select_save["row"][0];
+            row_e = tibetsheets_select_save["row"][1] - tibetsheets_select_save["row"][0];
         }
         if (col_s < 0 || x < 0) {
             col_s = 0;
-            col_e = luckysheet_select_save["column"][1] - luckysheet_select_save["column"][0];
+            col_e = tibetsheets_select_save["column"][1] - tibetsheets_select_save["column"][0];
         }
 
         let visibledatarow = Store.visibledatarow;
         if (row_e >= visibledatarow[visibledatarow.length - 1] || y > winH) {
-            row_s = visibledatarow.length - 1 - luckysheet_select_save["row"][1] + luckysheet_select_save["row"][0];
+            row_s = visibledatarow.length - 1 - tibetsheets_select_save["row"][1] + tibetsheets_select_save["row"][0];
             row_e = visibledatarow.length - 1;
         }
         let visibledatacolumn = Store.visibledatacolumn;
         if (col_e >= visibledatacolumn[visibledatacolumn.length - 1] || x > winW) {
-            col_s = visibledatacolumn.length - 1 - luckysheet_select_save["column"][1] + luckysheet_select_save["column"][0];
+            col_s = visibledatacolumn.length - 1 - tibetsheets_select_save["column"][1] + tibetsheets_select_save["column"][0];
             col_e = visibledatacolumn.length - 1;
         }
 
@@ -3096,7 +3096,7 @@ const luckysheetformula = {
         let range = _this.getSelectedFromRange(selected);
         let rangetxt = getRangetxt(Store.currentSheetIndex, range, _this.rangetosheet);
         let $span = _this.rangeResizeTo.find("span[rangeindex='" + rangeindex + "']").html(rangetxt);
-        luckysheetRangeLast(_this.rangeResizeTo[0]);
+        tibetsheetsRangeLast(_this.rangeResizeTo[0]);
         _this.rangeMoveRangedata = range;
         obj.css(selected);
     },
@@ -3104,7 +3104,7 @@ const luckysheetformula = {
         let _this = this;
 
         _this.rangeMove = false;
-        $("#luckysheet-formula-functionrange-highlight-" + _this.rangeMoveIndex).data("range", _this.rangeMoveRangedata).find(".luckysheet-selection-copy-hc").css("opacity", 0.03);
+        $("#tibetsheets-formula-functionrange-highlight-" + _this.rangeMoveIndex).data("range", _this.rangeMoveRangedata).find(".tibetsheets-selection-copy-hc").css("opacity", 0.03);
     },
     functionHTMLIndex: 0,
     functionRangeIndex: null,
@@ -3300,7 +3300,7 @@ const luckysheetformula = {
             el.focus();
         }
         catch (err) {
-            luckysheetRangeLast(this.rangeResizeTo[0]);
+            tibetsheetsRangeLast(this.rangeResizeTo[0]);
         }
     },
     functionRange: function (obj, v, vp) {
@@ -3347,8 +3347,8 @@ const luckysheetformula = {
                 if (window.getSelection) { // all browsers, except IE before version 9
                     let currSelection = window.getSelection();
                     if ($(currSelection.anchorNode).is("div")) {
-                        let editorlen = $("#luckysheet-rich-text-editor span").length;
-                        _this.functionRangeIndex = [editorlen - 1, $("#luckysheet-rich-text-editor").find("span").eq(editorlen - 1).text().length];
+                        let editorlen = $("#tibetsheets-rich-text-editor span").length;
+                        _this.functionRangeIndex = [editorlen - 1, $("#tibetsheets-rich-text-editor").find("span").eq(editorlen - 1).text().length];
                     }
                     else {
                         _this.functionRangeIndex = [$(currSelection.anchorNode).parent().index(), currSelection.anchorOffset];
@@ -3384,10 +3384,10 @@ const luckysheetformula = {
                 //     let range = w.getRangeAt(0);
                 //     let c = range.startContainer;
 
-                //     if(c.id=="luckysheet-rich-text-editor" || $(c).closest("#luckysheet-rich-text-editor")){
+                //     if(c.id=="tibetsheets-rich-text-editor" || $(c).closest("#tibetsheets-rich-text-editor")){
                 //         $functionbox.html(value);
                 //     }
-                //     else if(c.id=="luckysheet-functionbox-cell" || $(c).closest("#luckysheet-functionbox-cell")){
+                //     else if(c.id=="tibetsheets-functionbox-cell" || $(c).closest("#tibetsheets-functionbox-cell")){
                 //         if(value1.indexOf("span")>-1){
 
                 //         }
@@ -3400,7 +3400,7 @@ const luckysheetformula = {
                 // console.trace();
                 // console.log(value, $copy.attr("id"));
 
-                if ($copy.attr("id") == "luckysheet-rich-text-editor") {
+                if ($copy.attr("id") == "tibetsheets-rich-text-editor") {
                     if ($copy.html().substr(0, 5) == "<span") {
 
                     }
@@ -3425,7 +3425,7 @@ const luckysheetformula = {
 
         _this.functionHTMLIndex = 0;
 
-        return '<span dir="auto" class="luckysheet-formula-text-color">=</span>' + _this.functionHTML(txt);
+        return '<span dir="auto" class="tibetsheets-formula-text-color">=</span>' + _this.functionHTML(txt);
     },
     functionHTML: function (txt) {
         let _this = this;
@@ -3465,17 +3465,17 @@ const luckysheetformula = {
                 matchConfig.bracket += 1;
 
                 if (str.length > 0) {
-                    function_str += '<span dir="auto" class="luckysheet-formula-text-func">' + str + '</span><span dir="auto" class="luckysheet-formula-text-lpar">(</span>';
+                    function_str += '<span dir="auto" class="tibetsheets-formula-text-func">' + str + '</span><span dir="auto" class="tibetsheets-formula-text-lpar">(</span>';
                 }
                 else {
-                    function_str += '<span dir="auto" class="luckysheet-formula-text-lpar">(</span>';
+                    function_str += '<span dir="auto" class="tibetsheets-formula-text-lpar">(</span>';
                 }
 
                 str = "";
             }
             else if (s == ")" && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
                 matchConfig.bracket -= 1;
-                function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-rpar">)</span>';
+                function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-rpar">)</span>';
                 str = "";
             }
             else if (s == "{" && matchConfig.squote == 0 && matchConfig.dquote == 0) {
@@ -3502,32 +3502,32 @@ const luckysheetformula = {
                     matchConfig.dquote += 1;
 
                     if (str.length > 0) {
-                        function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-string">"';
+                        function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-string">"';
                     }
                     else {
-                        function_str += '<span dir="auto" class="luckysheet-formula-text-string">"';
+                        function_str += '<span dir="auto" class="tibetsheets-formula-text-string">"';
                     }
 
                     str = "";
                 }
             }
-            //修正例如输入公式='1-2'!A1时，只有2'!A1是luckysheet-formula-functionrange-cell色，'1-是黑色的问题。
+            //修正例如输入公式='1-2'!A1时，只有2'!A1是tibetsheets-formula-functionrange-cell色，'1-是黑色的问题。
             else if (s == "'" && matchConfig.dquote == 0) {
                 str += "'";
                 matchConfig.squote = matchConfig.squote == 0 ? 1 : 0;
             }
             else if (s == ',' && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
                 //matchConfig.comma += 1;
-                function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-comma">,</span>';
+                function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-comma">,</span>';
                 str = "";
             }
             else if (s == '&' && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
                 if (str.length > 0) {
-                    function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-calc">' + '&' + '</span>';
+                    function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-calc">' + '&' + '</span>';
                     str = "";
                 }
                 else {
-                    function_str += '<span dir="auto" class="luckysheet-formula-text-calc">' + '&' + '</span>';
+                    function_str += '<span dir="auto" class="tibetsheets-formula-text-calc">' + '&' + '</span>';
                 }
             }
             else if (s in _this.operatorjson && matchConfig.squote == 0 && matchConfig.dquote == 0 && matchConfig.braces == 0) {
@@ -3546,11 +3546,11 @@ const luckysheetformula = {
 
                 if ((s + s_next) in _this.operatorjson) {
                     if (str.length > 0) {
-                        function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-calc">' + s + s_next + '</span>';
+                        function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-calc">' + s + s_next + '</span>';
                         str = "";
                     }
                     else {
-                        function_str += '<span dir="auto" class="luckysheet-formula-text-calc">' + s + s_next + '</span>';
+                        function_str += '<span dir="auto" class="tibetsheets-formula-text-calc">' + s + s_next + '</span>';
                     }
 
                     i++;
@@ -3560,11 +3560,11 @@ const luckysheetformula = {
                 }
                 else {
                     if (str.length > 0) {
-                        function_str += _this.functionHTML(str) + '<span dir="auto" class="luckysheet-formula-text-calc">' + s + '</span>';
+                        function_str += _this.functionHTML(str) + '<span dir="auto" class="tibetsheets-formula-text-calc">' + s + '</span>';
                         str = "";
                     }
                     else {
-                        function_str += '<span dir="auto" class="luckysheet-formula-text-calc">' + s + '</span>';
+                        function_str += '<span dir="auto" class="tibetsheets-formula-text-calc">' + s + '</span>';
                     }
                 }
             }
@@ -3575,7 +3575,7 @@ const luckysheetformula = {
             if (i == funcstack.length - 1) {
                 //function_str += str;
                 if (_this.iscelldata($.trim(str))) {
-                    function_str += '<span class="luckysheet-formula-functionrange-cell" rangeindex="' + _this.functionHTMLIndex + '" dir="auto" style="color:' + luckyColor[_this.functionHTMLIndex] + ';">' + str + '</span>';
+                    function_str += '<span class="tibetsheets-formula-functionrange-cell" rangeindex="' + _this.functionHTMLIndex + '" dir="auto" style="color:' + luckyColor[_this.functionHTMLIndex] + ';">' + str + '</span>';
                     _this.functionHTMLIndex++;
                 }
                 else if (matchConfig.dquote > 0) {
@@ -3590,19 +3590,19 @@ const luckysheetformula = {
                         let alltxt = "";
 
                         if (arraystart > 0) {
-                            alltxt += '<span dir="auto" class="luckysheet-formula-text-color">' + str.substr(0, arraystart) + '</span>';
+                            alltxt += '<span dir="auto" class="tibetsheets-formula-text-color">' + str.substr(0, arraystart) + '</span>';
                         }
 
-                        alltxt += '<span dir="auto" style="color:#959a05" class="luckysheet-formula-text-array">' + arraytxt + '</span>';
+                        alltxt += '<span dir="auto" style="color:#959a05" class="tibetsheets-formula-text-array">' + arraytxt + '</span>';
 
                         if (arraystart + arraytxt.length < str.length) {
-                            alltxt += '<span dir="auto" class="luckysheet-formula-text-color">' + str.substr(arraystart + arraytxt.length, str.length) + '</span>';
+                            alltxt += '<span dir="auto" class="tibetsheets-formula-text-color">' + str.substr(arraystart + arraytxt.length, str.length) + '</span>';
                         }
 
                         function_str += alltxt;
                     }
                     else {
-                        function_str += '<span dir="auto" class="luckysheet-formula-text-color">' + str + '</span>';
+                        function_str += '<span dir="auto" class="tibetsheets-formula-text-color">' + str + '</span>';
                     }
                 }
             }
@@ -3748,7 +3748,7 @@ const luckysheetformula = {
                 let s2 = stack.pop();
                 let s1 = stack.pop();
 
-                let str = "luckysheet_compareWith(" + s1 + ",'" + c + "', " + s2 + ")";
+                let str = "tibetsheets_compareWith(" + s1 + ",'" + c + "', " + s2 + ")";
 
                 stack.push(str);
             }
@@ -3893,10 +3893,10 @@ const luckysheetformula = {
                     str = str.toUpperCase();
                     if (str.indexOf(":") > -1) {
                         let funcArray = str.split(":");
-                        function_str += "luckysheet_getSpecialReference(true,'" + $.trim(funcArray[0]).replace(/'/g, "\\'") + "', luckysheet_function." + funcArray[1] + ".f(#lucky#";
+                        function_str += "tibetsheets_getSpecialReference(true,'" + $.trim(funcArray[0]).replace(/'/g, "\\'") + "', tibetsheets_function." + funcArray[1] + ".f(#lucky#";
                     }
                     else {
-                        function_str += "luckysheet_function." + str + ".f(";
+                        function_str += "tibetsheets_function." + str + ".f(";
                     }
                     bracket.push(1);
                     str = "";
@@ -4077,7 +4077,7 @@ const luckysheetformula = {
                 let str_nb = $.trim(str).replace(/'/g, "\\'");
                 if (_this.iscelldata(str_nb) && str_nb.substr(0, 1) != ":") {
 
-                    endstr = "luckysheet_getcelldata('" + str_nb + "')";
+                    endstr = "tibetsheets_getcelldata('" + str_nb + "')";
                     if (typeof (cellRangeFunction) == "function") {
                         cellRangeFunction(str_nb);
                     }
@@ -4086,7 +4086,7 @@ const luckysheetformula = {
                 else if (str_nb.substr(0, 1) == ":") {
                     str_nb = str_nb.substr(1);
                     if (_this.iscelldata(str_nb)) {
-                        endstr = "luckysheet_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
+                        endstr = "tibetsheets_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
                     }
                 }
                 else {
@@ -4102,7 +4102,7 @@ const luckysheetformula = {
                             endstr += str.substr(0, arraystart);
                         }
 
-                        endstr += "luckysheet_getarraydata('" + arraytxt + "')";
+                        endstr += "tibetsheets_getarraydata('" + arraytxt + "')";
 
                         if (arraystart + arraytxt.length < str.length) {
                             endstr += str.substr(arraystart + arraytxt.length, str.length);
@@ -4147,8 +4147,8 @@ const luckysheetformula = {
             index = Store.currentSheetIndex;
         }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
 
         let dynamicArray = file.dynamicArray;
         if (dynamicArray == null) {
@@ -4172,8 +4172,8 @@ const luckysheetformula = {
             index = Store.currentSheetIndex;
         }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
         if (file.calcChain == null) {
             file.calcChain = [];
         }
@@ -4190,13 +4190,13 @@ const luckysheetformula = {
             "op": "add",
             "pos": file.calcChain.length - 1
         });
-        setluckysheetfile(luckysheetfile);
+        settibetsheetsfile(tibetsheetsfile);
     },
     getAllFunctionGroup: function () {
-        let luckysheetfile = getluckysheetfile();
+        let tibetsheetsfile = gettibetsheetsfile();
         let ret = [];
-        for (let i = 0; i < luckysheetfile.length; i++) {
-            let file = luckysheetfile[i];
+        for (let i = 0; i < tibetsheetsfile.length; i++) {
+            let file = tibetsheetsfile[i];
             let calcChain = file.calcChain;
             
             /* 备注：再次加载表格获取的数据可能是JSON字符串格式(需要进行发序列化处理) */
@@ -4240,8 +4240,8 @@ const luckysheetformula = {
             index = Store.currentSheetIndex;
         }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
 
         if (file.calcChain == null) {
             return [];
@@ -4254,8 +4254,8 @@ const luckysheetformula = {
             index = Store.currentSheetIndex;
         }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
 
         let calcChain = file.calcChain;
         if (calcChain != null) {
@@ -4271,7 +4271,7 @@ const luckysheetformula = {
             }
         }
 
-        setluckysheetfile(luckysheetfile);
+        settibetsheetsfile(tibetsheetsfile);
     },
     insertUpdateFunctionGroup: function (r, c, index) {
         if (index == null) {
@@ -4284,8 +4284,8 @@ const luckysheetformula = {
         //     return;
         // }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
 
         let calcChain = file.calcChain;
         if (calcChain == null) {
@@ -4315,7 +4315,7 @@ const luckysheetformula = {
             "op": "add",
             "pos": file.calcChain.length - 1
         });
-        setluckysheetfile(luckysheetfile);
+        settibetsheetsfile(tibetsheetsfile);
     },
     isFunctionRangeSave: false,
     isFunctionRangeSimple: function (txt, r, c, index, dynamicArray_compute) {
@@ -4370,7 +4370,7 @@ const luckysheetformula = {
             "dquote": 0
         }
 
-        let luckysheetfile = getluckysheetfile();
+        let tibetsheetsfile = gettibetsheetsfile();
 
 
         while (i < funcstack.length) {
@@ -4380,7 +4380,7 @@ const luckysheetformula = {
                 matchConfig.bracket += 1;
 
                 if (str.length > 0) {
-                    function_str += "luckysheet_function." + str.toUpperCase() + ".f(";
+                    function_str += "tibetsheets_function." + str.toUpperCase() + ".f(";
                 }
                 else {
                     function_str += "(";
@@ -4574,8 +4574,8 @@ const luckysheetformula = {
             "braces": 0
         }
 
-        // let luckysheetfile = getluckysheetfile();
-        // let dynamicArray_compute = luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
+        // let tibetsheetsfile = gettibetsheetsfile();
+        // let dynamicArray_compute = tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
 
         //bracket 0为运算符括号、1为函数括号
         let cal1 = [], cal2 = [], bracket = [];
@@ -4588,10 +4588,10 @@ const luckysheetformula = {
                     str = str.toUpperCase();
                     if (str.indexOf(":") > -1) {
                         let funcArray = str.split(":");
-                        function_str += "luckysheet_getSpecialReference(true,'" + $.trim(funcArray[0]).replace(/'/g, "\\'") + "', luckysheet_function." + funcArray[1] + ".f(#lucky#";
+                        function_str += "tibetsheets_getSpecialReference(true,'" + $.trim(funcArray[0]).replace(/'/g, "\\'") + "', tibetsheets_function." + funcArray[1] + ".f(#lucky#";
                     }
                     else {
-                        function_str += "luckysheet_function." + str + ".f(";
+                        function_str += "tibetsheets_function." + str + ".f(";
                     }
                     bracket.push(1);
                     str = "";
@@ -4777,14 +4777,14 @@ const luckysheetformula = {
                 let endstr = "";
                 let str_nb = $.trim(str).replace(/'/g, "\\'");
                 if (_this.iscelldata(str_nb) && str_nb.substr(0, 1) != ":") {
-                    // endstr = "luckysheet_getcelldata('" + $.trim(str) + "')";
-                    endstr = "luckysheet_getcelldata('" + str_nb + "')";
+                    // endstr = "tibetsheets_getcelldata('" + $.trim(str) + "')";
+                    endstr = "tibetsheets_getcelldata('" + str_nb + "')";
                     _this.isFunctionRangeSaveChange(str, r, c, index, dynamicArray_compute);
                 }
                 else if (str_nb.substr(0, 1) == ":") {
                     str_nb = str_nb.substr(1);
                     if (_this.iscelldata(str_nb)) {
-                        endstr = "luckysheet_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
+                        endstr = "tibetsheets_getSpecialReference(false," + function_str + ",'" + str_nb + "')";
                     }
                 }
                 else {
@@ -4800,7 +4800,7 @@ const luckysheetformula = {
                             endstr += str.substr(0, arraystart);
                         }
 
-                        endstr += "luckysheet_getarraydata('" + arraytxt + "')";
+                        endstr += "tibetsheets_getarraydata('" + arraytxt + "')";
 
                         if (arraystart + arraytxt.length < str.length) {
                             endstr += str.substr(arraystart + arraytxt.length, str.length);
@@ -4893,8 +4893,8 @@ const luckysheetformula = {
     },
     checkSpecialFunctionRange: function (function_str, r, c, index, dynamicArray_compute, cellRangeFunction) {
 
-        if (function_str.substr(0, 30) == "luckysheet_getSpecialReference" || function_str.substr(0, 20) == "luckysheet_function.") {
-            if (function_str.substr(0, 20) == "luckysheet_function.") {
+        if (function_str.substr(0, 30) == "tibetsheets_getSpecialReference" || function_str.substr(0, 20) == "tibetsheets_function.") {
+            if (function_str.substr(0, 20) == "tibetsheets_function.") {
                 let funcName = function_str.split(".")[1];
                 if (funcName != null) {
                     funcName = funcName.toUpperCase();
@@ -4925,14 +4925,14 @@ const luckysheetformula = {
             }
         }
 
-        // if (function_str.substr(0, 20) == "luckysheet_function.") {
+        // if (function_str.substr(0, 20) == "tibetsheets_function.") {
         //     let funcName = function_str.split(".")[1];
         //     if (funcName != null) {
         //         funcName = funcName.toUpperCase();
         //         if (funcName == "INDIRECT") {
-        //             let tempFunc = "luckysheet_indirect_check" + function_str.substr(30, function_str.length);
+        //             let tempFunc = "tibetsheets_indirect_check" + function_str.substr(30, function_str.length);
 
-        //             //tempFunc = tempFunc.replace(/luckysheet_getcelldata/g, "luckysheet_indirect_check_return");
+        //             //tempFunc = tempFunc.replace(/tibetsheets_getcelldata/g, "tibetsheets_indirect_check_return");
 
         //             try {
         //                 Store.calculateSheetIndex = index;
@@ -4958,7 +4958,7 @@ const luckysheetformula = {
 
         //         }
         //         else if (funcName == "OFFSET") {
-        //             let tempFunc = "luckysheet_offset_check" + function_str.substr(28, function_str.length);
+        //             let tempFunc = "tibetsheets_offset_check" + function_str.substr(28, function_str.length);
 
         //             try {
         //                 Store.calculateSheetIndex = index;
@@ -5064,24 +5064,24 @@ const luckysheetformula = {
             data = Store.flowdata;
         }
 
-        if (!window.luckysheet_compareWith) {
-            window.luckysheet_compareWith = luckysheet_compareWith;
-            window.luckysheet_getarraydata = luckysheet_getarraydata;
-            window.luckysheet_getcelldata = luckysheet_getcelldata;
-            window.luckysheet_parseData = luckysheet_parseData;
-            window.luckysheet_getValue = luckysheet_getValue;
-            window.luckysheet_indirect_check = luckysheet_indirect_check;
-            window.luckysheet_indirect_check_return = luckysheet_indirect_check_return;
-            window.luckysheet_offset_check = luckysheet_offset_check;
-            window.luckysheet_calcADPMM = luckysheet_calcADPMM;
-            window.luckysheet_getSpecialReference = luckysheet_getSpecialReference;
+        if (!window.tibetsheets_compareWith) {
+            window.tibetsheets_compareWith = tibetsheets_compareWith;
+            window.tibetsheets_getarraydata = tibetsheets_getarraydata;
+            window.tibetsheets_getcelldata = tibetsheets_getcelldata;
+            window.tibetsheets_parseData = tibetsheets_parseData;
+            window.tibetsheets_getValue = tibetsheets_getValue;
+            window.tibetsheets_indirect_check = tibetsheets_indirect_check;
+            window.tibetsheets_indirect_check_return = tibetsheets_indirect_check_return;
+            window.tibetsheets_offset_check = tibetsheets_offset_check;
+            window.tibetsheets_calcADPMM = tibetsheets_calcADPMM;
+            window.tibetsheets_getSpecialReference = tibetsheets_getSpecialReference;
         }
 
         if (_this.execFunctionGlobalData == null) {
             _this.execFunctionGlobalData = {};
         }
-        // let luckysheetfile = getluckysheetfile();
-        // let dynamicArray_compute = luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
+        // let tibetsheetsfile = gettibetsheetsfile();
+        // let dynamicArray_compute = tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
 
         if (index == null) {
             index = Store.currentSheetIndex;
@@ -5100,7 +5100,7 @@ const luckysheetformula = {
         let calcChains = _this.getAllFunctionGroup(),
             formulaObjects = {};
 
-        let sheets = getluckysheetfile();
+        let sheets = gettibetsheetsfile();
         let sheetData = {};
         for (let i = 0; i < sheets.length; i++) {
             let sheet = sheets[i];
@@ -5395,7 +5395,7 @@ const luckysheetformula = {
                 continue;
             }
 
-            window.luckysheet_getcelldata_cache = null;
+            window.tibetsheets_getcelldata_cache = null;
             let calc_funcStr = formulaCell.calc_funcStr;
 
             let v = _this.execfunction(calc_funcStr, formulaCell.r, formulaCell.c, formulaCell.index);
@@ -5428,24 +5428,24 @@ const luckysheetformula = {
             data = Store.flowdata;
         }
 
-        if (!window.luckysheet_compareWith) {
-            window.luckysheet_compareWith = luckysheet_compareWith;
-            window.luckysheet_getarraydata = luckysheet_getarraydata;
-            window.luckysheet_getcelldata = luckysheet_getcelldata;
-            window.luckysheet_parseData = luckysheet_parseData;
-            window.luckysheet_getValue = luckysheet_getValue;
-            window.luckysheet_indirect_check = luckysheet_indirect_check;
-            window.luckysheet_indirect_check_return = luckysheet_indirect_check_return;
-            window.luckysheet_offset_check = luckysheet_offset_check;
-            window.luckysheet_calcADPMM = luckysheet_calcADPMM;
-            window.luckysheet_getSpecialReference = luckysheet_getSpecialReference;
+        if (!window.tibetsheets_compareWith) {
+            window.tibetsheets_compareWith = tibetsheets_compareWith;
+            window.tibetsheets_getarraydata = tibetsheets_getarraydata;
+            window.tibetsheets_getcelldata = tibetsheets_getcelldata;
+            window.tibetsheets_parseData = tibetsheets_parseData;
+            window.tibetsheets_getValue = tibetsheets_getValue;
+            window.tibetsheets_indirect_check = tibetsheets_indirect_check;
+            window.tibetsheets_indirect_check_return = tibetsheets_indirect_check_return;
+            window.tibetsheets_offset_check = tibetsheets_offset_check;
+            window.tibetsheets_calcADPMM = tibetsheets_calcADPMM;
+            window.tibetsheets_getSpecialReference = tibetsheets_getSpecialReference;
         }
 
         if (_this.execFunctionGlobalData == null) {
             _this.execFunctionGlobalData = {};
         }
-        let luckysheetfile = getluckysheetfile();
-        let dynamicArray_compute = luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let dynamicArray_compute = tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"] == null ? {} : tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray_compute"];
 
         if (index == null) {
             index = Store.currentSheetIndex;
@@ -5472,7 +5472,7 @@ const luckysheetformula = {
         if (_this.execFunctionExist == null) {
             for (let i = 0; i < group.length; i++) {
                 let item = group[i];
-                let file = luckysheetfile[getSheetIndex(item["index"])];
+                let file = tibetsheetsfile[getSheetIndex(item["index"])];
                 if (file == null) {
                     continue;
                 }
@@ -5641,7 +5641,7 @@ const luckysheetformula = {
         }
 
         u.color = "b";
-        window.luckysheet_getcelldata_cache = null;
+        window.tibetsheets_getcelldata_cache = null;
         let calc_funcStr = getcellFormula(u.r, u.c, u.index);
 
         let v = _this.execfunction(calc_funcStr, u.r, u.c, u.index);
@@ -5659,10 +5659,10 @@ const luckysheetformula = {
         // let spl;
         // if(v[3]!=null){
         //     if(v[3].type=="sparklines"){
-        //         window.luckysheetCurrentRow = u.r;
-        //         window.luckysheetCurrentColumn = u.c;
-        //         window.luckysheetCurrentIndex = u.index;
-        //         window.luckysheetCurrentFunction = calc_funcStr;
+        //         window.tibetsheetsCurrentRow = u.r;
+        //         window.tibetsheetsCurrentColumn = u.c;
+        //         window.tibetsheetsCurrentIndex = u.index;
+        //         window.tibetsheetsCurrentFunction = calc_funcStr;
 
         //         let fp = $.trim(_this.functionParserExe(calc_funcStr));
         //         let sparklines = eval(fp);
@@ -5688,7 +5688,7 @@ const luckysheetformula = {
     groupValuesRefreshData: [],
     groupValuesRefresh: function () {
         let _this = this;
-        let luckysheetfile = getluckysheetfile();
+        let tibetsheetsfile = gettibetsheetsfile();
         if (_this.groupValuesRefreshData.length > 0) {
             for (let i = 0; i < _this.groupValuesRefreshData.length; i++) {
                 let item = _this.groupValuesRefreshData[i];
@@ -5697,7 +5697,7 @@ const luckysheetformula = {
                 //     continue;
                 // }
 
-                let file = luckysheetfile[getSheetIndex(item.index)];
+                let file = tibetsheetsfile[getSheetIndex(item.index)];
                 let data = file.data;
                 if (data == null) {
                     continue;
@@ -5730,8 +5730,8 @@ const luckysheetformula = {
             index = Store.currentSheetIndex;
         }
 
-        let luckysheetfile = getluckysheetfile();
-        let file = luckysheetfile[getSheetIndex(index)];
+        let tibetsheetsfile = gettibetsheetsfile();
+        let file = tibetsheetsfile[getSheetIndex(index)];
 
         let calcChain = file.calcChain;
         if (calcChain != null) {
@@ -5763,7 +5763,7 @@ const luckysheetformula = {
             }
         }
 
-        setluckysheetfile(luckysheetfile);
+        settibetsheetsfile(tibetsheetsfile);
     },
     execfunction: function (txt, r, c, index, isrefresh, notInsertFunc) {
         let _this = this;
@@ -5787,7 +5787,7 @@ const luckysheetformula = {
 
         let fp = $.trim(_this.functionParserExe(txt));
         //console.log(fp)
-        if ((fp.substr(0, 20) == "luckysheet_function." || fp.substr(0, 22) == "luckysheet_compareWith")) {
+        if ((fp.substr(0, 20) == "tibetsheets_function." || fp.substr(0, 22) == "tibetsheets_compareWith")) {
             _this.functionHTMLIndex = 0;
         }
 
@@ -5799,16 +5799,16 @@ const luckysheetformula = {
 
 
         let result = null;
-        window.luckysheetCurrentRow = r;
-        window.luckysheetCurrentColumn = c;
-        window.luckysheetCurrentIndex = index;
-        window.luckysheetCurrentFunction = txt;
+        window.tibetsheetsCurrentRow = r;
+        window.tibetsheetsCurrentColumn = c;
+        window.tibetsheetsCurrentIndex = index;
+        window.tibetsheetsCurrentFunction = txt;
 
         let sparklines = null;
 
         try {
-            if (fp.indexOf("luckysheet_getcelldata") > -1) {
-                let funcg = fp.split("luckysheet_getcelldata('");
+            if (fp.indexOf("tibetsheets_getcelldata") > -1) {
+                let funcg = fp.split("tibetsheets_getcelldata('");
 
                 for (let i = 1; i < funcg.length; i++) {
                     let funcgStr = funcg[i].split("')")[0];
@@ -5900,10 +5900,10 @@ const luckysheetformula = {
             }
         }
 
-        window.luckysheetCurrentRow = null;
-        window.luckysheetCurrentColumn = null;
-        window.luckysheetCurrentIndex = null;
-        window.luckysheetCurrentFunction = null;
+        window.tibetsheetsCurrentRow = null;
+        window.tibetsheetsCurrentColumn = null;
+        window.tibetsheetsCurrentIndex = null;
+        window.tibetsheetsCurrentFunction = null;
 
         if (r != null && c != null) {
             if (isrefresh) {
@@ -5946,4 +5946,4 @@ const luckysheetformula = {
     data_parm_index: 0  //选择公式后参数索引标记
 }
 
-export default luckysheetformula;
+export default tibetsheetsformula;

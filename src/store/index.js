@@ -1,7 +1,7 @@
 const Store = {
     container: null, 
     loadingObj:{},
-    luckysheetfile: null, 
+    tibetsheetsfile: null, 
     defaultcolumnNum: 60, 
     defaultrowNum: 84, 
     fullscreenmode: true,
@@ -27,7 +27,7 @@ const Store = {
     cellMainSrollBarSize: 12,
     sheetBarHeight: 31,
     statisticBarHeight: 23,
-    luckysheetTableContentHW: [0, 0], 
+    tibetsheetsTableContentHW: [0, 0], 
 
     defaultcollen: 73,
     defaultrowlen: 19,
@@ -35,51 +35,51 @@ const Store = {
     jfcountfuncTimeout: null, 
     jfautoscrollTimeout: null,
 
-    luckysheet_select_status: false,
-    luckysheet_select_save: [{ "row": [0, 0], "column": [0, 0] }],
-    luckysheet_selection_range: [],
+    tibetsheets_select_status: false,
+    tibetsheets_select_save: [{ "row": [0, 0], "column": [0, 0] }],
+    tibetsheets_selection_range: [],
 
-    luckysheet_copy_save: {}, //复制粘贴
-    luckysheet_paste_iscut: false,
+    tibetsheets_copy_save: {}, //复制粘贴
+    tibetsheets_paste_iscut: false,
 
     filterchage: true, //筛选
-    luckysheet_filter_save: { "row": [], "column": [] },
+    tibetsheets_filter_save: { "row": [], "column": [] },
 
-    luckysheet_sheet_move_status: false,
-    luckysheet_sheet_move_data: [],
-    luckysheet_scroll_status: false,
+    tibetsheets_sheet_move_status: false,
+    tibetsheets_sheet_move_data: [],
+    tibetsheets_scroll_status: false,
 
-    luckysheetisrefreshdetail: true,
-    luckysheetisrefreshtheme: true,
-    luckysheetcurrentisPivotTable: false,
+    tibetsheetsisrefreshdetail: true,
+    tibetsheetsisrefreshtheme: true,
+    tibetsheetscurrentisPivotTable: false,
 
-    luckysheet_rows_selected_status: false,  //行列标题相关参
-    luckysheet_cols_selected_status: false,  
-    luckysheet_rows_change_size: false,
-    luckysheet_rows_change_size_start: [],
-    luckysheet_cols_change_size: false,
-    luckysheet_cols_change_size_start: [],
-    luckysheet_cols_dbclick_timeout: null,
-    luckysheet_cols_dbclick_times: 0,
+    tibetsheets_rows_selected_status: false,  //行列标题相关参
+    tibetsheets_cols_selected_status: false,  
+    tibetsheets_rows_change_size: false,
+    tibetsheets_rows_change_size_start: [],
+    tibetsheets_cols_change_size: false,
+    tibetsheets_cols_change_size_start: [],
+    tibetsheets_cols_dbclick_timeout: null,
+    tibetsheets_cols_dbclick_times: 0,
 
-    luckysheetCellUpdate: [],
+    tibetsheetsCellUpdate: [],
     
-    luckysheet_shiftpositon: null,
+    tibetsheets_shiftpositon: null,
 
     iscopyself: true,
 
     orderbyindex: 0, //排序下标
 
-    luckysheet_model_move_state: false, //模态框拖动
-    luckysheet_model_xy: [0, 0],
-    luckysheet_model_move_obj: null,
+    tibetsheets_model_move_state: false, //模态框拖动
+    tibetsheets_model_xy: [0, 0],
+    tibetsheets_model_move_obj: null,
 
-    luckysheet_cell_selected_move: false,  //选区拖动替换
-    luckysheet_cell_selected_move_index: [],
+    tibetsheets_cell_selected_move: false,  //选区拖动替换
+    tibetsheets_cell_selected_move_index: [],
 
-    luckysheet_cell_selected_extend: false,  //选区下拉
-    luckysheet_cell_selected_extend_index: [],
-    luckysheet_cell_selected_extend_time: null,
+    tibetsheets_cell_selected_extend: false,  //选区下拉
+    tibetsheets_cell_selected_extend_index: [],
+    tibetsheets_cell_selected_extend_time: null,
 
     clearjfundo: true,
     jfundo: [],
@@ -89,30 +89,30 @@ const Store = {
     highlightChart: '',
     zIndex: 15,
     chartparam: {
-        luckysheetCurrentChart: null, //current chart_id
-        luckysheetCurrentChartActive: false,
-        luckysheetCurrentChartMove: null, // Debounce state
-        luckysheetCurrentChartMoveTimeout: null,//拖动图表框的节流定时器
-        luckysheetCurrentChartMoveObj: null, //chart DOM object
-        luckysheetCurrentChartMoveXy: null, //上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
-        luckysheetCurrentChartMoveWinH: null, //左右滚动条滑动距离
-        luckysheetCurrentChartMoveWinW: null, //上下滚动条滑动距离
-        luckysheetCurrentChartResize: null,
-        luckysheetCurrentChartResizeObj: null,
-        luckysheetCurrentChartResizeXy: null,
-        luckysheetCurrentChartResizeWinH: null,
-        luckysheetCurrentChartResizeWinW: null,
-        luckysheetInsertChartTosheetChange: true, // 正在执行撤销
-        luckysheetCurrentChartZIndexRank : 100,
-        luckysheet_chart_redo_click:false, //撤销重做时标识
-        luckysheetCurrentChartMaxState: false, //图表全屏状态
+        tibetsheetsCurrentChart: null, //current chart_id
+        tibetsheetsCurrentChartActive: false,
+        tibetsheetsCurrentChartMove: null, // Debounce state
+        tibetsheetsCurrentChartMoveTimeout: null,//拖动图表框的节流定时器
+        tibetsheetsCurrentChartMoveObj: null, //chart DOM object
+        tibetsheetsCurrentChartMoveXy: null, //上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
+        tibetsheetsCurrentChartMoveWinH: null, //左右滚动条滑动距离
+        tibetsheetsCurrentChartMoveWinW: null, //上下滚动条滑动距离
+        tibetsheetsCurrentChartResize: null,
+        tibetsheetsCurrentChartResizeObj: null,
+        tibetsheetsCurrentChartResizeXy: null,
+        tibetsheetsCurrentChartResizeWinH: null,
+        tibetsheetsCurrentChartResizeWinW: null,
+        tibetsheetsInsertChartTosheetChange: true, // 正在执行撤销
+        tibetsheetsCurrentChartZIndexRank : 100,
+        tibetsheets_chart_redo_click:false, //撤销重做时标识
+        tibetsheetsCurrentChartMaxState: false, //图表全屏状态
         jfrefreshchartall: '',
         changeChartCellData: '',
         renderChart: '',
         getChartJson: ''
     },
     functionList:null, //function list explanation
-    luckysheet_function:null,
+    tibetsheets_function:null,
     chart_selection: {},
     currentChart: '',
     scrollRefreshSwitch:true,

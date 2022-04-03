@@ -4,12 +4,12 @@ import { seriesLoadScripts, loadLinks, $$ } from '../../utils/util'
 // Dynamically load dependent scripts and styles
 const dependScripts = [
     // 'expendPlugins/chart/chartmix.umd.min.js',
-    'http://localhost:8080/luckysheetPluginPrint.umd.js',
+    'http://localhost:8080/tibetsheetsPluginPrint.umd.js',
 ]
 
 const dependLinks = [
     // 'expendPlugins/chart/chartmix.css',
-    'http://localhost:8080/luckysheetPluginPrint.css',
+    'http://localhost:8080/tibetsheetsPluginPrint.css',
 ]
 
 // Initialize the chart component

@@ -3,19 +3,19 @@ import { generateRandomKey, replaceHtml } from '../../utils/chartUtil'
 import { getdatabyselection, getcellvalue } from '../../global/getdata';
 import chartInfo from '../../store'
 import formula from '../../global/formula';
-import { luckysheet_getcelldata } from '../../function/func';
+import { tibetsheets_getcelldata } from '../../function/func';
 import { getSheetIndex, getRangetxt, getvisibledatacolumn, getvisibledatarow } from '../../methods/get'
 import { rowLocation, colLocation, mouseposition } from '../../global/location'
-import { setluckysheet_scroll_status } from '../../methods/set'
+import { settibetsheets_scroll_status } from '../../methods/set'
 import {
-    luckysheetMoveHighlightCell,
-    luckysheetMoveHighlightCell2, 
-    luckysheetMoveHighlightRange,
-    luckysheetMoveHighlightRange2,
-    luckysheetMoveEndCell
+    tibetsheetsMoveHighlightCell,
+    tibetsheetsMoveHighlightCell2, 
+    tibetsheetsMoveHighlightRange,
+    tibetsheetsMoveHighlightRange2,
+    tibetsheetsMoveEndCell
 } from '../../controllers/sheetMove';
 import { isEditMode } from '../../global/validate';
-import luckysheetsizeauto from '../../controllers/resize';
+import tibetsheetssizeauto from '../../controllers/resize';
 let _rowLocation = rowLocation
 let _colLocation = colLocation
 
@@ -121,20 +121,20 @@ function renderCharts(chartLists, isDemo) {
         let chart_id = chart.chart_id
         let chart_id_c = chart_id + '_c'
         let modelChartShowHTML =
-            '<div id="${id}"class="luckysheet-modal-dialog luckysheet-modal-dialog-chart ${addclass}"tabindex="0"role="dialog"aria-labelledby=":41e"dir="ltr"><div class="luckysheet-modal-dialog-resize"><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lt"data-type="lt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-mt"data-type="mt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lm"data-type="lm"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rm"data-type="rm"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rt"data-type="rt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lb"data-type="lb"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-mb"data-type="mb"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rb"data-type="rb"></div></div><div class="luckysheet-modal-dialog-controll"><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-update"role="button"tabindex="0"aria-label="修改图表"title="修改图表"><i class="fa fa-pencil"aria-hidden="true"></i></span><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-max"role="butluckysheet_chartIns_indexton"tabindex="0"aria-label="最大化"title="最大化"><i class="fa fa-window-maximize"aria-hidden="true"></i></span><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-del"role="button"tabindex="0"aria-label="删除"title="删除"><i class="fa fa-trash"aria-hidden="true"></i></span></div><div class="luckysheet-modal-dialog-content">${content}</div></div>'
+            '<div id="${id}"class="tibetsheets-modal-dialog tibetsheets-modal-dialog-chart ${addclass}"tabindex="0"role="dialog"aria-labelledby=":41e"dir="ltr"><div class="tibetsheets-modal-dialog-resize"><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lt"data-type="lt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-mt"data-type="mt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lm"data-type="lm"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rm"data-type="rm"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rt"data-type="rt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lb"data-type="lb"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-mb"data-type="mb"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rb"data-type="rb"></div></div><div class="tibetsheets-modal-dialog-controll"><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-update"role="button"tabindex="0"aria-label="修改图表"title="修改图表"><i class="fa fa-pencil"aria-hidden="true"></i></span><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-max"role="buttibetsheets_chartIns_indexton"tabindex="0"aria-label="最大化"title="最大化"><i class="fa fa-window-maximize"aria-hidden="true"></i></span><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-del"role="button"tabindex="0"aria-label="删除"title="删除"><i class="fa fa-trash"aria-hidden="true"></i></span></div><div class="tibetsheets-modal-dialog-content">${content}</div></div>'
 
         let $t = $(
             replaceHtml(modelChartShowHTML, {
                 id: chart_id_c,
-                addclass: 'luckysheet-data-visualization-chart',
+                addclass: 'tibetsheets-data-visualization-chart',
                 title: '图表生成',
                 content: ''
             })
-        ).appendTo($('.luckysheet-cell-main'))
+        ).appendTo($('.tibetsheets-cell-main'))
 
         setChartMoveableEffect($t);
 
-        $(`#${chart_id_c}`).children('.luckysheet-modal-dialog-content')[0].id = chart_id
+        $(`#${chart_id_c}`).children('.tibetsheets-modal-dialog-content')[0].id = chart_id
 
         let container = document.getElementById(chart_id_c)
 
@@ -149,17 +149,17 @@ function renderCharts(chartLists, isDemo) {
         showNeedRangeShow(chart_id);
 
         // delete current chart
-        $(`#${chart_id}_c .luckysheet-modal-controll-del`).click(function (e) {
+        $(`#${chart_id}_c .tibetsheets-modal-controll-del`).click(function (e) {
             delChart(chart_id)
         })
 
         // edit current chart
-        $(`#${chart_id}_c .luckysheet-modal-controll-update`).click(function (e) {
+        $(`#${chart_id}_c .tibetsheets-modal-controll-update`).click(function (e) {
             showChartSettingComponent()
         })
 
-        $t.children('.luckysheet-modal-dialog-content').mousedown(function (e) {
-            if (!chartInfo.chartparam.luckysheetCurrentChartMaxState) {
+        $t.children('.tibetsheets-modal-dialog-content').mousedown(function (e) {
+            if (!chartInfo.chartparam.tibetsheetsCurrentChartMaxState) {
                 //当前图表显示区域高亮
                 showNeedRangeShow(chart_id);
             }
@@ -167,59 +167,59 @@ function renderCharts(chartLists, isDemo) {
         })
         $t.mousedown(function (e) {  // move chart
 
-                if (!chartInfo.chartparam.luckysheetCurrentChartMaxState) {
+                if (!chartInfo.chartparam.tibetsheetsCurrentChartMaxState) {
                     //当前图表显示区域高亮
                     showNeedRangeShow(chart_id);
-                    setluckysheet_scroll_status(true);
+                    settibetsheets_scroll_status(true);
 
                     //允许拖动渲染框
                     if (
-                        !$(e.target).is(".luckysheet-modal-dialog-controll") &&
-                        !$(e.target).is(".luckysheet-modal-controll-btn") &&
+                        !$(e.target).is(".tibetsheets-modal-dialog-controll") &&
+                        !$(e.target).is(".tibetsheets-modal-controll-btn") &&
                         !$(e.target).is("i")
                     ) {
                         // Debounce
-                        chartInfo.chartparam.luckysheetCurrentChartMoveTimeout = setTimeout(
+                        chartInfo.chartparam.tibetsheetsCurrentChartMoveTimeout = setTimeout(
                             function () {
-                                chartInfo.chartparam.luckysheetCurrentChartMove = true;
+                                chartInfo.chartparam.tibetsheetsCurrentChartMove = true;
                             },
                             100
                         );
                     }
 
-                    var toffset = chartInfo.chartparam.luckysheetCurrentChartMoveObj.offset();
-                    var tpsition = chartInfo.chartparam.luckysheetCurrentChartMoveObj.position();
-                    //luckysheetCurrentChartMoveXy: [鼠标点相对chart框的距离X方向，鼠标点相对chart框的距离Y方向，chart框相对cell-main的距离X方向，chart框相对cell-main的距离Y方向，水平滚动条的位置，垂直滚动条的位置]
-                    chartInfo.chartparam.luckysheetCurrentChartMoveXy = [
+                    var toffset = chartInfo.chartparam.tibetsheetsCurrentChartMoveObj.offset();
+                    var tpsition = chartInfo.chartparam.tibetsheetsCurrentChartMoveObj.position();
+                    //tibetsheetsCurrentChartMoveXy: [鼠标点相对chart框的距离X方向，鼠标点相对chart框的距离Y方向，chart框相对cell-main的距离X方向，chart框相对cell-main的距离Y方向，水平滚动条的位置，垂直滚动条的位置]
+                    chartInfo.chartparam.tibetsheetsCurrentChartMoveXy = [
                         e.pageX - toffset.left,
                         e.pageY - toffset.top,
                         tpsition.left,
                         tpsition.top,
-                        $("#luckysheet-scrollbar-x").scrollLeft(),
-                        $("#luckysheet-scrollbar-y").scrollTop()
+                        $("#tibetsheets-scrollbar-x").scrollLeft(),
+                        $("#tibetsheets-scrollbar-y").scrollTop()
                     ];
-                    chartInfo.chartparam.luckysheetCurrentChartMoveWinH = $(
-                        "#luckysheet-cell-main"
+                    chartInfo.chartparam.tibetsheetsCurrentChartMoveWinH = $(
+                        "#tibetsheets-cell-main"
                     )[0].scrollHeight;
-                    chartInfo.chartparam.luckysheetCurrentChartMoveWinW = $(
-                        "#luckysheet-cell-main"
+                    chartInfo.chartparam.tibetsheetsCurrentChartMoveWinW = $(
+                        "#tibetsheets-cell-main"
                     )[0].scrollWidth;
 
                     if (
-                        !$(e.target).hasClass("luckysheet-mousedown-cancel") &&
+                        !$(e.target).hasClass("tibetsheets-mousedown-cancel") &&
                         $(e.target).filter("[class*='sp-palette']").length == 0 &&
                         $(e.target).filter("[class*='sp-thumb']").length == 0 &&
                         $(e.target).filter("[class*='sp-']").length == 0
                     ) {
-                        $("#luckysheet-rightclick-menu").hide();
-                        $("#luckysheet-cols-h-hover").hide();
-                        $("#luckysheet-cols-menu-btn").hide();
-                        $("#luckysheet-rightclick-menu").hide();
+                        $("#tibetsheets-rightclick-menu").hide();
+                        $("#tibetsheets-cols-h-hover").hide();
+                        $("#tibetsheets-cols-menu-btn").hide();
+                        $("#tibetsheets-rightclick-menu").hide();
                         $(
-                            "#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu, #luckysheet-user-menu"
+                            "#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu, #tibetsheets-user-menu"
                         ).hide();
                         $(
-                            "body > .luckysheet-filter-menu, body > .luckysheet-filter-submenu, body > .luckysheet-cols-menu"
+                            "body > .tibetsheets-filter-menu, body > .tibetsheets-filter-submenu, body > .tibetsheets-cols-menu"
                         ).hide();
 
                     }
@@ -228,19 +228,19 @@ function renderCharts(chartLists, isDemo) {
 
                 }
 
-            }).find(".luckysheet-modal-dialog-resize-item")
+            }).find(".tibetsheets-modal-dialog-resize-item")
             .mousedown(function (e) {
-                if (chartInfo.chartparam.luckysheetCurrentChartActive) {
-                    chartInfo.chartparam.luckysheetCurrentChartResize = $(this).data("type"); //开始状态resize
+                if (chartInfo.chartparam.tibetsheetsCurrentChartActive) {
+                    chartInfo.chartparam.tibetsheetsCurrentChartResize = $(this).data("type"); //开始状态resize
 
                     var mouse = mouseposition(e.pageX, e.pageY),
-                        scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(),
-                        scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+                        scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft(),
+                        scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
                     var x = mouse[0] + scrollLeft;
                     var y = mouse[1] + scrollTop;
-                    var position = chartInfo.chartparam.luckysheetCurrentChartResizeObj.position();
+                    var position = chartInfo.chartparam.tibetsheetsCurrentChartResizeObj.position();
                     //参数：x,y:鼠标位置，$t.width(), $t.height(): chart框宽高， position.left + scrollLeft, position.top + scrollTop ：chart框位置 ，scrollLeft, scrollTop：滚动条位置
-                    chartInfo.chartparam.luckysheetCurrentChartResizeXy = [
+                    chartInfo.chartparam.tibetsheetsCurrentChartResizeXy = [
                         x,
                         y,
                         $t.width(),
@@ -250,14 +250,14 @@ function renderCharts(chartLists, isDemo) {
                         scrollLeft,
                         scrollTop
                     ];
-                    chartInfo.chartparam.luckysheetCurrentChartResizeWinH = $(
-                        "#luckysheet-cell-main"
+                    chartInfo.chartparam.tibetsheetsCurrentChartResizeWinH = $(
+                        "#tibetsheets-cell-main"
                     )[0].scrollHeight;
-                    chartInfo.chartparam.luckysheetCurrentChartResizeWinW = $(
-                        "#luckysheet-cell-main"
+                    chartInfo.chartparam.tibetsheetsCurrentChartResizeWinW = $(
+                        "#tibetsheets-cell-main"
                     )[0].scrollWidth;
 
-                    chartInfo.chartparam.luckysheetCurrentChart = chart_id;
+                    chartInfo.chartparam.tibetsheetsCurrentChart = chart_id;
 
                     e.stopPropagation();
 
@@ -299,20 +299,20 @@ function jfrefreshchartall(flowdata1, r_st, r_ed, c_st, c_ed) {
             return
         }
         //根据原有的范围取得数据
-        var luckysheetgetcellrange = formula.getcellrange(
+        var tibetsheetsgetcellrange = formula.getcellrange(
             chart.rangeTxt
         );
         var sheetIndex =
-            luckysheetgetcellrange.sheetIndex == -1
+            tibetsheetsgetcellrange.sheetIndex == -1
                 ? 0
-                : luckysheetgetcellrange.sheetIndex; //sheetIndex为-1时，转化为0
+                : tibetsheetsgetcellrange.sheetIndex; //sheetIndex为-1时，转化为0
 
         var selection = {
-            row: luckysheetgetcellrange.row,
-            column: luckysheetgetcellrange.column,
+            row: tibetsheetsgetcellrange.row,
+            column: tibetsheetsgetcellrange.column,
             dataSheetIndex: sheetIndex
         }; //数组
-        var getcelldata = luckysheet_getcelldata(chart.rangeTxt);
+        var getcelldata = tibetsheets_getcelldata(chart.rangeTxt);
 
         if (
             typeof getcelldata === "object" &&
@@ -335,13 +335,13 @@ function chart_selection() {
                 return
             }
 
-            $('#luckysheet-chart-rangeShow').empty()
-            $('#luckysheet-cell-selected-boxs').hide()
-            $('#luckysheet-cell-selected-focus').hide()
-            $('#luckysheet-rows-h-selected').empty()
-            $('#luckysheet-cols-h-selected').empty()
-            $('#luckysheet-row-count-show').hide()
-            $('#luckysheet-column-count-show').hide()
+            $('#tibetsheets-chart-rangeShow').empty()
+            $('#tibetsheets-cell-selected-boxs').hide()
+            $('#tibetsheets-cell-selected-focus').hide()
+            $('#tibetsheets-rows-h-selected').empty()
+            $('#tibetsheets-cols-h-selected').empty()
+            $('#tibetsheets-row-count-show').hide()
+            $('#tibetsheets-column-count-show').hide()
 
             var st_r = chart_json.rangeArray[0].row[0]
             var st_c = chart_json.rangeArray[0].column[0]
@@ -387,7 +387,7 @@ function chart_selection() {
                 rangeSplitArray.content.column[1] + st_c
             )
 
-            $('#luckysheet-chart-rangeShow').append(
+            $('#tibetsheets-chart-rangeShow').append(
                 chart_rowtitle_html + chart_coltitle_html + chart_content_html
             )
 
@@ -413,7 +413,7 @@ function chart_selection() {
                 }
 
                 var html =
-                    '<div id="luckysheet-chart-rangeShow-' +
+                    '<div id="tibetsheets-chart-rangeShow-' +
                     type +
                     '" style="left: ' +
                     col_pre +
@@ -424,31 +424,31 @@ function chart_selection() {
                     'px;height: ' +
                     (row - row_pre - 1) +
                     'px;border: none;margin: 0;position: absolute;z-index: 14;">' +
-                    '<div class="luckysheet-chart-rangeShow-move" data-type="top" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-move" data-type="top" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
                     color +
                     ';position: absolute;left: 0;right: 0;top: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-move" data-type="right" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-move" data-type="right" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
                     color +
                     ';position: absolute;top: 0;bottom: 0;right: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-move" data-type="bottom" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-move" data-type="bottom" style="height: 2px;border-top: 2px solid #fff;border-bottom: 2px solid #fff;background: ' +
                     color +
                     ';position: absolute;left: 0;right: 0;bottom: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-move" data-type="left" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-move" data-type="left" style="width: 2px;border-left: 2px solid #fff;border-right: 2px solid #fff;background: ' +
                     color +
                     ';position: absolute;top: 0;bottom: 0;left: -2px;z-index: 18;opacity: 0.9;cursor: move;"></div>' +
                     '<div style="border: 2px solid #85c0fc;background: ' +
                     color +
                     ';position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 15;opacity: 0.1;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-resize" data-type="lt" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-resize" data-type="lt" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
                     color +
                     ';position: absolute;left: -3px;top: -3px;z-index: 19;cursor: se-resize;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-resize" data-type="rt" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-resize" data-type="rt" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
                     color +
                     ';position: absolute;right: -3px;top: -3px;z-index: 19;cursor: ne-resize;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-resize" data-type="lb" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-resize" data-type="lb" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
                     color +
                     ';position: absolute;left: -3px;bottom: -3px;z-index: 19;cursor: ne-resize;"></div>' +
-                    '<div class="luckysheet-chart-rangeShow-resize" data-type="rb" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
+                    '<div class="tibetsheets-chart-rangeShow-resize" data-type="rb" style="width: 6px;height: 6px;border: 1px solid #fff;background: ' +
                     color +
                     ';position: absolute;right: -3px;bottom: -3px;z-index: 19;cursor: se-resize;"></div>' +
                     '</div>'
@@ -469,8 +469,8 @@ function chart_selection() {
             var rangeSplitArray = chart_json.rangeSplitArray
 
             var mouse = mouseposition(event.pageX, event.pageY)
-            var scrollLeft = $('#luckysheet-cell-main').scrollLeft()
-            var scrollTop = $('#luckysheet-cell-main').scrollTop()
+            var scrollLeft = $('#tibetsheets-cell-main').scrollLeft()
+            var scrollTop = $('#tibetsheets-cell-main').scrollTop()
 
             var x = mouse[0] + scrollLeft
             var y = mouse[1] + scrollTop
@@ -489,7 +489,7 @@ function chart_selection() {
 
             var $id = chartInfo.chart_selection.rangeMoveObj.attr('id')
 
-            if ($id == 'luckysheet-chart-rangeShow-content') {
+            if ($id == 'tibetsheets-chart-rangeShow-content') {
                 //行
                 var row_s =
                     chartInfo.chart_selection.rangeMoveIndex[0] -
@@ -600,7 +600,7 @@ function chart_selection() {
                         column: [col_s, col_e]
                     }
                 }
-            } else if ($id == 'luckysheet-chart-rangeShow-rowtitle') {
+            } else if ($id == 'tibetsheets-chart-rangeShow-rowtitle') {
                 //列
                 var col_s =
                     chartInfo.chart_selection.rangeMoveIndex[1] -
@@ -658,7 +658,7 @@ function chart_selection() {
                         column: [col_s, col_e]
                     }
                 }
-            } else if ($id == 'luckysheet-chart-rangeShow-coltitle') {
+            } else if ($id == 'tibetsheets-chart-rangeShow-coltitle') {
                 //行
                 var row_s =
                     chartInfo.chart_selection.rangeMoveIndex[0] -
@@ -750,8 +750,8 @@ function chart_selection() {
             var rangeSplitArray = chart_json.rangeSplitArray
 
             var mouse = mouseposition(event.pageX, event.pageY)
-            var scrollLeft = $('#luckysheet-cell-main').scrollLeft()
-            var scrollTop = $('#luckysheet-cell-main').scrollTop()
+            var scrollLeft = $('#tibetsheets-cell-main').scrollLeft()
+            var scrollTop = $('#tibetsheets-cell-main').scrollTop()
 
             var x = mouse[0] + scrollLeft
             var y = mouse[1] + scrollTop
@@ -770,7 +770,7 @@ function chart_selection() {
 
             var $id = chartInfo.chart_selection.rangeResizeObj.attr('id')
 
-            if ($id == 'luckysheet-chart-rangeShow-content') {
+            if ($id == 'tibetsheets-chart-rangeShow-content') {
                 var r1, r2, c1, c2
 
                 if (chartInfo.chart_selection.rangeResize == 'lt') {
@@ -891,7 +891,7 @@ function chart_selection() {
                         }
                     }
                 }
-            } else if ($id == 'luckysheet-chart-rangeShow-rowtitle') {
+            } else if ($id == 'tibetsheets-chart-rangeShow-rowtitle') {
                 var c1, c2
 
                 if (
@@ -964,7 +964,7 @@ function chart_selection() {
                         column: [obj_c1 - st_c, obj_c2 - st_c]
                     }
                 }
-            } else if ($id == 'luckysheet-chart-rangeShow-coltitle') {
+            } else if ($id == 'tibetsheets-chart-rangeShow-coltitle') {
                 var r1, r2
 
                 if (
@@ -1064,17 +1064,17 @@ function chart_selection() {
 // create chart
 function createLuckyChart(width, height, left, top) {
     //如果只选中一个单元格，则自动填充选取
-    var jfgird_select_save = luckysheet.getluckysheet_select_save();
+    var jfgird_select_save = tibetsheets.gettibetsheets_select_save();
     if (
         jfgird_select_save.length == 1 &&
         jfgird_select_save[0].row[0] == jfgird_select_save[0].row[1] &&
         jfgird_select_save[0].column[0] == jfgird_select_save[0].column[1]
     ) {
-        luckysheetMoveHighlightRange2("right", "rangeOfSelect");
+        tibetsheetsMoveHighlightRange2("right", "rangeOfSelect");
 
-        luckysheetMoveHighlightRange2("down", "rangeOfSelect");
+        tibetsheetsMoveHighlightRange2("down", "rangeOfSelect");
 
-        jfgird_select_save = luckysheet.getluckysheet_select_save();
+        jfgird_select_save = tibetsheets.gettibetsheets_select_save();
     }
     //处理右边的空白单元格，自动略过并修改选区 ---------------start
     var shiftpositon_row = -1;
@@ -1091,7 +1091,7 @@ function createLuckyChart(width, height, left, top) {
             c <= jfgird_select_save[0]["column"][1];
             c++
         ) {
-            var value = getcellvalue(r, c, luckysheet.flowdata());
+            var value = getcellvalue(r, c, tibetsheets.flowdata());
             //console.log("value,r,c",value,r,c);
             if (value != null && value.toString().length > 0) {
                 shiftpositon_row = r;
@@ -1110,11 +1110,11 @@ function createLuckyChart(width, height, left, top) {
 
     jfgird_select_save[0]["row"] = [shiftpositon_row, shiftpositon_row];
     jfgird_select_save[0].row_focus =shiftpositon_row;
-    luckysheet.setluckysheet_select_save(jfgird_select_save);
+    tibetsheets.settibetsheets_select_save(jfgird_select_save);
 
-    chartInfo.luckysheet_shiftpositon = $.extend(true, {}, jfgird_select_save[0]);
-    luckysheetMoveEndCell("down", "range", false, row_ed);
-    jfgird_select_save = luckysheet.getluckysheet_select_save();
+    chartInfo.tibetsheets_shiftpositon = $.extend(true, {}, jfgird_select_save[0]);
+    tibetsheetsMoveEndCell("down", "range", false, row_ed);
+    jfgird_select_save = tibetsheets.gettibetsheets_select_save();
 
     var shiftpositon_col = -1;
     var column_ed =
@@ -1129,7 +1129,7 @@ function createLuckyChart(width, height, left, top) {
             r <= jfgird_select_save[0]["row"][1];
             r++
         ) {
-            var value = getcellvalue(r, c, luckysheet.flowdata());
+            var value = getcellvalue(r, c, tibetsheets.flowdata());
             if (value != null && value.toString().length > 0) {
                 shiftpositon_col = c;
                 break;
@@ -1147,11 +1147,11 @@ function createLuckyChart(width, height, left, top) {
 
     jfgird_select_save[0]["column"] = [shiftpositon_col, shiftpositon_col];
     jfgird_select_save[0].column_focus = shiftpositon_col;
-    luckysheet.setluckysheet_select_save(jfgird_select_save);
+    tibetsheets.settibetsheets_select_save(jfgird_select_save);
 
-    chartInfo.luckysheet_shiftpositon = $.extend(true, {}, jfgird_select_save[0]);
-    luckysheetMoveEndCell("right", "range", false, column_ed);
-    jfgird_select_save = luckysheet.getluckysheet_select_save()
+    chartInfo.tibetsheets_shiftpositon = $.extend(true, {}, jfgird_select_save[0]);
+    tibetsheetsMoveEndCell("right", "range", false, column_ed);
+    jfgird_select_save = tibetsheets.gettibetsheets_select_save()
 
     var rangeArray = $.extend(true, [], jfgird_select_save);
 
@@ -1166,20 +1166,20 @@ function createLuckyChart(width, height, left, top) {
     let chart_id_c = chart_id + '_c'
 
     let modelChartShowHTML =
-        '<div id="${id}"class="luckysheet-modal-dialog luckysheet-modal-dialog-chart ${addclass}"tabindex="0"role="dialog"aria-labelledby=":41e"dir="ltr"><div class="luckysheet-modal-dialog-resize"><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lt"data-type="lt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-mt"data-type="mt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lm"data-type="lm"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rm"data-type="rm"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rt"data-type="rt"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-lb"data-type="lb"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-mb"data-type="mb"></div><div class="luckysheet-modal-dialog-resize-item luckysheet-modal-dialog-resize-item-rb"data-type="rb"></div></div><div class="luckysheet-modal-dialog-controll"><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-update"role="button"tabindex="0"aria-label="修改图表"title="修改图表"><i class="fa fa-pencil"aria-hidden="true"></i></span><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-max"role="butluckysheet_chartIns_indexton"tabindex="0"aria-label="最大化"title="最大化"><i class="fa fa-window-maximize"aria-hidden="true"></i></span><span class="luckysheet-modal-controll-btn luckysheet-modal-controll-del"role="button"tabindex="0"aria-label="删除"title="删除"><i class="fa fa-trash"aria-hidden="true"></i></span></div><div class="luckysheet-modal-dialog-content">${content}</div></div>'
+        '<div id="${id}"class="tibetsheets-modal-dialog tibetsheets-modal-dialog-chart ${addclass}"tabindex="0"role="dialog"aria-labelledby=":41e"dir="ltr"><div class="tibetsheets-modal-dialog-resize"><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lt"data-type="lt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-mt"data-type="mt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lm"data-type="lm"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rm"data-type="rm"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rt"data-type="rt"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-lb"data-type="lb"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-mb"data-type="mb"></div><div class="tibetsheets-modal-dialog-resize-item tibetsheets-modal-dialog-resize-item-rb"data-type="rb"></div></div><div class="tibetsheets-modal-dialog-controll"><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-update"role="button"tabindex="0"aria-label="修改图表"title="修改图表"><i class="fa fa-pencil"aria-hidden="true"></i></span><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-max"role="buttibetsheets_chartIns_indexton"tabindex="0"aria-label="最大化"title="最大化"><i class="fa fa-window-maximize"aria-hidden="true"></i></span><span class="tibetsheets-modal-controll-btn tibetsheets-modal-controll-del"role="button"tabindex="0"aria-label="删除"title="删除"><i class="fa fa-trash"aria-hidden="true"></i></span></div><div class="tibetsheets-modal-dialog-content">${content}</div></div>'
 
     let $t = $(
         replaceHtml(modelChartShowHTML, {
             id: chart_id_c,
-            addclass: 'luckysheet-data-visualization-chart',
+            addclass: 'tibetsheets-data-visualization-chart',
             title: '图表生成',
             content: ''
         })
-    ).appendTo($('.luckysheet-cell-main'))
+    ).appendTo($('.tibetsheets-cell-main'))
 
     let container = document.getElementById(chart_id_c)
 
-    let { render, chart_json } = chartInfo.createChart($(`#${chart_id_c}`).children('.luckysheet-modal-dialog-content')[0], chartData, chart_id, rangeArray, rangeTxt)
+    let { render, chart_json } = chartInfo.createChart($(`#${chart_id_c}`).children('.tibetsheets-modal-dialog-content')[0], chartData, chart_id, rangeArray, rangeTxt)
     // chartInfo.currentChart = chart_json.chartOptions
     console.dir(JSON.stringify(chart_json))
 
@@ -1199,7 +1199,7 @@ function createLuckyChart(width, height, left, top) {
     chartInfo.zIndex++
 
     // insert chartinfo
-    let sheetFile = chartInfo.luckysheetfile[getSheetIndex(chartInfo.currentSheetIndex)];
+    let sheetFile = chartInfo.tibetsheetsfile[getSheetIndex(chartInfo.currentSheetIndex)];
 
     if (!sheetFile.chart) {
         sheetFile.chart = [];
@@ -1217,19 +1217,19 @@ function createLuckyChart(width, height, left, top) {
     showNeedRangeShow(chart_id);
 
     // delete current chart
-    $(`#${chart_id}_c .luckysheet-modal-controll-del`).click(function (e) {
+    $(`#${chart_id}_c .tibetsheets-modal-controll-del`).click(function (e) {
         delChart(chart_id)
     })
 
     setChartMoveableEffect($t);
 
     // edit current chart
-    $(`#${chart_id}_c .luckysheet-modal-controll-update`).click(function (e) {
+    $(`#${chart_id}_c .tibetsheets-modal-controll-update`).click(function (e) {
         showChartSettingComponent()
     })
 
-    $t.children('.luckysheet-modal-dialog-content').mousedown(function (e) {
-        if (!chartInfo.chartparam.luckysheetCurrentChartMaxState) {
+    $t.children('.tibetsheets-modal-dialog-content').mousedown(function (e) {
+        if (!chartInfo.chartparam.tibetsheetsCurrentChartMaxState) {
             //当前图表显示区域高亮
             showNeedRangeShow(chart_id);
         }
@@ -1237,59 +1237,59 @@ function createLuckyChart(width, height, left, top) {
     })
     $t.mousedown(function (e) {  //move chart
 
-        if (!chartInfo.chartparam.luckysheetCurrentChartMaxState) {
+        if (!chartInfo.chartparam.tibetsheetsCurrentChartMaxState) {
             //当前图表显示区域高亮
             showNeedRangeShow(chart_id);
-            setluckysheet_scroll_status(true);
+            settibetsheets_scroll_status(true);
 
             //允许拖动渲染框
             if (
-                !$(e.target).is(".luckysheet-modal-dialog-controll") &&
-                !$(e.target).is(".luckysheet-modal-controll-btn") &&
+                !$(e.target).is(".tibetsheets-modal-dialog-controll") &&
+                !$(e.target).is(".tibetsheets-modal-controll-btn") &&
                 !$(e.target).is("i")
             ) {
                 // Debounce
-                chartInfo.chartparam.luckysheetCurrentChartMoveTimeout = setTimeout(
+                chartInfo.chartparam.tibetsheetsCurrentChartMoveTimeout = setTimeout(
                     function () {
-                        chartInfo.chartparam.luckysheetCurrentChartMove = true;
+                        chartInfo.chartparam.tibetsheetsCurrentChartMove = true;
                     },
                     100
                 );
             }
 
-            var toffset = chartInfo.chartparam.luckysheetCurrentChartMoveObj.offset();
-            var tpsition = chartInfo.chartparam.luckysheetCurrentChartMoveObj.position();
-            //luckysheetCurrentChartMoveXy: [鼠标点相对chart框的距离X方向，鼠标点相对chart框的距离Y方向，chart框相对cell-main的距离X方向，chart框相对cell-main的距离Y方向，水平滚动条的位置，垂直滚动条的位置]
-            chartInfo.chartparam.luckysheetCurrentChartMoveXy = [
+            var toffset = chartInfo.chartparam.tibetsheetsCurrentChartMoveObj.offset();
+            var tpsition = chartInfo.chartparam.tibetsheetsCurrentChartMoveObj.position();
+            //tibetsheetsCurrentChartMoveXy: [鼠标点相对chart框的距离X方向，鼠标点相对chart框的距离Y方向，chart框相对cell-main的距离X方向，chart框相对cell-main的距离Y方向，水平滚动条的位置，垂直滚动条的位置]
+            chartInfo.chartparam.tibetsheetsCurrentChartMoveXy = [
                 e.pageX - toffset.left,
                 e.pageY - toffset.top,
                 tpsition.left,
                 tpsition.top,
-                $("#luckysheet-scrollbar-x").scrollLeft(),
-                $("#luckysheet-scrollbar-y").scrollTop()
+                $("#tibetsheets-scrollbar-x").scrollLeft(),
+                $("#tibetsheets-scrollbar-y").scrollTop()
             ];
-            chartInfo.chartparam.luckysheetCurrentChartMoveWinH = $(
-                "#luckysheet-cell-main"
+            chartInfo.chartparam.tibetsheetsCurrentChartMoveWinH = $(
+                "#tibetsheets-cell-main"
             )[0].scrollHeight;
-            chartInfo.chartparam.luckysheetCurrentChartMoveWinW = $(
-                "#luckysheet-cell-main"
+            chartInfo.chartparam.tibetsheetsCurrentChartMoveWinW = $(
+                "#tibetsheets-cell-main"
             )[0].scrollWidth;
 
             if (
-                !$(e.target).hasClass("luckysheet-mousedown-cancel") &&
+                !$(e.target).hasClass("tibetsheets-mousedown-cancel") &&
                 $(e.target).filter("[class*='sp-palette']").length == 0 &&
                 $(e.target).filter("[class*='sp-thumb']").length == 0 &&
                 $(e.target).filter("[class*='sp-']").length == 0
             ) {
-                $("#luckysheet-rightclick-menu").hide();
-                $("#luckysheet-cols-h-hover").hide();
-                $("#luckysheet-cols-menu-btn").hide();
-                $("#luckysheet-rightclick-menu").hide();
+                $("#tibetsheets-rightclick-menu").hide();
+                $("#tibetsheets-cols-h-hover").hide();
+                $("#tibetsheets-cols-menu-btn").hide();
+                $("#tibetsheets-rightclick-menu").hide();
                 $(
-                    "#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu, #luckysheet-user-menu"
+                    "#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu, #tibetsheets-user-menu"
                 ).hide();
                 $(
-                    "body > .luckysheet-filter-menu, body > .luckysheet-filter-submenu, body > .luckysheet-cols-menu"
+                    "body > .tibetsheets-filter-menu, body > .tibetsheets-filter-submenu, body > .tibetsheets-cols-menu"
                 ).hide();
 
             }
@@ -1298,19 +1298,19 @@ function createLuckyChart(width, height, left, top) {
 
         }
 
-    }).find(".luckysheet-modal-dialog-resize-item")
+    }).find(".tibetsheets-modal-dialog-resize-item")
         .mousedown(function (e) {
-            if (chartInfo.chartparam.luckysheetCurrentChartActive) {
-                chartInfo.chartparam.luckysheetCurrentChartResize = $(this).data("type"); //开始状态resize
+            if (chartInfo.chartparam.tibetsheetsCurrentChartActive) {
+                chartInfo.chartparam.tibetsheetsCurrentChartResize = $(this).data("type"); //开始状态resize
 
                 var mouse = mouseposition(e.pageX, e.pageY),
-                    scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(),
-                    scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+                    scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft(),
+                    scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
                 var x = mouse[0] + scrollLeft;
                 var y = mouse[1] + scrollTop;
-                var position = chartInfo.chartparam.luckysheetCurrentChartResizeObj.position();
+                var position = chartInfo.chartparam.tibetsheetsCurrentChartResizeObj.position();
                 //参数：x,y:鼠标位置，$t.width(), $t.height(): chart框宽高， position.left + scrollLeft, position.top + scrollTop ：chart框位置 ，scrollLeft, scrollTop：滚动条位置
-                chartInfo.chartparam.luckysheetCurrentChartResizeXy = [
+                chartInfo.chartparam.tibetsheetsCurrentChartResizeXy = [
                     x,
                     y,
                     $t.width(),
@@ -1320,14 +1320,14 @@ function createLuckyChart(width, height, left, top) {
                     scrollLeft,
                     scrollTop
                 ];
-                chartInfo.chartparam.luckysheetCurrentChartResizeWinH = $(
-                    "#luckysheet-cell-main"
+                chartInfo.chartparam.tibetsheetsCurrentChartResizeWinH = $(
+                    "#tibetsheets-cell-main"
                 )[0].scrollHeight;
-                chartInfo.chartparam.luckysheetCurrentChartResizeWinW = $(
-                    "#luckysheet-cell-main"
+                chartInfo.chartparam.tibetsheetsCurrentChartResizeWinW = $(
+                    "#tibetsheets-cell-main"
                 )[0].scrollWidth;
 
-                chartInfo.chartparam.luckysheetCurrentChart = chart_id;
+                chartInfo.chartparam.tibetsheetsCurrentChart = chart_id;
 
                 e.stopPropagation();
 
@@ -1340,7 +1340,7 @@ function createLuckyChart(width, height, left, top) {
  * @param {JQuery} $container 图表的容器DIV
  */
 function setChartMoveableEffect($container) {
-  $container.find('.luckysheet-modal-dialog-content').hover(function () {
+  $container.find('.tibetsheets-modal-dialog-content').hover(function () {
     $container.removeClass("chart-moveable");
   }, function () {
     $container.addClass("chart-moveable");
@@ -1356,13 +1356,13 @@ function setChartMoveableEffect($container) {
 // delete chart
 function delChart(chart_id) {
     // delete container
-    $(`.luckysheet-cell-main #${chart_id}_c`).remove()
+    $(`.tibetsheets-cell-main #${chart_id}_c`).remove()
 
     // Hide selected range
     hideAllNeedRangeShow()
 
     // delete storage
-    let sheetFile = chartInfo.luckysheetfile[getSheetIndex(chartInfo.currentSheetIndex)]
+    let sheetFile = chartInfo.tibetsheetsfile[getSheetIndex(chartInfo.currentSheetIndex)]
     let index = sheetFile.chart.findIndex(item => item.chart_id == chart_id)
     sheetFile.chart.splice(index, 1)
     // api call
@@ -1372,7 +1372,7 @@ function delChart(chart_id) {
 //设置某个图表的高亮区域状态为显示,处理当前页的所有图表，只取一个图表设置为显示，其他隐藏，其他页不管
 function showNeedRangeShow(chart_id) {
 
-    let chartLists = chartInfo.luckysheetfile[getSheetIndex(chartInfo.currentSheetIndex)].chart;
+    let chartLists = chartInfo.tibetsheetsfile[getSheetIndex(chartInfo.currentSheetIndex)].chart;
 
     for (let chartId in chartLists) {
         // if (chartLists[chartId].sheetIndex == chartInfo.currentSheetIndex) {
@@ -1392,7 +1392,7 @@ function showNeedRangeShow(chart_id) {
 }
 //隐藏当前sheet所有的图表高亮区域
 function hideAllNeedRangeShow() {
-    let chartLists = chartInfo.luckysheetfile[getSheetIndex(chartInfo.currentSheetIndex)].chart;
+    let chartLists = chartInfo.tibetsheetsfile[getSheetIndex(chartInfo.currentSheetIndex)].chart;
     for (let chartId in chartLists) {
         // if (chartLists[chartId].sheetIndex == chartInfo.currentSheetIndex) {
         //当前sheet的图表设置为false
@@ -1413,30 +1413,30 @@ function selectRangeBorderShow(chart_id) {
     // Highlight of data range
     chartInfo.chart_selection.create()
 
-    chartInfo.chartparam.luckysheetCurrentChartActive = true
-    chartInfo.chartparam.luckysheetCurrentChartMoveObj = $t
-    chartInfo.chartparam.luckysheetCurrentChartResizeObj = $t
-    chartInfo.chartparam.luckysheetCurrentChart = chart_id
+    chartInfo.chartparam.tibetsheetsCurrentChartActive = true
+    chartInfo.chartparam.tibetsheetsCurrentChartMoveObj = $t
+    chartInfo.chartparam.tibetsheetsCurrentChartResizeObj = $t
+    chartInfo.chartparam.tibetsheetsCurrentChart = chart_id
 
-    //luckysheet取cell-main，后续扩展到其他的用户自定义元素
-    $('#luckysheet-cell-main')
-        .find('.luckysheet-modal-dialog-chart .luckysheet-modal-dialog-resize')
+    //tibetsheets取cell-main，后续扩展到其他的用户自定义元素
+    $('#tibetsheets-cell-main')
+        .find('.tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-resize')
         .hide()
-    $('#luckysheet-cell-main')
-        .find('.luckysheet-modal-dialog-chart .luckysheet-modal-dialog-controll')
+    $('#tibetsheets-cell-main')
+        .find('.tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-controll')
         .hide()
 
-    $t.css('z-index', chartInfo.chartparam.luckysheetCurrentChartZIndexRank++)
-    $t.find('.luckysheet-modal-dialog-resize').show()
-    $t.find('.luckysheet-modal-dialog-controll').show()
+    $t.css('z-index', chartInfo.chartparam.tibetsheetsCurrentChartZIndexRank++)
+    $t.find('.tibetsheets-modal-dialog-resize').show()
+    $t.find('.tibetsheets-modal-dialog-controll').show()
 
     if (
-        ($('.chartSetting').is(':visible') || chartInfo.chartparam.luckysheet_chart_redo_click) &&
-        chart_id != chartInfo.chartparam.luckysheetCurrentChart
+        ($('.chartSetting').is(':visible') || chartInfo.chartparam.tibetsheets_chart_redo_click) &&
+        chart_id != chartInfo.chartparam.tibetsheetsCurrentChart
     ) {
         // TODO: 第一次创建图表时候需要初始化数据选择框 qkSelection
         // generator.ini(chartMixConfig)
-        $('body .luckysheet-cols-menu').hide()
+        $('body .tibetsheets-cols-menu').hide()
     }
 
     // 切换到当前图表设置项
@@ -1446,11 +1446,11 @@ function selectRangeBorderShow(chart_id) {
 //选择区域高亮隐藏
 function selectRangeBorderHide(settingShow) {
 
-    $('#luckysheet-cell-main .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-resize, #luckysheet-cell-main .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-controll').hide()
-    $('#luckysheet-cell-main').find('.luckysheet-datavisual-selection-set div').remove()
-    chartInfo.chartparam.luckysheetCurrentChartActive = false
+    $('#tibetsheets-cell-main .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-resize, #tibetsheets-cell-main .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-controll').hide()
+    $('#tibetsheets-cell-main').find('.tibetsheets-datavisual-selection-set div').remove()
+    chartInfo.chartparam.tibetsheetsCurrentChartActive = false
 
-    $('#luckysheet-chart-rangeShow').empty()
+    $('#tibetsheets-chart-rangeShow').empty()
 
     //标识：是否处理设置界面
     if (!settingShow && $('.chartSetting').is(':visible') && !isEditMode()) {
@@ -1465,10 +1465,10 @@ function showChartSettingComponent(refresh, chart_id) {
         //隐藏设置界面
         $('.chartSetting').show();
 
-        $('#luckysheet-cell-main').find('.luckysheet-datavisual-selection-set div').show()
-        chartInfo.chartparam.luckysheetCurrentChartActive = true
+        $('#tibetsheets-cell-main').find('.tibetsheets-datavisual-selection-set div').show()
+        chartInfo.chartparam.tibetsheetsCurrentChartActive = true
         setTimeout(function () {
-            luckysheetsizeauto()
+            tibetsheetssizeauto()
         }, 0)
     }
 }
@@ -1479,16 +1479,16 @@ function hideChartSettingComponent(refresh) {
 
         //隐藏设置界面
         $('.chartSetting').hide();
-        //.luckysheet-modal-dialog-resize为图表显示框的缩放框，.luckysheet-modal-dialog-controll为显示框右边的控制按钮
-        $('#luckysheet-cell-main .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-resize, #luckysheet-cell-main .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-controll').hide()
+        //.tibetsheets-modal-dialog-resize为图表显示框的缩放框，.tibetsheets-modal-dialog-controll为显示框右边的控制按钮
+        $('#tibetsheets-cell-main .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-resize, #tibetsheets-cell-main .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-controll').hide()
 
-        $('#luckysheet-cell-main').find('.luckysheet-datavisual-selection-set div').remove()
+        $('#tibetsheets-cell-main').find('.tibetsheets-datavisual-selection-set div').remove()
 
-        chartInfo.chartparam.luckysheetCurrentChartActive = false
+        chartInfo.chartparam.tibetsheetsCurrentChartActive = false
         if (!isEditMode() && !refresh) {
 
             setTimeout(function () {
-                luckysheetsizeauto()
+                tibetsheetssizeauto()
             }, 0)
 
         }
@@ -1501,8 +1501,8 @@ function renderChartShow(index) {
     //传入index，图表显示隐藏
     selectRangeBorderHide('true') //隐藏数据高亮区域，随意传入一个字符串，表示不处理chartSetting界面
 
-    const luckysheetfile = chartInfo.luckysheetfile;
-    luckysheetfile.forEach((file) => {
+    const tibetsheetsfile = chartInfo.tibetsheetsfile;
+    tibetsheetsfile.forEach((file) => {
         //切换当前页的所有图表都显示出来
         if (file.index == index) {
 

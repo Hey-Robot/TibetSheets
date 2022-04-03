@@ -183,8 +183,8 @@ The format is set to:
 The available settings are as follows:
 | Format | ct.fa | ct.t | Example of m value | Remarks |
 |----------|----------|-------------------------|------------------------- |------------------------- |
-| Automatic | General | g | Luckysheet |Automatic format, which is also the default format; When the cell content is a number, the value of `m` is `'n'`|
-| Plain text | @ | s | Luckysheet ||
+| Automatic | General | g | Tibetsheets |Automatic format, which is also the default format; When the cell content is a number, the value of `m` is `'n'`|
+| Plain text | @ | s | Tibetsheets ||
 | <br><br><br>**Number Format** | | | | |
 | Integer | 0 | n | 1235 | 0 decimal places |
 | One decimal place of the number | 0.0 | n | 1234.6 | The number of 0 after the dot represents the number of decimal places. If the original number is large, the number of digits will be rounded to the nearest hour |

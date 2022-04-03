@@ -1,24 +1,24 @@
-import luckysheetFreezen from '../controllers/freezen';
-import { luckysheet_searcharray } from '../controllers/sheetSearch';
-import { luckysheetrefreshgrid } from '../global/refresh';
+import tibetsheetsFreezen from '../controllers/freezen';
+import { tibetsheets_searcharray } from '../controllers/sheetSearch';
+import { tibetsheetsrefreshgrid } from '../global/refresh';
 import Store from '../store';
 import method from '../global/method'
 
 let scrollRequestAnimationFrameIni = true,scrollRequestAnimationFrame = false, scrollTimeOutCancel=null;
 
 function execScroll(){
-    let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(), 
-        scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
-    luckysheetrefreshgrid(scrollLeft, scrollTop);
+    let scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft(), 
+        scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
+    tibetsheetsrefreshgrid(scrollLeft, scrollTop);
     scrollRequestAnimationFrame = window.requestAnimationFrame(execScroll);
 }
 
 //全局滚动事件
-export default function luckysheetscrollevent(isadjust) {
-    let $t = $("#luckysheet-cell-main");
-    let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(), 
-        scrollTop = $("#luckysheet-scrollbar-y").scrollTop(),
-        canvasHeight = $("#luckysheetTableContent").height(); // canvas高度
+export default function tibetsheetsscrollevent(isadjust) {
+    let $t = $("#tibetsheets-cell-main");
+    let scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft(), 
+        scrollTop = $("#tibetsheets-scrollbar-y").scrollTop(),
+        canvasHeight = $("#tibetsheetsTableContent").height(); // canvas高度
 
     // clearTimeout(scrollTimeOutCancel);
 
@@ -38,16 +38,16 @@ export default function luckysheetscrollevent(isadjust) {
 
     //     let visibledatacolumn_c = Store.visibledatacolumn, visibledatarow_c = Store.visibledatarow;
 
-    //     if (luckysheetFreezen.freezenhorizontaldata != null) {
-    //         visibledatarow_c = luckysheetFreezen.freezenhorizontaldata[3];
+    //     if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+    //         visibledatarow_c = tibetsheetsFreezen.freezenhorizontaldata[3];
     //     }
 
-    //     if (luckysheetFreezen.freezenverticaldata != null) {
-    //         visibledatacolumn_c = luckysheetFreezen.freezenverticaldata[3];
+    //     if (tibetsheetsFreezen.freezenverticaldata != null) {
+    //         visibledatacolumn_c = tibetsheetsFreezen.freezenverticaldata[3];
     //     }
 
-    //     let col_ed = luckysheet_searcharray(visibledatacolumn_c, scrollLeft);
-    //     let row_ed = luckysheet_searcharray(visibledatarow_c, scrollTop);
+    //     let col_ed = tibetsheets_searcharray(visibledatacolumn_c, scrollLeft);
+    //     let row_ed = tibetsheets_searcharray(visibledatarow_c, scrollTop);
 
     //     let refreshLeft = scrollLeft , refreshTop = scrollTop;
 
@@ -66,31 +66,31 @@ export default function luckysheetscrollevent(isadjust) {
     //     }
     // }
 
-    if (luckysheetFreezen.freezenhorizontaldata != null) {
-        if (scrollTop < luckysheetFreezen.freezenhorizontaldata[2]) {
-            scrollTop = luckysheetFreezen.freezenhorizontaldata[2];
-            $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
+    if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+        if (scrollTop < tibetsheetsFreezen.freezenhorizontaldata[2]) {
+            scrollTop = tibetsheetsFreezen.freezenhorizontaldata[2];
+            $("#tibetsheets-scrollbar-y").scrollTop(scrollTop);
             return;
         }
     }
 
-    if (luckysheetFreezen.freezenverticaldata != null) {
-        if (scrollLeft < luckysheetFreezen.freezenverticaldata[2]) {
-            scrollLeft = luckysheetFreezen.freezenverticaldata[2];
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+    if (tibetsheetsFreezen.freezenverticaldata != null) {
+        if (scrollLeft < tibetsheetsFreezen.freezenverticaldata[2]) {
+            scrollLeft = tibetsheetsFreezen.freezenverticaldata[2];
+            $("#tibetsheets-scrollbar-x").scrollLeft(scrollLeft);
             return;
         }
     }
 
-    $("#luckysheet-cols-h-c").scrollLeft(scrollLeft);//列标题
-    $("#luckysheet-rows-h").scrollTop(scrollTop);//行标题
+    $("#tibetsheets-cols-h-c").scrollLeft(scrollLeft);//列标题
+    $("#tibetsheets-rows-h").scrollTop(scrollTop);//行标题
     
     $t.scrollLeft(scrollLeft).scrollTop(scrollTop);
 
-    $("#luckysheet-input-box-index").css({
-        "left": $("#luckysheet-input-box").css("left"), 
-        "top": (parseInt($("#luckysheet-input-box").css("top")) - 20) + "px", 
-        "z-index": $("#luckysheet-input-box").css("z-index")
+    $("#tibetsheets-input-box-index").css({
+        "left": $("#tibetsheets-input-box").css("left"), 
+        "top": (parseInt($("#tibetsheets-input-box").css("top")) - 20) + "px", 
+        "z-index": $("#tibetsheets-input-box").css("z-index")
     }).show();
 
     // if(scrollRequestAnimationFrameIni && Store.scrollRefreshSwitch){
@@ -98,14 +98,14 @@ export default function luckysheetscrollevent(isadjust) {
     //     scrollRequestAnimationFrameIni = false;
     // }
 
-    luckysheetrefreshgrid(scrollLeft, scrollTop);
+    tibetsheetsrefreshgrid(scrollLeft, scrollTop);
     
 
-    $("#luckysheet-bottom-controll-row").css("left", scrollLeft);
+    $("#tibetsheets-bottom-controll-row").css("left", scrollLeft);
 
     //有选区且有冻结时，滚动适应
-    if(luckysheetFreezen.freezenhorizontaldata != null || luckysheetFreezen.freezenverticaldata != null){
-        luckysheetFreezen.scrollAdapt();
+    if(tibetsheetsFreezen.freezenhorizontaldata != null || tibetsheetsFreezen.freezenverticaldata != null){
+        tibetsheetsFreezen.scrollAdapt();
     }
 
     if(!method.createHookFunction("scroll", {scrollLeft, scrollTop, canvasHeight})){ return; }

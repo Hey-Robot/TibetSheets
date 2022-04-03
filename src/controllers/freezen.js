@@ -1,20 +1,20 @@
 import { getSheetIndex } from '../methods/get';
-import { luckysheet_searcharray } from './sheetSearch';
+import { tibetsheets_searcharray } from './sheetSearch';
 import { selectHightlightShow } from './select';
 import { createFilterOptions } from './filter';
 import server from './server';
 import menuButton from './menuButton';
-import luckysheetPostil from './postil';
-import luckysheetDropCell from './dropCell';
+import tibetsheetsPostil from './postil';
+import tibetsheetsDropCell from './dropCell';
 import { rowLocationByIndex, colLocationByIndex } from '../global/location';
 import Store from '../store';
 import locale from '../locale/locale';
-import { luckysheetrefreshgrid } from '../global/refresh';
+import { tibetsheetsrefreshgrid } from '../global/refresh';
 
 
-const luckysheetFreezen = {
-    freezenHorizontalHTML: '<div id="luckysheet-freezebar-horizontal" class="luckysheet-freezebar" tabindex="0"><div class="luckysheet-freezebar-handle luckysheet-freezebar-horizontal-handle" ><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-horizontal-handle-title" ></div><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-horizontal-handle-bar" ></div></div><div class="luckysheet-freezebar-drop luckysheet-freezebar-horizontal-drop" ><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-horizontal-drop-title" ></div><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-horizontal-drop-bar" >&nbsp;</div></div></div>',
-    freezenVerticalHTML: '<div id="luckysheet-freezebar-vertical" class="luckysheet-freezebar" tabindex="0"><div class="luckysheet-freezebar-handle luckysheet-freezebar-vertical-handle" ><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-vertical-handle-title" ></div><div class="luckysheet-freezebar-handle-bar luckysheet-freezebar-vertical-handle-bar" ></div></div><div class="luckysheet-freezebar-drop luckysheet-freezebar-vertical-drop" ><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-vertical-drop-title" ></div><div class="luckysheet-freezebar-drop-bar luckysheet-freezebar-vertical-drop-bar" >&nbsp;</div></div></div>',
+const tibetsheetsFreezen = {
+    freezenHorizontalHTML: '<div id="tibetsheets-freezebar-horizontal" class="tibetsheets-freezebar" tabindex="0"><div class="tibetsheets-freezebar-handle tibetsheets-freezebar-horizontal-handle" ><div class="tibetsheets-freezebar-handle-bar tibetsheets-freezebar-horizontal-handle-title" ></div><div class="tibetsheets-freezebar-handle-bar tibetsheets-freezebar-horizontal-handle-bar" ></div></div><div class="tibetsheets-freezebar-drop tibetsheets-freezebar-horizontal-drop" ><div class="tibetsheets-freezebar-drop-bar tibetsheets-freezebar-horizontal-drop-title" ></div><div class="tibetsheets-freezebar-drop-bar tibetsheets-freezebar-horizontal-drop-bar" >&nbsp;</div></div></div>',
+    freezenVerticalHTML: '<div id="tibetsheets-freezebar-vertical" class="tibetsheets-freezebar" tabindex="0"><div class="tibetsheets-freezebar-handle tibetsheets-freezebar-vertical-handle" ><div class="tibetsheets-freezebar-handle-bar tibetsheets-freezebar-vertical-handle-title" ></div><div class="tibetsheets-freezebar-handle-bar tibetsheets-freezebar-vertical-handle-bar" ></div></div><div class="tibetsheets-freezebar-drop tibetsheets-freezebar-vertical-drop" ><div class="tibetsheets-freezebar-drop-bar tibetsheets-freezebar-vertical-drop-title" ></div><div class="tibetsheets-freezebar-drop-bar tibetsheets-freezebar-vertical-drop-bar" >&nbsp;</div></div></div>',
     initialHorizontal: true,
     initialVertical: true,
     horizontalmovestate: false,
@@ -51,16 +51,16 @@ const luckysheetFreezen = {
         const locale_freezen = _locale.freezen;
         // 解决freeze 不垂直居中的问题
         const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+            <div class="tibetsheets-toolbar-button-outer-box tibetsheets-inline-block"
             style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
+                <div class="tibetsheets-toolbar-button-inner-box tibetsheets-inline-block"
                 style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-dongjie1"
+                    <div class="tibetsheets-icon tibetsheets-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-function iconfont tibetsheets-iconfont-dongjie1"
                         style="user-select: none;">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
+                    <div class="tibetsheets-toolbar-menu-button-caption tibetsheets-inline-block"
                     style="user-select: none;">
                         ${locale_freezen.default}
                     </div>
@@ -68,18 +68,18 @@ const luckysheetFreezen = {
             </div>
         `
 
-        $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+        $("#tibetsheets-freezen-btn-horizontal").html(freezeHTML);
 
-        $("#luckysheet-freezen-btn-vertical").html('<i class="fa fa-indent"></i> '+locale_freezen.freezenColumn);
+        $("#tibetsheets-freezen-btn-vertical").html('<i class="fa fa-indent"></i> '+locale_freezen.freezenColumn);
         _this.freezenverticaldata = null;
-        let isvertical = $("#luckysheet-freezebar-vertical").is(":visible");
-        $("#luckysheet-freezebar-vertical").hide();
+        let isvertical = $("#tibetsheets-freezebar-vertical").is(":visible");
+        $("#tibetsheets-freezebar-vertical").hide();
 
         if (sheetIndex == null) {
             sheetIndex = Store.currentSheetIndex;
         }
 
-        let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+        let currentSheet = Store.tibetsheetsfile[getSheetIndex(sheetIndex)];
         if (currentSheet.freezen != null) {
             currentSheet.freezen.vertical = null;
         }
@@ -93,31 +93,31 @@ const luckysheetFreezen = {
 
         if (_this.initialVertical) {
             _this.initialVertical = false;
-            $("#luckysheet-grid-window-1").append(_this.freezenVerticalHTML);
+            $("#tibetsheets-grid-window-1").append(_this.freezenVerticalHTML);
 
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").hover(function () {
-                $(this).parent().addClass("luckysheet-freezebar-hover");
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-drop").hover(function () {
+                $(this).parent().addClass("tibetsheets-freezebar-hover");
             }, function () {
-                $(this).parent().removeClass("luckysheet-freezebar-hover");
+                $(this).parent().removeClass("tibetsheets-freezebar-hover");
             });
 
 
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").mousedown(function () {
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-drop").mousedown(function () {
                 _this.verticalmovestate = true;
                 _this.verticalmoveposition = $(this).position().left;
-                _this.windowWidth = $("#luckysheet-grid-window-1").width();
+                _this.windowWidth = $("#tibetsheets-grid-window-1").width();
 
-                $(this).parent().addClass("luckysheet-freezebar-active");
-                $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css("cursor", "-webkit-grabbing");
+                $(this).parent().addClass("tibetsheets-freezebar-active");
+                $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-handle").css("cursor", "-webkit-grabbing");
             });
 
-            let gridheight = $("#luckysheet-grid-window-1").height();
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css({ 
+            let gridheight = $("#tibetsheets-grid-window-1").height();
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-handle").css({ 
                 "height": gridheight - 10, 
                 "width": "4px", 
                 "cursor": "-webkit-grab", 
                 "top": "0px" 
-            }).end().find(".luckysheet-freezebar-vertical-drop").css({ 
+            }).end().find(".tibetsheets-freezebar-vertical-drop").css({ 
                 "height": gridheight - 10, 
                 "width": "4px", 
                 "top": "0px", 
@@ -137,8 +137,8 @@ const luckysheetFreezen = {
                     left
                 ];
             } else {
-                let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                let dataset_col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+                let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                let dataset_col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
                 if (dataset_col_st == -1) {
                     dataset_col_st = 0;
                 }
@@ -158,32 +158,32 @@ const luckysheetFreezen = {
 
         _this.freezenverticaldata = freezenverticaldata;
 
-        // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
+        // $("#tibetsheets-freezen-btn-horizontal").html('<i class="tibetsheets-icon-img-container iconfont tibetsheets-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
 
         // 解决freeze 不垂直居中的问题
         const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+            <div class="tibetsheets-toolbar-button-outer-box tibetsheets-inline-block"
             style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
+                <div class="tibetsheets-toolbar-button-inner-box tibetsheets-inline-block"
                 style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-dongjie1"
+                    <div class="tibetsheets-icon tibetsheets-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-function iconfont tibetsheets-iconfont-dongjie1"
                         style="user-select: none;">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
+                    <div class="tibetsheets-toolbar-menu-button-caption tibetsheets-inline-block"
                     style="user-select: none;">
                         ${locale().freezen.freezenCancel}
                     </div>
                 </div>
             </div>
         `
-        $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+        $("#tibetsheets-freezen-btn-horizontal").html(freezeHTML);
 
-        $("#luckysheet-freezebar-vertical").show().find(".luckysheet-freezebar-vertical-handle").css({ "left": left }).end().find(".luckysheet-freezebar-vertical-drop").css({ "left": left });
+        $("#tibetsheets-freezebar-vertical").show().find(".tibetsheets-freezebar-vertical-handle").css({ "left": left }).end().find(".tibetsheets-freezebar-vertical-drop").css({ "left": left });
     },
     saveFreezen: function (freezenhorizontaldata, top, freezenverticaldata, left) {
-        let currentSheet = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let currentSheet = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
         if (currentSheet.freezen == null) {
             currentSheet.freezen = {};
         }
@@ -221,7 +221,7 @@ const luckysheetFreezen = {
         // when init ,we get frozen, but here, we need freezen,so tranform it
         _this.frozenTofreezen();
 
-        let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+        let currentSheet = Store.tibetsheetsfile[getSheetIndex(sheetIndex)];
         if (currentSheet.freezen != null && currentSheet.freezen.horizontal != null && currentSheet.freezen.horizontal.freezenhorizontaldata != null) {
             _this.createFreezenHorizontal(currentSheet.freezen.horizontal.freezenhorizontaldata, currentSheet.freezen.horizontal.top);
         }
@@ -243,7 +243,7 @@ const luckysheetFreezen = {
 
         if (type == "v" && _this.freezenverticaldata != null) {
             let freezen_colindex = _this.freezenverticaldata[1];
-            let offset = luckysheet_searcharray(Store.visibledatacolumn, $("#luckysheet-cell-main").scrollLeft());
+            let offset = tibetsheets_searcharray(Store.visibledatacolumn, $("#tibetsheets-cell-main").scrollLeft());
 
             if (originindex - offset < freezen_colindex) {
                 originindex = originindex - offset;
@@ -251,7 +251,7 @@ const luckysheetFreezen = {
         }
         else if (type == "h" && _this.freezenhorizontaldata != null) {
             let freezen_rowindex = _this.freezenhorizontaldata[1];
-            let offset = luckysheet_searcharray(Store.visibledatarow, $("#luckysheet-cell-main").scrollTop());
+            let offset = tibetsheets_searcharray(Store.visibledatarow, $("#tibetsheets-cell-main").scrollTop());
             
             if (originindex - offset < freezen_rowindex) {
                 originindex = originindex - offset;
@@ -264,27 +264,27 @@ const luckysheetFreezen = {
         let _this = this;
 
         let row;
-        let row_focus = Store.luckysheet_select_save[0]["row_focus"];
-        if(row_focus == Store.luckysheet_select_save[0]["row"][0]){
-            row = Store.luckysheet_select_save[0]["row"][1];
+        let row_focus = Store.tibetsheets_select_save[0]["row_focus"];
+        if(row_focus == Store.tibetsheets_select_save[0]["row"][0]){
+            row = Store.tibetsheets_select_save[0]["row"][1];
         }
-        else if(row_focus == Store.luckysheet_select_save[0]["row"][1]){
-            row = Store.luckysheet_select_save[0]["row"][0];
+        else if(row_focus == Store.tibetsheets_select_save[0]["row"][1]){
+            row = Store.tibetsheets_select_save[0]["row"][0];
         }
 
         let column;
-        let column_focus = Store.luckysheet_select_save[0]["column_focus"];
-        if(column_focus == Store.luckysheet_select_save[0]["column"][0]){
-            column = Store.luckysheet_select_save[0]["column"][1];
+        let column_focus = Store.tibetsheets_select_save[0]["column_focus"];
+        if(column_focus == Store.tibetsheets_select_save[0]["column"][0]){
+            column = Store.tibetsheets_select_save[0]["column"][1];
         }
-        else if(column_focus == Store.luckysheet_select_save[0]["column"][1]){
-            column = Store.luckysheet_select_save[0]["column"][0];
+        else if(column_focus == Store.tibetsheets_select_save[0]["column"][1]){
+            column = Store.tibetsheets_select_save[0]["column"][0];
         }
 
         if (_this.freezenverticaldata != null) {
             let freezen_colindex = _this.freezenverticaldata[1];            
 
-            let offset = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft());
+            let offset = tibetsheets_searcharray(_this.freezenverticaldata[3], $("#tibetsheets-cell-main").scrollLeft());
 
             let top = _this.freezenverticaldata[4];
 
@@ -301,14 +301,14 @@ const luckysheetFreezen = {
             let column_px = Store.visibledatacolumn[column], freezen_px = Store.visibledatacolumn[freezen_colindex];
 
             if (column_px <= freezen_px+top) {
-                setTimeout(function () { $("#luckysheet-scrollbar-x").scrollLeft(0); }, 100);
+                setTimeout(function () { $("#tibetsheets-scrollbar-x").scrollLeft(0); }, 100);
             }
         }
 
         if (_this.freezenhorizontaldata != null) {
             let freezen_rowindex = _this.freezenhorizontaldata[1];
             
-            let offset = luckysheet_searcharray(_this.freezenhorizontaldata[3], $("#luckysheet-cell-main").scrollTop());
+            let offset = tibetsheets_searcharray(_this.freezenhorizontaldata[3], $("#tibetsheets-cell-main").scrollTop());
 
             let left = _this.freezenhorizontaldata[4];
 
@@ -325,27 +325,27 @@ const luckysheetFreezen = {
             let row_px = Store.visibledatarow[row], freezen_px = Store.visibledatarow[freezen_rowindex];
 
             if (row_px <= freezen_px+left) {
-                setTimeout(function () {$("#luckysheet-scrollbar-y").scrollTop(0);}, 100);
+                setTimeout(function () {$("#tibetsheets-scrollbar-y").scrollTop(0);}, 100);
             }
         }
     },
     cancelFreezenHorizontal: function (sheetIndex) {
         let _this = this;
 
-        // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont luckysheet-iconfont-dongjie1"></i> '+locale().freezen.default);
+        // $("#tibetsheets-freezen-btn-horizontal").html('<i class="tibetsheets-icon-img-container iconfont tibetsheets-iconfont-dongjie1"></i> '+locale().freezen.default);
 
         // 解决freeze 不垂直居中的问题
         const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+            <div class="tibetsheets-toolbar-button-outer-box tibetsheets-inline-block"
             style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
+                <div class="tibetsheets-toolbar-button-inner-box tibetsheets-inline-block"
                 style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-dongjie1"
+                    <div class="tibetsheets-icon tibetsheets-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-function iconfont tibetsheets-iconfont-dongjie1"
                         style="user-select: none;">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
+                    <div class="tibetsheets-toolbar-menu-button-caption tibetsheets-inline-block"
                     style="user-select: none;">
                         ${locale().freezen.default}
                     </div>
@@ -353,17 +353,17 @@ const luckysheetFreezen = {
             </div>
         `
 
-        $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+        $("#tibetsheets-freezen-btn-horizontal").html(freezeHTML);
 
         _this.freezenhorizontaldata = null;
-        let ishorizontal = $("#luckysheet-freezebar-horizontal").is(":visible");
-        $("#luckysheet-freezebar-horizontal").hide();
+        let ishorizontal = $("#tibetsheets-freezebar-horizontal").is(":visible");
+        $("#tibetsheets-freezebar-horizontal").hide();
 
         if (sheetIndex == null) {
             sheetIndex = Store.currentSheetIndex;
         }
 
-        let currentSheet = Store.luckysheetfile[getSheetIndex(sheetIndex)];
+        let currentSheet = Store.tibetsheetsfile[getSheetIndex(sheetIndex)];
         if (currentSheet.freezen != null) {
             currentSheet.freezen.horizontal = null;
         }
@@ -377,30 +377,30 @@ const luckysheetFreezen = {
 
         if (_this.initialHorizontal) {
             _this.initialHorizontal = false;
-            $("#luckysheet-grid-window-1").append(_this.freezenHorizontalHTML);
+            $("#tibetsheets-grid-window-1").append(_this.freezenHorizontalHTML);
 
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").hover(function () {
-                $(this).parent().addClass("luckysheet-freezebar-hover");
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-drop").hover(function () {
+                $(this).parent().addClass("tibetsheets-freezebar-hover");
             }, function () {
-                $(this).parent().removeClass("luckysheet-freezebar-hover");
+                $(this).parent().removeClass("tibetsheets-freezebar-hover");
             });
 
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").mousedown(function () {
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-drop").mousedown(function () {
                 _this.horizontalmovestate = true;
                 _this.horizontalmoveposition = $(this).position().top;
-                _this.windowHeight = $("#luckysheet-grid-window-1").height();
+                _this.windowHeight = $("#tibetsheets-grid-window-1").height();
 
-                $(this).parent().addClass("luckysheet-freezebar-active");
-                $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css("cursor", "-webkit-grabbing");
+                $(this).parent().addClass("tibetsheets-freezebar-active");
+                $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-handle").css("cursor", "-webkit-grabbing");
             });
 
-            let gridwidth = $("#luckysheet-grid-window-1").width();
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css({ 
+            let gridwidth = $("#tibetsheets-grid-window-1").width();
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-handle").css({ 
                 "width": gridwidth - 10, 
                 "height": "4px", 
                 "cursor": "-webkit-grab", 
                 "left": "0px" 
-            }).end().find(".luckysheet-freezebar-horizontal-drop").css({ 
+            }).end().find(".tibetsheets-freezebar-horizontal-drop").css({ 
                 "width": gridwidth - 10, 
                 "height": "4px", 
                 "left": "0px", 
@@ -424,12 +424,12 @@ const luckysheetFreezen = {
                 // todo: 没有下面代码 如果有滚动，冻结之后首行的行号仍显示的之前滚动的行号
                 // todo: 不 setTimeout 这里直接刷新的话，冻结的首行显示有问题，没有列的分割线
                 setTimeout(() => {
-                    luckysheetFreezen.createAssistCanvas();
-                    luckysheetrefreshgrid();
+                    tibetsheetsFreezen.createAssistCanvas();
+                    tibetsheetsrefreshgrid();
                 });
             } else {
-                let scrollTop = $("#luckysheet-cell-main").scrollTop();
-                dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+                let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+                dataset_row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
                 if (dataset_row_st == -1) {
                     dataset_row_st = 0;
                 }
@@ -448,21 +448,21 @@ const luckysheetFreezen = {
 
         _this.freezenhorizontaldata = freezenhorizontaldata;
 
-        // $("#luckysheet-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale().freezen.freezenCancel);
+        // $("#tibetsheets-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale().freezen.freezenCancel);
 
-        // $("#luckysheet-freezen-btn-horizontal").html('<i class="luckysheet-icon-img-container iconfont luckysheet-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
+        // $("#tibetsheets-freezen-btn-horizontal").html('<i class="tibetsheets-icon-img-container iconfont tibetsheets-iconfont-dongjie1"></i> '+locale().freezen.freezenCancel);
 
         const freezeHTML = `
-            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+            <div class="tibetsheets-toolbar-button-outer-box tibetsheets-inline-block"
             style="user-select: none;">
-                <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
+                <div class="tibetsheets-toolbar-button-inner-box tibetsheets-inline-block"
                 style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-function iconfont luckysheet-iconfont-dongjie1"
+                    <div class="tibetsheets-icon tibetsheets-inline-block " style="user-select: none;">
+                        <div aria-hidden="true" class="tibetsheets-icon-img-container tibetsheets-icon-img tibetsheets-icon-function iconfont tibetsheets-iconfont-dongjie1"
                         style="user-select: none;">
                         </div>
                     </div>
-                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
+                    <div class="tibetsheets-toolbar-menu-button-caption tibetsheets-inline-block"
                     style="user-select: none;">
                         ${locale().freezen.freezenCancel}
                     </div>
@@ -470,9 +470,9 @@ const luckysheetFreezen = {
             </div>
         `
 
-        $("#luckysheet-freezen-btn-horizontal").html(freezeHTML);
+        $("#tibetsheets-freezen-btn-horizontal").html(freezeHTML);
 
-        $("#luckysheet-freezebar-horizontal").show().find(".luckysheet-freezebar-horizontal-handle").css({ "top": top }).end().find(".luckysheet-freezebar-horizontal-drop").css({ "top": top });
+        $("#tibetsheets-freezebar-horizontal").show().find(".tibetsheets-freezebar-horizontal-handle").css({ "top": top }).end().find(".tibetsheets-freezebar-horizontal-drop").css({ "top": top });
 
     },
     createAssistCanvas: function(){
@@ -482,8 +482,8 @@ const luckysheetFreezen = {
         if (_this.freezenverticaldata != null || _this.freezenhorizontaldata != null) {
             let freezen_horizon_px, freezen_horizon_ed, freezen_horizon_scrollTop;
             let freezen_vertical_px, freezen_vertical_ed, freezen_vertical_scrollTop;
-            let drawWidth = Store.luckysheetTableContentHW[0], 
-                drawHeight = Store.luckysheetTableContentHW[1];
+            let drawWidth = Store.tibetsheetsTableContentHW[0], 
+                drawHeight = Store.tibetsheetsTableContentHW[1];
 
             //双向freezen
             if (_this.freezenverticaldata != null && _this.freezenhorizontaldata != null) {
@@ -523,7 +523,7 @@ const luckysheetFreezen = {
         }
     },
     createCanvas: function(id, width, height, left, top){
-        let c = $("<canvas/>").appendTo("#luckysheet-grid-window-1").attr({
+        let c = $("<canvas/>").appendTo("#tibetsheets-grid-window-1").attr({
             "id": id, 
             "width": Math.ceil(width * Store.devicePixelRatio), 
             "height": Math.ceil(height * Store.devicePixelRatio)
@@ -539,22 +539,22 @@ const luckysheetFreezen = {
         });
     },
     removeAssistCanvas: function(){
-        $("#luckysheet-grid-window-1 > canvas").not($("#luckysheetTableContent")).remove();
-        $("#luckysheet-cell-selected").css("z-index", 15);
+        $("#tibetsheets-grid-window-1 > canvas").not($("#tibetsheetsTableContent")).remove();
+        $("#tibetsheets-cell-selected").css("z-index", 15);
     },
     scrollAdapt: function(){
         let _this = this;
 
         //有冻结时 选区框 滚动适应
-        if(Store.luckysheet_select_save != null && Store.luckysheet_select_save.length > 0){
+        if(Store.tibetsheets_select_save != null && Store.tibetsheets_select_save.length > 0){
             _this.scrollAdaptOfselect();    
         }
 
         //有冻结时 图表框 滚动适应
-        if($("#luckysheet-cell-main .luckysheet-data-visualization-chart").length > 0){
+        if($("#tibetsheets-cell-main .tibetsheets-data-visualization-chart").length > 0){
 
             // 当前sheet有图表才需要滚动适应
-            const chart = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["chart"];
+            const chart = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["chart"];
             
             if(chart != null && chart.length > 0){
                 _this.scrollAdaptOfchart();
@@ -562,36 +562,36 @@ const luckysheetFreezen = {
         }
 
         //有冻结时 批注框 滚动适应
-        if($("#luckysheet-postil-showBoxs .luckysheet-postil-show").length > 0){
+        if($("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").length > 0){
             _this.scrollAdaptOfpostil();               
         }
 
         //有冻结时 下拉选区图标 滚动适应
-        if($("#luckysheet-dropCell-icon").length > 0){
+        if($("#tibetsheets-dropCell-icon").length > 0){
             _this.scrollAdaptOfdpicon();
         }
 
         //有冻结时 筛选下拉按钮 滚动适应
-        if($("#luckysheet-filter-options-sheet"+ Store.currentSheetIndex +" .luckysheet-filter-options").length > 0){
+        if($("#tibetsheets-filter-options-sheet"+ Store.currentSheetIndex +" .tibetsheets-filter-options").length > 0){
             _this.scrollAdaptOffilteroptions();
         }
     },
     scrollAdaptOfselect: function(){
         let _this = this;
 
-        if($("#luckysheet-row-count-show").is(":visible")){
-            $("#luckysheet-row-count-show").hide();
+        if($("#tibetsheets-row-count-show").is(":visible")){
+            $("#tibetsheets-row-count-show").hide();
         }
 
-        if($("#luckysheet-column-count-show").is(":visible")){
-            $("#luckysheet-column-count-show").hide();
+        if($("#tibetsheets-column-count-show").is(":visible")){
+            $("#tibetsheets-column-count-show").hide();
         }
 
-        $("#luckysheet-rows-h-selected").empty();
-        $("#luckysheet-cols-h-selected").empty();
+        $("#tibetsheets-rows-h-selected").empty();
+        $("#tibetsheets-cols-h-selected").empty();
 
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
 
         if (_this.freezenhorizontaldata != null && _this.freezenverticaldata != null) {
             let freezenTop = _this.freezenhorizontaldata[0];
@@ -602,8 +602,8 @@ const luckysheetFreezen = {
             let freezen_colindex = _this.freezenverticaldata[1];
             let offLeft = scrollLeft - _this.freezenverticaldata[2];
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let obj = $.extend(true, {}, Store.luckysheet_select_save[s]);
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let obj = $.extend(true, {}, Store.tibetsheets_select_save[s]);
 
                 let r1 = obj.row[0], 
                     r2 = obj.row[1];
@@ -621,13 +621,13 @@ const luckysheetFreezen = {
                         rangeshow = false;
                     }
                     else if(top_move < freezenTop + offTop){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": freezenTop + offTop,
                             "height": height_move - (freezenTop + offTop - top_move)
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move,
                             "height": height_move
                         });
@@ -635,20 +635,20 @@ const luckysheetFreezen = {
                 }
                 else if(r2 >= freezen_rowindex){//原选区有一部分在冻结区内
                     if(top_move + height_move < freezenTop + offTop){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move + offTop,
                             "height": freezenTop - top_move
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move + offTop,
                             "height": height_move - offTop
                         });
                     }
                 }
                 else{//原选区在冻结区内
-                    $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("top", top_move + offTop);
+                    $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css("top", top_move + offTop);
                 }
 
                 let c1 = obj.column[0], 
@@ -665,13 +665,13 @@ const luckysheetFreezen = {
                         rangeshow = false;
                     }
                     else if(left_move < freezenLeft + offLeft){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": freezenLeft + offLeft,
                             "width": width_move - (freezenLeft + offLeft - left_move)
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move,
                             "width": width_move
                         });
@@ -679,27 +679,27 @@ const luckysheetFreezen = {
                 }
                 else if(c2 >= freezen_colindex){//原选区有一部分在冻结区内
                     if(left_move + width_move < freezenLeft + offLeft){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move + offLeft,
                             "width": freezenLeft - left_move
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move + offLeft,
                             "width": width_move - offLeft
                         });
                     }
                 }
                 else{//原选区在冻结区内
-                    $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("left", left_move + offLeft);
+                    $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css("left", left_move + offLeft);
                 }
 
                 if(!rangeshow){
-                    $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+                    $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).hide();
                 }
 
-                if(s == Store.luckysheet_select_save.length - 1){
+                if(s == Store.tibetsheets_select_save.length - 1){
                     let rf = obj.row_focus == null ? r1 : obj.row_focus;
                     let cf = obj.column_focus == null ? c1 : obj.column_focus;
                     
@@ -730,13 +730,13 @@ const luckysheetFreezen = {
                             focuscell = false;
                         }
                         else if(top < freezenTop + offTop){ 
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": freezenTop + offTop,
                                 "height": height - (freezenTop + offTop - top)
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top,
                                 "height": height
                             });
@@ -744,20 +744,20 @@ const luckysheetFreezen = {
                     }
                     else if(top + height >= freezenTop){
                         if(top + height < freezenTop + offTop){
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top + offTop,
                                 "height": freezenTop - top
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top + offTop,
                                 "height": height - offTop
                             })
                         }
                     }
                     else{
-                        $("#luckysheet-cell-selected-focus").show().css("top", top + offTop);
+                        $("#tibetsheets-cell-selected-focus").show().css("top", top + offTop);
                     }
 
                     if(left >= freezenLeft){
@@ -765,13 +765,13 @@ const luckysheetFreezen = {
                             focuscell = false;
                         }
                         else if(left < freezenLeft + offLeft){ 
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": freezenLeft + offLeft,
                                 "width": width - (freezenLeft + offLeft - left)
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left,
                                 "width": width
                             });
@@ -779,24 +779,24 @@ const luckysheetFreezen = {
                     }
                     else if(left + width >= freezenLeft){
                         if(left + width < freezenLeft + offLeft){
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left + offLeft,
                                 "width": freezenLeft - left
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left + offLeft,
                                 "width": width - offLeft
                             })
                         }
                     }
                     else{
-                        $("#luckysheet-cell-selected-focus").show().css("left", left + offLeft);
+                        $("#tibetsheets-cell-selected-focus").show().css("left", left + offLeft);
                     }
 
                     if(!focuscell){
-                        $("#luckysheet-cell-selected-focus").hide();
+                        $("#tibetsheets-cell-selected-focus").hide();
                     }
                 }
             }
@@ -806,8 +806,8 @@ const luckysheetFreezen = {
             let freezen_rowindex = _this.freezenhorizontaldata[1];
             let offTop = scrollTop - _this.freezenhorizontaldata[2];
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let obj = $.extend(true, {}, Store.luckysheet_select_save[s]);
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let obj = $.extend(true, {}, Store.tibetsheets_select_save[s]);
 
                 let r1 = obj.row[0], 
                     r2 = obj.row[1];
@@ -820,16 +820,16 @@ const luckysheetFreezen = {
 
                 if(r1 >= freezen_rowindex){//原选区在冻结区外
                     if(top_move + height_move < freezenTop + offTop){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).hide();
                     }
                     else if(top_move < freezenTop + offTop){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": freezenTop + offTop,
                             "height": height_move - (freezenTop + offTop - top_move)
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move,
                             "height": height_move
                         });
@@ -837,23 +837,23 @@ const luckysheetFreezen = {
                 }
                 else if(r2 >= freezen_rowindex){//原选区有一部分在冻结区内
                     if(top_move + height_move < freezenTop + offTop){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move + offTop,
                             "height": freezenTop - top_move
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "top": top_move + offTop,
                             "height": height_move - offTop
                         });
                     }
                 }
                 else{//原选区在冻结区内
-                    $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("top", top_move + offTop);
+                    $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css("top", top_move + offTop);
                 }
 
-                if(s == Store.luckysheet_select_save.length - 1){
+                if(s == Store.tibetsheets_select_save.length - 1){
                     let rf = obj.row_focus == null ? r1 : obj.row_focus;
                     let cf = obj.column_focus == null ? obj.column[0] : obj.column_focus;
                     
@@ -871,16 +871,16 @@ const luckysheetFreezen = {
 
                     if(top >= freezenTop){
                         if(top + height < freezenTop + offTop){
-                            $("#luckysheet-cell-selected-focus").hide();
+                            $("#tibetsheets-cell-selected-focus").hide();
                         }
                         else if(top < freezenTop + offTop){ 
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": freezenTop + offTop,
                                 "height": height - (freezenTop + offTop - top)
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top,
                                 "height": height
                             });
@@ -888,20 +888,20 @@ const luckysheetFreezen = {
                     }
                     else if(top + height >= freezenTop){
                         if(top + height < freezenTop + offTop){
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top + offTop,
                                 "height": freezenTop - top
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "top": top + offTop,
                                 "height": height - offTop
                             })
                         }
                     }
                     else{
-                        $("#luckysheet-cell-selected-focus").show().css("top", top + offTop);
+                        $("#tibetsheets-cell-selected-focus").show().css("top", top + offTop);
                     }
                 }
             }
@@ -911,8 +911,8 @@ const luckysheetFreezen = {
             let freezen_colindex = _this.freezenverticaldata[1];
             let offLeft = scrollLeft - _this.freezenverticaldata[2];
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let obj = $.extend(true, {}, Store.luckysheet_select_save[s]);
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let obj = $.extend(true, {}, Store.tibetsheets_select_save[s]);
 
                 let c1 = obj.column[0], 
                     c2 = obj.column[1];
@@ -925,16 +925,16 @@ const luckysheetFreezen = {
 
                 if(c1 >= freezen_colindex){//原选区在冻结区外
                     if(left_move + width_move < freezenLeft + offLeft){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).hide();
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).hide();
                     }
                     else if(left_move < freezenLeft + offLeft){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": freezenLeft + offLeft,
                             "width": width_move - (freezenLeft + offLeft - left_move)
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move,
                             "width": width_move
                         });
@@ -942,23 +942,23 @@ const luckysheetFreezen = {
                 }
                 else if(c2 >= freezen_colindex){//原选区有一部分在冻结区内
                     if(left_move + width_move < freezenLeft + offLeft){
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move + offLeft,
                             "width": freezenLeft - left_move
                         });
                     }
                     else{
-                        $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css({
+                        $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css({
                             "left": left_move + offLeft,
                             "width": width_move - offLeft
                         });
                     }
                 }
                 else{//原选区在冻结区内
-                    $("#luckysheet-cell-selected-boxs").find(".luckysheet-cell-selected").eq(s).show().css("left", left_move + offLeft);
+                    $("#tibetsheets-cell-selected-boxs").find(".tibetsheets-cell-selected").eq(s).show().css("left", left_move + offLeft);
                 }
 
-                if(s == Store.luckysheet_select_save.length - 1){
+                if(s == Store.tibetsheets_select_save.length - 1){
                     let rf = obj.row_focus == null ? obj.row[0] : obj.row_focus;
                     let cf = obj.column_focus == null ? c1 : obj.column_focus;
                     
@@ -976,16 +976,16 @@ const luckysheetFreezen = {
 
                     if(left >= freezenLeft){
                         if(left + width < freezenLeft + offLeft){
-                            $("#luckysheet-cell-selected-focus").hide();
+                            $("#tibetsheets-cell-selected-focus").hide();
                         }
                         else if(left < freezenLeft + offLeft){ 
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": freezenLeft + offLeft,
                                 "width": width - (freezenLeft + offLeft - left)
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left,
                                 "width": width
                             });
@@ -993,20 +993,20 @@ const luckysheetFreezen = {
                     }
                     else if(left + width >= freezenLeft){
                         if(left + width < freezenLeft + offLeft){
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left + offLeft,
                                 "width": freezenLeft - left
                             })
                         }
                         else{
-                            $("#luckysheet-cell-selected-focus").show().css({
+                            $("#tibetsheets-cell-selected-focus").show().css({
                                 "left": left + offLeft,
                                 "width": width - offLeft
                             })
                         }
                     }
                     else{
-                        $("#luckysheet-cell-selected-focus").show().css("left", left + offLeft);
+                        $("#tibetsheets-cell-selected-focus").show().css("left", left + offLeft);
                     }
                 }
             }
@@ -1018,14 +1018,14 @@ const luckysheetFreezen = {
     scrollAdaptOfchart: function(){
         let _this = this;
 
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
 
         if(_this.freezenhorizontaldata != null && _this.freezenverticaldata != null){
             let freezenTop = _this.freezenhorizontaldata[0] - _this.freezenhorizontaldata[2];
             let freezenLeft = _this.freezenverticaldata[0] - _this.freezenverticaldata[2];
 
-            $("#luckysheet-cell-main .luckysheet-data-visualization-chart").each(function(i, e){
+            $("#tibetsheets-cell-main .tibetsheets-data-visualization-chart").each(function(i, e){
                 let x = $(e).position();
                 let width = $(e).width();
                 let height = $(e).height();
@@ -1088,7 +1088,7 @@ const luckysheetFreezen = {
         else if(_this.freezenhorizontaldata != null){
             let freezenTop = _this.freezenhorizontaldata[0] - _this.freezenhorizontaldata[2];
 
-            $("#luckysheet-cell-main .luckysheet-data-visualization-chart").each(function(i, e){
+            $("#tibetsheets-cell-main .tibetsheets-data-visualization-chart").each(function(i, e){
                 let x = $(e).position();
                 let height = $(e).height();
                 
@@ -1124,7 +1124,7 @@ const luckysheetFreezen = {
         else if(_this.freezenverticaldata != null){
             let freezenLeft = _this.freezenverticaldata[0] - _this.freezenverticaldata[2];
 
-            $("#luckysheet-cell-main .luckysheet-data-visualization-chart").each(function(i, e){
+            $("#tibetsheets-cell-main .tibetsheets-data-visualization-chart").each(function(i, e){
                 let x = $(e).position();
                 let width = $(e).width();
 
@@ -1158,7 +1158,7 @@ const luckysheetFreezen = {
             })
         }
         else{
-            $("#luckysheet-cell-main .luckysheet-data-visualization-chart").each(function(i, e){
+            $("#tibetsheets-cell-main .tibetsheets-data-visualization-chart").each(function(i, e){
                 let x = $(e).position();
                 let width = $(e).width();
                 let height = $(e).height();
@@ -1187,8 +1187,8 @@ const luckysheetFreezen = {
     scrollAdaptOfpostil: function(){
         let _this = this;
 
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
 
         if(_this.freezenhorizontaldata != null && _this.freezenverticaldata != null){
             let freezenTop = _this.freezenhorizontaldata[0];
@@ -1197,11 +1197,11 @@ const luckysheetFreezen = {
             let offTop = scrollTop - _this.freezenhorizontaldata[2];
             let offLeft = scrollLeft - _this.freezenverticaldata[2];
 
-            $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
+            $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").each(function(i, e){
                 let id = $(e).attr("id");
 
-                let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-                let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+                let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+                let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
                 let postil = Store.flowdata[r][c].ps;
 
@@ -1224,20 +1224,20 @@ const luckysheetFreezen = {
 
                 let postil_left = postil["left"] == null ? toX + 18 : postil["left"];
                 let postil_top = postil["top"] == null ? toY - 18 : postil["top"];
-                let postil_width = postil["width"] == null ? luckysheetPostil.defaultWidth : postil["width"];
-                let postil_height = postil["height"] == null ? luckysheetPostil.defaultHeight : postil["height"];
+                let postil_width = postil["width"] == null ? tibetsheetsPostil.defaultWidth : postil["width"];
+                let postil_height = postil["height"] == null ? tibetsheetsPostil.defaultHeight : postil["height"];
 
                 if(postil_top < 0){
                     postil_top = 2;
                 }
 
-                let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
+                let size = tibetsheetsPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
                 let show = true;
                 let show2 = true;
 
                 if(r >= _this.freezenhorizontaldata[1]){
                     if(postil_top + postil_height < freezenTop){
-                        $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
+                        $(e).show().find(".tibetsheets-postil-show-main").css("top", postil_top + offTop);
                         $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
                     }
                     else{
@@ -1246,7 +1246,7 @@ const luckysheetFreezen = {
                                 show = false;
                             }
                             else{
-                                $(e).show().find(".luckysheet-postil-show-main").css({ "top": freezenTop + offTop, "height": postil_height - (freezenTop + offTop - postil_top) });
+                                $(e).show().find(".tibetsheets-postil-show-main").css({ "top": freezenTop + offTop, "height": postil_height - (freezenTop + offTop - postil_top) });
                                 $(e).show().find(".formulaInputFocus").css("margin-top", -(freezenTop + offTop - postil_top));
                                 $(e).show().find(".arrowCanvas").hide(); 
 
@@ -1254,24 +1254,24 @@ const luckysheetFreezen = {
                             }
                         }
                         else{
-                            $(e).show().find(".luckysheet-postil-show-main").css({
+                            $(e).show().find(".tibetsheets-postil-show-main").css({
                                 "top": postil_top,
                                 "height": postil_height
                             });
                             $(e).show().find(".formulaInputFocus").css("margin-top", 0);
                             $(e).show().find(".arrowCanvas").css("top", size[1]);
-                            // luckysheetPostil.buildPs(r, c, postil);
+                            // tibetsheetsPostil.buildPs(r, c, postil);
                         }
                     }
                 }
                 else{
-                    $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
+                    $(e).show().find(".tibetsheets-postil-show-main").css("top", postil_top + offTop);
                     $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
                 }
 
                 if(c >= _this.freezenverticaldata[1]){
                     if(postil_left + postil_width < freezenLeft){
-                        $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
+                        $(e).show().find(".tibetsheets-postil-show-main").css("left", postil_left + offLeft);
                         $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
                     }
                     else{
@@ -1280,7 +1280,7 @@ const luckysheetFreezen = {
                                 show = false;
                             }
                             else{
-                                $(e).show().find(".luckysheet-postil-show-main").css({ "left": freezenLeft + offLeft, "width": postil_width - (freezenLeft + offLeft - postil_left) });
+                                $(e).show().find(".tibetsheets-postil-show-main").css({ "left": freezenLeft + offLeft, "width": postil_width - (freezenLeft + offLeft - postil_left) });
                                 $(e).show().find(".formulaInputFocus").css("margin-left", -(freezenLeft + offLeft - postil_left));
                                 $(e).show().find(".arrowCanvas").hide(); 
 
@@ -1288,18 +1288,18 @@ const luckysheetFreezen = {
                             }
                         }
                         else{
-                            $(e).show().find(".luckysheet-postil-show-main").css({
+                            $(e).show().find(".tibetsheets-postil-show-main").css({
                                 "left": postil_left,
                                 "width": postil_width   
                             });
                             $(e).show().find(".formulaInputFocus").css("margin-left", 0);
                             $(e).show().find(".arrowCanvas").css("left", size[0]);
-                            // luckysheetPostil.buildPs(r, c, postil);
+                            // tibetsheetsPostil.buildPs(r, c, postil);
                         }
                     }
                 }
                 else{
-                    $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
+                    $(e).show().find(".tibetsheets-postil-show-main").css("left", postil_left + offLeft);
                     $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
                 }
 
@@ -1316,11 +1316,11 @@ const luckysheetFreezen = {
             let freezenTop = _this.freezenhorizontaldata[0];
             let offTop = scrollTop - _this.freezenhorizontaldata[2];
 
-            $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
+            $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").each(function(i, e){
                 let id = $(e).attr("id");
 
-                let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-                let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+                let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+                let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
                 let postil = Store.flowdata[r][c].ps;
 
@@ -1343,18 +1343,18 @@ const luckysheetFreezen = {
 
                 let postil_left = postil["left"] == null ? toX + 18 : postil["left"];
                 let postil_top = postil["top"] == null ? toY - 18 : postil["top"];
-                let postil_width = postil["width"] == null ? luckysheetPostil.defaultWidth : postil["width"];
-                let postil_height = postil["height"] == null ? luckysheetPostil.defaultHeight : postil["height"];
+                let postil_width = postil["width"] == null ? tibetsheetsPostil.defaultWidth : postil["width"];
+                let postil_height = postil["height"] == null ? tibetsheetsPostil.defaultHeight : postil["height"];
 
                 if(postil_top < 0){
                     postil_top = 2;
                 }
 
-                let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
+                let size = tibetsheetsPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
 
                 if(r >= _this.freezenhorizontaldata[1]){
                     if(postil_top + postil_height < freezenTop){
-                        $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
+                        $(e).show().find(".tibetsheets-postil-show-main").css("top", postil_top + offTop);
                         $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
                     }
                     else{
@@ -1363,18 +1363,18 @@ const luckysheetFreezen = {
                                 $(e).hide();
                             }
                             else{
-                                $(e).show().find(".luckysheet-postil-show-main").css({ "top": freezenTop + offTop, "height": postil_height - (freezenTop + offTop - postil_top) });
+                                $(e).show().find(".tibetsheets-postil-show-main").css({ "top": freezenTop + offTop, "height": postil_height - (freezenTop + offTop - postil_top) });
                                 $(e).show().find(".formulaInputFocus").css("margin-top", -(freezenTop + offTop - postil_top));
                                 $(e).show().find(".arrowCanvas").hide(); 
                             }
                         }
                         else{
-                            luckysheetPostil.buildPs(r, c, postil);
+                            tibetsheetsPostil.buildPs(r, c, postil);
                         }
                     }
                 }
                 else{
-                    $(e).show().find(".luckysheet-postil-show-main").css("top", postil_top + offTop);
+                    $(e).show().find(".tibetsheets-postil-show-main").css("top", postil_top + offTop);
                     $(e).show().find(".arrowCanvas").css("top", size[1] + offTop);
                 }
             })
@@ -1383,11 +1383,11 @@ const luckysheetFreezen = {
             let freezenLeft = _this.freezenverticaldata[0];
             let offLeft = scrollLeft - _this.freezenverticaldata[2];
 
-            $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
+            $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").each(function(i, e){
                 let id = $(e).attr("id");
 
-                let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-                let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+                let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+                let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
                 let postil = Store.flowdata[r][c].ps;
 
@@ -1410,18 +1410,18 @@ const luckysheetFreezen = {
 
                 let postil_left = postil["left"] == null ? toX + 18 : postil["left"];
                 let postil_top = postil["top"] == null ? toY - 18 : postil["top"];
-                let postil_width = postil["width"] == null ? luckysheetPostil.defaultWidth : postil["width"];
-                let postil_height = postil["height"] == null ? luckysheetPostil.defaultHeight : postil["height"];
+                let postil_width = postil["width"] == null ? tibetsheetsPostil.defaultWidth : postil["width"];
+                let postil_height = postil["height"] == null ? tibetsheetsPostil.defaultHeight : postil["height"];
 
                 if(postil_top < 0){
                     postil_top = 2;
                 }
 
-                let size = luckysheetPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
+                let size = tibetsheetsPostil.getArrowCanvasSize(postil_left, postil_top, toX, toY);
 
                 if(c >= _this.freezenverticaldata[1]){
                     if(postil_left + postil_width < freezenLeft){
-                        $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
+                        $(e).show().find(".tibetsheets-postil-show-main").css("left", postil_left + offLeft);
                         $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
                     }
                     else{
@@ -1430,43 +1430,43 @@ const luckysheetFreezen = {
                                 $(e).hide();
                             }
                             else{
-                                $(e).show().find(".luckysheet-postil-show-main").css({ "left": freezenLeft + offLeft, "width": postil_width - (freezenLeft + offLeft - postil_left) });
+                                $(e).show().find(".tibetsheets-postil-show-main").css({ "left": freezenLeft + offLeft, "width": postil_width - (freezenLeft + offLeft - postil_left) });
                                 $(e).show().find(".formulaInputFocus").css("margin-left", -(freezenLeft + offLeft - postil_left));
                                 $(e).show().find(".arrowCanvas").hide(); 
                             }
                         }
                         else{
-                            luckysheetPostil.buildPs(r, c, postil);
+                            tibetsheetsPostil.buildPs(r, c, postil);
                         }
                     }
                 }
                 else{
-                    $(e).show().find(".luckysheet-postil-show-main").css("left", postil_left + offLeft);
+                    $(e).show().find(".tibetsheets-postil-show-main").css("left", postil_left + offLeft);
                     $(e).show().find(".arrowCanvas").css("left", size[0] + offLeft);
                 }
             })
         }
         else{
-            $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
+            $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").each(function(i, e){
                 let id = $(e).attr("id");
 
-                let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-                let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+                let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+                let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
                 let postil = Store.flowdata[r][c].ps;
 
-                luckysheetPostil.buildPs(r, c, postil);
+                tibetsheetsPostil.buildPs(r, c, postil);
             })
         }
     },
     scrollAdaptOfdpicon: function(){
         let _this = this;
 
-        let copy_r = luckysheetDropCell.copyRange["row"][1], 
-            copy_c = luckysheetDropCell.copyRange["column"][1];
+        let copy_r = tibetsheetsDropCell.copyRange["row"][1], 
+            copy_c = tibetsheetsDropCell.copyRange["column"][1];
         
-        let apply_r = luckysheetDropCell.applyRange["row"][1], 
-            apply_c = luckysheetDropCell.applyRange["column"][1];
+        let apply_r = tibetsheetsDropCell.applyRange["row"][1], 
+            apply_c = tibetsheetsDropCell.applyRange["column"][1];
         
         let row_index, col_index;
         if(apply_r >= copy_r && apply_c >= copy_c){
@@ -1480,86 +1480,86 @@ const luckysheetFreezen = {
 
         if(_this.freezenhorizontaldata != null && _this.freezenverticaldata != null){
             let freezen_rowindex = _this.freezenhorizontaldata[1];
-            let offsetRow = luckysheet_searcharray(_this.freezenhorizontaldata[3], $("#luckysheet-cell-main").scrollTop() - _this.freezenhorizontaldata[2]);
+            let offsetRow = tibetsheets_searcharray(_this.freezenhorizontaldata[3], $("#tibetsheets-cell-main").scrollTop() - _this.freezenhorizontaldata[2]);
             let freezen_colindex = _this.freezenverticaldata[1];
-            let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
+            let offsetColumn = tibetsheets_searcharray(_this.freezenverticaldata[3], $("#tibetsheets-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
 
             if(row_index >= freezen_rowindex && col_index >= freezen_colindex){
                 if(row_index < (freezen_rowindex + offsetRow - 1) || col_index < (freezen_colindex + offsetColumn - 1)){
-                    $("#luckysheet-dropCell-icon").hide();
+                    $("#tibetsheets-dropCell-icon").hide();
                 }
                 else{
-                    $("#luckysheet-dropCell-icon").show();
+                    $("#tibetsheets-dropCell-icon").show();
                 }
             }
             else if(row_index >= freezen_rowindex){
                 if(row_index < (freezen_rowindex + offsetRow - 1)){
-                    $("#luckysheet-dropCell-icon").hide();
+                    $("#tibetsheets-dropCell-icon").hide();
                 }
                 else{
                     let col = colLocationByIndex(col_index + offsetColumn)[1];
 
-                    $("#luckysheet-dropCell-icon").show().css("left", col);
+                    $("#tibetsheets-dropCell-icon").show().css("left", col);
                 }
             }
             else if(col_index >= freezen_colindex){
                 if(col_index < (freezen_colindex + offsetColumn - 1)){
-                    $("#luckysheet-dropCell-icon").hide();
+                    $("#tibetsheets-dropCell-icon").hide();
                 }
                 else{
                     let row = rowLocationByIndex(row_index + offsetRow)[1];
 
-                    $("#luckysheet-dropCell-icon").show().css("top", row);
+                    $("#tibetsheets-dropCell-icon").show().css("top", row);
                 }
             }
             else{
                 let row = rowLocationByIndex(row_index + offsetRow)[1],
                     col = colLocationByIndex(col_index + offsetColumn)[1];
 
-                $("#luckysheet-dropCell-icon").show().css({ "left": col, "top": row });
+                $("#tibetsheets-dropCell-icon").show().css({ "left": col, "top": row });
             }
         }
         else if(_this.freezenhorizontaldata != null){
             let freezen_rowindex = _this.freezenhorizontaldata[1];
-            let offsetRow = luckysheet_searcharray(_this.freezenhorizontaldata[3], $("#luckysheet-cell-main").scrollTop() - _this.freezenhorizontaldata[2]);
+            let offsetRow = tibetsheets_searcharray(_this.freezenhorizontaldata[3], $("#tibetsheets-cell-main").scrollTop() - _this.freezenhorizontaldata[2]);
 
             if(row_index >= freezen_rowindex){
                 if(row_index < (freezen_rowindex + offsetRow - 1)){
-                    $("#luckysheet-dropCell-icon").hide();
+                    $("#tibetsheets-dropCell-icon").hide();
                 }
                 else{
-                    $("#luckysheet-dropCell-icon").show();
+                    $("#tibetsheets-dropCell-icon").show();
                 }
             }
             else{
                 let row = rowLocationByIndex(row_index + offsetRow)[1];
 
-                $("#luckysheet-dropCell-icon").show().css("top", row);
+                $("#tibetsheets-dropCell-icon").show().css("top", row);
             }
         }
         else if(_this.freezenverticaldata != null){
             let freezen_colindex = _this.freezenverticaldata[1];
-            let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
+            let offsetColumn = tibetsheets_searcharray(_this.freezenverticaldata[3], $("#tibetsheets-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
 
             if(col_index >= freezen_colindex){
                 if(col_index < (freezen_colindex + offsetColumn - 1)){
-                    $("#luckysheet-dropCell-icon").hide();
+                    $("#tibetsheets-dropCell-icon").hide();
                 }
                 else{
-                    $("#luckysheet-dropCell-icon").show();
+                    $("#tibetsheets-dropCell-icon").show();
                 }
             }
             else{
                 let col = colLocationByIndex(col_index + offsetColumn)[1];
 
-                $("#luckysheet-dropCell-icon").show().css("left", col);
+                $("#tibetsheets-dropCell-icon").show().css("left", col);
             }
         }
         else{
             let row = rowLocationByIndex(row_index)[1],
                 col = colLocationByIndex(col_index)[1];
 
-            $("#luckysheet-dropCell-icon").show().css({ "left": col, "top": row });
+            $("#tibetsheets-dropCell-icon").show().css({ "left": col, "top": row });
         }
     },
     scrollAdaptOffilteroptions: function(){
@@ -1567,12 +1567,12 @@ const luckysheetFreezen = {
 
         if(_this.freezenhorizontaldata != null && _this.freezenverticaldata != null){
             let freezen_rowindex = _this.freezenhorizontaldata[1];
-            let freezen_top = _this.freezenhorizontaldata[0] + $("#luckysheet-cell-main").scrollTop();
+            let freezen_top = _this.freezenhorizontaldata[0] + $("#tibetsheets-cell-main").scrollTop();
 
             let freezen_colindex = _this.freezenverticaldata[1];
-            let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
+            let offsetColumn = tibetsheets_searcharray(_this.freezenverticaldata[3], $("#tibetsheets-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
 
-            $("#luckysheet-filter-options-sheet"+ Store.currentSheetIndex +" .luckysheet-filter-options").each(function(i, e){
+            $("#tibetsheets-filter-options-sheet"+ Store.currentSheetIndex +" .tibetsheets-filter-options").each(function(i, e){
                 let row_index = $(e).data("str");
                 let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
 
@@ -1601,21 +1601,21 @@ const luckysheetFreezen = {
                         $(e).hide();
                     }
                     else{
-                        $(e).show().css("top", top + $("#luckysheet-cell-main").scrollTop());
+                        $(e).show().css("top", top + $("#tibetsheets-cell-main").scrollTop());
                     }
                 }
                 else{
                     let left = Store.visibledatacolumn[col_index + offsetColumn] - 20;
 
-                    $(e).show().css({ "left": left, "top": top + $("#luckysheet-cell-main").scrollTop() });
+                    $(e).show().css({ "left": left, "top": top + $("#tibetsheets-cell-main").scrollTop() });
                 }
             });
         }
         else if(_this.freezenhorizontaldata != null){
             let freezen_rowindex = _this.freezenhorizontaldata[1];
-            let freezen_top = _this.freezenhorizontaldata[0] + $("#luckysheet-cell-main").scrollTop();
+            let freezen_top = _this.freezenhorizontaldata[0] + $("#tibetsheets-cell-main").scrollTop();
 
-            $("#luckysheet-filter-options-sheet"+ Store.currentSheetIndex +" .luckysheet-filter-options").each(function(i, e){
+            $("#tibetsheets-filter-options-sheet"+ Store.currentSheetIndex +" .tibetsheets-filter-options").each(function(i, e){
                 let row_index = $(e).data("str");
                 let top = row_index - 1 == -1 ? 0 : Store.visibledatarow[row_index - 1];
 
@@ -1628,15 +1628,15 @@ const luckysheetFreezen = {
                     }
                 }
                 else{
-                    $(e).show().css("top", top + $("#luckysheet-cell-main").scrollTop());
+                    $(e).show().css("top", top + $("#tibetsheets-cell-main").scrollTop());
                 }
             });
         }
         else if(_this.freezenverticaldata != null){
             let freezen_colindex = _this.freezenverticaldata[1];
-            let offsetColumn = luckysheet_searcharray(_this.freezenverticaldata[3], $("#luckysheet-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
+            let offsetColumn = tibetsheets_searcharray(_this.freezenverticaldata[3], $("#tibetsheets-cell-main").scrollLeft() - _this.freezenverticaldata[2]);
 
-            $("#luckysheet-filter-options-sheet"+ Store.currentSheetIndex +" .luckysheet-filter-options").each(function(i, e){
+            $("#tibetsheets-filter-options-sheet"+ Store.currentSheetIndex +" .tibetsheets-filter-options").each(function(i, e){
                 let col_index = $(e).data("cindex");
 
                 if(col_index >= freezen_colindex){
@@ -1655,8 +1655,8 @@ const luckysheetFreezen = {
             });
         }
         else{
-            $("#luckysheet-filter-options-sheet"+ Store.currentSheetIndex).empty();
-            createFilterOptions(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select);
+            $("#tibetsheets-filter-options-sheet"+ Store.currentSheetIndex).empty();
+            createFilterOptions(Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].filter_select);
         }
     },
     /**
@@ -1672,7 +1672,7 @@ const luckysheetFreezen = {
         
         // New configuration attribute of sheet: frozen, which stores more semantic configuration for initialization and transmission to the backend. freezenhorizontaldata is still used as local data
 
-        const select_save = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        const select_save = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
         const row_focus = select_save["row_focus"] == null ? select_save["row"][0] : select_save["row_focus"];
         const column_focus = select_save["column_focus"] == null ? select_save["column"][0] : select_save["column_focus"];
@@ -1710,11 +1710,11 @@ const luckysheetFreezen = {
         }
 
         // store frozen
-        Store.luckysheetfile[order]["frozen"] = frozen[operate];
+        Store.tibetsheetsfile[order]["frozen"] = frozen[operate];
     },
     frozenTofreezen: function() {
         // get frozen type
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
         const frozen = file["frozen"];
 
         if(frozen == null){
@@ -1726,12 +1726,12 @@ const luckysheetFreezen = {
         // transform to freezen
         if(frozen.type === 'row'){
             let scrollTop = 0;
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
             }
             let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
             
             freezen = {
                 horizontal:{
@@ -1743,12 +1743,12 @@ const luckysheetFreezen = {
         }
         else if(frozen.type === 'column'){
             let scrollLeft = 0;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
             let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
 
             freezen = {
                 vertical:{
@@ -1759,20 +1759,20 @@ const luckysheetFreezen = {
         }
         else if(frozen.type === 'both'){
             let scrollTop = 0;
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
             }
             let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
             
             let scrollLeft = 0;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
             let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
 
             freezen = {
                 horizontal:{
@@ -1788,7 +1788,7 @@ const luckysheetFreezen = {
         }
         else if(frozen.type === 'rangeRow'){
             let scrollTop = 0;
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
             let row_focus = frozen.range["row_focus"];
 
@@ -1801,7 +1801,7 @@ const luckysheetFreezen = {
             }
 
             let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
 
             freezen = {
                 horizontal:{
@@ -1813,7 +1813,7 @@ const luckysheetFreezen = {
         }
         else if(frozen.type === 'rangeColumn'){
             let scrollLeft = 0;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
             let column_focus = frozen.range["column_focus"];
 
@@ -1826,7 +1826,7 @@ const luckysheetFreezen = {
             }
 
             let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
 
             freezen = {
                 vertical:{
@@ -1838,7 +1838,7 @@ const luckysheetFreezen = {
         }
         else if(frozen.type === 'rangeBoth'){
             let scrollTop = 0;
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
             let row_focus = frozen.range["row_focus"];
 
@@ -1851,10 +1851,10 @@ const luckysheetFreezen = {
             }
 
             let top = Store.visibledatarow[row_st] - 2 - scrollTop + Store.columnHeaderHeight;
-            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
+            let freezenhorizontaldata = [Store.visibledatarow[row_st], row_st + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1), top];
 
             let scrollLeft = 0;
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
             let column_focus = frozen.range["column_focus"];
 
@@ -1867,7 +1867,7 @@ const luckysheetFreezen = {
             }
 
             let left = Store.visibledatacolumn[col_st] - 2 - scrollLeft + Store.rowHeaderWidth;
-            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
+            let freezenverticaldata = [Store.visibledatacolumn[col_st], col_st + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1), left];
 
             freezen = {
                 horizontal:{
@@ -1891,4 +1891,4 @@ const luckysheetFreezen = {
     }
 }
 
-export default luckysheetFreezen;
+export default tibetsheetsFreezen;

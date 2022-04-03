@@ -8,7 +8,7 @@ import pivotTable from './pivotTable';
 import Store from '../store';
 import server from './server';
 
-function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
+function tibetsheetsMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
     if (isScroll == null) {
         isScroll = true;
     }
@@ -25,7 +25,7 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
         onlyvalue = false;
     }
 
-    let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
     let curR = last["row"] == null ? 0 : last["row"][0];
     let curC = last["column"] == null ? 0 : last["column"][0];
@@ -40,11 +40,11 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
 
     if (type == "range") {
         // need var
-        var p_startR = Store.luckysheet_shiftpositon["row"][0];
-        var p_startC = Store.luckysheet_shiftpositon["column"][0];
+        var p_startR = Store.tibetsheets_shiftpositon["row"][0];
+        var p_startC = Store.tibetsheets_shiftpositon["column"][0];
 
-        let p_endR = Store.luckysheet_shiftpositon["row"][1];
-        let p_endC = Store.luckysheet_shiftpositon["column"][1];
+        let p_endR = Store.tibetsheets_shiftpositon["row"][1];
+        let p_endC = Store.tibetsheets_shiftpositon["column"][1];
 
         if (postion == "down" || postion == "up") {
             if (p_endR < endR) {
@@ -322,10 +322,10 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
 
     if (!onlyvalue) {
         if (type == "cell") {
-            luckysheetMoveHighlightCell(moveP, moveV, "rangeOfSelect", isScroll);
+            tibetsheetsMoveHighlightCell(moveP, moveV, "rangeOfSelect", isScroll);
         }
         else if (type == "range") {
-            luckysheetMoveHighlightRange(moveP, moveV, "rangeOfSelect", isScroll);
+            tibetsheetsMoveHighlightRange(moveP, moveV, "rangeOfSelect", isScroll);
         }
     }
     else {
@@ -334,7 +334,7 @@ function luckysheetMoveEndCell(postion, type, isScroll, terminal, onlyvalue) {
 }
 
 //方向键  调整单元格
-function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
+function tibetsheetsMoveHighlightCell(postion, index, type, isScroll) {
     if (isScroll == null) {
         isScroll = true;
     }
@@ -350,7 +350,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     let col, col_pre, col_index, col_index_ed;
 
     if(type == "rangeOfSelect"){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         
         let curR;
         if(last["row_focus"] == null){
@@ -580,7 +580,7 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
             "moveXY": {"x": moveX, "y": moveY}
         };
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": col_pre,
             "width": col - col_pre - 1,
             "top": row_pre,
@@ -593,34 +593,34 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
         });
     }
 
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
-    let winH = $("#luckysheet-cell-main").height(), winW = $("#luckysheet-cell-main").width();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+    let winH = $("#tibetsheets-cell-main").height(), winW = $("#tibetsheets-cell-main").width();
 
     let sleft = 0, stop = 0;
     if (col - scrollLeft - winW + 20 > 0) {
         sleft = col - winW + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
     else if (col_pre - scrollLeft - 20 < 0) {
         sleft = col_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
 
     if (row - scrollTop - winH + 20 > 0) {
         stop = row - winH + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
     else if (row_pre - scrollTop - 20 < 0) {
         stop = row_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
 
@@ -628,11 +628,11 @@ function luckysheetMoveHighlightCell(postion, index, type, isScroll) {
     countfunc();
     
     // 移动单元格通知后台
-    server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+    server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
 }
 
 //ctrl + 方向键  调整单元格
-function luckysheetMoveHighlightCell2(postion, type, isScroll) {
+function tibetsheetsMoveHighlightCell2(postion, type, isScroll) {
     if(!isScroll){
         isScroll = true;
     }
@@ -641,7 +641,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
     let col, col_pre;
 
     if(type == "rangeOfSelect"){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let rf = last["row_focus"], cf = last["column_focus"];
 
         let focusIsMerge = false, mc = {};
@@ -717,7 +717,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
             // width = changeparam[5];
         }
 
-        Store.luckysheet_select_save = [{"row": rowseleted, "column": columnseleted}];
+        Store.tibetsheets_select_save = [{"row": rowseleted, "column": columnseleted}];
         selectHightlightShow();
         pivotTable.pivotclick(rf, cf);
         formula.fucntionboxshow(rf, cf);
@@ -817,7 +817,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
             "column_focus": cf
         };
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": left,
             "width": width,
             "top": top,
@@ -830,34 +830,34 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
         });
     }
 
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
-    let winH = $("#luckysheet-cell-main").height(), winW = $("#luckysheet-cell-main").width();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+    let winH = $("#tibetsheets-cell-main").height(), winW = $("#tibetsheets-cell-main").width();
 
     let sleft = 0, stop = 0;
     if (col - scrollLeft - winW + 20 > 0) {
         sleft = col - winW + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
     else if (col_pre - scrollLeft - 20 < 0) {
         sleft = col_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
 
     if (row - scrollTop - winH + 20 > 0) {
         stop = row - winH + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
     else if (row_pre - scrollTop - 20 < 0) {
         stop = row_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
 
@@ -866,7 +866,7 @@ function luckysheetMoveHighlightCell2(postion, type, isScroll) {
 }
 
 //shift + 方向键  调整选区
-function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
+function tibetsheetsMoveHighlightRange(postion, index, type, isScroll) {
     if (isScroll == null) {
         isScroll = true;
     }
@@ -879,7 +879,7 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
     let col, col_pre;
 
     if(type == "rangeOfSelect"){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
         let curR = last["row"][0], endR = last["row"][1];
         let curC = last["column"][0], endC = last["column"][1];
@@ -1235,7 +1235,7 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
             "column_focus": cf
         };
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": left,
             "width": width,
             "top": top,
@@ -1248,34 +1248,34 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
         });
     }
 
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
-    let winH = $("#luckysheet-cell-main").height(), winW = $("#luckysheet-cell-main").width();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+    let winH = $("#tibetsheets-cell-main").height(), winW = $("#tibetsheets-cell-main").width();
 
     let sleft = 0, stop = 0;
     if (col - scrollLeft - winW + 20 > 0) {
         sleft = col - winW + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
     else if (col_pre - scrollLeft - 20 < 0) {
         sleft = col_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
 
     if (row - scrollTop - winH + 20 > 0) {
         stop = row - winH + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
     else if (row_pre - scrollTop - 20 < 0) {
         stop = row_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
 
@@ -1284,7 +1284,7 @@ function luckysheetMoveHighlightRange(postion, index, type, isScroll) {
 }
 
 //ctrl + shift + 方向键  调整选区
-function luckysheetMoveHighlightRange2(postion, type, isScroll) {
+function tibetsheetsMoveHighlightRange2(postion, type, isScroll) {
     if(!isScroll){
         isScroll = true;
     }
@@ -1293,7 +1293,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
     let col, col_pre;
 
     if(type == "rangeOfSelect"){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let rf = last["row_focus"], cf = last["column_focus"];
 
         let r1 = last["row"][0], r2 = last["row"][1];
@@ -1567,7 +1567,7 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
             "column_focus": cf
         };
 
-        $("#luckysheet-formula-functionrange-select").css({
+        $("#tibetsheets-formula-functionrange-select").css({
             "left": left,
             "width": width,
             "top": top,
@@ -1580,34 +1580,34 @@ function luckysheetMoveHighlightRange2(postion, type, isScroll) {
         });
     }
 
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
-    let winH = $("#luckysheet-cell-main").height(), winW = $("#luckysheet-cell-main").width();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+    let winH = $("#tibetsheets-cell-main").height(), winW = $("#tibetsheets-cell-main").width();
 
     let sleft = 0, stop = 0;
     if (col - scrollLeft - winW + 20 > 0) {
         sleft = col - winW + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
     else if (col_pre - scrollLeft - 20 < 0) {
         sleft = col_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
         }
     }
 
     if (row - scrollTop - winH + 20 > 0) {
         stop = row - winH + 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
     else if (row_pre - scrollTop - 20 < 0) {
         stop = row_pre - 20;
         if (isScroll) {
-            $("#luckysheet-scrollbar-y").scrollTop(stop);
+            $("#tibetsheets-scrollbar-y").scrollTop(stop);
         }
     }
 
@@ -1993,9 +1993,9 @@ function getNextIndex(direction, focusIndex, strIndex, endIndex) {
 }
 
 export {
-    luckysheetMoveEndCell,
-    luckysheetMoveHighlightCell,
-    luckysheetMoveHighlightCell2,
-    luckysheetMoveHighlightRange,
-    luckysheetMoveHighlightRange2,
+    tibetsheetsMoveEndCell,
+    tibetsheetsMoveHighlightCell,
+    tibetsheetsMoveHighlightCell2,
+    tibetsheetsMoveHighlightRange,
+    tibetsheetsMoveHighlightRange2,
 }

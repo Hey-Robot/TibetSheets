@@ -2,8 +2,8 @@ import { chatatABC } from '../utils/util';
 import Store from '../store';
 
 function getSheetIndex(index) {
-    for (let i = 0; i < Store.luckysheetfile.length; i++) {
-        if (Store.luckysheetfile[i]["index"] == index) {
+    for (let i = 0; i < Store.tibetsheetsfile.length; i++) {
+        if (Store.tibetsheetsfile[i]["index"] == index) {
             return i;
         }
     }
@@ -20,7 +20,7 @@ function getRangetxt(sheetIndex, range, currentIndex) {
 
     if (sheetIndex != currentIndex) {
         //sheet名字包含'的，引用时应该替换为''
-        sheettxt = Store.luckysheetfile[getSheetIndex(sheetIndex)].name.replace(/'/g,"''");
+        sheettxt = Store.tibetsheetsfile[getSheetIndex(sheetIndex)].name.replace(/'/g,"''");
         //如果包含除a-z、A-Z、0-9、下划线等以外的字符那么就用单引号包起来
         if(/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/.test(sheettxt))
         {
@@ -51,18 +51,18 @@ function getRangetxt(sheetIndex, range, currentIndex) {
     }
 }
 
-function getluckysheet_select_save() {
-    return Store.luckysheet_select_save;
+function gettibetsheets_select_save() {
+    return Store.tibetsheets_select_save;
 }
 
-function getluckysheet_scroll_status() {
-    return Store.luckysheet_scroll_status;
+function gettibetsheets_scroll_status() {
+    return Store.tibetsheets_scroll_status;
 }
 
-function getluckysheetfile(plugin) {
+function gettibetsheetsfile(plugin) {
     // 获取图表数据
     if(plugin){
-        Store.luckysheetfile.forEach(file => {
+        Store.tibetsheetsfile.forEach(file => {
             if(!!file.chart){
                 file.chart.forEach((chartObj)=>{
                     const chartJson = Store.getChartJson(chartObj.chart_id);
@@ -72,7 +72,7 @@ function getluckysheetfile(plugin) {
         });
     }
     
-    return Store.luckysheetfile;
+    return Store.tibetsheetsfile;
 }
 
 function getconfig() {
@@ -90,9 +90,9 @@ function getvisibledatacolumn() {
 export {
     getSheetIndex,
     getRangetxt,
-    getluckysheet_select_save,
-    getluckysheet_scroll_status,
-    getluckysheetfile,
+    gettibetsheets_select_save,
+    gettibetsheets_scroll_status,
+    gettibetsheetsfile,
     getconfig,
     getvisibledatarow,
     getvisibledatacolumn,

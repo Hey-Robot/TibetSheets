@@ -873,11 +873,11 @@ window.sheetTable = {
 	}],
 	"ch_width": 4748,
 	"rh_height": 1790,
-	"luckysheet_select_save": [{
+	"tibetsheets_select_save": [{
 		"row": [0, 0],
 		"column": [0, 0]
 	}],
-	"luckysheet_selection_range": [],
+	"tibetsheets_selection_range": [],
 	"scrollLeft": 0,
 	"scrollTop": 0,
 	"filter_select": {
@@ -894,7 +894,7 @@ window.sheetTable = {
 		"row_focus": 1,
 		"column_focus": 1
 	},
-	"luckysheet_alternateformat_save": [{
+	"tibetsheets_alternateformat_save": [{
 		"cellrange": {
 			"row": [1, 6],
 			"column": [1, 5]
@@ -1045,7 +1045,7 @@ window.sheetTable = {
 		"hasRowHeader": true,
 		"hasRowFooter": true
 	}],
-	"luckysheet_alternateformat_save_modelCustom": [{
+	"tibetsheets_alternateformat_save_modelCustom": [{
 		"head": {
 			"fc": "#6aa84f",
 			"bc": "#ffffff"

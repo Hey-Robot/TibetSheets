@@ -12,7 +12,7 @@ import { isEditMode, hasPartMC, isRealNum } from '../global/validate';
 import { jfrefreshgrid, jfrefreshgrid_pastcut } from '../global/refresh';
 import { genarate, update } from '../global/format';
 import { getSheetIndex } from '../methods/get';
-import { replaceHtml, getObjType, luckysheetfontformat } from '../utils/util';
+import { replaceHtml, getObjType, tibetsheetsfontformat } from '../utils/util';
 import Store from '../store';
 import locale from '../locale/locale';
 import imageCtrl from './imageCtrl';
@@ -27,12 +27,12 @@ const selection = {
         }
         let cpdata = " ";
 
-        Store.luckysheet_selection_range = [];
+        Store.tibetsheets_selection_range = [];
         selectionCopyShow();
-        // Store.luckysheet_copy_save = {};
+        // Store.tibetsheets_copy_save = {};
 
         if (!clipboardData) {
-            let textarea = $("#luckysheet-copy-content").css("visibility", "hidden");
+            let textarea = $("#tibetsheets-copy-content").css("visibility", "hidden");
             textarea.val(cpdata);
             textarea.focus();
             textarea.select();
@@ -101,13 +101,13 @@ const selection = {
             clipboardData = e.originalEvent.clipboardData;
         }
 
-        Store.luckysheet_selection_range = [];
+        Store.tibetsheets_selection_range = [];
         //copy范围
         let rowIndexArr = [], colIndexArr = [];
         let copyRange = [], RowlChange = false, HasMC = false;
 
-        for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-            let range = Store.luckysheet_select_save[s];
+        for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+            let range = Store.tibetsheets_select_save[s];
 
             let r1 = range.row[0],
                 r2 = range.row[1];
@@ -144,14 +144,14 @@ const selection = {
                 }
             }
 
-            Store.luckysheet_selection_range.push({ "row": range.row, "column": range.column });
+            Store.tibetsheets_selection_range.push({ "row": range.row, "column": range.column });
             copyRange.push({ "row": range.row, "column": range.column });
         }
 
         selectionCopyShow();
 
-        //luckysheet内copy保存
-        Store.luckysheet_copy_save = {
+        //tibetsheets内copy保存
+        Store.tibetsheets_copy_save = {
             "dataSheetIndex": Store.currentSheetIndex,
             "copyRange": copyRange,
             "RowlChange": RowlChange,
@@ -516,12 +516,12 @@ const selection = {
 
             cpdata += "</tr>";
         }
-        cpdata = '<table data-type="luckysheet_copy_action_table">' + `<colgroup>${colgroup}</colgroup>` + cpdata + '</table>';
+        cpdata = '<table data-type="tibetsheets_copy_action_table">' + `<colgroup>${colgroup}</colgroup>` + cpdata + '</table>';
 
         Store.iscopyself = true;
 
         if (!clipboardData) {
-            let textarea = $("#luckysheet-copy-content");
+            let textarea = $("#tibetsheets-copy-content");
             textarea.html(cpdata);
             textarea.focus();
             textarea.select();
@@ -530,7 +530,7 @@ const selection = {
 
             // 等50毫秒，keyPress事件发生了再去处理数据
             setTimeout(function () {
-                $("#luckysheet-copy-content").blur();
+                $("#tibetsheets-copy-content").blur();
             }, 10);
 
             // var oInput = document.createElement('input');
@@ -553,14 +553,14 @@ const selection = {
             clipboardData = e.originalEvent && e.originalEvent.clipboardData;
         }
 
-        Store.luckysheet_selection_range = [{ "row": Store.luckysheet_select_save[0].row, "column": Store.luckysheet_select_save[0].column }];
+        Store.tibetsheets_selection_range = [{ "row": Store.tibetsheets_select_save[0].row, "column": Store.tibetsheets_select_save[0].column }];
         selectionCopyShow();
 
         let cpdata = txt;
         Store.iscopyself = true;
 
         if (!clipboardData) {
-            let textarea = $("#luckysheet-copy-content");
+            let textarea = $("#tibetsheets-copy-content");
             textarea.text(cpdata);
             textarea.focus();
             textarea.select();
@@ -585,7 +585,7 @@ const selection = {
         const _locale = locale();
         const local_drag = _locale.drag;
 
-        let textarea = $("#luckysheet-copy-content");
+        let textarea = $("#tibetsheets-copy-content");
         textarea.focus();
         textarea.select();
 
@@ -593,17 +593,17 @@ const selection = {
         setTimeout(function () {
             let data = textarea.html();
 
-            if (data.indexOf("luckysheet_copy_action_table") >- 1 && Store.luckysheet_copy_save["copyRange"] != null && Store.luckysheet_copy_save["copyRange"].length > 0) {
-                if(Store.luckysheet_paste_iscut){
-                    Store.luckysheet_paste_iscut = false;
-                    _this.pasteHandlerOfCutPaste(Store.luckysheet_copy_save);
+            if (data.indexOf("tibetsheets_copy_action_table") >- 1 && Store.tibetsheets_copy_save["copyRange"] != null && Store.tibetsheets_copy_save["copyRange"].length > 0) {
+                if(Store.tibetsheets_paste_iscut){
+                    Store.tibetsheets_paste_iscut = false;
+                    _this.pasteHandlerOfCutPaste(Store.tibetsheets_copy_save);
                     _this.clearcopy(e);
                 }
                 else{
-                    _this.pasteHandlerOfCopyPaste(Store.luckysheet_copy_save);
+                    _this.pasteHandlerOfCopyPaste(Store.tibetsheets_copy_save);
                 }
             }
-            else if(data.indexOf("luckysheet_copy_action_image") > - 1){
+            else if(data.indexOf("tibetsheets_copy_action_image") > - 1){
                 imageCtrl.pasteImgItem();
             }
             else if (triggerType != "btn") {
@@ -621,14 +621,14 @@ const selection = {
     },
     pasteHandler: function (data, borderInfo) {
 
-        if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+        if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
             return;
         }
 
         if(Store.allowEdit===false){
             return;
         }
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert("不能对多重选择区域执行此操作，请选择单个区域，然后再试");
             }
@@ -651,9 +651,9 @@ const selection = {
 
             let copyh = data.length, copyc = data[0].length;
 
-            let minh = Store.luckysheet_select_save[0].row[0], //应用范围首尾行
+            let minh = Store.tibetsheets_select_save[0].row[0], //应用范围首尾行
                 maxh = minh + copyh - 1;
-            let minc = Store.luckysheet_select_save[0].column[0], //应用范围首尾列
+            let minc = Store.tibetsheets_select_save[0].column[0], //应用范围首尾列
                 maxc = minc + copyc - 1;
 
             //应用范围包含部分合并单元格，则return提示
@@ -743,7 +743,7 @@ const selection = {
                         cfg["borderInfo"].push(bd_obj);
                     }
 
-                    let fontset = luckysheetfontformat(x[c]);
+                    let fontset = tibetsheetsfontformat(x[c]);
                     let oneLineTextHeight = menuButton.getTextSize("田", fontset)[1];
                     //比较计算高度和当前高度取最大高度
                     if(oneLineTextHeight > currentRowLen){
@@ -758,7 +758,7 @@ const selection = {
                 }
             }
 
-            Store.luckysheet_select_save = [{ "row": [minh, maxh], "column": [minc, maxc] }];
+            Store.tibetsheets_select_save = [{ "row": [minh, maxh], "column": [minc, maxc] }];
 
 
             if(addr > 0 || addc > 0 || RowlChange){
@@ -766,13 +766,13 @@ const selection = {
                     "cfg": cfg,
                     "RowlChange": true
                 }
-                jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+                jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
             }
             else{
                 let allParam = {
                     "cfg": cfg
                 }
-                jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+                jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
                 selectHightlightShow();
             }
         }
@@ -792,7 +792,7 @@ const selection = {
 
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
 
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
             let curR = last["row"] == null ? 0 : last["row"][0];
             let curC = last["column"] == null ? 0 : last["column"][0];
             let rlen = dataChe.length, clen = dataChe[0].length;
@@ -866,16 +866,16 @@ const selection = {
                 let allParam = {
                     "RowlChange": true
                 }
-                jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+                jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
             }
             else {
-                jfrefreshgrid(d, Store.luckysheet_select_save);
+                jfrefreshgrid(d, Store.tibetsheets_select_save);
                 selectHightlightShow();
             }
         }
     },
     pasteHandlerOfCutPaste: function(copyRange){
-        if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+        if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
             return;
         }
         if(Store.allowEdit === false){
@@ -902,7 +902,7 @@ const selection = {
         let copyh = copyData.length, copyc = copyData[0].length;
 
         //应用范围
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let minh = last["row_focus"], maxh = minh + copyh - 1;         //应用范围首尾行
         let minc = last["column_focus"], maxc = minc + copyc - 1;      //应用范围首尾列
 
@@ -932,8 +932,8 @@ const selection = {
         }
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)]["dataVerification"]);
-        let dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]);
+        let c_dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["dataVerification"]);
+        let dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]);
 
         //剪切粘贴在当前表操作，删除剪切范围内数据、合并单元格和数据验证
         if(Store.currentSheetIndex == copySheetIndex){
@@ -1090,8 +1090,8 @@ const selection = {
         let source, target;
         if(Store.currentSheetIndex != copySheetIndex){
             //跨表操作
-            let sourceData = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["data"]);
-            let sourceConfig = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)]["config"]);
+            let sourceData = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["data"]);
+            let sourceConfig = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["config"]);
 
             let sourceCurData = $.extend(true, [], sourceData);
             let sourceCurConfig = $.extend(true, {}, sourceConfig);
@@ -1155,7 +1155,7 @@ const selection = {
             }
 
             //条件格式
-            let source_cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["luckysheet_conditionformat_save"]);
+            let source_cdformat = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["tibetsheets_conditionformat_save"]);
             let source_curCdformat = $.extend(true, [], source_cdformat);
             let ruleArr = [];
             if(source_curCdformat != null && source_curCdformat.length > 0){
@@ -1196,7 +1196,7 @@ const selection = {
                 }
             }
 
-            let target_cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+            let target_cdformat = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_conditionformat_save"]);
             let target_curCdformat = $.extend(true, [], target_cdformat);
             if(ruleArr.length > 0){
                 target_curCdformat = target_curCdformat.concat(ruleArr);
@@ -1217,7 +1217,7 @@ const selection = {
                 "curConfig": sourceCurConfig,
                 "cdformat": source_cdformat,
                 "curCdformat": source_curCdformat,
-                "dataVerification": $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)]["dataVerification"]),
+                "dataVerification": $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["dataVerification"]),
                 "curDataVerification": c_dataVerification,
                 "range": {
                     "row": [c_r1, c_r2],
@@ -1232,7 +1232,7 @@ const selection = {
                 "curConfig": cfg,
                 "cdformat": target_cdformat,
                 "curCdformat": target_curCdformat,
-                "dataVerification": $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
+                "dataVerification": $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
                 "curDataVerification": dataVerification,
                 "range": {
                     "row": [minh, maxh],
@@ -1242,7 +1242,7 @@ const selection = {
         }
         else{
             //条件格式
-            let cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+            let cdformat = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_conditionformat_save"]);
             let curCdformat = $.extend(true, [], cdformat);
             if(curCdformat != null && curCdformat.length > 0){
                 for(let i = 0; i < curCdformat.length; i++){
@@ -1273,7 +1273,7 @@ const selection = {
                 "curConfig": cfg,
                 "cdformat": cdformat,
                 "curCdformat": curCdformat,
-                "dataVerification": $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
+                "dataVerification": $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
                 "curDataVerification": dataVerification,
                 "range": {
                     "row": [c_r1, c_r2],
@@ -1288,7 +1288,7 @@ const selection = {
                 "curConfig": cfg,
                 "cdformat": cdformat,
                 "curCdformat": curCdformat,
-                "dataVerification": $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
+                "dataVerification": $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dataVerification"]),
                 "curDataVerification": dataVerification,
                 "range": {
                     "row": [minh, maxh],
@@ -1305,7 +1305,7 @@ const selection = {
         }
     },
     pasteHandlerOfCopyPaste: function(copyRange){
-        if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+        if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
             return;
         }
         let cfg = $.extend(true, {}, Store.config);
@@ -1372,7 +1372,7 @@ const selection = {
         let copyh = copyData.length, copyc = copyData[0].length;
 
         //应用范围
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let minh = last["row"][0], maxh = last["row"][1];         //应用范围首尾行
         let minc = last["column"][0], maxc = last["column"][1];   //应用范围首尾列
 
@@ -1414,7 +1414,7 @@ const selection = {
         }
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)].dataVerification);
+        let c_dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(copySheetIndex)].dataVerification);
         let dataVerification = null;
 
         let mth = 0, mtc = 0, maxcellCahe = 0, maxrowCache = 0;
@@ -1476,7 +1476,7 @@ const selection = {
                         //数据验证 复制
                         if(c_dataVerification[(c_r1 + h - mth) + "_" + (c_c1 + c - mtc)]){
                             if(dataVerification == null){
-                                dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].dataVerification)
+                                dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].dataVerification)
                             }
 
                             dataVerification[h + "_" + c] = c_dataVerification[(c_r1 + h - mth) + "_" + (c_c1 + c - mtc)];
@@ -1555,13 +1555,13 @@ const selection = {
         //复制范围 是否有 条件格式和数据验证
         let cdformat = null;
         if(copyRange["copyRange"].length == 1){
-            let c_file = Store.luckysheetfile[getSheetIndex(copySheetIndex)];
-            let a_file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            let c_file = Store.tibetsheetsfile[getSheetIndex(copySheetIndex)];
+            let a_file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
-            let ruleArr_cf = $.extend(true, [], c_file["luckysheet_conditionformat_save"]);
+            let ruleArr_cf = $.extend(true, [], c_file["tibetsheets_conditionformat_save"]);
 
             if(ruleArr_cf != null && ruleArr_cf.length > 0){
-                cdformat = $.extend(true, [], a_file["luckysheet_conditionformat_save"]);
+                cdformat = $.extend(true, [], a_file["tibetsheets_conditionformat_save"]);
 
                 for(let i = 0; i < ruleArr_cf.length; i++){
                     let cf_range = ruleArr_cf[i].cellrange;
@@ -1610,7 +1610,7 @@ const selection = {
                 "cdformat": cdformat,
                 "dataVerification": dataVerification
             }
-            jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+            jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
         }
         else{
             let allParam = {
@@ -1618,13 +1618,13 @@ const selection = {
                 "cdformat": cdformat,
                 "dataVerification": dataVerification
             }
-            jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+            jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
 
             selectHightlightShow();
         }
     },
     pasteHandlerOfPaintModel: function(copyRange){
-        if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+        if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
             return;
         }
         let cfg = $.extend(true, {}, Store.config);
@@ -1645,7 +1645,7 @@ const selection = {
         let copyData = $.extend(true, [], getdatabyselection({"row": [c_r1, c_r2], "column": [c_c1, c_c2]}, copySheetIndex));
 
         //应用范围
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let minh = last["row"][0], maxh = last["row"][1];         //应用范围首尾行
         let minc = last["column"][0], maxc = last["column"][1];   //应用范围首尾列
 
@@ -1680,7 +1680,7 @@ const selection = {
         let rowMaxLength = d.length;
 
         let borderInfoCompute = getBorderInfoCompute(copySheetIndex);
-        let c_dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(copySheetIndex)].dataVerification);
+        let c_dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(copySheetIndex)].dataVerification);
         let dataVerification = null;
 
         let mth = 0, mtc = 0, maxcellCahe = 0, maxrowCache = 0;
@@ -1746,7 +1746,7 @@ const selection = {
                         //数据验证 复制
                         if(c_dataVerification[(c_r1 + h - mth) + "_" + (c_c1 + c - mtc)]){
                             if(dataVerification == null){
-                                dataVerification = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].dataVerification)
+                                dataVerification = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].dataVerification)
                             }
 
                             dataVerification[h + "_" + c] = c_dataVerification[(c_r1 + h - mth) + "_" + (c_c1 + c - mtc)];
@@ -1830,10 +1830,10 @@ const selection = {
 
         //复制范围 是否有 条件格式
         let cdformat = null;
-        let ruleArr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(copySheetIndex)]["luckysheet_conditionformat_save"]);
+        let ruleArr = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(copySheetIndex)]["tibetsheets_conditionformat_save"]);
 
         if(ruleArr != null && ruleArr.length > 0){
-            cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+            cdformat = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_conditionformat_save"]);
 
             for(let i = 0; i < ruleArr.length; i++){
                 let cdformat_cellrange = ruleArr[i].cellrange;
@@ -1871,7 +1871,7 @@ const selection = {
                 "cdformat": cdformat,
                 "dataVerification": dataVerification
             }
-            jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+            jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
         }
         else{
             // 选区格式刷存在超出边界的情况
@@ -1885,7 +1885,7 @@ const selection = {
                 "cdformat": cdformat,
                 "dataVerification": dataVerification
             }
-            jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+            jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
 
             selectHightlightShow();
         }

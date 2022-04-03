@@ -4,9 +4,9 @@ import { replaceHtml } from '../utils/util';
 import formula from '../global/formula';
 import { isEditMode } from '../global/validate';
 import tooltip from '../global/tooltip';
-import { luckysheetrefreshgrid } from '../global/refresh';
-import { luckysheetAlternateformatHtml, modelHTML } from './constant';
-import luckysheetsizeauto from './resize';
+import { tibetsheetsrefreshgrid } from '../global/refresh';
+import { tibetsheetsAlternateformatHtml, modelHTML } from './constant';
+import tibetsheetssizeauto from './resize';
 import server from './server';
 import { selectHightlightShow } from './select';
 import Store from '../store';
@@ -165,8 +165,8 @@ const alternateformat = {
     getModelBox: function(hasRowHeader, hasRowFooter){
         let _this = this;
 
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").empty();
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").empty();
+        $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-modelList").empty();
+        $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-modelCustom").empty();
 
         //格式样式 模板
         let modelListHtml = '';
@@ -211,10 +211,10 @@ const alternateformat = {
                              '</div>';
         }
 
-        $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelList").append(modelListHtml);
+        $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-modelList").append(modelListHtml);
 
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             let modelCustomHtml = '';
 
@@ -258,66 +258,66 @@ const alternateformat = {
                                     '</div>';
             }
 
-            $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-modelCustom").append(modelCustomHtml);
+            $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-modelCustom").append(modelCustomHtml);
         }
     },
     init: function(){
         let _this = this;
 
-        $("#luckysheet-modal-dialog-slider-alternateformat").remove();
-        $("body").first().append(luckysheetAlternateformatHtml());
-        luckysheetsizeauto();
+        $("#tibetsheets-modal-dialog-slider-alternateformat").remove();
+        $("body").first().append(tibetsheetsAlternateformatHtml());
+        tibetsheetssizeauto();
 
         //关闭
-        $("#luckysheet-modal-dialog-slider-alternateformat .luckysheet-model-close-btn").click(function () {
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
-            luckysheetsizeauto();
+        $("#tibetsheets-modal-dialog-slider-alternateformat .tibetsheets-model-close-btn").click(function () {
+            $("#tibetsheets-modal-dialog-slider-alternateformat").hide();
+            tibetsheetssizeauto();
         });
 
         //应用范围
-        $(document).off("focus.AFrangeInput").on("focus.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
+        $(document).off("focus.AFrangeInput").on("focus.AFrangeInput", "#tibetsheets-alternateformat-range input", function(){
             _this.rangefocus = true;
         });
-        $(document).off("blur.AFrangeInput").on("blur.AFrangeInput", "#luckysheet-alternateformat-range input", function(){
+        $(document).off("blur.AFrangeInput").on("blur.AFrangeInput", "#tibetsheets-alternateformat-range input", function(){
             _this.rangefocus = false;
         });
 
-        $(document).off("keydown.AFrangeInput").on("keydown.AFrangeInput", "#luckysheet-alternateformat-range input", function(e){
+        $(document).off("keydown.AFrangeInput").on("keydown.AFrangeInput", "#tibetsheets-alternateformat-range input", function(e){
             let rangeValue = $(this).val().trim();
             if(e.keyCode == 13){
                 _this.update();
             }
         });
-        $(document).off("click.AFrangeIcon").on("click.AFrangeIcon", "#luckysheet-alternateformat-range .fa-table", function(){
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
-            luckysheetsizeauto();
+        $(document).off("click.AFrangeIcon").on("click.AFrangeIcon", "#tibetsheets-alternateformat-range .fa-table", function(){
+            $("#tibetsheets-modal-dialog-slider-alternateformat").hide();
+            tibetsheetssizeauto();
 
-            let rangeValue = $(this).parents("#luckysheet-alternateformat-range").find("input").val().trim();
+            let rangeValue = $(this).parents("#tibetsheets-alternateformat-range").find("input").val().trim();
             _this.rangeDialog(rangeValue);
         });
-        $(document).off("click.AFrDCf").on("click.AFrDCf", "#luckysheet-alternateformat-rangeDialog-confirm", function(){
-            let rangeValue = $(this).parents("#luckysheet-alternateformat-rangeDialog").find("input").val().trim();
-            $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val(rangeValue);
+        $(document).off("click.AFrDCf").on("click.AFrDCf", "#tibetsheets-alternateformat-rangeDialog-confirm", function(){
+            let rangeValue = $(this).parents("#tibetsheets-alternateformat-rangeDialog").find("input").val().trim();
+            $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-range input").val(rangeValue);
 
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
-            luckysheetsizeauto();
+            $(this).parents("#tibetsheets-alternateformat-rangeDialog").hide();
+            $("#tibetsheets-modal-dialog-slider-alternateformat").show();
+            tibetsheetssizeauto();
 
             _this.update();
         });
-        $(document).off("click.AFrDCl").on("click.AFrDCl", "#luckysheet-alternateformat-rangeDialog-close", function(){
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
-            luckysheetsizeauto();
+        $(document).off("click.AFrDCl").on("click.AFrDCl", "#tibetsheets-alternateformat-rangeDialog-close", function(){
+            $(this).parents("#tibetsheets-alternateformat-rangeDialog").hide();
+            $("#tibetsheets-modal-dialog-slider-alternateformat").show();
+            tibetsheetssizeauto();
         });
-        $(document).off("click.AFrDTitle").on("click.AFrDTitle", "#luckysheet-alternateformat-rangeDialog .luckysheet-modal-dialog-title-close", function(){
-            $(this).parents("#luckysheet-alternateformat-rangeDialog").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").show();
-            luckysheetsizeauto();
+        $(document).off("click.AFrDTitle").on("click.AFrDTitle", "#tibetsheets-alternateformat-rangeDialog .tibetsheets-modal-dialog-title-close", function(){
+            $(this).parents("#tibetsheets-alternateformat-rangeDialog").hide();
+            $("#tibetsheets-modal-dialog-slider-alternateformat").show();
+            tibetsheetssizeauto();
         });
 
         //页眉、页脚选中
-        $(document).off("change.AFrowHeader").on("change.AFrowHeader", "#luckysheet-alternateformat-rowHeader", function(){
+        $(document).off("change.AFrowHeader").on("change.AFrowHeader", "#tibetsheets-alternateformat-rowHeader", function(){
             let hasRowHeader;
             if($(this).is(":checked")){
                 hasRowHeader = true;
@@ -327,7 +327,7 @@ const alternateformat = {
             }
 
             let hasRowFooter;
-            if($("#luckysheet-alternateformat-rowFooter").is(":checked")){
+            if($("#tibetsheets-alternateformat-rowFooter").is(":checked")){
                 hasRowFooter = true;
             }
             else{
@@ -338,9 +338,9 @@ const alternateformat = {
             _this.modelboxOn();
             _this.update();
         });
-        $(document).off("change.AFrowFooter").on("change.AFrowFooter", "#luckysheet-alternateformat-rowFooter", function(){
+        $(document).off("change.AFrowFooter").on("change.AFrowFooter", "#tibetsheets-alternateformat-rowFooter", function(){
             let hasRowHeader;
-            if($("#luckysheet-alternateformat-rowHeader").is(":checked")){
+            if($("#tibetsheets-alternateformat-rowHeader").is(":checked")){
                 hasRowHeader = true;
             }
             else{
@@ -361,14 +361,14 @@ const alternateformat = {
         });
 
         //点击样式模板
-        $(document).off("click.AFmodelbox").on("click.AFmodelbox", "#luckysheet-modal-dialog-slider-alternateformat .modelbox", function(){
+        $(document).off("click.AFmodelbox").on("click.AFmodelbox", "#tibetsheets-modal-dialog-slider-alternateformat .modelbox", function(){
             let index = $(this).index();
             let $id = $(this).parents(".cf").attr("id");
 
-            if($id == "luckysheet-alternateformat-modelList"){
+            if($id == "tibetsheets-alternateformat-modelList"){
                 _this.modelfocusIndex = index;
             }
-            else if($id == "luckysheet-alternateformat-modelCustom"){
+            else if($id == "tibetsheets-alternateformat-modelCustom"){
                 let len = _this.FixedModelColor.length;
                 _this.modelfocusIndex = index + len;
             }
@@ -378,15 +378,15 @@ const alternateformat = {
         });
 
         //点击选择文本/单元格颜色
-        $(document).off("click.AFselectColor").on("click.AFselectColor", "#luckysheet-modal-dialog-slider-alternateformat .luckysheet-color-menu-button-indicator", function(){
+        $(document).off("click.AFselectColor").on("click.AFselectColor", "#tibetsheets-modal-dialog-slider-alternateformat .tibetsheets-color-menu-button-indicator", function(){
             let $parent = $(this).closest(".toningbox");
 
             let colorType, currenColor;
-            if($(this).find(".luckysheet-icon-img").hasClass("luckysheet-icon-text-color")){
+            if($(this).find(".tibetsheets-icon-img").hasClass("tibetsheets-icon-text-color")){
                 colorType = "fc";
                 currenColor = $parent.find(".toningShow").data("fc");
             }
-            else if($(this).find(".luckysheet-icon-img").hasClass("luckysheet-icon-cell-color")){
+            else if($(this).find(".tibetsheets-icon-img").hasClass("tibetsheets-icon-cell-color")){
                 colorType = "bc";
                 currenColor = $parent.find(".toningShow").data("bc");
             }
@@ -410,21 +410,21 @@ const alternateformat = {
         });
 
         //选择颜色 确定 添加自定义模板
-        $(document).off("click.AFselectColorConfirm").on("click.AFselectColorConfirm", "#luckysheet-alternateformat-colorSelect-dialog-confirm", function(){
-            let $parent = $(this).parents("#luckysheet-alternateformat-colorSelect-dialog");
+        $(document).off("click.AFselectColorConfirm").on("click.AFselectColorConfirm", "#tibetsheets-alternateformat-colorSelect-dialog-confirm", function(){
+            let $parent = $(this).parents("#tibetsheets-alternateformat-colorSelect-dialog");
             const _locale = locale()
             const alternatingColors =_locale.alternatingColors;
-            $("#luckysheet-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
             $parent.hide();
 
             //获取currenColor colorType source
             let currenColor = $parent.find(".currenColor span").attr("title");
 
             let colorType;
-            if($parent.find(".luckysheet-modal-dialog-title-text").text() == alternatingColors.selectionTextColor){
+            if($parent.find(".tibetsheets-modal-dialog-title-text").text() == alternatingColors.selectionTextColor){
                 colorType = "fc";
             }
-            else if($parent.find(".luckysheet-modal-dialog-title-text").text() == alternatingColors.selectionCellColor){
+            else if($parent.find(".tibetsheets-modal-dialog-title-text").text() == alternatingColors.selectionCellColor){
                 colorType = "bc";
             }
 
@@ -433,56 +433,56 @@ const alternateformat = {
             //赋给颜色
             if(source == "0"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .toningShow").css("color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .toningShow").data("fc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .toningShow").css("background-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .toningShow").data("bc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .header .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
             }
             else if(source == "1"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").css("color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").data("fc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").css("background-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").data("bc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctOne .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
             }
             else if(source == "2"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").css("color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").data("fc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").css("background-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").data("bc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .ctTwo .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
             }
             else if(source == "3"){
                 if(colorType == "fc"){
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").css("color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("fc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .toningShow").css("color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .toningShow").data("fc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
                 if(colorType == "bc"){
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").css("background-color", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("bc", currenColor);
-                    $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .toningShow").css("background-color", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .toningShow").data("bc", currenColor);
+                    $("#tibetsheets-alternateformat-modelToning .footer .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", currenColor);
                 }
             }
             
             //若模板聚焦在固有模板，则新加模板；若模板聚焦在自定义模板，则修改该模板
             let hasRowHeader;
-            if($("#luckysheet-alternateformat-rowHeader").is(":checked")){
+            if($("#tibetsheets-alternateformat-rowHeader").is(":checked")){
                 hasRowHeader = true;
             }
             else{
@@ -490,7 +490,7 @@ const alternateformat = {
             }
 
             let hasRowFooter;
-            if($("#luckysheet-alternateformat-rowFooter").is(":checked")){
+            if($("#tibetsheets-alternateformat-rowFooter").is(":checked")){
                 hasRowFooter = true;
             }
             else{
@@ -505,8 +505,8 @@ const alternateformat = {
                 format = $.extend(true, {}, _this.getFormatByIndex());
             }
             else{
-                file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
-                let modelCustom = file["luckysheet_alternateformat_save_modelCustom"];
+                file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
+                let modelCustom = file["tibetsheets_alternateformat_save_modelCustom"];
 
                 format = $.extend(true, {}, modelCustom[index - len]);
             }
@@ -549,10 +549,10 @@ const alternateformat = {
                 _this.modelfocusIndex = _this.getIndexByFormat(format);
             }
             else{
-                file["luckysheet_alternateformat_save_modelCustom"][index - len] = format;
+                file["tibetsheets_alternateformat_save_modelCustom"][index - len] = format;
 
                 if(server.allowUpdate){
-                    server.saveParam("all", Store.currentSheetIndex, file["luckysheet_alternateformat_save_modelCustom"], { "k": "luckysheet_alternateformat_save_modelCustom" });
+                    server.saveParam("all", Store.currentSheetIndex, file["tibetsheets_alternateformat_save_modelCustom"], { "k": "tibetsheets_alternateformat_save_modelCustom" });
                 }
             }
 
@@ -562,12 +562,12 @@ const alternateformat = {
         });
         
         //点击 移除交替颜色 按钮
-        $(document).off("click.AFremove").on("click.AFremove", "#luckysheet-alternateformat-remove", function(){
+        $(document).off("click.AFremove").on("click.AFremove", "#tibetsheets-alternateformat-remove", function(){
             let dataIndex = $(this).data("index");
 
-            let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+            let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
-            let ruleArr = file["luckysheet_alternateformat_save"];
+            let ruleArr = file["tibetsheets_alternateformat_save"];
 
             //保存之前的规则
             let historyRules = $.extend(true, [], ruleArr);
@@ -586,29 +586,29 @@ const alternateformat = {
             _this.ref(historyRules, currentRules);
 
             if(server.allowUpdate){
-                server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
+                server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "tibetsheets_alternateformat_save" });
             }
 
             //隐藏一些dom
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-modal-dialog-slider-alternateformat").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-slider-alternateformat").hide();
 
-            luckysheetsizeauto();
+            tibetsheetssizeauto();
         });
     },
     perfect: function(){
         let _this = this;
 
-        let range = $.extend(true, {}, Store.luckysheet_select_save[0]);
+        let range = $.extend(true, {}, Store.tibetsheets_select_save[0]);
         let existsIndex = _this.rangeIsExists(range)[1];
         
-        let obj = $.extend(true, {}, Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"][existsIndex]);
+        let obj = $.extend(true, {}, Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_alternateformat_save"][existsIndex]);
         
         //应用范围
         let cellrange = obj["cellrange"];
-        $("#luckysheet-alternateformat-range input").val(getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex));
+        $("#tibetsheets-alternateformat-range input").val(getRangetxt(Store.currentSheetIndex, { "row": cellrange["row"], "column": cellrange["column"] }, Store.currentSheetIndex));
         
-        Store.luckysheet_select_save = [{ "row": cellrange["row"], "column": cellrange["column"] }];
+        Store.tibetsheets_select_save = [{ "row": cellrange["row"], "column": cellrange["column"] }];
         selectHightlightShow();
 
         //页眉、页脚
@@ -628,25 +628,25 @@ const alternateformat = {
         _this.modelboxOn();
 
         //标识 交替颜色的index
-        $("#luckysheet-alternateformat-remove").data("index", existsIndex);
+        $("#tibetsheets-alternateformat-remove").data("index", existsIndex);
     },
     checkboxChange: function(hasRowHeader, hasRowFooter){
         if(hasRowHeader){
-            $("#luckysheet-alternateformat-rowHeader").prop("checked", true);
-            $("#luckysheet-alternateformat-modelToning .header").show();
+            $("#tibetsheets-alternateformat-rowHeader").prop("checked", true);
+            $("#tibetsheets-alternateformat-modelToning .header").show();
         }
         else{
-            $("#luckysheet-alternateformat-rowHeader").removeAttr("checked");  
-            $("#luckysheet-alternateformat-modelToning .header").hide(); 
+            $("#tibetsheets-alternateformat-rowHeader").removeAttr("checked");  
+            $("#tibetsheets-alternateformat-modelToning .header").hide(); 
         }
 
         if(hasRowFooter){
-            $("#luckysheet-alternateformat-rowFooter").prop("checked", true);
-            $("#luckysheet-alternateformat-modelToning .footer").show();
+            $("#tibetsheets-alternateformat-rowFooter").prop("checked", true);
+            $("#tibetsheets-alternateformat-modelToning .footer").show();
         }
         else{
-            $("#luckysheet-alternateformat-rowFooter").removeAttr("checked"); 
-            $("#luckysheet-alternateformat-modelToning .footer").hide();  
+            $("#tibetsheets-alternateformat-rowFooter").removeAttr("checked"); 
+            $("#tibetsheets-alternateformat-modelToning .footer").hide();  
         }
 
         this.getModelBox(hasRowHeader, hasRowFooter);
@@ -655,16 +655,16 @@ const alternateformat = {
         let _this = this;
 
         //模板 foucs
-        $("#luckysheet-modal-dialog-slider-alternateformat .modelbox").removeClass("on");
+        $("#tibetsheets-modal-dialog-slider-alternateformat .modelbox").removeClass("on");
 
         let index = _this.modelfocusIndex;
         let len = _this.FixedModelColor.length;
         
         if(index < len){
-            $("#luckysheet-alternateformat-modelList .modelbox").eq(index).addClass("on");
+            $("#tibetsheets-alternateformat-modelList .modelbox").eq(index).addClass("on");
         }
         else{
-            $("#luckysheet-alternateformat-modelCustom .modelbox").eq(index - len).addClass("on");
+            $("#tibetsheets-alternateformat-modelCustom .modelbox").eq(index - len).addClass("on");
         }
 
         //编辑 对应颜色改变
@@ -674,45 +674,45 @@ const alternateformat = {
         let format = this.getFormatByIndex();
 
         //页眉
-        $("#luckysheet-alternateformat-modelToning .header .toningShow").css({"color": format["head"].fc, "background-color": format["head"].bc});
-        $("#luckysheet-alternateformat-modelToning .header .toningShow").data("fc", format["head"].fc).data("bc", format["head"].bc);
-        $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["head"].fc);
-        $("#luckysheet-alternateformat-modelToning .header .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["head"].bc);
+        $("#tibetsheets-alternateformat-modelToning .header .toningShow").css({"color": format["head"].fc, "background-color": format["head"].bc});
+        $("#tibetsheets-alternateformat-modelToning .header .toningShow").data("fc", format["head"].fc).data("bc", format["head"].bc);
+        $("#tibetsheets-alternateformat-modelToning .header .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["head"].fc);
+        $("#tibetsheets-alternateformat-modelToning .header .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["head"].bc);
 
         //颜色1
-        $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").css({"color": format["one"].fc, "background-color": format["one"].bc});
-        $("#luckysheet-alternateformat-modelToning .ctOne .toningShow").data("fc", format["one"].fc).data("bc", format["one"].bc);
-        $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["one"].fc);
-        $("#luckysheet-alternateformat-modelToning .ctOne .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["one"].bc);
+        $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").css({"color": format["one"].fc, "background-color": format["one"].bc});
+        $("#tibetsheets-alternateformat-modelToning .ctOne .toningShow").data("fc", format["one"].fc).data("bc", format["one"].bc);
+        $("#tibetsheets-alternateformat-modelToning .ctOne .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["one"].fc);
+        $("#tibetsheets-alternateformat-modelToning .ctOne .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["one"].bc);
 
         //颜色2
-        $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").css({"color": format["two"].fc, "background-color": format["two"].bc});
-        $("#luckysheet-alternateformat-modelToning .ctTwo .toningShow").data("fc", format["two"].fc).data("bc", format["two"].bc);
-        $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["two"].fc);
-        $("#luckysheet-alternateformat-modelToning .ctTwo .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["two"].bc);
+        $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").css({"color": format["two"].fc, "background-color": format["two"].bc});
+        $("#tibetsheets-alternateformat-modelToning .ctTwo .toningShow").data("fc", format["two"].fc).data("bc", format["two"].bc);
+        $("#tibetsheets-alternateformat-modelToning .ctTwo .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["two"].fc);
+        $("#tibetsheets-alternateformat-modelToning .ctTwo .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["two"].bc);
 
         //页脚
-        $("#luckysheet-alternateformat-modelToning .footer .toningShow").css({"color": format["foot"].fc, "background-color": format["foot"].bc});
-        $("#luckysheet-alternateformat-modelToning .footer .toningShow").data("fc", format["foot"].fc).data("bc", format["foot"].bc);
-        $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-text-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["foot"].fc);
-        $("#luckysheet-alternateformat-modelToning .footer .luckysheet-icon-cell-color").parents(".luckysheet-color-menu-button-indicator").css("border-bottom-color", format["foot"].bc);
+        $("#tibetsheets-alternateformat-modelToning .footer .toningShow").css({"color": format["foot"].fc, "background-color": format["foot"].bc});
+        $("#tibetsheets-alternateformat-modelToning .footer .toningShow").data("fc", format["foot"].fc).data("bc", format["foot"].bc);
+        $("#tibetsheets-alternateformat-modelToning .footer .tibetsheets-icon-text-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["foot"].fc);
+        $("#tibetsheets-alternateformat-modelToning .footer .tibetsheets-icon-cell-color").parents(".tibetsheets-color-menu-button-indicator").css("border-bottom-color", format["foot"].bc);
     },
     addCustomModel: function(format){
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
-        if(file["luckysheet_alternateformat_save_modelCustom"] == null){
-            file["luckysheet_alternateformat_save_modelCustom"] = [];
+        if(file["tibetsheets_alternateformat_save_modelCustom"] == null){
+            file["tibetsheets_alternateformat_save_modelCustom"] = [];
         }
 
-        file["luckysheet_alternateformat_save_modelCustom"].push(format);
+        file["tibetsheets_alternateformat_save_modelCustom"].push(format);
 
         if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, file["luckysheet_alternateformat_save_modelCustom"], { "k": "luckysheet_alternateformat_save_modelCustom" });
+            server.saveParam("all", Store.currentSheetIndex, file["tibetsheets_alternateformat_save_modelCustom"], { "k": "tibetsheets_alternateformat_save_modelCustom" });
         }
     },
     colorSelectDialog: function(currenColor, colorType, source){
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-alternateformat-colorSelect-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-alternateformat-colorSelect-dialog").remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
@@ -728,28 +728,28 @@ const alternateformat = {
         }
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-alternateformat-colorSelect-dialog", 
-            "addclass": "luckysheet-alternateformat-colorSelect-dialog", 
+            "id": "tibetsheets-alternateformat-colorSelect-dialog", 
+            "addclass": "tibetsheets-alternateformat-colorSelect-dialog", 
             "title": title, 
             "content": "<div class='currenColor' data-source='"+ source +"'>"+ alternatingColors.currentColor +"：<span title='"+ currenColor +"' style='background-color:"+ currenColor +"'></span></div><div class='colorshowbox'></div>", 
-            "botton": '<button id="luckysheet-alternateformat-colorSelect-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
+            "botton": '<button id="tibetsheets-alternateformat-colorSelect-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default tibetsheets-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-alternateformat-colorSelect-dialog")
-                .find(".luckysheet-modal-dialog-content")
+        let $t = $("#tibetsheets-alternateformat-colorSelect-dialog")
+                .find(".tibetsheets-modal-dialog-content")
                 .css("min-width", 300)
                 .end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-alternateformat-colorSelect-dialog").css({ 
+        $("#tibetsheets-alternateformat-colorSelect-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();
         
         //初始化选择颜色插件
-        $("#luckysheet-alternateformat-colorSelect-dialog").find(".colorshowbox").spectrum({
+        $("#tibetsheets-alternateformat-colorSelect-dialog").find(".colorshowbox").spectrum({
             showPalette: true,
             showPaletteOnly: true,
             preferredFormat: "hex",
@@ -789,35 +789,35 @@ const alternateformat = {
                     color = "#000";
                 }
 
-                $("#luckysheet-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
+                $("#tibetsheets-alternateformat-colorSelect-dialog .currenColor span").css("background-color", color).attr("title", color);
             }
         });
     },
     rangeDialog: function(value){
-        $("#luckysheet-modal-dialog-mask").hide();
-        $("#luckysheet-alternateformat-rangeDialog").remove();
+        $("#tibetsheets-modal-dialog-mask").hide();
+        $("#tibetsheets-alternateformat-rangeDialog").remove();
 
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
         const locale_button = _locale.button;
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-alternateformat-rangeDialog", 
-            "addclass": "luckysheet-alternateformat-rangeDialog", 
+            "id": "tibetsheets-alternateformat-rangeDialog", 
+            "addclass": "tibetsheets-alternateformat-rangeDialog", 
             "title": alternatingColors.selectRange, 
             "content": '<input readonly="readonly" placeholder="'+alternatingColors.tipSelectRange+'" value="'+value+'"/>', 
-            "botton": '<button id="luckysheet-alternateformat-rangeDialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="luckysheet-alternateformat-rangeDialog-close" class="btn btn-default">'+locale_button.cancel+'</button>', 
+            "botton": '<button id="tibetsheets-alternateformat-rangeDialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button id="tibetsheets-alternateformat-rangeDialog-close" class="btn btn-default">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-alternateformat-rangeDialog")
-                .find(".luckysheet-modal-dialog-content")
+        let $t = $("#tibetsheets-alternateformat-rangeDialog")
+                .find(".tibetsheets-modal-dialog-content")
                 .css("min-width", 300)
                 .end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-alternateformat-rangeDialog").css({ 
+        $("#tibetsheets-alternateformat-rangeDialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();
@@ -829,7 +829,7 @@ const alternateformat = {
         let existsIndex = null;
 
         //获取已有交替颜色所有应用范围
-        let AFarr = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save"]);
+        let AFarr = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_alternateformat_save"]);
 
         if(index != undefined && index != null){
             if(AFarr.length > 1){
@@ -906,7 +906,7 @@ const alternateformat = {
         }
         
         //自定义 模板
-        let modelCustom = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"];
+        let modelCustom = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_alternateformat_save_modelCustom"];
         if(modelCustom != null && modelCustom.length > 0){
             for(let j = 0; j < modelCustom.length; j++){
                 let obj = modelCustom[j];
@@ -938,7 +938,7 @@ const alternateformat = {
             format = _this.FixedModelColor[index];
         }
         else{
-            format = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_alternateformat_save_modelCustom"][index - len];
+            format = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_alternateformat_save_modelCustom"][index - len];
         }
 
         return format;
@@ -948,8 +948,8 @@ const alternateformat = {
 
         let format = _this.getFormatByIndex();
 
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
-        let ruleArr = file["luckysheet_alternateformat_save"];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
+        let ruleArr = file["tibetsheets_alternateformat_save"];
         
         if(ruleArr == null){
             ruleArr = [];
@@ -977,7 +977,7 @@ const alternateformat = {
         _this.ref(historyRules, currentRules);
 
         if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
+            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "tibetsheets_alternateformat_save" });
         }
     },
     update: function(){
@@ -985,10 +985,10 @@ const alternateformat = {
         const _locale = locale()
         const alternatingColors =_locale.alternatingColors;
         //获取标识
-        let dataIndex = $("#luckysheet-alternateformat-remove").data("index");
+        let dataIndex = $("#tibetsheets-alternateformat-remove").data("index");
         
         //应用范围
-        let rangeValue = $("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-range input").val().trim();
+        let rangeValue = $("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-range input").val().trim();
         
         if(!formula.iscelldata(rangeValue)){
             if(isEditMode()){
@@ -1017,7 +1017,7 @@ const alternateformat = {
 
         //页眉、页脚
         let hasRowHeader;
-        if($("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowHeader").is(":checked")){
+        if($("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-rowHeader").is(":checked")){
             hasRowHeader = true;
         }
         else{
@@ -1025,7 +1025,7 @@ const alternateformat = {
         }
 
         let hasRowFooter;
-        if($("#luckysheet-modal-dialog-slider-alternateformat #luckysheet-alternateformat-rowFooter").is(":checked")){
+        if($("#tibetsheets-modal-dialog-slider-alternateformat #tibetsheets-alternateformat-rowFooter").is(":checked")){
             hasRowFooter = true;
         }
         else{
@@ -1034,9 +1034,9 @@ const alternateformat = {
 
         //获取选中样式模板的颜色
         let format = _this.getFormatByIndex();
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
         
-        let ruleArr = file["luckysheet_alternateformat_save"];
+        let ruleArr = file["tibetsheets_alternateformat_save"];
         if(ruleArr == null){
             ruleArr = [];
         }
@@ -1063,7 +1063,7 @@ const alternateformat = {
         _this.ref(historyRules, currentRules);
 
         if(server.allowUpdate){
-            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "luckysheet_alternateformat_save" });
+            server.saveParam("all", Store.currentSheetIndex, ruleArr, { "k": "tibetsheets_alternateformat_save" });
         }
     },
     checksAF: function(r, c, computeMap){
@@ -1076,8 +1076,8 @@ const alternateformat = {
         }
     },
     getComputeMap: function(){
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
-        let ruleArr = file["luckysheet_alternateformat_save"];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
+        let ruleArr = file["tibetsheets_alternateformat_save"];
 
         let computeMap = this.compute(ruleArr);
 
@@ -1215,10 +1215,10 @@ const alternateformat = {
         }
 
         let index = getSheetIndex(Store.currentSheetIndex);
-        Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = currentRules;
+        Store.tibetsheetsfile[index]["tibetsheets_alternateformat_save"] = currentRules;
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     }
 }

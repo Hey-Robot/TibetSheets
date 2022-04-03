@@ -1,14 +1,14 @@
-.luckysheet-cellFormat-config{
+.tibetsheets-cellFormat-config{
     display: none;
 }
 
-.luckysheet-cellFormat-config .luckysheet-modal-dialog-content{
+.tibetsheets-cellFormat-config .tibetsheets-modal-dialog-content{
     position: relative;
     height: 550px;
     width: 600px;
 }
 
-.luckysheet-cellFormat-menu-c{
+.tibetsheets-cellFormat-menu-c{
     position: absolute;
     width: 100%;
     height: 30px;
@@ -17,7 +17,7 @@
     font-size: 12px;
 }
 
-.luckysheet-cellFormat-menu{
+.tibetsheets-cellFormat-menu{
     position: relative;
     display: inline-block;
     height: 30px;
@@ -30,22 +30,22 @@
     cursor: pointer;
 }
 
-.luckysheet-cellFormat-menu:hover{
+.tibetsheets-cellFormat-menu:hover{
     background: #e7e7e7;
 }
 
 
-.luckysheet-cellFormat-menu-active{
+.tibetsheets-cellFormat-menu-active{
     background: #fff;
     cursor: default;
 }
 
-.luckysheet-cellFormat-menu-active:hover{
+.tibetsheets-cellFormat-menu-active:hover{
     background: #fff;
 }
 
 
-.luckysheet-cellFormat-content{
+.tibetsheets-cellFormat-content{
     position: absolute;
     top:30px;
     bottom: 0px;
@@ -54,13 +54,13 @@
     border-top: none;
 }
 
-.luckysheet-cellFormat-protection{
+.tibetsheets-cellFormat-protection{
     position: relative;
     margin-top: 30px;
     margin-left: 40px;
 }
 
-.luckysheet-cellFormat-protection span{
+.tibetsheets-cellFormat-protection span{
     font-size: 12px;
     color:#ff2929;
     padding-left: 12px;

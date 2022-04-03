@@ -86,7 +86,7 @@ function dynamicArrayRangeIsAllNull(range, data) {
 
 //点击表格区域是否属于动态数组区域
 function dynamicArrayHightShow(r, c) {
-    let dynamicArray = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"] == null ? [] : Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"];
+    let dynamicArray = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"] == null ? [] : Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"];
     let dynamicArray_compute = dynamicArrayCompute(dynamicArray);
 
     if((r + "_" + c) in dynamicArray_compute && dynamicArray_compute[r + "_" + c].v != "#SPILL!"){
@@ -117,7 +117,7 @@ function dynamicArrayHightShow(r, c) {
         let col = Store.visibledatacolumn[d_col_end], 
             col_pre = d_col - 1 == -1 ? 0 : Store.visibledatacolumn[d_col - 1];
 
-        $("#luckysheet-dynamicArray-hightShow").css({ 
+        $("#tibetsheets-dynamicArray-hightShow").css({ 
             "left": col_pre, 
             "width": col - col_pre - 1, 
             "top": row_pre, 
@@ -126,7 +126,7 @@ function dynamicArrayHightShow(r, c) {
         });
     }
     else{
-        $("#luckysheet-dynamicArray-hightShow").hide();
+        $("#tibetsheets-dynamicArray-hightShow").hide();
     }
 }
 

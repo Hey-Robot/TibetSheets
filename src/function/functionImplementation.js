@@ -1,9 +1,9 @@
-import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
-import { luckysheet_getcelldata, luckysheet_parseData, luckysheet_getValue, luckysheet_calcADPMM } from './func';
+import tibetsheetsConfigsetting from '../controllers/tibetsheetsConfigsetting';
+import { tibetsheets_getcelldata, tibetsheets_parseData, tibetsheets_getValue, tibetsheets_calcADPMM } from './func';
 import { inverse } from './matrix_methods';
-import { getSheetIndex, getluckysheetfile,getRangetxt } from '../methods/get';
+import { getSheetIndex, gettibetsheetsfile,getRangetxt } from '../methods/get';
 import menuButton from '../controllers/menuButton';
-import luckysheetSparkline from '../controllers/sparkline';
+import tibetsheetsSparkline from '../controllers/sparkline';
 import formula from '../global/formula';
 import func_methods from '../global/func_methods';
 import editor from '../global/editor';
@@ -83,7 +83,7 @@ const functionImplementation = {
                         continue;
                     }
 
-                    sum = luckysheet_calcADPMM(sum, "+", dataArr[i]);// parseFloat(dataArr[i]);
+                    sum = tibetsheets_calcADPMM(sum, "+", dataArr[i]);// parseFloat(dataArr[i]);
                 }
             }
 
@@ -146,7 +146,7 @@ const functionImplementation = {
                     return formula.error.v;
                 }
 
-                sum = luckysheet_calcADPMM(sum, "+", dataArr[i]);// parseFloat(dataArr[i]);
+                sum = tibetsheets_calcADPMM(sum, "+", dataArr[i]);// parseFloat(dataArr[i]);
                 count++;
             }
 
@@ -154,7 +154,7 @@ const functionImplementation = {
                 return formula.error.d;
             }
 
-            return luckysheet_calcADPMM(sum, "/", count);// sum / count;
+            return tibetsheets_calcADPMM(sum, "/", count);// sum / count;
         }
         catch (e) {
             var err = e;
@@ -433,11 +433,11 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
-            var birthday = window.luckysheet_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
+            var birthday = window.tibetsheets_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
             if(valueIsError(birthday)){
                 return birthday;
             }
@@ -491,7 +491,7 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
@@ -531,7 +531,7 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
@@ -603,7 +603,7 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
@@ -645,7 +645,7 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
@@ -690,11 +690,11 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
-            var birthday = window.luckysheet_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
+            var birthday = window.tibetsheets_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
             if(valueIsError(birthday)){
                 return birthday;
             }
@@ -757,11 +757,11 @@ const functionImplementation = {
                 return UUserCard;
             }
 
-            if (!window.luckysheet_function.ISIDCARD.f(UUserCard)) {
+            if (!window.tibetsheets_function.ISIDCARD.f(UUserCard)) {
                 return formula.error.v;
             }
 
-            var birthday = window.luckysheet_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
+            var birthday = window.tibetsheets_function.BIRTHDAY_BY_IDCARD.f(UUserCard);
             if(valueIsError(birthday)){
                 return birthday;
             }
@@ -838,9 +838,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //任意需要分词的文本
             var text = func_methods.getFirstValue(arguments[0], "text");
@@ -904,9 +904,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //任意需要分词的文本
             var text = func_methods.getFirstValue(arguments[0], "text");
@@ -990,9 +990,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //任意需要分词的文本
             var text = func_methods.getFirstValue(arguments[0], "text");
@@ -1076,9 +1076,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1176,9 +1176,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1272,9 +1272,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1368,9 +1368,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1464,9 +1464,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1560,9 +1560,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
 
             //股票代码
             var stockcode = func_methods.getFirstValue(arguments[0]);
@@ -1697,7 +1697,7 @@ const functionImplementation = {
             var rangeRow = arguments[0].rowl;
             var rangeCol = arguments[0].coll;
 
-            var criteria = luckysheet_parseData(arguments[1]);
+            var criteria = tibetsheets_parseData(arguments[1]);
 
             rangeData = formula.getRangeArray(rangeData)[0];
 
@@ -1734,7 +1734,7 @@ const functionImplementation = {
                     //console.log("合成新的末尾位置：" + sumRangeEnd);
 
                     realSumRange = sumRangeSheet + "!" +sumRangeStart + ":" + sumRangeEnd;
-                    sumRangeData = luckysheet_getcelldata(realSumRange).data;
+                    sumRangeData = tibetsheets_getcelldata(realSumRange).data;
                     //console.log("最终的目标范围：",sumRangeData);
                 }
 
@@ -1749,7 +1749,7 @@ const functionImplementation = {
                             continue;
                         }
 
-                        sum = luckysheet_calcADPMM(sum, "+", sumRangeData[i]);// parseFloat(sumRangeData[i]);
+                        sum = tibetsheets_calcADPMM(sum, "+", sumRangeData[i]);// parseFloat(sumRangeData[i]);
                     }
                 }
             }
@@ -1763,7 +1763,7 @@ const functionImplementation = {
                             continue;
                         }
 
-                        sum = luckysheet_calcADPMM(sum, "", v);// parseFloat(v);
+                        sum = tibetsheets_calcADPMM(sum, "", v);// parseFloat(v);
                     }
                 }
             }
@@ -2371,11 +2371,11 @@ const functionImplementation = {
                     var cellrange = formula.getcellrange(data.startCell);
                     var str = cellrange.row[0];
 
-                    if(window.luckysheetCurrentRow < str || window.luckysheetCurrentRow > str + data.rowl - 1){
+                    if(window.tibetsheetsCurrentRow < str || window.tibetsheetsCurrentRow > str + data.rowl - 1){
                         return formula.error.v;
                     }
 
-                    var cell = data.data[window.luckysheetCurrentRow - str][0];
+                    var cell = data.data[window.tibetsheetsCurrentRow - str][0];
                 }
                 else{
                     var cell = data.data;
@@ -3107,47 +3107,47 @@ const functionImplementation = {
                 switch(function_num){
                     case 1:    //AVERAGE
                     case 101:
-                        return window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, arr);
+                        return window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, arr);
                         break;
                     case 2:    //COUNT
                     case 102:
-                        return window.luckysheet_function.COUNT.f.apply(window.luckysheet_function.COUNT, arr);
+                        return window.tibetsheets_function.COUNT.f.apply(window.tibetsheets_function.COUNT, arr);
                         break;
                     case 3:    //COUNTA
                     case 103:
-                        return window.luckysheet_function.COUNTA.f.apply(window.luckysheet_function.COUNTA, arr);
+                        return window.tibetsheets_function.COUNTA.f.apply(window.tibetsheets_function.COUNTA, arr);
                         break;
                     case 4:    //MAX
                     case 104:
-                        return window.luckysheet_function.MAX.f.apply(window.luckysheet_function.MAX, arr);
+                        return window.tibetsheets_function.MAX.f.apply(window.tibetsheets_function.MAX, arr);
                         break;
                     case 5:    //MIN
                     case 105:
-                        return window.luckysheet_function.MIN.f.apply(window.luckysheet_function.MIN, arr);
+                        return window.tibetsheets_function.MIN.f.apply(window.tibetsheets_function.MIN, arr);
                         break;
                     case 6:    //PRODUCT
                     case 106:
-                        return window.luckysheet_function.PRODUCT.f.apply(window.luckysheet_function.PRODUCT, arr);
+                        return window.tibetsheets_function.PRODUCT.f.apply(window.tibetsheets_function.PRODUCT, arr);
                         break;
                     case 7:    //STDEV
                     case 107:
-                        return window.luckysheet_function.STDEVA.f.apply(window.luckysheet_function.STDEVA, arr);
+                        return window.tibetsheets_function.STDEVA.f.apply(window.tibetsheets_function.STDEVA, arr);
                         break;
                     case 8:    //STDEVP
                     case 108:
-                        return window.luckysheet_function.STDEVP.f.apply(window.luckysheet_function.STDEVP, arr);
+                        return window.tibetsheets_function.STDEVP.f.apply(window.tibetsheets_function.STDEVP, arr);
                         break;
                     case 9:    //SUM
                     case 109:
-                        return window.luckysheet_function.SUM.f.apply(window.luckysheet_function.SUM, arr);
+                        return window.tibetsheets_function.SUM.f.apply(window.tibetsheets_function.SUM, arr);
                         break;
                     case 10:   //VAR
                     case 110:
-                        return window.luckysheet_function.VAR_S.f.apply(window.luckysheet_function.VAR_S, arr);
+                        return window.tibetsheets_function.VAR_S.f.apply(window.tibetsheets_function.VAR_S, arr);
                         break;
                     case 11:   //VARP
                     case 111:
-                        return window.luckysheet_function.VAR_P.f.apply(window.luckysheet_function.VAR_P, arr);
+                        return window.tibetsheets_function.VAR_P.f.apply(window.tibetsheets_function.VAR_P, arr);
                         break;
                 }
             }
@@ -3445,7 +3445,7 @@ const functionImplementation = {
                 }
             }
 
-            return window.luckysheet_function.UNIQUE.f(dataArr);
+            return window.tibetsheets_function.UNIQUE.f(dataArr);
         }
         catch (e) {
             var err = e;
@@ -4598,7 +4598,7 @@ const functionImplementation = {
         try {
             var sum = 0;
             var args = arguments;
-            luckysheet_getValue(args);
+            tibetsheets_getValue(args);
             var rangeData = formula.getRangeArray(args[0])[0];
             var results = new Array(rangeData.length);
 
@@ -4617,7 +4617,7 @@ const functionImplementation = {
 
             for(var i = 0; i < rangeData.length; i++){
                 if(results[i]){
-                    sum = luckysheet_calcADPMM(sum, "+", rangeData[i]); //parseFloat(rangeData[i]);
+                    sum = tibetsheets_calcADPMM(sum, "+", rangeData[i]); //parseFloat(rangeData[i]);
                 }
             }
 
@@ -4646,7 +4646,7 @@ const functionImplementation = {
 
         try {
             var args = arguments;
-            luckysheet_getValue(args);
+            tibetsheets_getValue(args);
             var results = new Array(formula.getRangeArray(args[0])[0].length);
             for(var i = 0;i < results.length; i++){
                 results[i] = true;
@@ -5736,7 +5736,7 @@ const functionImplementation = {
             ref_n = ref_n.sort(function(a, b) {
                 return a - b;
             });
-            var uniques = window.luckysheet_function.UNIQUE.f(ref_n)[0];
+            var uniques = window.tibetsheets_function.UNIQUE.f(ref_n)[0];
 
             var n = ref_n.length;
             var m = uniques.length;
@@ -5865,7 +5865,7 @@ const functionImplementation = {
             ref_n = ref_n.sort(function(a, b) {
                 return a - b;
             });
-            var uniques = window.luckysheet_function.UNIQUE.f(ref_n)[0];
+            var uniques = window.tibetsheets_function.UNIQUE.f(ref_n)[0];
 
             var n = ref_n.length;
             var m = uniques.length;
@@ -7033,7 +7033,7 @@ const functionImplementation = {
             var rangeData = arguments[0].data;
             var rangeRow = arguments[0].rowl;
             var rangeCol = arguments[0].coll;
-            var criteria = luckysheet_parseData(arguments[1]);
+            var criteria = tibetsheets_parseData(arguments[1]);
             var sumRangeData = [];
 
             //如果有第三个参数
@@ -7068,7 +7068,7 @@ const functionImplementation = {
                     //console.log("合成新的末尾位置：" + sumRangeEnd);
 
                     realSumRange = sumRangeSheet + "!" +sumRangeStart + ":" + sumRangeEnd;
-                    sumRangeData = luckysheet_getcelldata(realSumRange).data;
+                    sumRangeData = tibetsheets_getcelldata(realSumRange).data;
                     //console.log("最终的目标范围：",sumRangeData);
                 }
 
@@ -7123,7 +7123,7 @@ const functionImplementation = {
             var sum = 0;
             var count = 0;
             var args = arguments;
-            luckysheet_getValue(args);
+            tibetsheets_getValue(args);
             var rangeData = formula.getRangeArray(args[0])[0];
             var results = new Array(rangeData.length);
             for(var i = 0;i < results.length; i++){
@@ -7298,7 +7298,7 @@ const functionImplementation = {
                 return a - b;
             })
 
-            var trim = window.luckysheet_function.FLOOR.f(dataArr_n.length * percent, 2) / 2;
+            var trim = window.tibetsheets_function.FLOOR.f(dataArr_n.length * percent, 2) / 2;
 
             var result = rest(dataArr_n, trim);
             result = initial(result, trim);
@@ -8333,9 +8333,9 @@ const functionImplementation = {
 
             //计算
             var n = dataArr_n.length;
-            var mean = window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, dataArr_n);
+            var mean = window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, dataArr_n);
 
-            return 1 - window.luckysheet_function.NORM_S_DIST.f((mean - x) / (sigma / Math.sqrt(n)), "true");
+            return 1 - window.tibetsheets_function.NORM_S_DIST.f((mean - x) / (sigma / Math.sqrt(n)), "true");
         }
         catch (e) {
             var err = e;
@@ -8534,11 +8534,11 @@ const functionImplementation = {
             //计算
             switch (quart) {
                 case 1:
-                    return window.luckysheet_function.PERCENTILE_EXC.f(array, 0.25);
+                    return window.tibetsheets_function.PERCENTILE_EXC.f(array, 0.25);
                 case 2:
-                    return window.luckysheet_function.PERCENTILE_EXC.f(array, 0.5);
+                    return window.tibetsheets_function.PERCENTILE_EXC.f(array, 0.5);
                 case 3:
-                    return window.luckysheet_function.PERCENTILE_EXC.f(array, 0.75);
+                    return window.tibetsheets_function.PERCENTILE_EXC.f(array, 0.75);
             }
         }
         catch (e) {
@@ -8619,11 +8619,11 @@ const functionImplementation = {
                 case 0:
                     return Math.min.apply(Math, array);
                 case 1:
-                    return window.luckysheet_function.PERCENTILE_INC.f(array, 0.25);
+                    return window.tibetsheets_function.PERCENTILE_INC.f(array, 0.25);
                 case 2:
-                    return window.luckysheet_function.PERCENTILE_INC.f(array, 0.5);
+                    return window.tibetsheets_function.PERCENTILE_INC.f(array, 0.5);
                 case 3:
-                    return window.luckysheet_function.PERCENTILE_INC.f(array, 0.75);
+                    return window.tibetsheets_function.PERCENTILE_INC.f(array, 0.75);
                 case 4:
                     return Math.max.apply(Math, array);
             }
@@ -8774,7 +8774,7 @@ const functionImplementation = {
                 return formula.error.d;
             }
 
-            return Math.pow(window.luckysheet_function.PEARSON.f(data_y, data_x), 2);
+            return Math.pow(window.tibetsheets_function.PEARSON.f(data_y, data_x), 2);
         }
         catch (e) {
             var err = e;
@@ -9188,10 +9188,10 @@ const functionImplementation = {
             }
 
             if(tails == 1){
-                var result = window.luckysheet_function.T_DIST_RT.f(t, df);
+                var result = window.tibetsheets_function.T_DIST_RT.f(t, df);
             }
             else if(tails == 2){
-                var result = window.luckysheet_function.T_DIST_2T.f(t, df);
+                var result = window.tibetsheets_function.T_DIST_2T.f(t, df);
             }
 
             return result;
@@ -9409,7 +9409,7 @@ const functionImplementation = {
 
             var n = dataArr_n.length;
             var sigma = 0;
-            var mean = window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, dataArr_n);
+            var mean = window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, dataArr_n);
             for (var i = 0; i < n; i++) {
                 sigma += Math.pow(dataArr_n[i] - mean, 2);
             }
@@ -9478,7 +9478,7 @@ const functionImplementation = {
 
             var n = dataArr_n.length;
             var sigma = 0;
-            var mean = window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, dataArr_n);
+            var mean = window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, dataArr_n);
             for (var i = 0; i < n; i++) {
                 sigma += Math.pow(dataArr_n[i] - mean, 2);
             }
@@ -9558,7 +9558,7 @@ const functionImplementation = {
 
             var n = dataArr_n.length;
             var sigma = 0;
-            var mean = window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, dataArr_n);
+            var mean = window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, dataArr_n);
             for (var i = 0; i < n; i++) {
                 sigma += Math.pow(dataArr_n[i] - mean, 2);
             }
@@ -9638,7 +9638,7 @@ const functionImplementation = {
 
             var n = dataArr_n.length;
             var sigma = 0;
-            var mean = window.luckysheet_function.AVERAGE.f.apply(window.luckysheet_function.AVERAGE, dataArr_n);
+            var mean = window.tibetsheets_function.AVERAGE.f.apply(window.tibetsheets_function.AVERAGE, dataArr_n);
             for (var i = 0; i < n; i++) {
                 sigma += Math.pow(dataArr_n[i] - mean, 2);
             }
@@ -10303,9 +10303,9 @@ const functionImplementation = {
                 }
             }
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let currentSheet = luckysheetfile[index];
+            let currentSheet = tibetsheetsfile[index];
             let sheetdata = currentSheet.data;
             // sheetdata = Store.flowdata;
             // if (formula.execFunctionGroupData != null) {
@@ -10401,7 +10401,7 @@ const functionImplementation = {
                 }
             }
             else{
-                return window.luckysheetCurrentRow + 1;
+                return window.tibetsheetsCurrentRow + 1;
             }
         }
         catch (e) {
@@ -10488,7 +10488,7 @@ const functionImplementation = {
                 }
             }
             else{
-                return window.luckysheetCurrentColumn + 1;
+                return window.tibetsheetsCurrentColumn + 1;
             }
         }
         catch (e) {
@@ -10634,9 +10634,9 @@ const functionImplementation = {
             //     sheetdata = formula.execFunctionGroupData;
             // }
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             if (cellRow0 < 0 || cellRow1 >= sheetdata.length || cellCol0 < 0 || cellCol1 >= sheetdata[0].length){
                 return formula.error.r;
@@ -10999,8 +10999,8 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
             var searchkey = arguments[0];
 
             if(typeof(searchkey) == "object"){
@@ -11074,8 +11074,8 @@ const functionImplementation = {
             //完成矢量形式（数组形式不推荐，未做）
             //=LOOKUP(4.19, A2:A6, B2:B6)
             //=LOOKUP(0, A2:A6, B2:B6)
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
             var searchkey = arguments[0];
 
             if(typeof(searchkey) == "object"){
@@ -11803,10 +11803,10 @@ const functionImplementation = {
 
         try {
             if(arguments.length == 3){
-                var result = window.luckysheet_function.NETWORKDAYS_INTL.f(arguments[0], arguments[1], 1, arguments[2]);
+                var result = window.tibetsheets_function.NETWORKDAYS_INTL.f(arguments[0], arguments[1], 1, arguments[2]);
             }
             else{
-                var result = window.luckysheet_function.NETWORKDAYS_INTL.f(arguments[0], arguments[1], 1);
+                var result = window.tibetsheets_function.NETWORKDAYS_INTL.f(arguments[0], arguments[1], 1);
             }
 
             return result;
@@ -12061,7 +12061,7 @@ const functionImplementation = {
             }
 
             if(return_type == 21){
-                return window.luckysheet_function.ISOWEEKNUM.f(arguments[0]);
+                return window.tibetsheets_function.ISOWEEKNUM.f(arguments[0]);
             }
 
             if([1,2,11,12,13,14,15,16,17].indexOf(return_type) == -1){
@@ -12451,7 +12451,7 @@ const functionImplementation = {
         }
 
         try {
-            luckysheet_getValue(arguments);
+            tibetsheets_getValue(arguments);
             for (var i = 0; i < arguments.length-1; i++){
                 arguments[i] = moment.fromOADate(arguments[i]).format("l");
                 if(!isdatetime(arguments[i])){
@@ -12463,7 +12463,7 @@ const functionImplementation = {
             var endDate = dayjs(arguments[1]);
             var unit = arguments[2];
             var result = formula.error.v;
-            if(window.luckysheet_function.DAYS.f(endDate,startDate) < 0){
+            if(window.tibetsheets_function.DAYS.f(endDate,startDate) < 0){
                 return formula.error.v;
             }
 
@@ -12520,10 +12520,10 @@ const functionImplementation = {
 
         try {
             if(arguments.length == 3){
-                var result = window.luckysheet_function.WORKDAY_INTL.f(arguments[0], arguments[1], 1, arguments[2]);
+                var result = window.tibetsheets_function.WORKDAY_INTL.f(arguments[0], arguments[1], 1, arguments[2]);
             }
             else{
-                var result = window.luckysheet_function.WORKDAY_INTL.f(arguments[0], arguments[1], 1);
+                var result = window.tibetsheets_function.WORKDAY_INTL.f(arguments[0], arguments[1], 1);
             }
 
             return result;
@@ -13598,7 +13598,7 @@ const functionImplementation = {
             }
 
             //计算
-            var payment = window.luckysheet_function.PMT.f(rate, nper, pv, 0, type);
+            var payment = window.tibetsheets_function.PMT.f(rate, nper, pv, 0, type);
             var principal = 0;
 
             if (start_period === 1) {
@@ -13613,10 +13613,10 @@ const functionImplementation = {
 
             for (var i = start_period; i <= end_period; i++) {
                 if (type > 0) {
-                    principal += payment - (window.luckysheet_function.FV.f(rate, i - 2, payment, pv, 1) - payment) * rate;
+                    principal += payment - (window.tibetsheets_function.FV.f(rate, i - 2, payment, pv, 1) - payment) * rate;
                 }
                 else {
-                    principal += payment - window.luckysheet_function.FV.f(rate, i - 1, payment, pv, 0) * rate;
+                    principal += payment - window.tibetsheets_function.FV.f(rate, i - 1, payment, pv, 0) * rate;
                 }
             }
 
@@ -15442,7 +15442,7 @@ const functionImplementation = {
             }
 
             //计算
-            var num = window.luckysheet_function.COUPNUM.f(settlement, maturity, frequency, basis);
+            var num = window.tibetsheets_function.COUPNUM.f(settlement, maturity, frequency, basis);
 
             if(num > 1){
                 var a = 1;
@@ -15450,7 +15450,7 @@ const functionImplementation = {
                 var yld = a;
 
                 for(var i = 1; i <= 100; i++){
-                    var price = window.luckysheet_function.PRICE.f(settlement, maturity, rate, yld, redemption, frequency, basis);
+                    var price = window.tibetsheets_function.PRICE.f(settlement, maturity, rate, yld, redemption, frequency, basis);
 
                     if(Math.abs(price - pr) < 0.000001){
                         break;
@@ -15469,9 +15469,9 @@ const functionImplementation = {
                 var result = yld;
             }
             else{
-                var DSR = window.luckysheet_function.COUPDAYSNC.f(settlement, maturity, frequency, basis);
-                var E = window.luckysheet_function.COUPDAYS.f(settlement, maturity, frequency, basis);
-                var A = window.luckysheet_function.COUPDAYBS.f(settlement, maturity, frequency, basis);
+                var DSR = window.tibetsheets_function.COUPDAYSNC.f(settlement, maturity, frequency, basis);
+                var E = window.tibetsheets_function.COUPDAYS.f(settlement, maturity, frequency, basis);
+                var A = window.tibetsheets_function.COUPDAYBS.f(settlement, maturity, frequency, basis);
 
                 var T1 = redemption / 100 + rate / frequency;
                 var T2 = pr / 100 + (A / E) * (rate / frequency);
@@ -15575,7 +15575,7 @@ const functionImplementation = {
                 return formula.error.nm;
             }
 
-            var yearfrac = window.luckysheet_function.YEARFRAC.f(settlement, maturity, basis);
+            var yearfrac = window.tibetsheets_function.YEARFRAC.f(settlement, maturity, basis);
 
             return (redemption / pr - 1) / yearfrac;
         }
@@ -15740,7 +15740,7 @@ const functionImplementation = {
                 var result = values[0];
 
                 for (var i = 1; i < values.length; i++) {
-                    result += values[i] / Math.pow(r, window.luckysheet_function.DAYS.f(dates[i], dates[0]) / 365);
+                    result += values[i] / Math.pow(r, window.tibetsheets_function.DAYS.f(dates[i], dates[0]) / 365);
                 }
 
                 return result;
@@ -15751,7 +15751,7 @@ const functionImplementation = {
                 var result = 0;
 
                 for (var i = 1; i < values.length; i++) {
-                    var frac = window.luckysheet_function.DAYS.f(dates[i], dates[0]) / 365;
+                    var frac = window.tibetsheets_function.DAYS.f(dates[i], dates[0]) / 365;
                     result -= frac * values[i] / Math.pow(r, frac + 1);
                 }
 
@@ -15869,8 +15869,8 @@ const functionImplementation = {
                 return formula.error.d;
             }
 
-            var num = -window.luckysheet_function.NPV.f(reinvest_rate, incomes) * Math.pow(1 + reinvest_rate, n - 1);
-            var den = window.luckysheet_function.NPV.f(finance_rate, payments) * (1 + finance_rate);
+            var num = -window.tibetsheets_function.NPV.f(reinvest_rate, incomes) * Math.pow(1 + reinvest_rate, n - 1);
+            var den = window.tibetsheets_function.NPV.f(finance_rate, payments) * (1 + finance_rate);
 
             return Math.pow(num / den, 1 / (n - 1)) - 1;
         }
@@ -15967,7 +15967,7 @@ const functionImplementation = {
                 var result = values[0];
 
                 for (var i = 1; i < values.length; i++) {
-                    // result += values[i] / Math.pow(r, window.luckysheet_function.DAYS.f(dates[i], dates[0]) / 365);
+                    // result += values[i] / Math.pow(r, window.tibetsheets_function.DAYS.f(dates[i], dates[0]) / 365);
                     result += values[i] / Math.pow(r, (dates[i] - dates[0]) / 365);
                 }
 
@@ -15979,7 +15979,7 @@ const functionImplementation = {
                 var result = 0;
 
                 for (var i = 1; i < values.length; i++) {
-                    // var frac = window.luckysheet_function.DAYS.f(dates[i], dates[0]) / 365;
+                    // var frac = window.tibetsheets_function.DAYS.f(dates[i], dates[0]) / 365;
                     var frac = (dates[i] - dates[0]) / 365;
                     result -= frac * values[i] / Math.pow(r, frac + 1);
                 }
@@ -16163,7 +16163,7 @@ const functionImplementation = {
             //计算
             var result = 0;
             for (var i = 0; i < values_n.length; i++) {
-                result += values_n[i] / Math.pow(1 + rate, window.luckysheet_function.DAYS.f(dates[i], dates[0]) / 365);
+                result += values_n[i] / Math.pow(1 + rate, window.tibetsheets_function.DAYS.f(dates[i], dates[0]) / 365);
             }
 
             return result;
@@ -16275,7 +16275,7 @@ const functionImplementation = {
             }
 
             //计算
-            var payment = window.luckysheet_function.PMT.f(rate, nper, pv, 0, type);
+            var payment = window.tibetsheets_function.PMT.f(rate, nper, pv, 0, type);
             var interest = 0;
 
             if (start_period === 1) {
@@ -16287,10 +16287,10 @@ const functionImplementation = {
 
             for (var i = start_period; i <= end_period; i++) {
                 if (type === 1) {
-                    interest += window.luckysheet_function.FV.f(rate, i - 2, payment, pv, 1) - payment;
+                    interest += window.tibetsheets_function.FV.f(rate, i - 2, payment, pv, 1) - payment;
                 }
                 else {
-                    interest += window.luckysheet_function.FV.f(rate, i - 1, payment, pv, 0);
+                    interest += window.tibetsheets_function.FV.f(rate, i - 1, payment, pv, 0);
                 }
             }
 
@@ -16518,7 +16518,7 @@ const functionImplementation = {
             }
 
             //计算
-            var payment = window.luckysheet_function.PMT.f(rate, nper, pv, fv, type);
+            var payment = window.tibetsheets_function.PMT.f(rate, nper, pv, fv, type);
             var interest;
 
             if (per === 1) {
@@ -16531,10 +16531,10 @@ const functionImplementation = {
             }
             else {
                 if (type === 1) {
-                    interest = window.luckysheet_function.FV.f(rate, per - 2, payment, pv, 1) - payment;
+                    interest = window.tibetsheets_function.FV.f(rate, per - 2, payment, pv, 1) - payment;
                 }
                 else {
-                    interest = window.luckysheet_function.FV.f(rate, per - 1, payment, pv, 0);
+                    interest = window.tibetsheets_function.FV.f(rate, per - 1, payment, pv, 0);
                 }
             }
 
@@ -16651,8 +16651,8 @@ const functionImplementation = {
             }
 
             //计算
-            var payment = window.luckysheet_function.PMT.f(rate, nper, pv, fv, type);
-            var payment2 = window.luckysheet_function.IPMT.f(rate, per, nper, pv, fv, type);
+            var payment = window.tibetsheets_function.PMT.f(rate, nper, pv, fv, type);
+            var payment2 = window.tibetsheets_function.IPMT.f(rate, per, nper, pv, fv, type);
 
             return payment - payment2;
         }
@@ -16938,10 +16938,10 @@ const functionImplementation = {
             }
 
             //计算
-            var DSC = window.luckysheet_function.COUPDAYSNC.f(settlement, maturity, frequency, basis);
-            var E = window.luckysheet_function.COUPDAYS.f(settlement, maturity, frequency, basis);
-            var A = window.luckysheet_function.COUPDAYBS.f(settlement, maturity, frequency, basis);
-            var num = window.luckysheet_function.COUPNUM.f(settlement, maturity, frequency, basis);
+            var DSC = window.tibetsheets_function.COUPDAYSNC.f(settlement, maturity, frequency, basis);
+            var E = window.tibetsheets_function.COUPDAYS.f(settlement, maturity, frequency, basis);
+            var A = window.tibetsheets_function.COUPDAYBS.f(settlement, maturity, frequency, basis);
+            var num = window.tibetsheets_function.COUPNUM.f(settlement, maturity, frequency, basis);
 
             if(num > 1){
                 var T1 = redemption / Math.pow(1 + yld / frequency, num - 1 + DSC / E);
@@ -17902,7 +17902,7 @@ const functionImplementation = {
                 return formula.error.nm;
             }
 
-            var nper = window.luckysheet_function.COUPNUM.f(settlement, maturity, frequency, basis);
+            var nper = window.tibetsheets_function.COUPNUM.f(settlement, maturity, frequency, basis);
 
             var sum1 = 0;
             var sum2 = 0;
@@ -18025,7 +18025,7 @@ const functionImplementation = {
                 return formula.error.nm;
             }
 
-            var duration = window.luckysheet_function.DURATION.f(settlement, maturity, coupon, yld, frequency, basis);
+            var duration = window.tibetsheets_function.DURATION.f(settlement, maturity, coupon, yld, frequency, basis);
 
             return duration / (1 + yld / frequency);
         }
@@ -19031,12 +19031,12 @@ const functionImplementation = {
 
             inumber = inumber.toString();
 
-            var x = window.luckysheet_function.IMREAL.f(inumber);
+            var x = window.tibetsheets_function.IMREAL.f(inumber);
             if(valueIsError(x)){
                 return x;
             }
 
-            var y = window.luckysheet_function.IMAGINARY.f(inumber);
+            var y = window.tibetsheets_function.IMAGINARY.f(inumber);
             if(valueIsError(y)){
                 return y;
             }
@@ -19044,7 +19044,7 @@ const functionImplementation = {
             var unit = inumber.substring(inumber.length - 1);
             unit = (unit === 'i' || unit === 'j') ? unit : 'i';
 
-            return (y !== 0) ? window.luckysheet_function.COMPLEX.f(x, -y, unit) : inumber;
+            return (y !== 0) ? window.tibetsheets_function.COMPLEX.f(x, -y, unit) : inumber;
         }
         catch (e) {
             var err = e;
@@ -19068,12 +19068,12 @@ const functionImplementation = {
         }
 
         try {
-            var x = window.luckysheet_function.IMREAL.f(arguments[0]);
+            var x = window.tibetsheets_function.IMREAL.f(arguments[0]);
             if(valueIsError(x)){
                 return x;
             }
 
-            var y = window.luckysheet_function.IMAGINARY.f(arguments[0]);
+            var y = window.tibetsheets_function.IMAGINARY.f(arguments[0]);
             if(valueIsError(y)){
                 return y;
             }
@@ -19153,12 +19153,12 @@ const functionImplementation = {
         }
 
         try {
-            var x = window.luckysheet_function.IMREAL.f(arguments[0]);
+            var x = window.tibetsheets_function.IMREAL.f(arguments[0]);
             if(valueIsError(x)){
                 return x;
             }
 
-            var y = window.luckysheet_function.IMAGINARY.f(arguments[0]);
+            var y = window.tibetsheets_function.IMAGINARY.f(arguments[0]);
             if(valueIsError(y)){
                 return y;
             }
@@ -19166,27 +19166,27 @@ const functionImplementation = {
             var result = arguments[0];
 
             for(var i = 1; i < arguments.length; i++){
-                var a = window.luckysheet_function.IMREAL.f(result);
+                var a = window.tibetsheets_function.IMREAL.f(result);
                 if(valueIsError(a)){
                     return a;
                 }
 
-                var b = window.luckysheet_function.IMAGINARY.f(result);
+                var b = window.tibetsheets_function.IMAGINARY.f(result);
                 if(valueIsError(b)){
                     return b;
                 }
 
-                var c = window.luckysheet_function.IMREAL.f(arguments[i]);
+                var c = window.tibetsheets_function.IMREAL.f(arguments[i]);
                 if(valueIsError(c)){
                     return c;
                 }
 
-                var d = window.luckysheet_function.IMAGINARY.f(arguments[i]);
+                var d = window.tibetsheets_function.IMAGINARY.f(arguments[i]);
                 if(valueIsError(d)){
                     return d;
                 }
 
-                result = window.luckysheet_function.COMPLEX.f(a + c, b + d);
+                result = window.tibetsheets_function.COMPLEX.f(a + c, b + d);
             }
 
             return result;
@@ -19225,12 +19225,12 @@ const functionImplementation = {
                 return formula.error.v;
             }
 
-            var a = window.luckysheet_function.IMREAL.f(inumber1);
+            var a = window.tibetsheets_function.IMREAL.f(inumber1);
             if(valueIsError(a)){
                 return a;
             }
 
-            var b = window.luckysheet_function.IMAGINARY.f(inumber1);
+            var b = window.tibetsheets_function.IMAGINARY.f(inumber1);
             if(valueIsError(b)){
                 return b;
             }
@@ -19247,12 +19247,12 @@ const functionImplementation = {
                 return formula.error.v;
             }
 
-            var c = window.luckysheet_function.IMREAL.f(inumber2);
+            var c = window.tibetsheets_function.IMREAL.f(inumber2);
             if(valueIsError(c)){
                 return c;
             }
 
-            var d = window.luckysheet_function.IMAGINARY.f(inumber2);
+            var d = window.tibetsheets_function.IMAGINARY.f(inumber2);
             if(valueIsError(d)){
                 return d;
             }
@@ -19270,7 +19270,7 @@ const functionImplementation = {
                 unit = 'j';
             }
 
-            return window.luckysheet_function.COMPLEX.f(a - c, b - d, unit);
+            return window.tibetsheets_function.COMPLEX.f(a - c, b - d, unit);
         }
         catch (e) {
             var err = e;
@@ -19294,12 +19294,12 @@ const functionImplementation = {
         }
 
         try {
-            var x = window.luckysheet_function.IMREAL.f(arguments[0]);
+            var x = window.tibetsheets_function.IMREAL.f(arguments[0]);
             if(valueIsError(x)){
                 return x;
             }
 
-            var y = window.luckysheet_function.IMAGINARY.f(arguments[0]);
+            var y = window.tibetsheets_function.IMAGINARY.f(arguments[0]);
             if(valueIsError(y)){
                 return y;
             }
@@ -19307,27 +19307,27 @@ const functionImplementation = {
             var result = arguments[0];
 
             for(var i = 1; i < arguments.length; i++){
-                var a = window.luckysheet_function.IMREAL.f(result);
+                var a = window.tibetsheets_function.IMREAL.f(result);
                 if(valueIsError(a)){
                     return a;
                 }
 
-                var b = window.luckysheet_function.IMAGINARY.f(result);
+                var b = window.tibetsheets_function.IMAGINARY.f(result);
                 if(valueIsError(b)){
                     return b;
                 }
 
-                var c = window.luckysheet_function.IMREAL.f(arguments[i]);
+                var c = window.tibetsheets_function.IMREAL.f(arguments[i]);
                 if(valueIsError(c)){
                     return c;
                 }
 
-                var d = window.luckysheet_function.IMAGINARY.f(arguments[i]);
+                var d = window.tibetsheets_function.IMAGINARY.f(arguments[i]);
                 if(valueIsError(d)){
                     return d;
                 }
 
-                result = window.luckysheet_function.COMPLEX.f(a * c - b * d, a * d + b * c);
+                result = window.tibetsheets_function.COMPLEX.f(a * c - b * d, a * d + b * c);
             }
 
             return result;
@@ -19366,12 +19366,12 @@ const functionImplementation = {
                 return formula.error.v;
             }
 
-            var a = window.luckysheet_function.IMREAL.f(inumber1);
+            var a = window.tibetsheets_function.IMREAL.f(inumber1);
             if(valueIsError(a)){
                 return a;
             }
 
-            var b = window.luckysheet_function.IMAGINARY.f(inumber1);
+            var b = window.tibetsheets_function.IMAGINARY.f(inumber1);
             if(valueIsError(b)){
                 return b;
             }
@@ -19388,12 +19388,12 @@ const functionImplementation = {
                 return formula.error.v;
             }
 
-            var c = window.luckysheet_function.IMREAL.f(inumber2);
+            var c = window.tibetsheets_function.IMREAL.f(inumber2);
             if(valueIsError(c)){
                 return c;
             }
 
-            var d = window.luckysheet_function.IMAGINARY.f(inumber2);
+            var d = window.tibetsheets_function.IMAGINARY.f(inumber2);
             if(valueIsError(d)){
                 return d;
             }
@@ -19417,7 +19417,7 @@ const functionImplementation = {
 
             var den = c * c + d * d;
 
-            return window.luckysheet_function.COMPLEX.f((a * c + b * d) / den, (b * c - a * d) / den, unit);
+            return window.tibetsheets_function.COMPLEX.f((a * c + b * d) / den, (b * c - a * d) / den, unit);
         }
         catch (e) {
             var err = e;
@@ -23397,7 +23397,7 @@ const functionImplementation = {
                 return formula.error.v;
             }
 
-            var file = getluckysheetfile()[getSheetIndex(Store.currentSheetIndex)];
+            var file = gettibetsheetsfile()[getSheetIndex(Store.currentSheetIndex)];
 
             var cellrange = formula.getcellrange(reference);
             var row_index = cellrange.row[0];
@@ -23409,9 +23409,9 @@ const functionImplementation = {
             //     sheetdata = formula.execFunctionGroupData;
             // }
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             let value;
             if(formula.execFunctionGlobalData != null && formula.execFunctionGlobalData[row_index+"_"+col_index+"_"+Store.calculateSheetIndex]!=null){
@@ -24848,7 +24848,7 @@ const functionImplementation = {
                 targetValues[i] = targetFields[resultIndexes[i]];
             }
 
-            return window.luckysheet_function.COUNT.f.apply(window.luckysheet_function.COUNT, targetValues);
+            return window.tibetsheets_function.COUNT.f.apply(window.tibetsheets_function.COUNT, targetValues);
         }
         catch (e) {
             var err = e;
@@ -24933,7 +24933,7 @@ const functionImplementation = {
                 targetValues[i] = targetFields[resultIndexes[i]];
             }
 
-            return window.luckysheet_function.COUNTA.f.apply(window.luckysheet_function.COUNTA, targetValues);
+            return window.tibetsheets_function.COUNTA.f.apply(window.tibetsheets_function.COUNTA, targetValues);
         }
         catch (e) {
             var err = e;
@@ -25113,7 +25113,7 @@ const functionImplementation = {
 
             targetValues = func_methods.compact(targetValues);
 
-            return window.luckysheet_function.STDEVA.f.apply(window.luckysheet_function.STDEVA, targetValues);
+            return window.tibetsheets_function.STDEVA.f.apply(window.tibetsheets_function.STDEVA, targetValues);
         }
         catch (e) {
             var err = e;
@@ -25200,7 +25200,7 @@ const functionImplementation = {
 
             targetValues = func_methods.compact(targetValues);
 
-            return window.luckysheet_function.STDEVP.f.apply(window.luckysheet_function.STDEVP, targetValues);
+            return window.tibetsheets_function.STDEVP.f.apply(window.tibetsheets_function.STDEVP, targetValues);
         }
         catch (e) {
             var err = e;
@@ -25380,7 +25380,7 @@ const functionImplementation = {
 
             targetValues = func_methods.compact(targetValues);
 
-            return window.luckysheet_function.VAR_S.f.apply(window.luckysheet_function.VAR_S, targetValues);
+            return window.tibetsheets_function.VAR_S.f.apply(window.tibetsheets_function.VAR_S, targetValues);
         }
         catch (e) {
             var err = e;
@@ -25467,7 +25467,7 @@ const functionImplementation = {
 
             targetValues = func_methods.compact(targetValues);
 
-            return window.luckysheet_function.VAR_P.f.apply(window.luckysheet_function.VAR_P, targetValues);
+            return window.tibetsheets_function.VAR_P.f.apply(window.tibetsheets_function.VAR_P, targetValues);
         }
         catch (e) {
             var err = e;
@@ -25491,9 +25491,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -25505,9 +25505,9 @@ const functionImplementation = {
             var minSpot = arguments[6];
             var spotRadius = arguments[7];
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
@@ -25524,7 +25524,7 @@ const functionImplementation = {
                 lineWidth = 1;
             }
             sparksetting["lineWidth"] = lineWidth;
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting["offsetY"] = lineWidth+1;
             sparksetting.height = height-(lineWidth+1);
             sparksetting.width = width;
@@ -25558,16 +25558,16 @@ const functionImplementation = {
                     normalValue = normalValue.toLowerCase();
                     var nv = null;
                     if(normalValue=="min"){
-                        nv = window.luckysheet_function.MIN.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MIN.f({"data":dataformat});
                     }
                     else if(normalValue=="max"){
-                        nv = window.luckysheet_function.MAX.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MAX.f({"data":dataformat});
                     }
                     else if(normalValue=="avg" || normalValue=="mean"){
-                        nv = window.luckysheet_function.AVERAGE.f({"data":dataformat});
+                        nv = window.tibetsheets_function.AVERAGE.f({"data":dataformat});
                     }
                     else if(normalValue=="median"){
-                        nv = window.luckysheet_function.MEDIAN.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MEDIAN.f({"data":dataformat});
                     }
 
                     if(!!nv){
@@ -25596,7 +25596,7 @@ const functionImplementation = {
             sparksetting["spotRadius"] = spotRadius;
 
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
             // {
@@ -25631,9 +25631,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -25649,9 +25649,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -25665,7 +25665,7 @@ const functionImplementation = {
                 lineWidth = 1;
             }
             sparksetting["lineWidth"] = lineWidth;
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting["offsetY"] = lineWidth+1;
             sparksetting.height = height-(lineWidth+1);
             sparksetting.width = width;
@@ -25701,16 +25701,16 @@ const functionImplementation = {
                     normalValue = normalValue.toLowerCase();
                     var nv = null;
                     if(normalValue=="min"){
-                        nv = window.luckysheet_function.MIN.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MIN.f({"data":dataformat});
                     }
                     else if(normalValue=="max"){
-                        nv = window.luckysheet_function.MAX.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MAX.f({"data":dataformat});
                     }
                     else if(normalValue=="avg" || normalValue=="mean"){
-                        nv = window.luckysheet_function.AVERAGE.f({"data":dataformat});
+                        nv = window.tibetsheets_function.AVERAGE.f({"data":dataformat});
                     }
                     else if(normalValue=="median"){
-                        nv = window.luckysheet_function.MEDIAN.f({"data":dataformat});
+                        nv = window.tibetsheets_function.MEDIAN.f({"data":dataformat});
                     }
 
                     if(!!nv){
@@ -25739,7 +25739,7 @@ const functionImplementation = {
             // sparksetting["spotRadius"] = spotRadius;
 
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
             // {
@@ -25774,9 +25774,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -25784,9 +25784,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -25796,7 +25796,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -25848,7 +25848,7 @@ const functionImplementation = {
             }
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -25875,9 +25875,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -25931,9 +25931,9 @@ const functionImplementation = {
                 var offsetY = data[0].length;
             }
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
             var width = cellSize[0];
@@ -25942,7 +25942,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
             //sparksetting.offsetY = offsetY;
@@ -25984,7 +25984,7 @@ const functionImplementation = {
             ////具体实现
 
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26011,9 +26011,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26021,9 +26021,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26033,7 +26033,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26085,7 +26085,7 @@ const functionImplementation = {
             }
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26112,9 +26112,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26167,9 +26167,9 @@ const functionImplementation = {
                 var offsetY = data[0].length;
             }
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
             var width = cellSize[0];
@@ -26178,7 +26178,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
             //sparksetting.offsetY = offsetY;
@@ -26220,7 +26220,7 @@ const functionImplementation = {
             ////具体实现
 
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26247,9 +26247,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26257,9 +26257,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26269,7 +26269,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26309,7 +26309,7 @@ const functionImplementation = {
             sparkColorSetting("thresholdColor", negBarColor);
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26336,9 +26336,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26346,9 +26346,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26358,7 +26358,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26408,7 +26408,7 @@ const functionImplementation = {
             }
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26435,9 +26435,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26445,9 +26445,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26457,7 +26457,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26501,7 +26501,7 @@ const functionImplementation = {
             }
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26528,9 +26528,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来���用到
             var colorList = formula.colorList;
             var rangeValue = arguments[0];
@@ -26538,9 +26538,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26550,7 +26550,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26591,7 +26591,7 @@ const functionImplementation = {
             sparkColorSetting("spotRadius", spotRadius);
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -26618,9 +26618,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var cell_fp = window.luckysheetCurrentFunction;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var cell_fp = window.tibetsheetsCurrentFunction;
             //色表，接下来会用到
             var colorList = formula.colorList;
             //var rangeValue = arguments[0];
@@ -26628,9 +26628,9 @@ const functionImplementation = {
             //定义需要格式化data数据
             //var dataformat = formula.readCellDataToOneArray(rangeValue);
 
-            let luckysheetfile = getluckysheetfile();
+            let tibetsheetsfile = gettibetsheetsfile();
             let index = getSheetIndex(Store.calculateSheetIndex);
-            let sheetdata = luckysheetfile[index].data;
+            let sheetdata = tibetsheetsfile[index].data;
 
             //在下面获得该单元格的长度和宽度,同时考虑了合并单元格问题
             var cellSize = menuButton.getCellRealSize(sheetdata, cell_r, cell_c);
@@ -26640,7 +26640,7 @@ const functionImplementation = {
             //开始进行sparklines的详细设置，宽和高为单元格的宽高。
             var sparksetting = {};
 
-            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给luckysheetDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
+            //设置sparklines图表的宽高，线图的高会随着粗细而超出单元格高度，所以减去一个量，设置offsetY或者offsetX为渲染偏移量，传给tibetsheetsDrawMain使用。默认为0。=LINESPLINES(D9:E24,3,5)
             sparksetting.height = height;
             sparksetting.width = width;
 
@@ -26659,7 +26659,7 @@ const functionImplementation = {
 
             ////具体实现
             var dataformat = [];
-            luckysheet_getValue(arguments);
+            tibetsheets_getValue(arguments);
 
             var data1 = formula.getValueByFuncData(arguments[0]);
             var data2 = formula.getValueByFuncData(arguments[1]);
@@ -26674,7 +26674,7 @@ const functionImplementation = {
             sparksetting["type"] = "bullet";
             ////具体实现
 
-            var temp1 = luckysheetSparkline.init(dataformat, sparksetting);
+            var temp1 = tibetsheetsSparkline.init(dataformat, sparksetting);
 
             return temp1;
         }
@@ -27564,9 +27564,9 @@ const functionImplementation = {
         }
 
         try {
-            var cell_r = window.luckysheetCurrentRow;
-            var cell_c = window.luckysheetCurrentColumn;
-            var sheetindex_now = window.luckysheetCurrentIndex;
+            var cell_r = window.tibetsheetsCurrentRow;
+            var cell_c = window.tibetsheetsCurrentColumn;
+            var sheetindex_now = window.tibetsheetsCurrentIndex;
             //公式文本
             var strtext = func_methods.getFirstValue(arguments[0]).toString();
             if(valueIsError(strtext)){
@@ -27594,16 +27594,16 @@ const functionImplementation = {
         }
 
         try {
-            const cellRow = window.luckysheetCurrentRow;
-            const cellColumn = window.luckysheetCurrentColumn;
-            const cellFunction = window.luckysheetCurrentFunction;
+            const cellRow = window.tibetsheetsCurrentRow;
+            const cellColumn = window.tibetsheetsCurrentColumn;
+            const cellFunction = window.tibetsheetsCurrentFunction;
 
             const remoteFunction = func_methods.getFirstValue(arguments[0]);
             if(valueIsError(remoteFunction)){
                 return remoteFunction;
             }
 
-            luckysheetConfigsetting.remoteFunction(remoteFunction, data => {
+            tibetsheetsConfigsetting.remoteFunction(remoteFunction, data => {
                 const flowData = editor.deepCopyFlowData(Store.flowdata);
                 formula.execFunctionGroup(cellRow, cellColumn, data);
                 flowData[cellRow][cellColumn] = {

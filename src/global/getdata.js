@@ -12,7 +12,7 @@ import Store from '../store';
 //Get selection range value
 export function getdatabyselection(range, sheetIndex) {
     if(range == null){
-        range = Store.luckysheet_select_save[0];
+        range = Store.tibetsheets_select_save[0];
     }
 
     if (range["row"] == null || range["row"].length == 0) {
@@ -22,8 +22,8 @@ export function getdatabyselection(range, sheetIndex) {
     //取数据
     let d, cfg;
     if(sheetIndex != null && sheetIndex != Store.currentSheetIndex){
-        d = Store.luckysheetfile[getSheetIndex(sheetIndex)]["data"];
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)]["config"];
+        d = Store.tibetsheetsfile[getSheetIndex(sheetIndex)]["data"];
+        cfg = Store.tibetsheetsfile[getSheetIndex(sheetIndex)]["config"];
     }
     else{
         d = editor.deepCopyFlowData(Store.flowdata);
@@ -58,7 +58,7 @@ export function getdatabyselectionD(d, range) {
         return [];
     }
     
-    let dynamicArray_compute = dynamicArrayCompute(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"]);
+    let dynamicArray_compute = dynamicArrayCompute(Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["dynamicArray"]);
     let data = [];
 
     if(d==null){
@@ -389,7 +389,7 @@ export function checkstatusByCell(cell, a){
             // if(w.type!="None"){
             //     var range = w.getRangeAt(0);
             //     let startContainer = range.startContainer;
-            //     if (parseInt($("#luckysheet-input-box").css("top")) > 0 && startContainer.parentNode.tagName=="SPAN" && !range.collapsed) {
+            //     if (parseInt($("#tibetsheets-input-box").css("top")) > 0 && startContainer.parentNode.tagName=="SPAN" && !range.collapsed) {
             //         let span = startContainer.parentNode;
             //         let styleList = convertCssToStyleList(span.style.cssText);
             //         foucsStatus = styleList[a];

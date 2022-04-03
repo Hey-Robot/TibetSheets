@@ -22,7 +22,7 @@ window.sheetPicture = {
         }
     },
     celldata:[{"r":0,"c":0,"v":{"v":null,"bl":1}},{"r":1,"c":1,"v":{"ct":{"fa":"General","t":"g"},"v":"Border","bl":1,"tb":"1","m":"Border"}},{"r":1,"c":8,"v":{"m":"Fixed Position","ct":{"fa":"General","t":"g"},"v":"Fixed Position","bl":1}},{"r":4,"c":8,"v":{}},{"r":5,"c":1,"v":{"ct":{"fa":"General","t":"g"},"v":"Move and resize cells","bl":1,"tb":"1","m":"Move and resize cells"}},{"r":5,"c":8,"v":{"m":"Move and don't resize the cell","ct":{"fa":"General","t":"g"},"v":"Move and don't resize the cell","bl":1,"tb":"1"}},{"r":6,"c":0,"v":{"v":"","ct":{"fa":"General","t":"g"},"m":""}}],
-    "luckysheet_select_save": [
+    "tibetsheets_select_save": [
         {
             "left": 444,
             "width": 73,

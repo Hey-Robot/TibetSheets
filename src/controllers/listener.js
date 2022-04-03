@@ -4,20 +4,20 @@
 import {createProxy} from '../utils/util';
 import Store from '../store/index';
 import method from '../global/method';
-import { getluckysheetfile } from '../methods/get'
+import { gettibetsheetsfile } from '../methods/get'
 import { toJson } from '../global/api';
 
 let undoTimer,redoTimer;
 function undoAccessible(len) {
     clearTimeout(undoTimer);
     undoTimer = setTimeout(() => {
-        $('#luckysheet-icon-undo')[len ? 'removeClass' : 'addClass']('disabled');
+        $('#tibetsheets-icon-undo')[len ? 'removeClass' : 'addClass']('disabled');
     }, 10);
 }
 function redoAccessible(len) {
     clearTimeout(redoTimer);
     redoTimer = setTimeout(() => {
-        $('#luckysheet-icon-redo')[len ? 'removeClass' : 'addClass']('disabled');
+        $('#tibetsheets-icon-redo')[len ? 'removeClass' : 'addClass']('disabled');
     }, 10);
 }
 

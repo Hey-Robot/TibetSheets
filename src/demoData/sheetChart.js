@@ -1245,7 +1245,7 @@ window.sheetChart = {
 	"isPivotTable": false,
 	"ch_width": 4560,
 	"rh_height": 1807,
-	"luckysheet_select_save": [{
+	"tibetsheets_select_save": [{
 		"left": 0,
 		"width": 73,
 		"top": 445,
@@ -1259,7 +1259,7 @@ window.sheetChart = {
 		"row_focus": 22,
 		"column_focus": 0
 	}],
-	"luckysheet_selection_range": [],
+	"tibetsheets_selection_range": [],
 	"scrollLeft": 0,
 	"scrollTop": 185,
 	"chart": [{

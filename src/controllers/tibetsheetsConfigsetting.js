@@ -1,4 +1,4 @@
-const luckysheetConfigsetting = {
+const tibetsheetsConfigsetting = {
     autoFormatw: false,
     accuracy: undefined,
     total: 0,
@@ -41,4 +41,4 @@ const luckysheetConfigsetting = {
     defaultCellColor: '#fff',
 }
 
-export default luckysheetConfigsetting;
+export default tibetsheetsConfigsetting;

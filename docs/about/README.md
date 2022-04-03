@@ -1,6 +1,6 @@
 # Meet the Team
 
-Luckysheet is a project led by an individual and jointly developed by several friends with the same interests.
+Tibetsheets is a project led by an individual and jointly developed by several friends with the same interests.
 
 ### Active Core Team Members
 - [@wbfsa](https://github.com/wbfsa)

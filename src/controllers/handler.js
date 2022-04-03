@@ -1,9 +1,9 @@
 import mobileinit from './mobile';
-import luckysheetConfigsetting from './luckysheetConfigsetting';
-import luckysheetFreezen from './freezen';
+import tibetsheetsConfigsetting from './tibetsheetsConfigsetting';
+import tibetsheetsFreezen from './freezen';
 import pivotTable from './pivotTable';
-import luckysheetDropCell from './dropCell';
-import luckysheetPostil from './postil';
+import tibetsheetsDropCell from './dropCell';
+import tibetsheetsPostil from './postil';
 import imageCtrl from './imageCtrl';
 import hyperlinkCtrl from './hyperlinkCtrl';
 import dataVerificationCtrl from './dataVerificationCtrl';
@@ -13,18 +13,18 @@ import alternateformat from './alternateformat';
 import ifFormulaGenerator from './ifFormulaGenerator';
 import sheetmanage from './sheetmanage';
 import server from './server';
-import {luckysheetupdateCell} from './updateCell';
-import { luckysheet_searcharray } from './sheetSearch';
-import luckysheetsizeauto from './resize'; 
+import {tibetsheetsupdateCell} from './updateCell';
+import { tibetsheets_searcharray } from './sheetSearch';
+import tibetsheetssizeauto from './resize'; 
 import { 
-    luckysheetMoveHighlightCell, 
+    tibetsheetsMoveHighlightCell, 
 } from './sheetMove';
-import { selectHightlightShow, selectIsOverlap, selectionCopyShow, luckysheet_count_show,selectHelpboxFill } from './select';
+import { selectHightlightShow, selectIsOverlap, selectionCopyShow, tibetsheets_count_show,selectHelpboxFill } from './select';
 import selection from './selection';
 import controlHistory from './controlHistory';
 import splitColumn from './splitColumn';
 import {hideMenuByCancel} from '../global/cursorPos';
-import { luckysheetdefaultstyle } from './constant';
+import { tibetsheetsdefaultstyle } from './constant';
 import {checkProtectionLockedRangeList,checkProtectionAllSelected,checkProtectionSelectLockedOrUnLockedCells,checkProtectionNotEnable,checkProtectionAuthorityNormal} from './protection';
 import { openCellFormatModel } from './cellFormat';
 
@@ -34,8 +34,8 @@ import {
     chatatABC, 
     ArrayUnique,
     showrightclickmenu, 
-    luckysheetactiveCell,
-    luckysheetContainerFocus,
+    tibetsheetsactiveCell,
+    tibetsheetsContainerFocus,
     $$
 } from '../utils/util';
 import { getSheetIndex, getRangetxt } from '../methods/get';
@@ -49,12 +49,12 @@ import { isRealNull, hasPartMC, isEditMode, checkIsAllowEdit } from '../global/v
 import { countfunc } from '../global/count';
 import browser from '../global/browser';
 import formula from '../global/formula';
-import { luckysheetextendtable } from '../global/extend';
-import luckysheetscrollevent from '../global/scroll';
+import { tibetsheetsextendtable } from '../global/extend';
+import tibetsheetsscrollevent from '../global/scroll';
 import { 
     jfrefreshgrid, 
     jfrefreshgrid_rhcw,
-    luckysheetrefreshgrid, 
+    tibetsheetsrefreshgrid, 
 } from '../global/refresh';
 import { getdatabyselection, datagridgrowth } from '../global/getdata';
 import tooltip from '../global/tooltip';
@@ -62,13 +62,13 @@ import editor from '../global/editor';
 import { genarate } from '../global/format';
 import method from '../global/method';
 import { getBorderInfoCompute } from '../global/border';
-import { luckysheetDrawMain } from '../global/draw';
+import { tibetsheetsDrawMain } from '../global/draw';
 import locale from '../locale/locale';
 import Store from '../store';
 import { createLuckyChart, hideAllNeedRangeShow } from '../expendPlugins/chart/plugin'
 
 //, columeflowset, rowflowset
-export default function luckysheetHandler() {
+export default function tibetsheetsHandler() {
 
     const os = browser.detectOS(), isMobile = browser.mobilecheck();
 
@@ -104,7 +104,7 @@ export default function luckysheetHandler() {
 
     
 
-    $("#luckysheet-sheet-container-c").mousewheel(function (event, delta) {
+    $("#tibetsheets-sheet-container-c").mousewheel(function (event, delta) {
         let scrollNum = event.deltaFactor<40?1:(event.deltaFactor<80?2:3);
         let scrollLeft = $(this).scrollLeft();
         if(event.deltaY != 0){
@@ -133,7 +133,7 @@ export default function luckysheetHandler() {
     });
     
     //滚动监听
-    $("#luckysheet-cell-main").scroll(function () {
+    $("#tibetsheets-cell-main").scroll(function () {
         
     })
     .mousewheel(function (event, delta) {
@@ -144,18 +144,18 @@ export default function luckysheetHandler() {
     const locale_drag = _locale.drag;
     const locale_info = _locale.info;
     let prev, mousewheelArrayUniqueTimeout;
-    $("#luckysheet-grid-window-1").mousewheel(function (event, delta) {
-        let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft(), 
-            scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+    $("#tibetsheets-grid-window-1").mousewheel(function (event, delta) {
+        let scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft(), 
+            scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
         let visibledatacolumn_c = Store.visibledatacolumn, 
             visibledatarow_c = Store.visibledatarow;
 
-        if (luckysheetFreezen.freezenhorizontaldata != null) {
-            visibledatarow_c = luckysheetFreezen.freezenhorizontaldata[3];
+        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+            visibledatarow_c = tibetsheetsFreezen.freezenhorizontaldata[3];
         }
 
-        if (luckysheetFreezen.freezenverticaldata != null) {
-            visibledatacolumn_c = luckysheetFreezen.freezenverticaldata[3];
+        if (tibetsheetsFreezen.freezenverticaldata != null) {
+            visibledatacolumn_c = tibetsheetsFreezen.freezenverticaldata[3];
         }
 
         clearTimeout(mousewheelArrayUniqueTimeout);
@@ -183,11 +183,11 @@ export default function luckysheetHandler() {
         // visibledatacolumn_c = ArrayUnique(visibledatacolumn_c);
         // visibledatarow_c = ArrayUnique(visibledatarow_c);
 
-        let col_st = luckysheet_searcharray(visibledatacolumn_c, scrollLeft);
-        let row_st = luckysheet_searcharray(visibledatarow_c, scrollTop);
+        let col_st = tibetsheets_searcharray(visibledatacolumn_c, scrollLeft);
+        let row_st = tibetsheets_searcharray(visibledatarow_c, scrollTop);
 
-        if (luckysheetFreezen.freezenhorizontaldata != null) {
-            row_st = luckysheet_searcharray(visibledatarow_c, scrollTop + luckysheetFreezen.freezenhorizontaldata[0]);
+        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+            row_st = tibetsheets_searcharray(visibledatarow_c, scrollTop + tibetsheetsFreezen.freezenhorizontaldata[0]);
         }
 
         let colscroll = 0;
@@ -215,11 +215,11 @@ export default function luckysheetHandler() {
 
             rowscroll = row_ed == 0 ? 0 : visibledatarow_c[row_ed - 1];
 
-            if (luckysheetFreezen.freezenhorizontaldata != null) {
-                rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
+            if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+                rowscroll -= tibetsheetsFreezen.freezenhorizontaldata[0];
             }
 
-            $("#luckysheet-scrollbar-y").scrollTop(rowscroll);
+            $("#tibetsheets-scrollbar-y").scrollTop(rowscroll);
         }
         else if(event.deltaX != 0){
             let col_ed;
@@ -242,7 +242,7 @@ export default function luckysheetHandler() {
 
             // colscroll = col_ed == 0 ? 0 : visibledatacolumn_c[col_ed - 1];
 
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(scrollLeft);
         }
 
         mousewheelArrayUniqueTimeout = setTimeout(() => {
@@ -251,18 +251,18 @@ export default function luckysheetHandler() {
         }, 500);
     });
 
-    $("#luckysheet-scrollbar-x").scroll(function(){
+    $("#tibetsheets-scrollbar-x").scroll(function(){
         // setTimeout(function(){
-            luckysheetscrollevent();
+            tibetsheetsscrollevent();
         // },10); 
     })
     .mousewheel(function (event, delta) {
         event.preventDefault();
     });
 
-    $("#luckysheet-scrollbar-y").scroll(function(){
+    $("#tibetsheets-scrollbar-y").scroll(function(){
 		// setTimeout(function(){
-            luckysheetscrollevent();
+            tibetsheetsscrollevent();
         // },10);
     })
     .mousewheel(function (event, delta) {
@@ -271,59 +271,59 @@ export default function luckysheetHandler() {
 
     //页面resize
     $(window).resize(function () {
-        let luckysheetDocument = document.getElementById(Store.container);
-        if(luckysheetDocument){
-            luckysheetsizeauto();
+        let tibetsheetsDocument = document.getElementById(Store.container);
+        if(tibetsheetsDocument){
+            tibetsheetssizeauto();
         }            
     });
 
-    $("#luckysheet-rich-text-editor").mouseup(function(e){
+    $("#tibetsheets-rich-text-editor").mouseup(function(e){
         menuButton.inputMenuButtonFocus(e.target);
     });
 
     //表格mousedown
-    $("#luckysheet-cell-main, #luckysheetTableContent").mousedown(function (event) {
-        if($(event.target).hasClass('luckysheet-mousedown-cancel')){
+    $("#tibetsheets-cell-main, #tibetsheetsTableContent").mousedown(function (event) {
+        if($(event.target).hasClass('tibetsheets-mousedown-cancel')){
             return;
         }
 
         // 协同编辑其他用户不在操作的时候，用户名框隐藏
         hideUsername();
 
-        $("#luckysheet-cell-selected").find(".luckysheet-cs-fillhandle")
+        $("#tibetsheets-cell-selected").find(".tibetsheets-cs-fillhandle")
         .css("cursor","default")
         .end()
-        .find(".luckysheet-cs-draghandle")
+        .find(".tibetsheets-cs-draghandle")
         .css("cursor","default");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor","default");
+        $("#tibetsheets-cell-main, #tibetsheetsTableContent, #tibetsheets-sheettable_0").css("cursor","default");
 
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         //图片 active/cropping
-        if($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")){
+        if($("#tibetsheets-modal-dialog-activeImage").is(":visible") || $("#tibetsheets-modal-dialog-cropping").is(":visible")){
             imageCtrl.cancelActiveImgItem();
         }
 
-        //luckysheetautoadjustmousedown = 1;
+        //tibetsheetsautoadjustmousedown = 1;
         let mouse = mouseposition(event.pageX, event.pageY);
         if (mouse[0] >= Store.cellmainWidth - Store.cellMainSrollBarSize || mouse[1] >= Store.cellmainHeight - Store.cellMainSrollBarSize) {
             return;
         }
 
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
-        if(luckysheetFreezen.freezenverticaldata != null && mouse[0] < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
-            x = mouse[0] + luckysheetFreezen.freezenverticaldata[2];
+        if(tibetsheetsFreezen.freezenverticaldata != null && mouse[0] < (tibetsheetsFreezen.freezenverticaldata[0] - tibetsheetsFreezen.freezenverticaldata[2])){
+            x = mouse[0] + tibetsheetsFreezen.freezenverticaldata[2];
         }
 
-        if(luckysheetFreezen.freezenhorizontaldata != null && mouse[1] < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
-            y = mouse[1] + luckysheetFreezen.freezenhorizontaldata[2];
+        if(tibetsheetsFreezen.freezenhorizontaldata != null && mouse[1] < (tibetsheetsFreezen.freezenhorizontaldata[0] - tibetsheetsFreezen.freezenhorizontaldata[2])){
+            y = mouse[1] + tibetsheetsFreezen.freezenhorizontaldata[2];
         }
 
         let sheetFile = sheetmanage.getSheetByIndex();
-        let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+        let tibetsheetsTableContent = $("#tibetsheetsTableContent").get(0).getContext("2d");
 
         let row_location = rowLocation(y), 
             row = row_location[1], 
@@ -358,29 +358,29 @@ export default function luckysheetHandler() {
             "start_c": col_pre, 
             "end_r": row, 
             "end_c": col 
-        }, sheetFile,luckysheetTableContent)){ return; }
+        }, sheetFile,tibetsheetsTableContent)){ return; }
 
 
         //数据验证 单元格聚焦
         dataVerificationCtrl.cellFocus(row_index, col_index, true);
 
         //若点击单元格部分不在视图内
-        if (col_pre < $("#luckysheet-cell-main").scrollLeft()) {
-            $("#luckysheet-scrollbar-x").scrollLeft(col_pre);
+        if (col_pre < $("#tibetsheets-cell-main").scrollLeft()) {
+            $("#tibetsheets-scrollbar-x").scrollLeft(col_pre);
         }
 
-        if (row_pre < $("#luckysheet-cell-main").scrollTop()) {
-            $("#luckysheet-scrollbar-y").scrollTop(row_pre);
+        if (row_pre < $("#tibetsheets-cell-main").scrollTop()) {
+            $("#tibetsheets-scrollbar-y").scrollTop(row_pre);
         }
 
         //mousedown是右键
         if (event.which == "3") {
-            $("#luckysheet-dataVerification-showHintBox").hide();
+            $("#tibetsheets-dataVerification-showHintBox").hide();
 
             let isright = false;
 
-            for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-                if (Store.luckysheet_select_save[s]["row"] != null && (row_index >= Store.luckysheet_select_save[s]["row"][0] && row_index <= Store.luckysheet_select_save[s]["row"][1] && col_index >= Store.luckysheet_select_save[s]["column"][0] && col_index <= Store.luckysheet_select_save[s]["column"][1])) {
+            for (let s = 0; s < Store.tibetsheets_select_save.length; s++) {
+                if (Store.tibetsheets_select_save[s]["row"] != null && (row_index >= Store.tibetsheets_select_save[s]["row"][0] && row_index <= Store.tibetsheets_select_save[s]["row"][1] && col_index >= Store.tibetsheets_select_save[s]["column"][0] && col_index <= Store.tibetsheets_select_save[s]["column"][1])) {
                     isright = true;
                     break;
                 }
@@ -393,8 +393,8 @@ export default function luckysheetHandler() {
 
         //单元格数据下钻
         if (Store.flowdata[row_index] != null && Store.flowdata[row_index][col_index] != null && Store.flowdata[row_index][col_index].dd != null) {
-            if (luckysheetConfigsetting.fireMousedown != null && getObjType(luckysheetConfigsetting.fireMousedown) == "function") {
-                luckysheetConfigsetting.fireMousedown(Store.flowdata[row_index][col_index].dd);
+            if (tibetsheetsConfigsetting.fireMousedown != null && getObjType(tibetsheetsConfigsetting.fireMousedown) == "function") {
+                tibetsheetsConfigsetting.fireMousedown(Store.flowdata[row_index][col_index].dd);
                 return;
             }
         }
@@ -405,10 +405,10 @@ export default function luckysheetHandler() {
             return;
         }
 
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
 
         //公式相关
-        let $input = $("#luckysheet-input-box");
+        let $input = $("#tibetsheets-input-box");
         if (parseInt($input.css("top")) > 0) {
             if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton()) {
                 //公式选区
@@ -487,7 +487,7 @@ export default function luckysheetHandler() {
                         width = changeparam[5];
                     }
 
-                    luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
+                    tibetsheets_count_show(left, top, width, height, rowseleted, columnseleted);
 
                     last["row"] = rowseleted;
                     last["column"] = columnseleted;
@@ -499,9 +499,9 @@ export default function luckysheetHandler() {
 
                     formula.func_selectedrange = last;
                 }
-                else if (event.ctrlKey && $("#luckysheet-rich-text-editor").find("span").last().text() != ",") {
+                else if (event.ctrlKey && $("#tibetsheets-rich-text-editor").find("span").last().text() != ",") {
                     //按住ctrl 选择选区时  先处理上一个选区
-                    let vText = $("#luckysheet-rich-text-editor").text();
+                    let vText = $("#tibetsheets-rich-text-editor").text();
                     
                     if(vText[vText.length -1 ] === ")"){
                         vText = vText.substr(0,vText.length - 1); //先删除最后侧的圆括号) 
@@ -528,7 +528,7 @@ export default function luckysheetHandler() {
 
                         /* 在显示前重新 + 右侧的圆括号) */
 
-                        $("#luckysheet-rich-text-editor").html(vText + ")");
+                        $("#tibetsheets-rich-text-editor").html(vText + ")");
 
                         formula.canceFunctionrangeSelected();
                         formula.createRangeHightlight();
@@ -538,8 +538,8 @@ export default function luckysheetHandler() {
                     formula.rangedrag_column_start = false;
                     formula.rangedrag_row_start = false;
 
-                    $("#luckysheet-functionbox-cell").html(vText + ")");
-                    formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
+                    $("#tibetsheets-functionbox-cell").html(vText + ")");
+                    formula.rangeHightlightselected($("#tibetsheets-rich-text-editor"));
 
                     //再进行 选区的选择
                     formula.israngeseleciton();
@@ -581,22 +581,22 @@ export default function luckysheetHandler() {
                 formula.rangedrag_column_start = false;
                 formula.rangedrag_row_start = false;
 
-                $("#luckysheet-formula-functionrange-select").css({
+                $("#tibetsheets-formula-functionrange-select").css({
                     "left": left,
                     "width": width,
                     "top": top,
                     "height": height
                 }).show();
-                $("#luckysheet-formula-help-c").hide();
-                luckysheet_count_show(left, top, width, height, rowseleted, columnseleted);
+                $("#tibetsheets-formula-help-c").hide();
+                tibetsheets_count_show(left, top, width, height, rowseleted, columnseleted);
 
                 setTimeout(function () {
                     let currSelection = window.getSelection();
                     let anchorOffset = currSelection.anchorNode;
 
                     let $editor;
-                    if ($("#luckysheet-search-formula-parm").is(":visible") || $("#luckysheet-search-formula-parm-select").is(":visible")) {
-                        $editor = $("#luckysheet-rich-text-editor");
+                    if ($("#tibetsheets-search-formula-parm").is(":visible") || $("#tibetsheets-search-formula-parm-select").is(":visible")) {
+                        $editor = $("#tibetsheets-rich-text-editor");
                         formula.rangechangeindex = formula.data_parm_index;
                     }
                     else {
@@ -610,24 +610,24 @@ export default function luckysheetHandler() {
                 return;
             }
             else {
-                formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                Store.luckysheet_select_status = true;
+                formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+                Store.tibetsheets_select_status = true;
 
-                if ($("#luckysheet-info").is(":visible")) {
-                    Store.luckysheet_select_status = false;
+                if ($("#tibetsheets-info").is(":visible")) {
+                    Store.tibetsheets_select_status = false;
                 }
             }
         }
         else {
             if(checkProtectionSelectLockedOrUnLockedCells(row_index, col_index, Store.currentSheetIndex)){
-                Store.luckysheet_select_status = true;
+                Store.tibetsheets_select_status = true;
             }
         }
 
         //条件格式 应用范围可选择多个单元格
-        if ($("#luckysheet-multiRange-dialog").is(":visible")) {
+        if ($("#tibetsheets-multiRange-dialog").is(":visible")) {
             conditionformat.selectStatus = true;
-            Store.luckysheet_select_status = false;
+            Store.tibetsheets_select_status = false;
 
             if (event.shiftKey) {
                 let last = conditionformat.selectRange[conditionformat.selectRange.length - 1];
@@ -743,7 +743,7 @@ export default function luckysheetHandler() {
             selectionCopyShow(conditionformat.selectRange);
 
             let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-            $("#luckysheet-multiRange-dialog input").val(range);
+            $("#tibetsheets-multiRange-dialog input").val(range);
 
             return;
         }
@@ -753,8 +753,8 @@ export default function luckysheetHandler() {
         }
 
         //条件格式 条件值只能选择单个单元格
-        if ($("#luckysheet-singleRange-dialog").is(":visible")) {
-            Store.luckysheet_select_status = false;
+        if ($("#tibetsheets-singleRange-dialog").is(":visible")) {
+            Store.tibetsheets_select_status = false;
 
             selectionCopyShow([{ "row": [row_index, row_index], "column": [col_index, col_index] }]);
 
@@ -763,15 +763,15 @@ export default function luckysheetHandler() {
                 { "row": [row_index, row_index], "column": [col_index, col_index] },
                 Store.currentSheetIndex
             );
-            $("#luckysheet-singleRange-dialog input").val(range);
+            $("#tibetsheets-singleRange-dialog input").val(range);
 
             return;
         }
 
         //数据验证 单元格范围选择
-        if($("#luckysheet-dataVerificationRange-dialog").is(":visible")){
+        if($("#tibetsheets-dataVerificationRange-dialog").is(":visible")){
             dataVerificationCtrl.selectStatus = true;
-            Store.luckysheet_select_status = false;
+            Store.tibetsheets_select_status = false;
 
             if (event.shiftKey) {
                 let last = dataVerificationCtrl.selectRange[dataVerificationCtrl.selectRange.length - 1];
@@ -872,9 +872,9 @@ export default function luckysheetHandler() {
 
             let range = dataVerificationCtrl.getTxtByRange(dataVerificationCtrl.selectRange);
             if(formula.rangetosheet != Store.currentSheetIndex){
-                range = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name + '!' + range;
+                range = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].name + '!' + range;
             }
-            $("#luckysheet-dataVerificationRange-dialog input").val(range);
+            $("#tibetsheets-dataVerificationRange-dialog input").val(range);
 
             return;
         }
@@ -885,33 +885,33 @@ export default function luckysheetHandler() {
 
         //if公式生成器
         if (ifFormulaGenerator.singleRangeFocus) {
-            $("#luckysheet-ifFormulaGenerator-dialog .singRange").click();
+            $("#tibetsheets-ifFormulaGenerator-dialog .singRange").click();
         }
-        if ($("#luckysheet-ifFormulaGenerator-singleRange-dialog").is(":visible")) {
+        if ($("#tibetsheets-ifFormulaGenerator-singleRange-dialog").is(":visible")) {
             //选择单个单元格
-            Store.luckysheet_select_status = false;
+            Store.tibetsheets_select_status = false;
             formula.rangestart = false;
 
-            $("#luckysheet-formula-functionrange-select").css({
+            $("#tibetsheets-formula-functionrange-select").css({
                 "left": col_pre,
                 "width": col - col_pre - 1,
                 "top": row_pre,
                 "height": row - row_pre - 1
             }).show();
-            $("#luckysheet-formula-help-c").hide();
+            $("#tibetsheets-formula-help-c").hide();
 
             let range = getRangetxt(
                 Store.currentSheetIndex,
                 { "row": [row_index, row_index], "column": [col_index, col_index] },
                 Store.currentSheetIndex
             );
-            $("#luckysheet-ifFormulaGenerator-singleRange-dialog input").val(range);
+            $("#tibetsheets-ifFormulaGenerator-singleRange-dialog input").val(range);
 
             return;
         }
-        if ($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
+        if ($("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
             //选择范围
-            Store.luckysheet_select_status = false;
+            Store.tibetsheets_select_status = false;
             formula.func_selectedrange = {
                 "left": col_pre,
                 "width": col - col_pre - 1,
@@ -928,31 +928,31 @@ export default function luckysheetHandler() {
             };
             formula.rangestart = true;
 
-            $("#luckysheet-formula-functionrange-select").css({
+            $("#tibetsheets-formula-functionrange-select").css({
                 "left": col_pre,
                 "width": col - col_pre - 1,
                 "top": row_pre,
                 "height": row - row_pre - 1
             }).show();
-            $("#luckysheet-formula-help-c").hide();
+            $("#tibetsheets-formula-help-c").hide();
 
             let range = getRangetxt(
                 Store.currentSheetIndex,
                 { "row": [row_index, row_index], "column": [col_index, col_index] },
                 Store.currentSheetIndex
             );
-            $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+            $("#tibetsheets-ifFormulaGenerator-multiRange-dialog input").val(range);
 
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
+            $("#tibetsheets-row-count-show").hide();
+            $("#tibetsheets-column-count-show").hide();
 
             return;
         }
 
-        if (Store.luckysheet_select_status) {
+        if (Store.tibetsheets_select_status) {
             if (event.shiftKey) {
                 //按住shift点击，选择范围
-                let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]); //选区最后一个
+                let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]); //选区最后一个
 
                 let top = 0, height = 0, rowseleted = [];
                 if (last.top > row_pre) {
@@ -1026,20 +1026,20 @@ export default function luckysheetHandler() {
                 last["top_move"] = top;
                 last["height_move"] = height;
 
-                Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
 
                 //交替颜色选择范围
-                if ($("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
-                    $("#luckysheet-alternateformat-rangeDialog input").val(getRangetxt(Store.currentSheetIndex, Store.luckysheet_select_save));
+                if ($("#tibetsheets-alternateformat-rangeDialog").is(":visible")) {
+                    $("#tibetsheets-alternateformat-rangeDialog input").val(getRangetxt(Store.currentSheetIndex, Store.tibetsheets_select_save));
                 }
 
-                if (pivotTable.luckysheet_pivotTable_select_state) {
-                    $("#luckysheet-pivotTable-range-selection-input").val(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name + "!" + chatatABC(Store.luckysheet_select_save[0]["column"][0]) + (Store.luckysheet_select_save[0]["row"][0] + 1) + ":" + chatatABC(Store.luckysheet_select_save[0]["column"][1]) + (Store.luckysheet_select_save[0]["row"][1] + 1));
+                if (pivotTable.tibetsheets_pivotTable_select_state) {
+                    $("#tibetsheets-pivotTable-range-selection-input").val(Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].name + "!" + chatatABC(Store.tibetsheets_select_save[0]["column"][0]) + (Store.tibetsheets_select_save[0]["row"][0] + 1) + ":" + chatatABC(Store.tibetsheets_select_save[0]["column"][1]) + (Store.tibetsheets_select_save[0]["row"][1] + 1));
                 }
             }
             else if (event.ctrlKey) {
                 //选区添加
-                Store.luckysheet_select_save.push({
+                Store.tibetsheets_select_save.push({
                     "left": col_pre,
                     "width": col - col_pre - 1,
                     "top": row_pre,
@@ -1055,8 +1055,8 @@ export default function luckysheetHandler() {
                 });
             }
             else {
-                Store.luckysheet_select_save.length = 0;
-                Store.luckysheet_select_save.push({
+                Store.tibetsheets_select_save.length = 0;
+                Store.tibetsheets_select_save.push({
                     "left": col_pre,
                     "width": col - col_pre - 1,
                     "top": row_pre,
@@ -1079,25 +1079,25 @@ export default function luckysheetHandler() {
 
             selectHightlightShow();
 
-            if (luckysheetFreezen.freezenhorizontaldata != null || luckysheetFreezen.freezenverticaldata != null) {
-                luckysheetFreezen.scrollAdaptOfselect();
+            if (tibetsheetsFreezen.freezenhorizontaldata != null || tibetsheetsFreezen.freezenverticaldata != null) {
+                tibetsheetsFreezen.scrollAdaptOfselect();
             }
 
             if (!browser.mobilecheck()) { //非移动端聚焦输入框
-                luckysheetactiveCell();
+                tibetsheetsactiveCell();
             }
 
             //允许编辑后的后台更新时
-            server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+            server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
         }
 
         //交替颜色
         if (alternateformat.rangefocus) {
             alternateformat.rangefocus = false;
-            $("#luckysheet-alternateformat-range .fa-table").click();
+            $("#tibetsheets-alternateformat-range .fa-table").click();
         }
 
-        $("#luckysheet-row-count-show, #luckysheet-column-count-show").hide();
+        $("#tibetsheets-row-count-show, #tibetsheets-column-count-show").hide();
 
         if (!isEditMode()) {
             //chartMix 隐藏当前页的数据选择区域高亮
@@ -1109,7 +1109,7 @@ export default function luckysheetHandler() {
         //数据透视表
         pivotTable.pivotclick(row_index, col_index, Store.currentSheetIndex);
 
-        luckysheetContainerFocus();
+        tibetsheetsContainerFocus();
 
         method.createHookFunction("cellMousedown", Store.flowdata[row_index][col_index], {
             r:row_index,
@@ -1118,16 +1118,16 @@ export default function luckysheetHandler() {
             "start_c": col_pre, 
             "end_r": row, 
             "end_c": col 
-        }, sheetFile,luckysheetTableContent);
+        }, sheetFile,tibetsheetsTableContent);
 
-        //$("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-sel").removeClass("luckysheet-cols-h-cell-sel").addClass("luckysheet-cols-h-cell-nosel");
+        //$("#tibetsheets-cols-h-c .tibetsheets-cols-h-cells-c .tibetsheets-cols-h-cells-clip .tibetsheets-cols-h-cell-sel").removeClass("tibetsheets-cols-h-cell-sel").addClass("tibetsheets-cols-h-cell-nosel");
 
-        //$("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-sel").removeClass("luckysheet-rows-h-cell-sel").addClass("luckysheet-rows-h-cell-nosel");
+        //$("#tibetsheets-rows-h .tibetsheets-rows-h-cells .tibetsheets-rows-h-cells-c .tibetsheets-rows-h-cells-clip .tibetsheets-rows-h-cell-sel").removeClass("tibetsheets-rows-h-cell-sel").addClass("tibetsheets-rows-h-cell-nosel");
 
 
-        //$("#luckysheet-cols-h-c .luckysheet-cols-h-cells-c .luckysheet-cols-h-cells-clip .luckysheet-cols-h-cell-nosel").eq(col_index).removeClass("luckysheet-cols-h-cell-nosel").addClass("luckysheet-cols-h-cell-sel");
+        //$("#tibetsheets-cols-h-c .tibetsheets-cols-h-cells-c .tibetsheets-cols-h-cells-clip .tibetsheets-cols-h-cell-nosel").eq(col_index).removeClass("tibetsheets-cols-h-cell-nosel").addClass("tibetsheets-cols-h-cell-sel");
 
-        //$("#luckysheet-rows-h .luckysheet-rows-h-cells .luckysheet-rows-h-cells-c .luckysheet-rows-h-cells-clip .luckysheet-rows-h-cell-nosel").eq(row_index).removeClass("luckysheet-rows-h-cell-nosel").addClass("luckysheet-rows-h-cell-sel");
+        //$("#tibetsheets-rows-h .tibetsheets-rows-h-cells .tibetsheets-rows-h-cells-c .tibetsheets-rows-h-cells-clip .tibetsheets-rows-h-cell-nosel").eq(row_index).removeClass("tibetsheets-rows-h-cell-nosel").addClass("tibetsheets-rows-h-cell-sel");
 
         //event.stopImmediatePropagation();
 
@@ -1146,16 +1146,16 @@ export default function luckysheetHandler() {
             let y = event.pageY;
             let data = Store.flowdata;
 
-            let obj_s = Store.luckysheet_select_save[0];
+            let obj_s = Store.tibetsheets_select_save[0];
 
-            const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
+            const cellRightClickConfig = tibetsheetsConfigsetting.cellRightClickConfig;
 
-            $("#luckysheet-cols-rows-data").show();
-            $("#luckysheet-cols-rows-handleincell").show();
-            $("#luckysheet-cols-rows-add, #luckysheet-cols-rows-shift").hide();
+            $("#tibetsheets-cols-rows-data").show();
+            $("#tibetsheets-cols-rows-handleincell").show();
+            $("#tibetsheets-cols-rows-add, #tibetsheets-cols-rows-shift").hide();
 
-            $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'block';
-            $$('#luckysheet-cols-rows-handleincell .luckysheet-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-handleincell .tibetsheets-menuseparator').style.display = 'block';
 
             if (obj_s["row"] != null && obj_s["row"][0] == 0 && obj_s["row"][1] == Store.flowdata.length - 1) {
 
@@ -1164,42 +1164,42 @@ export default function luckysheetHandler() {
                     return;
                 }
 
-                Store.luckysheetRightHeadClickIs = "column";
+                Store.tibetsheetsRightHeadClickIs = "column";
 
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.column);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.width);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-word").text(locale().rightclick.column);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-size").text(locale().rightclick.width);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-left").text(locale().rightclick.left);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-right").text(locale().rightclick.right);
 
-                $("#luckysheet-cols-rows-add").show();
-                // $("#luckysheet-cols-rows-data").show();
-                $("#luckysheet-cols-rows-shift").hide();
-                $("#luckysheet-cols-rows-handleincell").hide();
-                Store.luckysheet_cols_menu_status = true;
+                $("#tibetsheets-cols-rows-add").show();
+                // $("#tibetsheets-cols-rows-data").show();
+                $("#tibetsheets-cols-rows-shift").hide();
+                $("#tibetsheets-cols-rows-handleincell").hide();
+                Store.tibetsheets_cols_menu_status = true;
 
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'block';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'block';
 
                 // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
-                $$('#luckysheet-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-                $$('#luckysheet-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-                $$('#luckysheet-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
-                $$('#luckysheet-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-                $$('#luckysheet-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-                $$('#luckysheet-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
+                $$('#tibetsheets-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+                $$('#tibetsheets-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+                $$('#tibetsheets-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
+                $$('#tibetsheets-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+                $$('#tibetsheets-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+                $$('#tibetsheets-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
 
                 // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
                 if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-                    $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
 
                     if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-                        $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                        $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
                     }
 
                 }
 
                 // 2.当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
                 if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-                    $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
                 }
 
                 //列宽默认值
@@ -1208,11 +1208,11 @@ export default function luckysheetHandler() {
                     cfg["columnlen"] = {};
                 }
 
-                let first_collen = cfg["columnlen"][Store.luckysheet_select_save[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.luckysheet_select_save[0].column[0]];
+                let first_collen = cfg["columnlen"][Store.tibetsheets_select_save[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.tibetsheets_select_save[0].column[0]];
                 let isSame = true;
 
-                for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-                    let s = Store.luckysheet_select_save[i];
+                for (let i = 0; i < Store.tibetsheets_select_save.length; i++) {
+                    let s = Store.tibetsheets_select_save[i];
                     let c1 = s.column[0], c2 = s.column[1];
 
                     for (let c = c1; c <= c2; c++) {
@@ -1226,10 +1226,10 @@ export default function luckysheetHandler() {
                 }
 
                 if (isSame) {
-                    $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val(first_collen);
+                    $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val(first_collen);
                 }
                 else {
-                    $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val("");
+                    $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val("");
                 }
             }
             else if (obj_s["column"] != null && obj_s["column"][0] == 0 && obj_s["column"][1] == Store.flowdata[0].length - 1) {
@@ -1239,41 +1239,41 @@ export default function luckysheetHandler() {
                     return;
                 }
 
-                Store.luckysheetRightHeadClickIs = "row";
+                Store.tibetsheetsRightHeadClickIs = "row";
 
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.row);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.height);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.top);
-                $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.bottom);
-                $("#luckysheet-cols-rows-add").show();
-                // $("#luckysheet-cols-rows-data").show();
-                $("#luckysheet-cols-rows-shift").hide();
-                $("#luckysheet-cols-rows-handleincell").hide();
-                Store.luckysheet_cols_menu_status = true;
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-word").text(locale().rightclick.row);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-size").text(locale().rightclick.height);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-left").text(locale().rightclick.top);
+                $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-right").text(locale().rightclick.bottom);
+                $("#tibetsheets-cols-rows-add").show();
+                // $("#tibetsheets-cols-rows-data").show();
+                $("#tibetsheets-cols-rows-shift").hide();
+                $("#tibetsheets-cols-rows-handleincell").hide();
+                Store.tibetsheets_cols_menu_status = true;
 
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'block';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'block';
 
                 // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
-                $$('#luckysheet-top-left-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
-                $$('#luckysheet-bottom-right-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
-                $$('#luckysheet-del-selected').style.display = cellRightClickConfig.deleteRow ? 'block' : 'none';
-                $$('#luckysheet-hide-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
-                $$('#luckysheet-show-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
-                $$('#luckysheet-column-row-width-selected').style.display = cellRightClickConfig.rowHeight ? 'block' : 'none';
+                $$('#tibetsheets-top-left-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
+                $$('#tibetsheets-bottom-right-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
+                $$('#tibetsheets-del-selected').style.display = cellRightClickConfig.deleteRow ? 'block' : 'none';
+                $$('#tibetsheets-hide-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
+                $$('#tibetsheets-show-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
+                $$('#tibetsheets-column-row-width-selected').style.display = cellRightClickConfig.rowHeight ? 'block' : 'none';
 
                 // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
                 if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-                    $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
 
                     if(!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight){
-                        $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                        $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
                     }
 
                 }
 
                 // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
                 if(!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight){
-                    $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
                 }
 
                 //行高默认值
@@ -1282,11 +1282,11 @@ export default function luckysheetHandler() {
                     cfg["rowlen"] = {};
                 }
 
-                let first_rowlen = cfg["rowlen"][Store.luckysheet_select_save[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.luckysheet_select_save[0].row[0]];
+                let first_rowlen = cfg["rowlen"][Store.tibetsheets_select_save[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.tibetsheets_select_save[0].row[0]];
                 let isSame = true;
 
-                for (let i = 0; i < Store.luckysheet_select_save.length; i++) {
-                    let s = Store.luckysheet_select_save[i];
+                for (let i = 0; i < Store.tibetsheets_select_save.length; i++) {
+                    let s = Store.tibetsheets_select_save[i];
                     let r1 = s.row[0], r2 = s.row[1];
 
                     for (let r = r1; r <= r2; r++) {
@@ -1300,10 +1300,10 @@ export default function luckysheetHandler() {
                 }
 
                 if (isSame) {
-                    $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val(first_rowlen);
+                    $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val(first_rowlen);
                 }
                 else {
-                    $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val("");
+                    $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val("");
                 }
             }else{
                 // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
@@ -1313,31 +1313,31 @@ export default function luckysheetHandler() {
 
                 // 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
                 if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-                    $$('#luckysheet-cols-rows-handleincell .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-handleincell .tibetsheets-menuseparator').style.display = 'none';
 
                     if(!cellRightClickConfig.insertRow && !cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteRow && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.deleteCell){
-                        $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                        $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
                     }
 
                 }
 
                 if(!cellRightClickConfig.insertRow && !cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteRow && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.deleteCell){
-                    $$('#luckysheet-cols-rows-handleincell .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-handleincell .tibetsheets-menuseparator').style.display = 'none';
                 }
             }
 
             // 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
             if(!cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.chart && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data && !cellRightClickConfig.cellFormat){
-                    $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
             }
             
-            showrightclickmenu($("#luckysheet-rightclick-menu"), x, y);
+            showrightclickmenu($("#tibetsheets-rightclick-menu"), x, y);
         }
 
         // 备注：在mousedown中发送光标信息会漏处理部分(选区)范围
-        server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+        server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
     }).dblclick(function (event) {
-        if($(event.target).hasClass('luckysheet-mousedown-cancel')){
+        if($(event.target).hasClass('tibetsheets-mousedown-cancel')){
             return;
         }
         
@@ -1346,7 +1346,7 @@ export default function luckysheetHandler() {
             return;
         }
 
-        if (parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if (parseInt($("#tibetsheets-input-box").css("top")) > 0) {
             return;
         }
 
@@ -1355,17 +1355,17 @@ export default function luckysheetHandler() {
             return;
         }
 
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft(),
-            scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft(),
+            scrollTop = $("#tibetsheets-cell-main").scrollTop();
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
 
-        if(luckysheetFreezen.freezenverticaldata != null && mouse[0] < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
-            x = mouse[0] + luckysheetFreezen.freezenverticaldata[2];
+        if(tibetsheetsFreezen.freezenverticaldata != null && mouse[0] < (tibetsheetsFreezen.freezenverticaldata[0] - tibetsheetsFreezen.freezenverticaldata[2])){
+            x = mouse[0] + tibetsheetsFreezen.freezenverticaldata[2];
         }
 
-        if(luckysheetFreezen.freezenhorizontaldata != null && mouse[1] < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
-            y = mouse[1] + luckysheetFreezen.freezenhorizontaldata[2];
+        if(tibetsheetsFreezen.freezenhorizontaldata != null && mouse[1] < (tibetsheetsFreezen.freezenhorizontaldata[0] - tibetsheetsFreezen.freezenhorizontaldata[2])){
+            y = mouse[1] + tibetsheetsFreezen.freezenhorizontaldata[2];
         }
 
         let row_location = rowLocation(y),
@@ -1430,31 +1430,31 @@ export default function luckysheetHandler() {
             return;
         }
 
-        if ($("#luckysheet-search-formula-parm").is(":visible") || $("#luckysheet-search-formula-parm-select").is(":visible")) {
+        if ($("#tibetsheets-search-formula-parm").is(":visible") || $("#tibetsheets-search-formula-parm-select").is(":visible")) {
             //公式参数栏显示
-            $("#luckysheet-cell-selected").hide();
+            $("#tibetsheets-cell-selected").hide();
         }
-        else if ($("#luckysheet-conditionformat-dialog").is(":visible") || $("#luckysheet-administerRule-dialog").is(":visible") || $("#luckysheet-newConditionRule-dialog").is(":visible") || $("#luckysheet-editorConditionRule-dialog").is(":visible") || $("#luckysheet-singleRange-dialog").is(":visible") || $("#luckysheet-multiRange-dialog").is(":visible")) {
+        else if ($("#tibetsheets-conditionformat-dialog").is(":visible") || $("#tibetsheets-administerRule-dialog").is(":visible") || $("#tibetsheets-newConditionRule-dialog").is(":visible") || $("#tibetsheets-editorConditionRule-dialog").is(":visible") || $("#tibetsheets-singleRange-dialog").is(":visible") || $("#tibetsheets-multiRange-dialog").is(":visible")) {
             //条件格式
             return;
         }
-        else if ($("#luckysheet-modal-dialog-slider-alternateformat").is(":visible") || $("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
+        else if ($("#tibetsheets-modal-dialog-slider-alternateformat").is(":visible") || $("#tibetsheets-alternateformat-rangeDialog").is(":visible")) {
             //交替颜色
             return;
         }
         else {
-            if (menuButton.luckysheetPaintModelOn) {
+            if (menuButton.tibetsheetsPaintModelOn) {
                 menuButton.cancelPaintModel();
             }
 
             // 检查当前坐标和焦点坐标是否一致，如果不一致那么进行修正
-            let  column_focus = Store.luckysheet_select_save[0]["column_focus"];
-            let  row_focus    = Store.luckysheet_select_save[0]["row_focus"];
+            let  column_focus = Store.tibetsheets_select_save[0]["column_focus"];
+            let  row_focus    = Store.tibetsheets_select_save[0]["row_focus"];
             if(column_focus !== col_index || row_focus !==  row_index){
                 row_index = row_focus;
                 col_index = column_focus;
             };
-            luckysheetupdateCell(row_index, col_index, Store.flowdata);
+            tibetsheetsupdateCell(row_index, col_index, Store.flowdata);
             
             /* 设置选区高亮 */
             selectHightlightShow();
@@ -1463,7 +1463,7 @@ export default function luckysheetHandler() {
     });
 
     //监听拖拽 
-    document.getElementById('luckysheet-cell-main').addEventListener('drop', function(e){
+    document.getElementById('tibetsheets-cell-main').addEventListener('drop', function(e){
         e.preventDefault();
         e.stopPropagation();
 
@@ -1480,7 +1480,7 @@ export default function luckysheetHandler() {
         }
         handleCellDragStopEvent(e);
     }, false);
-    document.getElementById('luckysheet-cell-main').addEventListener('dragover', function(e){
+    document.getElementById('tibetsheets-cell-main').addEventListener('dragover', function(e){
         e.preventDefault();
         e.stopPropagation();
     }, false);
@@ -1490,10 +1490,10 @@ export default function luckysheetHandler() {
      * @param {DragEvent} event 
      */
     function handleCellDragStopEvent(event) {
-        if (luckysheetConfigsetting && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.cellDragStop) {
+        if (tibetsheetsConfigsetting && tibetsheetsConfigsetting.hook && tibetsheetsConfigsetting.hook.cellDragStop) {
 	        let mouse = mouseposition(event.pageX, event.pageY);
-	        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-	        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+	        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+	        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 	  
 	        let row_location = rowLocation(y),
 	            row = row_location[1],
@@ -1517,7 +1517,7 @@ export default function luckysheetHandler() {
 	  
 	        let sheetFile = sheetmanage.getSheetByIndex();
 	  
-	        let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+	        let tibetsheetsTableContent = $("#tibetsheetsTableContent").get(0).getContext("2d");
 	        method.createHookFunction("cellDragStop", Store.flowdata[row_index][col_index], {
 	            r: row_index,
 	            c: col_index,
@@ -1525,21 +1525,21 @@ export default function luckysheetHandler() {
 	            "start_c": col_pre,
 	            "end_r": row,
 	            "end_c": col
-	        }, sheetFile, luckysheetTableContent, event);
+	        }, sheetFile, tibetsheetsTableContent, event);
         }
     }
 
     //表格mousemove
-    $(document).on("mousemove.luckysheetEvent",function (event) {
-        luckysheetPostil.overshow(event); //有批注显示
+    $(document).on("mousemove.tibetsheetsEvent",function (event) {
+        tibetsheetsPostil.overshow(event); //有批注显示
         hyperlinkCtrl.overshow(event); //链接提示显示
 
         window.cancelAnimationFrame(Store.jfautoscrollTimeout);
 
-        if(luckysheetConfigsetting  && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.sheetMousemove){
+        if(tibetsheetsConfigsetting  && tibetsheetsConfigsetting.hook && tibetsheetsConfigsetting.hook.sheetMousemove){
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+            let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -1567,25 +1567,25 @@ export default function luckysheetHandler() {
 
                 let moveState = {
                     functionResizeStatus:formula.functionResizeStatus,
-                    horizontalmoveState:!!luckysheetFreezen.horizontalmovestate,
-                    verticalmoveState:!!luckysheetFreezen.verticalmovestate,
+                    horizontalmoveState:!!tibetsheetsFreezen.horizontalmovestate,
+                    verticalmoveState:!!tibetsheetsFreezen.verticalmovestate,
                     pivotTableMoveState:!!pivotTable && pivotTable.movestate,
-                    sheetMoveStatus:Store.luckysheet_sheet_move_status,
-                    scrollStatus:!!Store.luckysheet_scroll_status,
-                    selectStatus:!!Store.luckysheet_select_status,
-                    rowsSelectedStatus:!!Store.luckysheet_rows_selected_status,
-                    colsSelectedStatus:!!Store.luckysheet_cols_selected_status,
-                    cellSelectedMove:!!Store.luckysheet_cell_selected_move,
-                    cellSelectedExtend:!!Store.luckysheet_cell_selected_extend,
-                    colsChangeSize:!!Store.luckysheet_cols_change_size,
-                    rowsChangeSize:!!Store.luckysheet_rows_change_size,
-                    chartMove:!!Store.chartparam.luckysheetCurrentChartMove,
-                    chartResize:!!Store.chartparam.luckysheetCurrentChartResize,
+                    sheetMoveStatus:Store.tibetsheets_sheet_move_status,
+                    scrollStatus:!!Store.tibetsheets_scroll_status,
+                    selectStatus:!!Store.tibetsheets_select_status,
+                    rowsSelectedStatus:!!Store.tibetsheets_rows_selected_status,
+                    colsSelectedStatus:!!Store.tibetsheets_cols_selected_status,
+                    cellSelectedMove:!!Store.tibetsheets_cell_selected_move,
+                    cellSelectedExtend:!!Store.tibetsheets_cell_selected_extend,
+                    colsChangeSize:!!Store.tibetsheets_cols_change_size,
+                    rowsChangeSize:!!Store.tibetsheets_rows_change_size,
+                    chartMove:!!Store.chartparam.tibetsheetsCurrentChartMove,
+                    chartResize:!!Store.chartparam.tibetsheetsCurrentChartResize,
                     rangeResize:!!formula.rangeResize ,
                     rangeMove:!!formula.rangeMove,
                 }
     
-                let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+                let tibetsheetsTableContent = $("#tibetsheetsTableContent").get(0).getContext("2d");
 
                 if(Store.flowdata && Store.flowdata[row_index]){
                     method.createHookFunction("sheetMousemove", Store.flowdata[row_index][col_index], {
@@ -1595,7 +1595,7 @@ export default function luckysheetHandler() {
                         "start_c": col_pre, 
                         "end_r": row, 
                         "end_c": col 
-                    }, sheetFile,moveState,luckysheetTableContent);
+                    }, sheetFile,moveState,tibetsheetsTableContent);
                 }
             // }
         }
@@ -1620,18 +1620,18 @@ export default function luckysheetHandler() {
             }
 
             Store.calculatebarHeight = mpx;
-            $("#luckysheet-wa-calculate").css("height", Store.calculatebarHeight - 2);
-            $("#luckysheet-wa-calculate-size").css({ "background": "#5e5e5e", "cursor": "ns-resize" });
+            $("#tibetsheets-wa-calculate").css("height", Store.calculatebarHeight - 2);
+            $("#tibetsheets-wa-calculate-size").css({ "background": "#5e5e5e", "cursor": "ns-resize" });
 
             clearTimeout(formula.functionResizeTimeout);
             formula.functionResizeTimeout = setTimeout(function () {
-                luckysheetsizeauto();
+                tibetsheetssizeauto();
             }, 15);
         }
-        else if (!!luckysheetFreezen.horizontalmovestate) {
+        else if (!!tibetsheetsFreezen.horizontalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
@@ -1645,28 +1645,28 @@ export default function luckysheetHandler() {
                 top = Store.columnHeaderHeight;
             }
 
-            if (top > luckysheetFreezen.windowHeight - 4) {
-                top = luckysheetFreezen.windowHeight - 4;
+            if (top > tibetsheetsFreezen.windowHeight - 4) {
+                top = tibetsheetsFreezen.windowHeight - 4;
             }
 
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css({ "top": top });
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-handle").css({ "top": top });
 
             if (top + scrollTop - Store.columnHeaderHeight >= row_pre + (row - row_pre) / 2) {
                 top = row - 2 - scrollTop + Store.columnHeaderHeight;
-                luckysheetFreezen.freezenhorizontaldata = [row, row_index + 1, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_index + 1), top];
+                tibetsheetsFreezen.freezenhorizontaldata = [row, row_index + 1, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_index + 1), top];
             }
             else {
                 top = row_pre - 2 - scrollTop + Store.columnHeaderHeight;
-                luckysheetFreezen.freezenhorizontaldata = [row_pre, row_index, scrollTop, luckysheetFreezen.cutVolumn(Store.visibledatarow, row_index), top];
+                tibetsheetsFreezen.freezenhorizontaldata = [row_pre, row_index, scrollTop, tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_index), top];
             }
 
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-drop").css({ "top": top });
-            luckysheetFreezen.saveFreezen(luckysheetFreezen.freezenhorizontaldata, top, null, null);
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-drop").css({ "top": top });
+            tibetsheetsFreezen.saveFreezen(tibetsheetsFreezen.freezenhorizontaldata, top, null, null);
         }
-        else if (!!luckysheetFreezen.verticalmovestate) {
+        else if (!!tibetsheetsFreezen.verticalmovestate) {
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
 
@@ -1681,88 +1681,88 @@ export default function luckysheetHandler() {
                 left = Store.rowHeaderWidth;
             }
 
-            if (left > luckysheetFreezen.windowWidth - 4) {
-                left = luckysheetFreezen.windowWidth - 4;
+            if (left > tibetsheetsFreezen.windowWidth - 4) {
+                left = tibetsheetsFreezen.windowWidth - 4;
             }
 
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css({ "left": left });
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-handle").css({ "left": left });
 
             if (left + scrollLeft - Store.rowHeaderWidth >= col_pre + (col - col_pre) / 2) {
                 left = col - 2 - scrollLeft + Store.rowHeaderWidth;
-                luckysheetFreezen.freezenverticaldata = [col, col_index + 1, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_index + 1), left];
+                tibetsheetsFreezen.freezenverticaldata = [col, col_index + 1, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_index + 1), left];
             }
             else {
                 left = col_pre - 2 - scrollLeft + Store.rowHeaderWidth;
-                luckysheetFreezen.freezenverticaldata = [col_pre, col_index, scrollLeft, luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_index), left];
+                tibetsheetsFreezen.freezenverticaldata = [col_pre, col_index, scrollLeft, tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_index), left];
             }
 
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-drop").css({ "left": left });
-            luckysheetFreezen.saveFreezen(null, null, luckysheetFreezen.freezenverticaldata, left);
-            luckysheetsizeauto();//调节选区时下部单元格溢出
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-drop").css({ "left": left });
+            tibetsheetsFreezen.saveFreezen(null, null, tibetsheetsFreezen.freezenverticaldata, left);
+            tibetsheetssizeauto();//调节选区时下部单元格溢出
         }
         else if (!!pivotTable && pivotTable.movestate) {
             let x = event.pageX, y = event.pageY;
-            $("#luckysheet-modal-dialog-slider-pivot-move").css({
+            $("#tibetsheets-modal-dialog-slider-pivot-move").css({
                 "left": x - pivotTable.movesave.width / 2,
                 "top": y - pivotTable.movesave.height
             });
         }
-        else if (Store.luckysheet_sheet_move_status) {
-            let scrollLeft = $("#luckysheet-sheet-container-c").scrollLeft();
+        else if (Store.tibetsheets_sheet_move_status) {
+            let scrollLeft = $("#tibetsheets-sheet-container-c").scrollLeft();
             let x = event.pageX + scrollLeft;
 
-            if (Math.abs(event.pageX - Store.luckysheet_sheet_move_data.pageX) < 3) {
+            if (Math.abs(event.pageX - Store.tibetsheets_sheet_move_data.pageX) < 3) {
                 return;
             }
 
-            let winW = $("#luckysheet-sheet-container").width();
-            let left = x - Store.luckysheet_sheet_move_data.curleft - $("#luckysheet-sheet-container").offset().left;
-            Store.luckysheet_sheet_move_data.activeobject.css({ "left": left });
+            let winW = $("#tibetsheets-sheet-container").width();
+            let left = x - Store.tibetsheets_sheet_move_data.curleft - $("#tibetsheets-sheet-container").offset().left;
+            Store.tibetsheets_sheet_move_data.activeobject.css({ "left": left });
 
-            let row_index = luckysheet_searcharray(Store.luckysheet_sheet_move_data.widthlist, left + Store.luckysheet_sheet_move_data.curleft);
-            Store.luckysheet_sheet_move_data.cursorobject.css({ "cursor": "move" });
+            let row_index = tibetsheets_searcharray(Store.tibetsheets_sheet_move_data.widthlist, left + Store.tibetsheets_sheet_move_data.curleft);
+            Store.tibetsheets_sheet_move_data.cursorobject.css({ "cursor": "move" });
 
             if (left - scrollLeft <= 6) {
-                $("#luckysheet-sheets-leftscroll").click();
+                $("#tibetsheets-sheets-leftscroll").click();
             }
 
             if (left - scrollLeft >= winW - 40) {
-                $("#luckysheet-sheets-rightscroll").click();
+                $("#tibetsheets-sheets-rightscroll").click();
             }
 
-            if (row_index != Store.luckysheet_sheet_move_data.curindex) {
+            if (row_index != Store.tibetsheets_sheet_move_data.curindex) {
                 if (row_index == -1 && left > 0) {
-                    row_index = Store.luckysheet_sheet_move_data.widthlist.length - 1;
-                    $("#luckysheet-sheets-item-clone").insertAfter($("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(row_index));
+                    row_index = Store.tibetsheets_sheet_move_data.widthlist.length - 1;
+                    $("#tibetsheets-sheets-item-clone").insertAfter($("#tibetsheets-sheet-area div.tibetsheets-sheets-item:visible").eq(row_index));
                 }
                 else if (row_index == -1 && left <= 0) {
-                    $("#luckysheet-sheets-item-clone").insertBefore($("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(0));
+                    $("#tibetsheets-sheets-item-clone").insertBefore($("#tibetsheets-sheet-area div.tibetsheets-sheets-item:visible").eq(0));
                 }
                 else {
-                    $("#luckysheet-sheets-item-clone").insertAfter($("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").eq(row_index));
+                    $("#tibetsheets-sheets-item-clone").insertAfter($("#tibetsheets-sheet-area div.tibetsheets-sheets-item:visible").eq(row_index));
                 }
 
-                Store.luckysheet_sheet_move_data.widthlist = [];
-                $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").each(function (i) {
+                Store.tibetsheets_sheet_move_data.widthlist = [];
+                $("#tibetsheets-sheet-area div.tibetsheets-sheets-item:visible").each(function (i) {
                     if (i == 0) {
-                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()));
+                        Store.tibetsheets_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()));
                     }
                     else {
-                        Store.luckysheet_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()) + Store.luckysheet_sheet_move_data.widthlist[i - 1]);
+                        Store.tibetsheets_sheet_move_data.widthlist.push(parseInt($(this).outerWidth()) + Store.tibetsheets_sheet_move_data.widthlist[i - 1]);
                     }
                 });
 
-                Store.luckysheet_sheet_move_data.curindex = $("#luckysheet-sheet-area div.luckysheet-sheets-item:visible").index($("#luckysheet-sheets-item-clone"));
+                Store.tibetsheets_sheet_move_data.curindex = $("#tibetsheets-sheet-area div.tibetsheets-sheets-item:visible").index($("#tibetsheets-sheets-item-clone"));
             }
         }
-        else if (Store.luckysheet_model_move_state) {
+        else if (Store.tibetsheets_model_move_state) {
             let scrollTop = $(document).scrollTop(), scrollLeft = $(document).scrollLeft();
             let y = event.pageY + scrollTop, x = event.pageX + scrollLeft;
             let winH = $(window).height(), winW = $(window).width();
-            let myh = Store.luckysheet_model_move_obj.height(),
-                myw = Store.luckysheet_model_move_obj.width();
-            let top = y - Store.luckysheet_model_xy[1],
-                left = x - Store.luckysheet_model_xy[0];
+            let myh = Store.tibetsheets_model_move_obj.height(),
+                myw = Store.tibetsheets_model_move_obj.width();
+            let top = y - Store.tibetsheets_model_xy[1],
+                left = x - Store.tibetsheets_model_xy[0];
 
             if (top < 0) {
                 top = 0;
@@ -1780,24 +1780,24 @@ export default function luckysheetHandler() {
                 left = winW - myw - 86;
             }
 
-            Store.luckysheet_model_move_obj.css({ "top": top, "left": left });
+            Store.tibetsheets_model_move_obj.css({ "top": top, "left": left });
             event.preventDefault();
         }
-        else if (!!Store.luckysheet_scroll_status || !!Store.luckysheet_select_status || !!Store.luckysheet_rows_selected_status || !!Store.luckysheet_cols_selected_status || !!Store.luckysheet_cell_selected_move || !!Store.luckysheet_cell_selected_extend || !!Store.luckysheet_cols_change_size || !!Store.luckysheet_rows_change_size || !!Store.chartparam.luckysheetCurrentChartMove || !!Store.chartparam.luckysheetCurrentChartResize || !!formula.rangeResize || !!formula.rangeMove) {
-            if (Store.luckysheet_select_status) {
+        else if (!!Store.tibetsheets_scroll_status || !!Store.tibetsheets_select_status || !!Store.tibetsheets_rows_selected_status || !!Store.tibetsheets_cols_selected_status || !!Store.tibetsheets_cell_selected_move || !!Store.tibetsheets_cell_selected_extend || !!Store.tibetsheets_cols_change_size || !!Store.tibetsheets_rows_change_size || !!Store.chartparam.tibetsheetsCurrentChartMove || !!Store.chartparam.tibetsheetsCurrentChartResize || !!formula.rangeResize || !!formula.rangeMove) {
+            if (Store.tibetsheets_select_status) {
                 clearTimeout(Store.countfuncTimeout);
                 Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
             }
             
             function mouseRender() {
-                if (Store.luckysheet_scroll_status  && !Store.luckysheet_cols_change_size && !Store.luckysheet_rows_change_size) {
+                if (Store.tibetsheets_scroll_status  && !Store.tibetsheets_cols_change_size && !Store.tibetsheets_rows_change_size) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let left = $("#luckysheet-scrollbar-x").scrollLeft(),
-                        top = $("#luckysheet-scrollbar-y").scrollTop();
+                    let left = $("#tibetsheets-scrollbar-x").scrollLeft(),
+                        top = $("#tibetsheets-scrollbar-y").scrollTop();
                     let x = mouse[0];
                     let y = mouse[1];
-                    let winH = $("#luckysheet-cell-main").height() - 20*Store.zoomRatio,
-                        winW = $("#luckysheet-cell-main").width() - 60*Store.zoomRatio;
+                    let winH = $("#tibetsheets-cell-main").height() - 20*Store.zoomRatio,
+                        winW = $("#tibetsheets-cell-main").width() - 60*Store.zoomRatio;
 
                     if (y < 0 || y > winH) {
                         let stop;
@@ -1807,7 +1807,7 @@ export default function luckysheetHandler() {
                         else {
                             stop = top + (y - winH) / 2;
                         }
-                        $("#luckysheet-scrollbar-y").scrollTop(stop);
+                        $("#tibetsheets-scrollbar-y").scrollTop(stop);
                     }
 
                     if (x < 0 || x > winW) {
@@ -1819,13 +1819,13 @@ export default function luckysheetHandler() {
                             sleft = left + (x - winW) / 2;
                         }
 
-                        $("#luckysheet-scrollbar-x").scrollLeft(sleft);
+                        $("#tibetsheets-scrollbar-x").scrollLeft(sleft);
                     }
                 }
-                if (Store.luckysheet_select_status) {
+                if (Store.tibetsheets_select_status) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -1838,11 +1838,11 @@ export default function luckysheetHandler() {
 
 
                     if(!checkProtectionSelectLockedOrUnLockedCells(row_index, col_index, Store.currentSheetIndex)){
-                        // Store.luckysheet_select_status = false;
+                        // Store.tibetsheets_select_status = false;
                         return;
                     }
 
-                    let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+                    let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]);
 
                     let top = 0, height = 0, rowseleted = [];
                     if (last.top > row_pre) {
@@ -1916,26 +1916,26 @@ export default function luckysheetHandler() {
                     last["top_move"] = top;
                     last["height_move"] = height;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
 
                     selectHightlightShow();
-                    luckysheetFreezen.scrollFreezen();
+                    tibetsheetsFreezen.scrollFreezen();
 
                     // selectHelpboxFill();
 
                     //交替颜色选择范围
-                    if ($("#luckysheet-alternateformat-rangeDialog").is(":visible")) {
-                        $("#luckysheet-alternateformat-rangeDialog input").val(getRangetxt(Store.currentSheetIndex, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]));
+                    if ($("#tibetsheets-alternateformat-rangeDialog").is(":visible")) {
+                        $("#tibetsheets-alternateformat-rangeDialog input").val(getRangetxt(Store.currentSheetIndex, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]));
                     }
 
-                    if (pivotTable.luckysheet_pivotTable_select_state) {
-                        $("#luckysheet-pivotTable-range-selection-input").val(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name + "!" + chatatABC(Store.luckysheet_select_save[0]["column"][0]) + (Store.luckysheet_select_save[0]["row"][0] + 1) + ":" + chatatABC(Store.luckysheet_select_save[0]["column"][1]) + (Store.luckysheet_select_save[0]["row"][1] + 1));
+                    if (pivotTable.tibetsheets_pivotTable_select_state) {
+                        $("#tibetsheets-pivotTable-range-selection-input").val(Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].name + "!" + chatatABC(Store.tibetsheets_select_save[0]["column"][0]) + (Store.tibetsheets_select_save[0]["row"][0] + 1) + ":" + chatatABC(Store.tibetsheets_select_save[0]["column"][1]) + (Store.tibetsheets_select_save[0]["row"][1] + 1));
                     }
                 }
                 else if (conditionformat.selectStatus) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -2025,12 +2025,12 @@ export default function luckysheetHandler() {
                     selectionCopyShow(conditionformat.selectRange);
 
                     let range = conditionformat.getTxtByRange(conditionformat.selectRange);
-                    $("#luckysheet-multiRange-dialog input").val(range);
+                    $("#tibetsheets-multiRange-dialog input").val(range);
                 }
                 else if (dataVerificationCtrl.selectStatus) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     let row_location = rowLocation(y),
                         row = row_location[1],
@@ -2121,9 +2121,9 @@ export default function luckysheetHandler() {
 
                     let range = dataVerificationCtrl.getTxtByRange(dataVerificationCtrl.selectRange);
                     if(formula.rangetosheet != Store.currentSheetIndex){
-                        range = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].name + '!' + range;
+                        range = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].name + '!' + range;
                     }
-                    $("#luckysheet-dataVerificationRange-dialog input").val(range);
+                    $("#tibetsheets-dataVerificationRange-dialog input").val(range);
                 }
                 else if (formula.rangestart) {
                     formula.rangedrag(event);
@@ -2134,9 +2134,9 @@ export default function luckysheetHandler() {
                 else if (formula.rangedrag_column_start) {
                     formula.rangedrag_column(event);
                 }
-                else if (Store.luckysheet_rows_selected_status) {
+                else if (Store.tibetsheets_rows_selected_status) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
+                    let y = mouse[1] + $("#tibetsheets-rows-h").scrollTop();
                     if (y < 0) {
                         return false;
                     }
@@ -2149,7 +2149,7 @@ export default function luckysheetHandler() {
                         col = Store.visibledatacolumn[col_index],
                         col_pre = 0;
 
-                    let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+                    let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]);
 
                     let top = 0, height = 0, rowseleted = [];
                     if (last.top > row_pre) {
@@ -2183,15 +2183,15 @@ export default function luckysheetHandler() {
                     last["top_move"] = top;
                     last["height_move"] = height;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
 
                     selectHightlightShow();
                     clearTimeout(Store.countfuncTimeout);
                     Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
                 }
-                else if (Store.luckysheet_cols_selected_status) {
+                else if (Store.tibetsheets_cols_selected_status) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cols-h-c").scrollLeft();
+                    let x = mouse[0] + $("#tibetsheets-cols-h-c").scrollLeft();
                     if (x < 0) {
                         return false;
                     }
@@ -2204,7 +2204,7 @@ export default function luckysheetHandler() {
                         col_pre = col_location[0],
                         col_index = col_location[2];
 
-                    let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+                    let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]);
 
                     let left = 0, width = 0, columnseleted = [];
                     if (last.left > col_pre) {
@@ -2238,17 +2238,17 @@ export default function luckysheetHandler() {
                     last["left_move"] = left;
                     last["width_move"] = width;
 
-                    Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                    Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
 
                     selectHightlightShow();
                     clearTimeout(Store.countfuncTimeout);
                     Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
                 }
-                else if (Store.luckysheet_cell_selected_move) {
+                else if (Store.tibetsheets_cell_selected_move) {
                     let mouse = mouseposition(event.pageX, event.pageY);
 
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
@@ -2265,32 +2265,32 @@ export default function luckysheetHandler() {
                         col_pre = col_location[0],
                         col_index = col_location[2];
 
-                    let row_index_original = Store.luckysheet_cell_selected_move_index[0],
-                        col_index_original = Store.luckysheet_cell_selected_move_index[1];
+                    let row_index_original = Store.tibetsheets_cell_selected_move_index[0],
+                        col_index_original = Store.tibetsheets_cell_selected_move_index[1];
 
-                    let row_s = Store.luckysheet_select_save[0]["row"][0] - row_index_original + row_index,
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - row_index_original + row_index;
+                    let row_s = Store.tibetsheets_select_save[0]["row"][0] - row_index_original + row_index,
+                        row_e = Store.tibetsheets_select_save[0]["row"][1] - row_index_original + row_index;
 
-                    let col_s = Store.luckysheet_select_save[0]["column"][0] - col_index_original + col_index,
-                        col_e = Store.luckysheet_select_save[0]["column"][1] - col_index_original + col_index;
+                    let col_s = Store.tibetsheets_select_save[0]["column"][0] - col_index_original + col_index,
+                        col_e = Store.tibetsheets_select_save[0]["column"][1] - col_index_original + col_index;
 
                     if (row_s < 0 || y < 0) {
                         row_s = 0;
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - Store.luckysheet_select_save[0]["row"][0];
+                        row_e = Store.tibetsheets_select_save[0]["row"][1] - Store.tibetsheets_select_save[0]["row"][0];
                     }
 
                     if (col_s < 0 || x < 0) {
                         col_s = 0;
-                        col_e = Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
+                        col_e = Store.tibetsheets_select_save[0]["column"][1] - Store.tibetsheets_select_save[0]["column"][0];
                     }
 
                     if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
-                        row_s = Store.visibledatarow.length - 1 - Store.luckysheet_select_save[0]["row"][1] + Store.luckysheet_select_save[0]["row"][0];
+                        row_s = Store.visibledatarow.length - 1 - Store.tibetsheets_select_save[0]["row"][1] + Store.tibetsheets_select_save[0]["row"][0];
                         row_e = Store.visibledatarow.length - 1;
                     }
 
                     if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
-                        col_s = Store.visibledatacolumn.length - 1 - Store.luckysheet_select_save[0]["column"][1] + Store.luckysheet_select_save[0]["column"][0];
+                        col_s = Store.visibledatacolumn.length - 1 - Store.tibetsheets_select_save[0]["column"][1] + Store.tibetsheets_select_save[0]["column"][0];
                         col_e = Store.visibledatacolumn.length - 1;
                     }
 
@@ -2299,7 +2299,7 @@ export default function luckysheetHandler() {
                     row_pre = row_s - 1 == -1 ? 0 : Store.visibledatarow[row_s - 1];
                     row = Store.visibledatarow[row_e];
 
-                    $("#luckysheet-cell-selected-move").css({
+                    $("#tibetsheets-cell-selected-move").css({
                         "left": col_pre,
                         "width": col - col_pre - 2,
                         "top": row_pre,
@@ -2307,10 +2307,10 @@ export default function luckysheetHandler() {
                         "display": "block"
                     });
                 }
-                else if (Store.luckysheet_cell_selected_extend) {
+                else if (Store.tibetsheets_cell_selected_extend) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft() - 5;
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop() - 5;
+                    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft() - 5;
+                    let scrollTop = $("#tibetsheets-cell-main").scrollTop() - 5;
 
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
@@ -2327,65 +2327,65 @@ export default function luckysheetHandler() {
                         col_pre = col_location[0],
                         col_index = col_location[2];
 
-                    let row_index_original = Store.luckysheet_cell_selected_extend_index[0],
-                        col_index_original = Store.luckysheet_cell_selected_extend_index[1];
+                    let row_index_original = Store.tibetsheets_cell_selected_extend_index[0],
+                        col_index_original = Store.tibetsheets_cell_selected_extend_index[1];
 
-                    let row_s = Store.luckysheet_select_save[0]["row"][0],
-                        row_e = Store.luckysheet_select_save[0]["row"][1];
-                    let col_s = Store.luckysheet_select_save[0]["column"][0],
-                        col_e = Store.luckysheet_select_save[0]["column"][1];
+                    let row_s = Store.tibetsheets_select_save[0]["row"][0],
+                        row_e = Store.tibetsheets_select_save[0]["row"][1];
+                    let col_s = Store.tibetsheets_select_save[0]["column"][0],
+                        col_e = Store.tibetsheets_select_save[0]["column"][1];
 
                     if (row_s < 0 || y < 0) {
                         row_s = 0;
-                        row_e = Store.luckysheet_select_save[0]["row"][1] - Store.luckysheet_select_save[0]["row"][0];
+                        row_e = Store.tibetsheets_select_save[0]["row"][1] - Store.tibetsheets_select_save[0]["row"][0];
                     }
 
                     if (col_s < 0 || x < 0) {
                         col_s = 0;
-                        col_e = Store.luckysheet_select_save[0]["column"][1] - Store.luckysheet_select_save[0]["column"][0];
+                        col_e = Store.tibetsheets_select_save[0]["column"][1] - Store.tibetsheets_select_save[0]["column"][0];
                     }
 
                     if (row_e >= Store.visibledatarow[Store.visibledatarow.length - 1] || y > winH) {
-                        row_s = Store.visibledatarow.length - 1 - Store.luckysheet_select_save[0]["row"][1] + Store.luckysheet_select_save[0]["row"][0];
+                        row_s = Store.visibledatarow.length - 1 - Store.tibetsheets_select_save[0]["row"][1] + Store.tibetsheets_select_save[0]["row"][0];
                         row_e = Store.visibledatarow.length - 1;
                     }
 
                     if (col_e >= Store.visibledatacolumn[Store.visibledatacolumn.length - 1] || x > winW) {
-                        col_s = Store.visibledatacolumn.length - 1 - Store.luckysheet_select_save[0]["column"][1] + Store.luckysheet_select_save[0]["column"][0];
+                        col_s = Store.visibledatacolumn.length - 1 - Store.tibetsheets_select_save[0]["column"][1] + Store.tibetsheets_select_save[0]["column"][0];
                         col_e = Store.visibledatacolumn.length - 1;
                     }
 
-                    let top = Store.luckysheet_select_save[0].top_move,
-                        height = Store.luckysheet_select_save[0].height_move;
-                    let left = Store.luckysheet_select_save[0].left_move,
-                        width = Store.luckysheet_select_save[0].width_move;
+                    let top = Store.tibetsheets_select_save[0].top_move,
+                        height = Store.tibetsheets_select_save[0].height_move;
+                    let left = Store.tibetsheets_select_save[0].left_move,
+                        width = Store.tibetsheets_select_save[0].width_move;
 
                     if (Math.abs(row_index_original - row_index) > Math.abs(col_index_original - col_index)) {
                         if (!(row_index >= row_s && row_index <= row_e)) {
-                            if (Store.luckysheet_select_save[0].top_move >= row_pre) {
+                            if (Store.tibetsheets_select_save[0].top_move >= row_pre) {
                                 top = row_pre;
-                                height = Store.luckysheet_select_save[0].top_move + Store.luckysheet_select_save[0].height_move - row_pre;
+                                height = Store.tibetsheets_select_save[0].top_move + Store.tibetsheets_select_save[0].height_move - row_pre;
                             }
                             else {
-                                top = Store.luckysheet_select_save[0].top_move;
-                                height = row - Store.luckysheet_select_save[0].top_move - 1;
+                                top = Store.tibetsheets_select_save[0].top_move;
+                                height = row - Store.tibetsheets_select_save[0].top_move - 1;
                             }
                         }
                     }
                     else {
                         if (!(col_index >= col_s && col_index <= col_e)) {
-                            if (Store.luckysheet_select_save[0].left_move >= col_pre) {
+                            if (Store.tibetsheets_select_save[0].left_move >= col_pre) {
                                 left = col_pre;
-                                width = Store.luckysheet_select_save[0].left_move + Store.luckysheet_select_save[0].width_move - col_pre;
+                                width = Store.tibetsheets_select_save[0].left_move + Store.tibetsheets_select_save[0].width_move - col_pre;
                             }
                             else {
-                                left = Store.luckysheet_select_save[0].left_move;
-                                width = col - Store.luckysheet_select_save[0].left_move - 1;
+                                left = Store.tibetsheets_select_save[0].left_move;
+                                width = col - Store.tibetsheets_select_save[0].left_move - 1;
                             }
                         }
                     }
 
-                    $("#luckysheet-cell-selected-extend").css({
+                    $("#tibetsheets-cell-selected-extend").css({
                         "left": left,
                         "width": width,
                         "top": top,
@@ -2393,9 +2393,9 @@ export default function luckysheetHandler() {
                         "display": "block"
                     });
                 }
-                else if (Store.luckysheet_cols_change_size) {
+                else if (Store.tibetsheets_cols_change_size) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
+                    let scrollLeft = $("#tibetsheets-cols-h-c").scrollLeft();
                     let x = mouse[0] + scrollLeft;
                     let winW = $(window).width();
 
@@ -2407,14 +2407,14 @@ export default function luckysheetHandler() {
                         col_pre = col_location[0],
                         col_index = col_location[2];
                     
-                    if ((x + 3) - Store.luckysheet_cols_change_size_start[0] > 30 && x < winW + scrollLeft - 100) {
-                        $("#luckysheet-change-size-line").css({ "left": x });
-                        $("#luckysheet-cols-change-size").css({ "left": x - 2 });
+                    if ((x + 3) - Store.tibetsheets_cols_change_size_start[0] > 30 && x < winW + scrollLeft - 100) {
+                        $("#tibetsheets-change-size-line").css({ "left": x });
+                        $("#tibetsheets-cols-change-size").css({ "left": x - 2 });
                     }
                 }
-                else if (Store.luckysheet_rows_change_size) {
+                else if (Store.tibetsheets_rows_change_size) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let scrollTop = $("#luckysheet-rows-h").scrollTop();
+                    let scrollTop = $("#tibetsheets-rows-h").scrollTop();
                     let y = mouse[1] + scrollTop;
                     let winH = $(window).height();
 
@@ -2423,49 +2423,49 @@ export default function luckysheetHandler() {
                         row_pre = row_location[0],
                         row_index = row_location[2];
 
-                    if ((y + 3) - Store.luckysheet_rows_change_size_start[0] > 19 && y < winH + scrollTop - 200) {
-                        $("#luckysheet-change-size-line").css({ "top": y });
-                        $("#luckysheet-rows-change-size").css({ "top": y });
+                    if ((y + 3) - Store.tibetsheets_rows_change_size_start[0] > 19 && y < winH + scrollTop - 200) {
+                        $("#tibetsheets-change-size-line").css({ "top": y });
+                        $("#tibetsheets-rows-change-size").css({ "top": y });
                     }
                 }
                 // chart move
-                else if (!!Store.chartparam.luckysheetCurrentChartMove) {
+                else if (!!Store.chartparam.tibetsheetsCurrentChartMove) {
                     const mouse = mouseposition(event.pageX, event.pageY);
-                    const x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    const y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    const x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    const y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
-                    const myh = Store.chartparam.luckysheetCurrentChartMoveObj.height(), myw = Store.chartparam.luckysheetCurrentChartMoveObj.width();
-                    let top = y - Store.chartparam.luckysheetCurrentChartMoveXy[1], left = x - Store.chartparam.luckysheetCurrentChartMoveXy[0];
+                    const myh = Store.chartparam.tibetsheetsCurrentChartMoveObj.height(), myw = Store.chartparam.tibetsheetsCurrentChartMoveObj.width();
+                    let top = y - Store.chartparam.tibetsheetsCurrentChartMoveXy[1], left = x - Store.chartparam.tibetsheetsCurrentChartMoveXy[0];
 
                     if (top < 0) {
                         top = 0;
                     }
 
-                    if (top + myh + 42 + 6 > Store.chartparam.luckysheetCurrentChartMoveWinH) {
-                        top = Store.chartparam.luckysheetCurrentChartMoveWinH - myh - 42 - 6;
+                    if (top + myh + 42 + 6 > Store.chartparam.tibetsheetsCurrentChartMoveWinH) {
+                        top = Store.chartparam.tibetsheetsCurrentChartMoveWinH - myh - 42 - 6;
                     }
 
                     if (left < 0) {
                         left = 0;
                     }
 
-                    if (left + myw + 22 + 36 > Store.chartparam.luckysheetCurrentChartMoveWinW) {
-                        left = Store.chartparam.luckysheetCurrentChartMoveWinW - myw - 22 - 36;
+                    if (left + myw + 22 + 36 > Store.chartparam.tibetsheetsCurrentChartMoveWinW) {
+                        left = Store.chartparam.tibetsheetsCurrentChartMoveWinW - myw - 22 - 36;
                     }
 
-                    Store.chartparam.luckysheetCurrentChartMoveObj.css({ "top": top, "left": left });
+                    Store.chartparam.tibetsheetsCurrentChartMoveObj.css({ "top": top, "left": left });
 
-                    if (luckysheetFreezen.freezenhorizontaldata != null || luckysheetFreezen.freezenverticaldata != null) {
-                        luckysheetFreezen.scrollAdapt();
+                    if (tibetsheetsFreezen.freezenhorizontaldata != null || tibetsheetsFreezen.freezenverticaldata != null) {
+                        tibetsheetsFreezen.scrollAdapt();
 
-                        const toffset = Store.chartparam.luckysheetCurrentChartMoveObj.offset();
-                        const tpsition = Store.chartparam.luckysheetCurrentChartMoveObj.position();
-                        Store.chartparam.luckysheetCurrentChartMoveXy = [event.pageX - toffset.left, event.pageY - toffset.top, tpsition.left, tpsition.top, $("#luckysheet-scrollbar-x").scrollLeft(), $("#luckysheet-scrollbar-y").scrollTop()];
+                        const toffset = Store.chartparam.tibetsheetsCurrentChartMoveObj.offset();
+                        const tpsition = Store.chartparam.tibetsheetsCurrentChartMoveObj.position();
+                        Store.chartparam.tibetsheetsCurrentChartMoveXy = [event.pageX - toffset.left, event.pageY - toffset.top, tpsition.left, tpsition.top, $("#tibetsheets-scrollbar-x").scrollLeft(), $("#tibetsheets-scrollbar-y").scrollTop()];
                     }
                 }
                 // chart resize
-                else if (!!Store.chartparam.luckysheetCurrentChartResize) {
-                    const scrollTop = $("#luckysheet-cell-main").scrollTop(), scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+                else if (!!Store.chartparam.tibetsheetsCurrentChartResize) {
+                    const scrollTop = $("#tibetsheets-cell-main").scrollTop(), scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
                     const mouse = mouseposition(event.pageX, event.pageY);
                     const x = mouse[0] + scrollLeft;
                     const y = mouse[1] + scrollTop;
@@ -2474,68 +2474,68 @@ export default function luckysheetHandler() {
                         return false;
                     }
 
-                    const myh = Store.chartparam.luckysheetCurrentChartResizeObj.height(), myw = Store.chartparam.luckysheetCurrentChartResizeObj.width();
-                    const topchange = y - Store.chartparam.luckysheetCurrentChartResizeXy[1], leftchange = x - Store.chartparam.luckysheetCurrentChartResizeXy[0];
+                    const myh = Store.chartparam.tibetsheetsCurrentChartResizeObj.height(), myw = Store.chartparam.tibetsheetsCurrentChartResizeObj.width();
+                    const topchange = y - Store.chartparam.tibetsheetsCurrentChartResizeXy[1], leftchange = x - Store.chartparam.tibetsheetsCurrentChartResizeXy[0];
 
-                    let top = Store.chartparam.luckysheetCurrentChartResizeXy[5], height = Store.chartparam.luckysheetCurrentChartResizeXy[3], left = Store.chartparam.luckysheetCurrentChartResizeXy[4], width = Store.chartparam.luckysheetCurrentChartResizeXy[2];
+                    let top = Store.chartparam.tibetsheetsCurrentChartResizeXy[5], height = Store.chartparam.tibetsheetsCurrentChartResizeXy[3], left = Store.chartparam.tibetsheetsCurrentChartResizeXy[4], width = Store.chartparam.tibetsheetsCurrentChartResizeXy[2];
 
-                    if (Store.chartparam.luckysheetCurrentChartResize == "lm" || Store.chartparam.luckysheetCurrentChartResize == "lt" || Store.chartparam.luckysheetCurrentChartResize == "lb") {
+                    if (Store.chartparam.tibetsheetsCurrentChartResize == "lm" || Store.chartparam.tibetsheetsCurrentChartResize == "lt" || Store.chartparam.tibetsheetsCurrentChartResize == "lb") {
                         left = x;
-                        width = Store.chartparam.luckysheetCurrentChartResizeXy[2] - leftchange;
-                        if (left > Store.chartparam.luckysheetCurrentChartResizeXy[2] + Store.chartparam.luckysheetCurrentChartResizeXy[4] - 60) {
-                            left = Store.chartparam.luckysheetCurrentChartResizeXy[2] + Store.chartparam.luckysheetCurrentChartResizeXy[4] - 60;
-                            width = Store.chartparam.luckysheetCurrentChartResizeXy[2] - (Store.chartparam.luckysheetCurrentChartResizeXy[2] + Store.chartparam.luckysheetCurrentChartResizeXy[4] - 60 - Store.chartparam.luckysheetCurrentChartResizeXy[0]);
+                        width = Store.chartparam.tibetsheetsCurrentChartResizeXy[2] - leftchange;
+                        if (left > Store.chartparam.tibetsheetsCurrentChartResizeXy[2] + Store.chartparam.tibetsheetsCurrentChartResizeXy[4] - 60) {
+                            left = Store.chartparam.tibetsheetsCurrentChartResizeXy[2] + Store.chartparam.tibetsheetsCurrentChartResizeXy[4] - 60;
+                            width = Store.chartparam.tibetsheetsCurrentChartResizeXy[2] - (Store.chartparam.tibetsheetsCurrentChartResizeXy[2] + Store.chartparam.tibetsheetsCurrentChartResizeXy[4] - 60 - Store.chartparam.tibetsheetsCurrentChartResizeXy[0]);
                         }
                         else if (left <= 0) {
                             left = 0;
-                            width = Store.chartparam.luckysheetCurrentChartResizeXy[2] + Store.chartparam.luckysheetCurrentChartResizeXy[0];
+                            width = Store.chartparam.tibetsheetsCurrentChartResizeXy[2] + Store.chartparam.tibetsheetsCurrentChartResizeXy[0];
                         }
                     }
 
-                    if (Store.chartparam.luckysheetCurrentChartResize == "rm" || Store.chartparam.luckysheetCurrentChartResize == "rt" || Store.chartparam.luckysheetCurrentChartResize == "rb") {
-                        width = Store.chartparam.luckysheetCurrentChartResizeXy[2] + leftchange;
+                    if (Store.chartparam.tibetsheetsCurrentChartResize == "rm" || Store.chartparam.tibetsheetsCurrentChartResize == "rt" || Store.chartparam.tibetsheetsCurrentChartResize == "rb") {
+                        width = Store.chartparam.tibetsheetsCurrentChartResizeXy[2] + leftchange;
                         if (width < 60) {
                             width = 60;
                         }
-                        else if (width >= Store.chartparam.luckysheetCurrentChartResizeWinW - Store.chartparam.luckysheetCurrentChartResizeXy[4] - 22 - 36) {
-                            width = Store.chartparam.luckysheetCurrentChartResizeWinW - Store.chartparam.luckysheetCurrentChartResizeXy[4] - 22 - 36;
+                        else if (width >= Store.chartparam.tibetsheetsCurrentChartResizeWinW - Store.chartparam.tibetsheetsCurrentChartResizeXy[4] - 22 - 36) {
+                            width = Store.chartparam.tibetsheetsCurrentChartResizeWinW - Store.chartparam.tibetsheetsCurrentChartResizeXy[4] - 22 - 36;
                         }
                     }
 
-                    if (Store.chartparam.luckysheetCurrentChartResize == "mt" || Store.chartparam.luckysheetCurrentChartResize == "lt" || Store.chartparam.luckysheetCurrentChartResize == "rt") {
+                    if (Store.chartparam.tibetsheetsCurrentChartResize == "mt" || Store.chartparam.tibetsheetsCurrentChartResize == "lt" || Store.chartparam.tibetsheetsCurrentChartResize == "rt") {
                         top = y;
-                        height = Store.chartparam.luckysheetCurrentChartResizeXy[3] - topchange;
-                        if (top > Store.chartparam.luckysheetCurrentChartResizeXy[3] + Store.chartparam.luckysheetCurrentChartResizeXy[5] - 60) {
-                            top = Store.chartparam.luckysheetCurrentChartResizeXy[3] + Store.chartparam.luckysheetCurrentChartResizeXy[5] - 60;
-                            height = Store.chartparam.luckysheetCurrentChartResizeXy[3] - (Store.chartparam.luckysheetCurrentChartResizeXy[3] + Store.chartparam.luckysheetCurrentChartResizeXy[5] - 60 - Store.chartparam.luckysheetCurrentChartResizeXy[1]);
+                        height = Store.chartparam.tibetsheetsCurrentChartResizeXy[3] - topchange;
+                        if (top > Store.chartparam.tibetsheetsCurrentChartResizeXy[3] + Store.chartparam.tibetsheetsCurrentChartResizeXy[5] - 60) {
+                            top = Store.chartparam.tibetsheetsCurrentChartResizeXy[3] + Store.chartparam.tibetsheetsCurrentChartResizeXy[5] - 60;
+                            height = Store.chartparam.tibetsheetsCurrentChartResizeXy[3] - (Store.chartparam.tibetsheetsCurrentChartResizeXy[3] + Store.chartparam.tibetsheetsCurrentChartResizeXy[5] - 60 - Store.chartparam.tibetsheetsCurrentChartResizeXy[1]);
                         }
                         else if (top <= 0) {
                             top = 0;
-                            height = Store.chartparam.luckysheetCurrentChartResizeXy[3] + Store.chartparam.luckysheetCurrentChartResizeXy[1];
+                            height = Store.chartparam.tibetsheetsCurrentChartResizeXy[3] + Store.chartparam.tibetsheetsCurrentChartResizeXy[1];
                         }
                     }
 
-                    if (Store.chartparam.luckysheetCurrentChartResize == "mb" || Store.chartparam.luckysheetCurrentChartResize == "lb" || Store.chartparam.luckysheetCurrentChartResize == "rb") {
-                        height = Store.chartparam.luckysheetCurrentChartResizeXy[3] + topchange;
+                    if (Store.chartparam.tibetsheetsCurrentChartResize == "mb" || Store.chartparam.tibetsheetsCurrentChartResize == "lb" || Store.chartparam.tibetsheetsCurrentChartResize == "rb") {
+                        height = Store.chartparam.tibetsheetsCurrentChartResizeXy[3] + topchange;
                         if (height < 60) {
                             height = 60;
                         }
-                        else if (height >= Store.chartparam.luckysheetCurrentChartResizeWinH - Store.chartparam.luckysheetCurrentChartResizeXy[5] - 42 - 6) {
-                            height = Store.chartparam.luckysheetCurrentChartResizeWinH - Store.chartparam.luckysheetCurrentChartResizeXy[5] - 42 - 6;
+                        else if (height >= Store.chartparam.tibetsheetsCurrentChartResizeWinH - Store.chartparam.tibetsheetsCurrentChartResizeXy[5] - 42 - 6) {
+                            height = Store.chartparam.tibetsheetsCurrentChartResizeWinH - Store.chartparam.tibetsheetsCurrentChartResizeXy[5] - 42 - 6;
                         }
                     }
 
                     const resizedata = { "top": top, "left": left, "height": height, "width": width };
-                    Store.chartparam.luckysheetCurrentChartResizeObj.css(resizedata);
+                    Store.chartparam.tibetsheetsCurrentChartResizeObj.css(resizedata);
                     // resize chart
-                    Store.resizeChart(Store.chartparam.luckysheetCurrentChart)
+                    Store.resizeChart(Store.chartparam.tibetsheetsCurrentChart)
                 }
                 //image move
                 else if (imageCtrl.move) {
                     let mouse = mouseposition(event.pageX, event.pageY);
 
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     let imgItem = imageCtrl.images[imageCtrl.currentImgId];
                     if(imgItem.isFixedPos){
@@ -2543,8 +2543,8 @@ export default function luckysheetHandler() {
                         y = event.pageY;
                     }
 
-                    let myh = $("#luckysheet-modal-dialog-activeImage").height(),
-                        myw = $("#luckysheet-modal-dialog-activeImage").width();
+                    let myh = $("#tibetsheets-modal-dialog-activeImage").height(),
+                        myw = $("#tibetsheets-modal-dialog-activeImage").width();
 
                     let top = y - imageCtrl.moveXY[1],
                         left = x - imageCtrl.moveXY[0];
@@ -2577,13 +2577,13 @@ export default function luckysheetHandler() {
                         left = maxLeft;
                     }
 
-                    $("#luckysheet-modal-dialog-activeImage").css({ "left": left, "top": top });
+                    $("#tibetsheets-modal-dialog-activeImage").css({ "left": left, "top": top });
                 }
                 //image resize
                 else if (!!imageCtrl.resize) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
                     let x = mouse[0] + scrollLeft;
                     let y = mouse[1] + scrollTop;
 
@@ -2951,7 +2951,7 @@ export default function luckysheetHandler() {
                         }
                     }
 
-                    $("#luckysheet-modal-dialog-activeImage").css({ 
+                    $("#tibetsheets-modal-dialog-activeImage").css({ 
                         "width": width, 
                         "height": height, 
                         "left": left, 
@@ -2965,7 +2965,7 @@ export default function luckysheetHandler() {
                     let offsetLeft = Math.round(imgItem.crop.offsetLeft * scaleX);
                     let offsetTop = Math.round(imgItem.crop.offsetTop * scaleY);
                     
-                    $("#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content").css({
+                    $("#tibetsheets-modal-dialog-activeImage .tibetsheets-modal-dialog-content").css({
                         "background-size": defaultWidth + "px " + defaultHeight + "px",
                         "background-position": -offsetLeft + "px " + -offsetTop + "px"
                     })
@@ -2973,8 +2973,8 @@ export default function luckysheetHandler() {
                 //image cropChange
                 else if (!!imageCtrl.cropChange) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     if (x < 0 || y < 0) {
                         return false;
@@ -3162,7 +3162,7 @@ export default function luckysheetHandler() {
                         top = imgItem.fixedTop + offsetTop;
                     }
 
-                    $("#luckysheet-modal-dialog-cropping").show().css({
+                    $("#tibetsheets-modal-dialog-cropping").show().css({
                         "width": width,
                         "height": height,
                         "left": left,
@@ -3172,7 +3172,7 @@ export default function luckysheetHandler() {
                     let imageUrlHandle = Store.toJsonOptions && Store.toJsonOptions['imageUrlHandle'];
                     let imgSrc = typeof imageUrlHandle === 'function' ? imageUrlHandle(imgItem.src) : imgItem.src;
         
-                    $("#luckysheet-modal-dialog-cropping .cropping-mask").css({
+                    $("#tibetsheets-modal-dialog-cropping .cropping-mask").css({
                         "width": imgItem.default.width,
                         "height": imgItem.default.height,
                         "background-image": "url(" + imgSrc + ")",
@@ -3180,7 +3180,7 @@ export default function luckysheetHandler() {
                         "top": -offsetTop
                     })
         
-                    $("#luckysheet-modal-dialog-cropping .cropping-content").css({
+                    $("#tibetsheets-modal-dialog-cropping .cropping-content").css({
                         "background-image": "url(" + imgSrc + ")",
                         "background-size": imgItem.default.width + "px " + imgItem.default.height + "px",
                         "background-position": -offsetLeft + "px " + -offsetTop + "px"
@@ -3193,45 +3193,45 @@ export default function luckysheetHandler() {
                         offsetTop: offsetTop
                     }
                 }
-                else if (luckysheetPostil.move) {
+                else if (tibetsheetsPostil.move) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
-                    let myh = luckysheetPostil.currentObj.outerHeight(),
-                        myw = luckysheetPostil.currentObj.outerWidth();
+                    let myh = tibetsheetsPostil.currentObj.outerHeight(),
+                        myw = tibetsheetsPostil.currentObj.outerWidth();
 
-                    let top = y - luckysheetPostil.moveXY[1],
-                        left = x - luckysheetPostil.moveXY[0];
+                    let top = y - tibetsheetsPostil.moveXY[1],
+                        left = x - tibetsheetsPostil.moveXY[0];
 
                     if (top < 0) {
                         top = 0;
                     }
 
-                    if (top + myh + 42 + 6 > luckysheetPostil.currentWinH) {
-                        top = luckysheetPostil.currentWinH - myh - 42 - 6;
+                    if (top + myh + 42 + 6 > tibetsheetsPostil.currentWinH) {
+                        top = tibetsheetsPostil.currentWinH - myh - 42 - 6;
                     }
 
                     if (left < 0) {
                         left = 0;
                     }
 
-                    if (left + myw + 22 + 36 > luckysheetPostil.currentWinW) {
-                        left = luckysheetPostil.currentWinW - myw - 22 - 36;
+                    if (left + myw + 22 + 36 > tibetsheetsPostil.currentWinW) {
+                        left = tibetsheetsPostil.currentWinW - myw - 22 - 36;
                     }
 
-                    luckysheetPostil.currentObj.css({ "left": left, "top": top });
+                    tibetsheetsPostil.currentObj.css({ "left": left, "top": top });
                 }
-                else if (!!luckysheetPostil.resize) {
+                else if (!!tibetsheetsPostil.resize) {
                     let mouse = mouseposition(event.pageX, event.pageY);
-                    let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-                    let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+                    let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+                    let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
                     if (x < 0 || y < 0) {
                         return false;
                     }
 
-                    let resizeXY = luckysheetPostil.resizeXY;
+                    let resizeXY = tibetsheetsPostil.resizeXY;
 
                     let topchange = y - resizeXY[1],
                         leftchange = x - resizeXY[0];
@@ -3241,7 +3241,7 @@ export default function luckysheetHandler() {
                         left = resizeXY[4],
                         width = resizeXY[2];
 
-                    let resize = luckysheetPostil.resize;
+                    let resize = tibetsheetsPostil.resize;
 
                     if (resize == "lm" || resize == "lt" || resize == "lb") {
                         left = x;
@@ -3263,8 +3263,8 @@ export default function luckysheetHandler() {
                         if (width < 60) {
                             width = 60;
                         }
-                        else if (width >= luckysheetPostil.currentWinW - resizeXY[4] - 22 - 36) {
-                            width = luckysheetPostil.currentWinW - resizeXY[4] - 22 - 36;
+                        else if (width >= tibetsheetsPostil.currentWinW - resizeXY[4] - 22 - 36) {
+                            width = tibetsheetsPostil.currentWinW - resizeXY[4] - 22 - 36;
                         }
                     }
 
@@ -3288,12 +3288,12 @@ export default function luckysheetHandler() {
                         if (height < 60) {
                             height = 60;
                         }
-                        else if (height >= luckysheetPostil.currentWinH - resizeXY[5] - 42 - 6) {
-                            height = luckysheetPostil.currentWinH - resizeXY[5] - 42 - 6;
+                        else if (height >= tibetsheetsPostil.currentWinH - resizeXY[5] - 42 - 6) {
+                            height = tibetsheetsPostil.currentWinH - resizeXY[5] - 42 - 6;
                         }
                     }
 
-                    luckysheetPostil.currentObj.css({ "width": width, "height": height, "left": left, "top": top });
+                    tibetsheetsPostil.currentObj.css({ "width": width, "height": height, "left": left, "top": top });
                 }
                 else if (!!formula.rangeResize) {
                     formula.rangeResizeDraging(event, formula.rangeResizeObj, formula.rangeResizexy, formula.rangeResize, formula.rangeResizeWinW, formula.rangeResizeWinH, Store.ch_width, Store.rh_height);
@@ -3315,11 +3315,11 @@ export default function luckysheetHandler() {
         }
     });
     //表格mouseup
-    $(document).on("mouseup.luckysheetEvent",function (event) {
-        if(luckysheetConfigsetting  && luckysheetConfigsetting.hook && luckysheetConfigsetting.hook.sheetMouseup){
+    $(document).on("mouseup.tibetsheetsEvent",function (event) {
+        if(tibetsheetsConfigsetting  && tibetsheetsConfigsetting.hook && tibetsheetsConfigsetting.hook.sheetMouseup){
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+            let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
             let row_location = rowLocation(y),
                 row = row_location[1],
@@ -3347,25 +3347,25 @@ export default function luckysheetHandler() {
 
                 let moveState = {
                     functionResizeStatus:formula.functionResizeStatus,
-                    horizontalmoveState:!!luckysheetFreezen.horizontalmovestate,
-                    verticalmoveState:!!luckysheetFreezen.verticalmovestate,
+                    horizontalmoveState:!!tibetsheetsFreezen.horizontalmovestate,
+                    verticalmoveState:!!tibetsheetsFreezen.verticalmovestate,
                     pivotTableMoveState:!!pivotTable && pivotTable.movestate,
-                    sheetMoveStatus:Store.luckysheet_sheet_move_status,
-                    scrollStatus:!!Store.luckysheet_scroll_status,
-                    selectStatus:!!Store.luckysheet_select_status,
-                    rowsSelectedStatus:!!Store.luckysheet_rows_selected_status,
-                    colsSelectedStatus:!!Store.luckysheet_cols_selected_status,
-                    cellSelectedMove:!!Store.luckysheet_cell_selected_move,
-                    cellSelectedExtend:!!Store.luckysheet_cell_selected_extend,
-                    colsChangeSize:!!Store.luckysheet_cols_change_size,
-                    rowsChangeSize:!!Store.luckysheet_rows_change_size,
-                    chartMove:!!Store.chartparam.luckysheetCurrentChartMove,
-                    chartResize:!!Store.chartparam.luckysheetCurrentChartResize,
+                    sheetMoveStatus:Store.tibetsheets_sheet_move_status,
+                    scrollStatus:!!Store.tibetsheets_scroll_status,
+                    selectStatus:!!Store.tibetsheets_select_status,
+                    rowsSelectedStatus:!!Store.tibetsheets_rows_selected_status,
+                    colsSelectedStatus:!!Store.tibetsheets_cols_selected_status,
+                    cellSelectedMove:!!Store.tibetsheets_cell_selected_move,
+                    cellSelectedExtend:!!Store.tibetsheets_cell_selected_extend,
+                    colsChangeSize:!!Store.tibetsheets_cols_change_size,
+                    rowsChangeSize:!!Store.tibetsheets_rows_change_size,
+                    chartMove:!!Store.chartparam.tibetsheetsCurrentChartMove,
+                    chartResize:!!Store.chartparam.tibetsheetsCurrentChartResize,
                     rangeResize:!!formula.rangeResize ,
                     rangeMove:!!formula.rangeMove,
                 }
     
-                let luckysheetTableContent = $("#luckysheetTableContent").get(0).getContext("2d");
+                let tibetsheetsTableContent = $("#tibetsheetsTableContent").get(0).getContext("2d");
                 
                 method.createHookFunction("sheetMouseup", Store.flowdata[row_index][col_index], {
                     r:row_index,
@@ -3374,94 +3374,94 @@ export default function luckysheetHandler() {
                     "start_c": col_pre, 
                     "end_r": row, 
                     "end_c": col 
-                }, sheetFile,moveState,luckysheetTableContent);
+                }, sheetFile,moveState,tibetsheetsTableContent);
             // }
         }
 
         //数据窗格主体
-        if (Store.luckysheet_select_status) {
+        if (Store.tibetsheets_select_status) {
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function () {
                 countfunc();
             }, 0);
 
             //格式刷
-            if (menuButton.luckysheetPaintModelOn) {
-                selection.pasteHandlerOfPaintModel(Store.luckysheet_copy_save);
+            if (menuButton.tibetsheetsPaintModelOn) {
+                selection.pasteHandlerOfPaintModel(Store.tibetsheets_copy_save);
 
-                if (menuButton.luckysheetPaintSingle) {
+                if (menuButton.tibetsheetsPaintSingle) {
                     //单次 格式刷
                     menuButton.cancelPaintModel();
                 }
             }
         }
 
-        Store.luckysheet_select_status = false;
+        Store.tibetsheets_select_status = false;
         window.cancelAnimationFrame(Store.jfautoscrollTimeout);
-        Store.luckysheet_scroll_status = false;
+        Store.tibetsheets_scroll_status = false;
 
-        $("#luckysheet-cell-selected").find(".luckysheet-cs-fillhandle").css("cursor", "crosshair").end().find(".luckysheet-cs-draghandle").css("cursor", "move");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "default");
+        $("#tibetsheets-cell-selected").find(".tibetsheets-cs-fillhandle").css("cursor", "crosshair").end().find(".tibetsheets-cs-draghandle").css("cursor", "move");
+        $("#tibetsheets-cell-main, #tibetsheetsTableContent, #tibetsheets-sheettable_0").css("cursor", "default");
 
         //行标题窗格主体
-        Store.luckysheet_rows_selected_status = false;
+        Store.tibetsheets_rows_selected_status = false;
 
         //列标题窗格主体
-        Store.luckysheet_cols_selected_status = false;
+        Store.tibetsheets_cols_selected_status = false;
 
-        Store.luckysheet_model_move_state = false;
+        Store.tibetsheets_model_move_state = false;
 
         if (formula.functionResizeStatus) {
             formula.functionResizeStatus = false;
-            $("#luckysheet-wa-calculate-size").removeAttr("style");
+            $("#tibetsheets-wa-calculate-size").removeAttr("style");
         }
 
-        if (!!luckysheetFreezen.horizontalmovestate) {
-            luckysheetFreezen.horizontalmovestate = false;
-            $("#luckysheet-freezebar-horizontal").removeClass("luckysheet-freezebar-active");
-            $("#luckysheet-freezebar-horizontal").find(".luckysheet-freezebar-horizontal-handle").css("cursor", "-webkit-grab");
-            if (luckysheetFreezen.freezenhorizontaldata[4] <= Store.columnHeaderHeight) {
-                luckysheetFreezen.cancelFreezenHorizontal();
+        if (!!tibetsheetsFreezen.horizontalmovestate) {
+            tibetsheetsFreezen.horizontalmovestate = false;
+            $("#tibetsheets-freezebar-horizontal").removeClass("tibetsheets-freezebar-active");
+            $("#tibetsheets-freezebar-horizontal").find(".tibetsheets-freezebar-horizontal-handle").css("cursor", "-webkit-grab");
+            if (tibetsheetsFreezen.freezenhorizontaldata[4] <= Store.columnHeaderHeight) {
+                tibetsheetsFreezen.cancelFreezenHorizontal();
             }
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
-        if (!!luckysheetFreezen.verticalmovestate) {
-            luckysheetFreezen.verticalmovestate = false;
-            $("#luckysheet-freezebar-vertical").removeClass("luckysheet-freezebar-active");
-            $("#luckysheet-freezebar-vertical").find(".luckysheet-freezebar-vertical-handle").css("cursor", "-webkit-grab");
-            if (luckysheetFreezen.freezenverticaldata[4] <= Store.rowHeaderWidth) {
-                luckysheetFreezen.cancelFreezenVertical();
+        if (!!tibetsheetsFreezen.verticalmovestate) {
+            tibetsheetsFreezen.verticalmovestate = false;
+            $("#tibetsheets-freezebar-vertical").removeClass("tibetsheets-freezebar-active");
+            $("#tibetsheets-freezebar-vertical").find(".tibetsheets-freezebar-vertical-handle").css("cursor", "-webkit-grab");
+            if (tibetsheetsFreezen.freezenverticaldata[4] <= Store.rowHeaderWidth) {
+                tibetsheetsFreezen.cancelFreezenVertical();
             }
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
         if (!!pivotTable && pivotTable.movestate) {
-            $("#luckysheet-modal-dialog-slider-pivot-move").remove();
+            $("#tibetsheets-modal-dialog-slider-pivot-move").remove();
             pivotTable.movestate = false;
-            $("#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").css("cursor", "default");
-            if (pivotTable.movesave.containerid != "luckysheet-modal-dialog-pivotTable-list") {
-                let $cur = $(event.target).closest(".luckysheet-modal-dialog-slider-config-list");
+            $("#tibetsheets-modal-dialog-pivotTable-list, #tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").css("cursor", "default");
+            if (pivotTable.movesave.containerid != "tibetsheets-modal-dialog-pivotTable-list") {
+                let $cur = $(event.target).closest(".tibetsheets-modal-dialog-slider-config-list");
                 if ($cur.length == 0) {
-                    if (pivotTable.movesave.containerid == "luckysheet-modal-dialog-config-value") {
+                    if (pivotTable.movesave.containerid == "tibetsheets-modal-dialog-config-value") {
                         pivotTable.resetOrderby(pivotTable.movesave.obj);
                     }
 
                     pivotTable.movesave.obj.remove();
                     pivotTable.showvaluecolrow();
-                    $("#luckysheet-modal-dialog-pivotTable-list").find(".luckysheet-modal-dialog-slider-list-item").each(function () {
-                        $(this).find(".luckysheet-slider-list-item-selected").find("i").remove();
+                    $("#tibetsheets-modal-dialog-pivotTable-list").find(".tibetsheets-modal-dialog-slider-list-item").each(function () {
+                        $(this).find(".tibetsheets-slider-list-item-selected").find("i").remove();
                     });
 
-                    $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+                    $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
                         let index = $(this).data("index");
 
-                        $("#luckysheet-modal-dialog-pivotTable-list").find(".luckysheet-modal-dialog-slider-list-item").each(function () {
-                            let $seleted = $(this).find(".luckysheet-slider-list-item-selected");
+                        $("#tibetsheets-modal-dialog-pivotTable-list").find(".tibetsheets-modal-dialog-slider-list-item").each(function () {
+                            let $seleted = $(this).find(".tibetsheets-slider-list-item-selected");
                             if ($(this).data("index") == index && $seleted.find("i").length == 0) {
-                                $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                                $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                             }
                         });
 
@@ -3472,67 +3472,67 @@ export default function luckysheetHandler() {
             }
         }
 
-        if (Store.luckysheet_sheet_move_status) {
-            Store.luckysheet_sheet_move_status = false;
-            Store.luckysheet_sheet_move_data.activeobject.insertBefore($("#luckysheet-sheets-item-clone"));
-            Store.luckysheet_sheet_move_data.activeobject.removeAttr("style");
-            $("#luckysheet-sheets-item-clone").remove();
-            Store.luckysheet_sheet_move_data.cursorobject.css({ "cursor": "pointer" });
-            Store.luckysheet_sheet_move_data = {};
+        if (Store.tibetsheets_sheet_move_status) {
+            Store.tibetsheets_sheet_move_status = false;
+            Store.tibetsheets_sheet_move_data.activeobject.insertBefore($("#tibetsheets-sheets-item-clone"));
+            Store.tibetsheets_sheet_move_data.activeobject.removeAttr("style");
+            $("#tibetsheets-sheets-item-clone").remove();
+            Store.tibetsheets_sheet_move_data.cursorobject.css({ "cursor": "pointer" });
+            Store.tibetsheets_sheet_move_data = {};
             sheetmanage.reOrderAllSheet();
         }
 
         // chart move debounce timer clear
-        clearTimeout(Store.chartparam.luckysheetCurrentChartMoveTimeout);
+        clearTimeout(Store.chartparam.tibetsheetsCurrentChartMoveTimeout);
 
         //图表拖动 chartMix
-        if (!!Store.chartparam.luckysheetCurrentChartMove) {
-            Store.chartparam.luckysheetCurrentChartMove = false;
-            if (Store.chartparam.luckysheetInsertChartTosheetChange) {
+        if (!!Store.chartparam.tibetsheetsCurrentChartMove) {
+            Store.chartparam.tibetsheetsCurrentChartMove = false;
+            if (Store.chartparam.tibetsheetsInsertChartTosheetChange) {
 
                 //myTop, myLeft: 本次的chart框位置，scrollLeft,scrollTop: 上一次的滚动条位置
-                var myTop = Store.chartparam.luckysheetCurrentChartMoveObj.css("top"), myLeft = Store.chartparam.luckysheetCurrentChartMoveObj.css("left"), scrollLeft = $("#luckysheet-cell-main").scrollLeft(), scrollTop = $("#luckysheet-cell-main").scrollTop();
+                var myTop = Store.chartparam.tibetsheetsCurrentChartMoveObj.css("top"), myLeft = Store.chartparam.tibetsheetsCurrentChartMoveObj.css("left"), scrollLeft = $("#tibetsheets-cell-main").scrollLeft(), scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
                 //点击时候存储的信息，即上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
-                var x = Store.chartparam.luckysheetCurrentChartMoveXy[2];
-                var y = Store.chartparam.luckysheetCurrentChartMoveXy[3];
+                var x = Store.chartparam.tibetsheetsCurrentChartMoveXy[2];
+                var y = Store.chartparam.tibetsheetsCurrentChartMoveXy[3];
 
-                var scrollLeft1 = Store.chartparam.luckysheetCurrentChartMoveXy[4];
-                var scrollTop1 = Store.chartparam.luckysheetCurrentChartMoveXy[5];
+                var scrollLeft1 = Store.chartparam.tibetsheetsCurrentChartMoveXy[4];
+                var scrollTop1 = Store.chartparam.tibetsheetsCurrentChartMoveXy[5];
 
-                var chart_id = Store.chartparam.luckysheetCurrentChartMoveObj.find(".luckysheet-modal-dialog-content").attr("id");
+                var chart_id = Store.chartparam.tibetsheetsCurrentChartMoveObj.find(".tibetsheets-modal-dialog-content").attr("id");
 
                 //去除chartobj,改用chart_id代替即可定位到此图表
                 Store.jfredo.push({ "type": "moveChart", "chart_id": chart_id, "sheetIndex": Store.currentSheetIndex, "myTop": myTop, "myLeft": myLeft, "scrollTop": scrollTop, "scrollLeft": scrollLeft, "x": x, "y": y, "scrollTop1": scrollTop1, "scrollLeft1": scrollLeft1 });
 
-                // luckysheet.sheetmanage.saveChart({ "chart_id": chart_id, "sheetIndex": sheetIndex, "top": myTop, "left": myLeft });
+                // tibetsheets.sheetmanage.saveChart({ "chart_id": chart_id, "sheetIndex": sheetIndex, "top": myTop, "left": myLeft });
                 //存储滚动条位置//协同编辑时可能影响用户操作，可以考虑不存储滚动条位置,或者滚动条信息仅仅保存到后台，但是不分发到其他设备（google sheet没有存储滚动条位置）
                 // Store.server.saveParam("c", sheetIndex, { "left":myLeft, "top":myTop,"scrollTop": scrollTop, "scrollLeft": scrollLeft }, { "op":"xy", "cid": chart_id});
             }
         }
 
         //图表改变大小 chartMix
-        if (!!Store.chartparam.luckysheetCurrentChartResize) {
-            Store.chartparam.luckysheetCurrentChartResize = null;
-            if (Store.chartparam.luckysheetInsertChartTosheetChange) {
-                var myHeight = Store.chartparam.luckysheetCurrentChartResizeObj.height(), myWidth = Store.chartparam.luckysheetCurrentChartResizeObj.width(), scrollLeft = $("#luckysheet-cell-main").scrollLeft(), scrollTop = $("#luckysheet-cell-main").scrollTop();
+        if (!!Store.chartparam.tibetsheetsCurrentChartResize) {
+            Store.chartparam.tibetsheetsCurrentChartResize = null;
+            if (Store.chartparam.tibetsheetsInsertChartTosheetChange) {
+                var myHeight = Store.chartparam.tibetsheetsCurrentChartResizeObj.height(), myWidth = Store.chartparam.tibetsheetsCurrentChartResizeObj.width(), scrollLeft = $("#tibetsheets-cell-main").scrollLeft(), scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
-                var myTop = Store.chartparam.luckysheetCurrentChartMoveObj.css("top"),
-                    myLeft = Store.chartparam.luckysheetCurrentChartMoveObj.css("left");
+                var myTop = Store.chartparam.tibetsheetsCurrentChartMoveObj.css("top"),
+                    myLeft = Store.chartparam.tibetsheetsCurrentChartMoveObj.css("left");
 
-                var chart_id = Store.chartparam.luckysheetCurrentChartResizeObj.find(".luckysheet-modal-dialog-content").attr("id");
+                var chart_id = Store.chartparam.tibetsheetsCurrentChartResizeObj.find(".tibetsheets-modal-dialog-content").attr("id");
 
-                var myWidth1 = Store.chartparam.luckysheetCurrentChartResizeXy[2];
-                var myHeight1 = Store.chartparam.luckysheetCurrentChartResizeXy[3];
-                var x = Store.chartparam.luckysheetCurrentChartResizeXy[4];//增加上一次的位置x，y
-                var y = Store.chartparam.luckysheetCurrentChartResizeXy[5];
-                var scrollLeft1 = Store.chartparam.luckysheetCurrentChartResizeXy[6];
-                var scrollTop1 = Store.chartparam.luckysheetCurrentChartResizeXy[7];
+                var myWidth1 = Store.chartparam.tibetsheetsCurrentChartResizeXy[2];
+                var myHeight1 = Store.chartparam.tibetsheetsCurrentChartResizeXy[3];
+                var x = Store.chartparam.tibetsheetsCurrentChartResizeXy[4];//增加上一次的位置x，y
+                var y = Store.chartparam.tibetsheetsCurrentChartResizeXy[5];
+                var scrollLeft1 = Store.chartparam.tibetsheetsCurrentChartResizeXy[6];
+                var scrollTop1 = Store.chartparam.tibetsheetsCurrentChartResizeXy[7];
 
                 Store.jfredo.push({ "type": "resizeChart", "chart_id": chart_id, "sheetIndex": Store.currentSheetIndex, "myTop": myTop, "myLeft": myLeft, "myHeight": myHeight, "myWidth": myWidth, "scrollTop": scrollTop, "scrollLeft": scrollLeft, "x": x, "y": y, "myWidth1": myWidth1, "myHeight1": myHeight1, "scrollTop1": scrollTop1, "scrollLeft1": scrollLeft1 });
 
                 //加上滚动条的位置
-                // luckysheet.sheetmanage.saveChart({ "chart_id": chart_id, "sheetIndex": sheetIndex, "height": myHeight, "width": myWidth, "top": myTop, "left": myLeft, "scrollTop": scrollTop, "scrollLeft": scrollLeft });
+                // tibetsheets.sheetmanage.saveChart({ "chart_id": chart_id, "sheetIndex": sheetIndex, "height": myHeight, "width": myWidth, "top": myTop, "left": myLeft, "scrollTop": scrollTop, "scrollLeft": scrollLeft });
 
                 // Store.server.saveParam("c", sheetIndex, { "width":myWidth, "height":myHeight, "top": myTop, "left": myLeft, "scrollTop": scrollTop, "scrollLeft": scrollLeft}, { "op":"wh", "cid": chart_id});
             }
@@ -3558,81 +3558,81 @@ export default function luckysheetHandler() {
         }
 
         //批注框 移动
-        if (luckysheetPostil.move) {
-            luckysheetPostil.move = false;
+        if (tibetsheetsPostil.move) {
+            tibetsheetsPostil.move = false;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").attr("id");
+            let ps_id = tibetsheetsPostil.currentObj.closest(".tibetsheets-postil-show").attr("id");
 
-            let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
-            let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
+            let ps_r = ps_id.split("tibetsheets-postil-show_")[1].split("_")[0];
+            let ps_c = ps_id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
 
-            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.position().left;
-            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.position().top;
-            d[ps_r][ps_c].ps.value = luckysheetPostil.currentObj.find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
+            d[ps_r][ps_c].ps.left = tibetsheetsPostil.currentObj.position().left;
+            d[ps_r][ps_c].ps.top = tibetsheetsPostil.currentObj.position().top;
+            d[ps_r][ps_c].ps.value = tibetsheetsPostil.currentObj.find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
 
             rc.push(ps_r + "_" + ps_c);
 
-            luckysheetPostil.ref(d, rc);
+            tibetsheetsPostil.ref(d, rc);
 
             $("#" + ps_id).remove();
 
             if (d[ps_r][ps_c].ps.isshow) {
-                luckysheetPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
-                $("#" + ps_id).addClass("luckysheet-postil-show-active");
-                $("#" + ps_id).find(".luckysheet-postil-dialog-resize").show();
+                tibetsheetsPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
+                $("#" + ps_id).addClass("tibetsheets-postil-show-active");
+                $("#" + ps_id).find(".tibetsheets-postil-dialog-resize").show();
             }
             else {
-                luckysheetPostil.editPs(ps_r, ps_c);
+                tibetsheetsPostil.editPs(ps_r, ps_c);
             }
         }
 
         //批注框 改变大小
-        if (!!luckysheetPostil.resize) {
-            luckysheetPostil.resize = null;
+        if (!!tibetsheetsPostil.resize) {
+            tibetsheetsPostil.resize = null;
 
-            let ps_id = luckysheetPostil.currentObj.closest(".luckysheet-postil-show").attr("id");
+            let ps_id = tibetsheetsPostil.currentObj.closest(".tibetsheets-postil-show").attr("id");
 
-            let ps_r = ps_id.split("luckysheet-postil-show_")[1].split("_")[0];
-            let ps_c = ps_id.split("luckysheet-postil-show_")[1].split("_")[1];
+            let ps_r = ps_id.split("tibetsheets-postil-show_")[1].split("_")[0];
+            let ps_c = ps_id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
 
-            d[ps_r][ps_c].ps.left = luckysheetPostil.currentObj.position().left;
-            d[ps_r][ps_c].ps.top = luckysheetPostil.currentObj.position().top;
-            d[ps_r][ps_c].ps.width = luckysheetPostil.currentObj.outerWidth();
-            d[ps_r][ps_c].ps.height = luckysheetPostil.currentObj.outerHeight();
-            d[ps_r][ps_c].ps.value = luckysheetPostil.currentObj.find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
+            d[ps_r][ps_c].ps.left = tibetsheetsPostil.currentObj.position().left;
+            d[ps_r][ps_c].ps.top = tibetsheetsPostil.currentObj.position().top;
+            d[ps_r][ps_c].ps.width = tibetsheetsPostil.currentObj.outerWidth();
+            d[ps_r][ps_c].ps.height = tibetsheetsPostil.currentObj.outerHeight();
+            d[ps_r][ps_c].ps.value = tibetsheetsPostil.currentObj.find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
 
             rc.push(ps_r + "_" + ps_c);
 
-            luckysheetPostil.ref(d, rc);
+            tibetsheetsPostil.ref(d, rc);
 
             $("#" + ps_id).remove();
 
             if (d[ps_r][ps_c].ps.isshow) {
-                luckysheetPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
-                $("#" + ps_id).addClass("luckysheet-postil-show-active");
-                $("#" + ps_id).find(".luckysheet-postil-dialog-resize").show();
+                tibetsheetsPostil.buildPs(ps_r, ps_c, d[ps_r][ps_c].ps);
+                $("#" + ps_id).addClass("tibetsheets-postil-show-active");
+                $("#" + ps_id).find(".tibetsheets-postil-dialog-resize").show();
             }
             else {
-                luckysheetPostil.editPs(ps_r, ps_c);
+                tibetsheetsPostil.editPs(ps_r, ps_c);
             }
         }
 
         //改变行高
-        if (Store.luckysheet_rows_change_size) {
-            Store.luckysheet_rows_change_size = false;
+        if (Store.tibetsheets_rows_change_size) {
+            Store.tibetsheets_rows_change_size = false;
 
-            $("#luckysheet-change-size-line").hide();
-            $("#luckysheet-rows-change-size").css("opacity", 0);
-            $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas").css("cursor", "default");
+            $("#tibetsheets-change-size-line").hide();
+            $("#tibetsheets-rows-change-size").css("opacity", 0);
+            $("#tibetsheets-sheettable, #tibetsheets-rows-h, #tibetsheets-rows-h canvas").css("cursor", "default");
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollTop = $("#luckysheet-rows-h").scrollTop();
+            let scrollTop = $("#tibetsheets-rows-h").scrollTop();
             let y = mouse[1] + scrollTop;
             let winH = $(window).height();
 
@@ -3641,14 +3641,14 @@ export default function luckysheetHandler() {
                 row_pre = row_location[0],
                 row_index = row_location[2];
 
-            let size = (y + 3) - Store.luckysheet_rows_change_size_start[0];
+            let size = (y + 3) - Store.tibetsheets_rows_change_size_start[0];
 
-            if ((y + 3) - Store.luckysheet_rows_change_size_start[0] < 19) {
+            if ((y + 3) - Store.tibetsheets_rows_change_size_start[0] < 19) {
                 size = 19;
             }
 
             if (y >= winH - 200 + scrollTop) {
-                size = winH - 200 - Store.luckysheet_rows_change_size_start[0] + scrollTop;
+                size = winH - 200 - Store.tibetsheets_rows_change_size_start[0] + scrollTop;
             }
 
             let cfg = $.extend(true, {}, Store.config);
@@ -3660,12 +3660,12 @@ export default function luckysheetHandler() {
                 cfg["customHeight"] = {};
             }
 
-            cfg["customHeight"][Store.luckysheet_rows_change_size_start[1]] = 1;
+            cfg["customHeight"][Store.tibetsheets_rows_change_size_start[1]] = 1;
 
-            const changeRowIndex = Store.luckysheet_rows_change_size_start[1];
+            const changeRowIndex = Store.tibetsheets_rows_change_size_start[1];
             let changeRowSelected = false;
-            if(Store["luckysheet_select_save"].length > 0) {
-                Store["luckysheet_select_save"].filter(select => select.row_select).some((select) => {
+            if(Store["tibetsheets_select_save"].length > 0) {
+                Store["tibetsheets_select_save"].filter(select => select.row_select).some((select) => {
                     if(changeRowIndex >= select.row[0] && changeRowIndex <= select.row[1]) {
                         changeRowSelected = true;
                     }
@@ -3673,17 +3673,17 @@ export default function luckysheetHandler() {
                 });
             }
             if(changeRowSelected) {
-                Store["luckysheet_select_save"].filter(select => select.row_select).forEach(select => {
+                Store["tibetsheets_select_save"].filter(select => select.row_select).forEach(select => {
                     for(let r = select.row[0]; r <= select.row[1]; r++) {
                         cfg["rowlen"][r] = Math.ceil(size/Store.zoomRatio);  
                     }
                 })
             } 
             else {
-                cfg["rowlen"][Store.luckysheet_rows_change_size_start[1]] = Math.ceil(size/Store.zoomRatio);
+                cfg["rowlen"][Store.tibetsheets_rows_change_size_start[1]] = Math.ceil(size/Store.zoomRatio);
             }
 
-            let images = imageCtrl.moveChangeSize("row", Store.luckysheet_rows_change_size_start[1], size);
+            let images = imageCtrl.moveChangeSize("row", Store.tibetsheets_rows_change_size_start[1], size);
 
             if (Store.clearjfundo) {
                 Store.jfundo.length  = 0;
@@ -3701,12 +3701,12 @@ export default function luckysheetHandler() {
 
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             server.saveParam("cg", Store.currentSheetIndex, cfg["rowlen"], { "k": "rowlen" });
 
             //images
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].images = images;
             server.saveParam("all", Store.currentSheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -3715,14 +3715,14 @@ export default function luckysheetHandler() {
         }
         
         //改变列宽
-        if (Store.luckysheet_cols_change_size) {
-            Store.luckysheet_cols_change_size = false;
-            $("#luckysheet-change-size-line").hide();
-            $("#luckysheet-cols-change-size").css("opacity", 0);
-            $("#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas").css("cursor", "default");
+        if (Store.tibetsheets_cols_change_size) {
+            Store.tibetsheets_cols_change_size = false;
+            $("#tibetsheets-change-size-line").hide();
+            $("#tibetsheets-cols-change-size").css("opacity", 0);
+            $("#tibetsheets-sheettable, #tibetsheets-cols-h-c, .tibetsheets-cols-h-cells, .tibetsheets-cols-h-cells canvas").css("cursor", "default");
             
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
+            let scrollLeft = $("#tibetsheets-cols-h-c").scrollLeft();
             let x = mouse[0] + scrollLeft;
             let winW = $(window).width();
 
@@ -3733,23 +3733,23 @@ export default function luckysheetHandler() {
                 col = col_location[1],
                 col_pre = col_location[0],
                 col_index = col_location[2];
-            let size = (x + 3) - Store.luckysheet_cols_change_size_start[0];
+            let size = (x + 3) - Store.tibetsheets_cols_change_size_start[0];
 
             
             let firstcolumnlen = Store.defaultcollen;
-            if (Store.config["columnlen"] != null && Store.config["columnlen"][Store.luckysheet_cols_change_size_start[1]] != null) {
-                firstcolumnlen = Store.config["columnlen"][Store.luckysheet_cols_change_size_start[1]];
+            if (Store.config["columnlen"] != null && Store.config["columnlen"][Store.tibetsheets_cols_change_size_start[1]] != null) {
+                firstcolumnlen = Store.config["columnlen"][Store.tibetsheets_cols_change_size_start[1]];
             }
 
             if (Math.abs(size - firstcolumnlen) < 3) {
                 return;
             }
-            if ((x + 3) - Store.luckysheet_cols_change_size_start[0] < 30) {
+            if ((x + 3) - Store.tibetsheets_cols_change_size_start[0] < 30) {
                 size = 30;
             }
 
             if (x >= winW - 100 + scrollLeft) {
-                size = winW - 100 - Store.luckysheet_cols_change_size_start[0] + scrollLeft;
+                size = winW - 100 - Store.tibetsheets_cols_change_size_start[0] + scrollLeft;
             }
 
             let cfg = $.extend(true, {}, Store.config);
@@ -3761,12 +3761,12 @@ export default function luckysheetHandler() {
                 cfg["customWidth"] = {};
             }
 
-            cfg["customWidth"][Store.luckysheet_cols_change_size_start[1]] = 1;
+            cfg["customWidth"][Store.tibetsheets_cols_change_size_start[1]] = 1;
 
-            const changeColumnIndex = Store.luckysheet_cols_change_size_start[1];
+            const changeColumnIndex = Store.tibetsheets_cols_change_size_start[1];
             let changeColumnSelected = false;
-            if(Store["luckysheet_select_save"].length > 0) {
-                Store["luckysheet_select_save"].filter(select => select.column_select).some((select) => {
+            if(Store["tibetsheets_select_save"].length > 0) {
+                Store["tibetsheets_select_save"].filter(select => select.column_select).some((select) => {
                     if(changeColumnIndex >= select.column[0] && changeColumnIndex <= select.column[1]) {
                         changeColumnSelected = true;
                     }
@@ -3774,18 +3774,18 @@ export default function luckysheetHandler() {
                 });
             }
             if(changeColumnSelected) {
-                Store["luckysheet_select_save"].filter(select => select.column_select).forEach(select => {
+                Store["tibetsheets_select_save"].filter(select => select.column_select).forEach(select => {
                     for(let r = select.column[0]; r <= select.column[1]; r++) {
                         cfg["columnlen"][r] = Math.ceil(size/Store.zoomRatio);  
                     }
                 })
             } 
             else {
-                cfg["columnlen"][Store.luckysheet_cols_change_size_start[1]] = Math.ceil(size/Store.zoomRatio);
+                cfg["columnlen"][Store.tibetsheets_cols_change_size_start[1]] = Math.ceil(size/Store.zoomRatio);
             }
             
 
-            let images = imageCtrl.moveChangeSize("column", Store.luckysheet_cols_change_size_start[1], size);
+            let images = imageCtrl.moveChangeSize("column", Store.tibetsheets_cols_change_size_start[1], size);
 
             if (Store.clearjfundo) {
                 Store.jfundo.length  = 0;
@@ -3803,12 +3803,12 @@ export default function luckysheetHandler() {
 
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             server.saveParam("cg", Store.currentSheetIndex, cfg["columnlen"], { "k": "columnlen" });
 
             //images
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].images = images;
             server.saveParam("all", Store.currentSheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -3816,7 +3816,7 @@ export default function luckysheetHandler() {
             jfrefreshgrid_rhcw(null, Store.flowdata[0].length);
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         }
 
@@ -3825,18 +3825,18 @@ export default function luckysheetHandler() {
         }
 
         //改变选择框的位置并替换目标单元格
-        if (Store.luckysheet_cell_selected_move) {
-            $("#luckysheet-cell-selected-move").hide();
+        if (Store.tibetsheets_cell_selected_move) {
+            $("#tibetsheets-cell-selected-move").hide();
 
-            Store.luckysheet_cell_selected_move = false;
+            Store.tibetsheets_cell_selected_move = false;
             let mouse = mouseposition(event.pageX, event.pageY);
 
-            if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+            if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
                 return;
             }
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
@@ -3847,15 +3847,15 @@ export default function luckysheetHandler() {
             let row_index = rowLocation(y)[2];
             let col_index = colLocation(x)[2];
 
-            let row_index_original = Store.luckysheet_cell_selected_move_index[0],
-                col_index_original = Store.luckysheet_cell_selected_move_index[1];
+            let row_index_original = Store.tibetsheets_cell_selected_move_index[0],
+                col_index_original = Store.tibetsheets_cell_selected_move_index[1];
 
             if (row_index == row_index_original && col_index == col_index_original) {
                 return;
             }
 
             let d = editor.deepCopyFlowData(Store.flowdata);
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
             let data = getdatabyselection(last);
 
@@ -4025,7 +4025,7 @@ export default function luckysheetHandler() {
             }
 
             //条件格式
-            let cdformat = $.extend(true, [], Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)]["luckysheet_conditionformat_save"]);
+            let cdformat = $.extend(true, [], Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)]["tibetsheets_conditionformat_save"]);
             if (cdformat != null && cdformat.length > 0) {
                 for (let i = 0; i < cdformat.length; i++) {
                     let cdformat_cellrange = cdformat[i].cellrange;
@@ -4039,7 +4039,7 @@ export default function luckysheetHandler() {
             }
 
             let rf;
-            if (Store.luckysheet_select_save[0].row_focus == Store.luckysheet_select_save[0].row[0]) {
+            if (Store.tibetsheets_select_save[0].row_focus == Store.tibetsheets_select_save[0].row[0]) {
                 rf = row_s;
             }
             else {
@@ -4047,7 +4047,7 @@ export default function luckysheetHandler() {
             }
 
             let cf;
-            if (Store.luckysheet_select_save[0].column_focus == Store.luckysheet_select_save[0].column[0]) {
+            if (Store.tibetsheets_select_save[0].column_focus == Store.tibetsheets_select_save[0].column[0]) {
                 cf = col_s;
             }
             else {
@@ -4073,7 +4073,7 @@ export default function luckysheetHandler() {
 
             selectHightlightShow();
 
-            $("#luckysheet-sheettable").css("cursor", "default");
+            $("#tibetsheets-sheettable").css("cursor", "default");
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
         }
@@ -4089,19 +4089,19 @@ export default function luckysheetHandler() {
         }
 
         //选区下拉
-        if (Store.luckysheet_cell_selected_extend) {
+        if (Store.tibetsheets_cell_selected_extend) {
 
             
-            Store.luckysheet_cell_selected_extend = false;
-            $("#luckysheet-cell-selected-extend").hide();
+            Store.tibetsheets_cell_selected_extend = false;
+            $("#tibetsheets-cell-selected-extend").hide();
 
-            if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+            if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
                 return;
             }
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
             let x = mouse[0] + scrollLeft - 5;
             let y = mouse[1] + scrollTop - 5;
@@ -4118,10 +4118,10 @@ export default function luckysheetHandler() {
                 col_pre = col_location[0],
                 col_index = col_location[2];
 
-            let row_index_original = Store.luckysheet_cell_selected_extend_index[0],
-                col_index_original = Store.luckysheet_cell_selected_extend_index[1];
+            let row_index_original = Store.tibetsheets_cell_selected_extend_index[0],
+                col_index_original = Store.tibetsheets_cell_selected_extend_index[1];
 
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
             let row_s = last["row"][0], row_e = last["row"][1];
             let col_s = last["column"][0], col_e = last["column"][1];
 
@@ -4146,22 +4146,22 @@ export default function luckysheetHandler() {
             }
 
             //复制范围
-            luckysheetDropCell.copyRange = { "row": $.extend(true, [], last["row"]), "column": $.extend(true, [], last["column"]) };
+            tibetsheetsDropCell.copyRange = { "row": $.extend(true, [], last["row"]), "column": $.extend(true, [], last["column"]) };
             //applyType
-            let typeItemHide = luckysheetDropCell.typeItemHide();
+            let typeItemHide = tibetsheetsDropCell.typeItemHide();
 
             if (!typeItemHide[0] && !typeItemHide[1] && !typeItemHide[2] && !typeItemHide[3] && !typeItemHide[4] && !typeItemHide[5] && !typeItemHide[6]) {
-                luckysheetDropCell.applyType = "0";
+                tibetsheetsDropCell.applyType = "0";
             }
             else {
-                luckysheetDropCell.applyType = "1";
+                tibetsheetsDropCell.applyType = "1";
             }
 
             if (Math.abs(row_index_original - row_index) > Math.abs(col_index_original - col_index)) {
                 if (!(row_index >= row_s && row_index <= row_e)) {
-                    if (Store.luckysheet_select_save[0].top_move >= row_pre) {//当往上拖拽时
-                        luckysheetDropCell.applyRange = { "row": [row_index, last["row"][0] - 1], "column": last["column"] };
-                        luckysheetDropCell.direction = "up";
+                    if (Store.tibetsheets_select_save[0].top_move >= row_pre) {//当往上拖拽时
+                        tibetsheetsDropCell.applyRange = { "row": [row_index, last["row"][0] - 1], "column": last["column"] };
+                        tibetsheetsDropCell.direction = "up";
 
                         row_s -= last["row"][0] - row_index;
 
@@ -4172,8 +4172,8 @@ export default function luckysheetHandler() {
                         }
                     }
                     else {//当往下拖拽时
-                        luckysheetDropCell.applyRange = { "row": [last["row"][1] + 1, row_index], "column": last["column"] };
-                        luckysheetDropCell.direction = "down";
+                        tibetsheetsDropCell.applyRange = { "row": [last["row"][1] + 1, row_index], "column": last["column"] };
+                        tibetsheetsDropCell.direction = "down";
 
                         row_e += row_index - last["row"][1];
 
@@ -4190,9 +4190,9 @@ export default function luckysheetHandler() {
             }
             else {
                 if (!(col_index >= col_s && col_index <= col_e)) {
-                    if (Store.luckysheet_select_save[0].left_move >= col_pre) {//当往左拖拽时
-                        luckysheetDropCell.applyRange = { "row": last["row"], "column": [col_index, last["column"][0] - 1] };
-                        luckysheetDropCell.direction = "left";
+                    if (Store.tibetsheets_select_save[0].left_move >= col_pre) {//当往左拖拽时
+                        tibetsheetsDropCell.applyRange = { "row": last["row"], "column": [col_index, last["column"][0] - 1] };
+                        tibetsheetsDropCell.direction = "left";
 
                         col_s -= last["column"][0] - col_index;
 
@@ -4203,8 +4203,8 @@ export default function luckysheetHandler() {
                         }
                     }
                     else {//当往右拖拽时
-                        luckysheetDropCell.applyRange = { "row": last["row"], "column": [last["column"][1] + 1, col_index] };
-                        luckysheetDropCell.direction = "right";
+                        tibetsheetsDropCell.applyRange = { "row": last["row"], "column": [last["column"][1] + 1, col_index] };
+                        tibetsheetsDropCell.direction = "right";
 
                         col_e += col_index - last["column"][1];
 
@@ -4271,19 +4271,19 @@ export default function luckysheetHandler() {
             last["row"] = [row_s, row_e];
             last["column"] = [col_s, col_e];
 
-            luckysheetDropCell.update();
-            luckysheetDropCell.createIcon();
+            tibetsheetsDropCell.update();
+            tibetsheetsDropCell.createIcon();
 
-            $("#luckysheet-cell-selected-move").hide();
+            $("#tibetsheets-cell-selected-move").hide();
 
-            $("#luckysheet-sheettable").css("cursor", "default");
+            $("#tibetsheets-sheettable").css("cursor", "default");
             clearTimeout(Store.countfuncTimeout);
             Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
         }
     });
 
     //禁止浏览器 右键默认菜单
-    $(".luckysheet-grid-container, #luckysheet-rightclick-menu").on("contextmenu", function (e) {
+    $(".tibetsheets-grid-container, #tibetsheets-rightclick-menu").on("contextmenu", function (e) {
         e.preventDefault();
     });
 
@@ -4293,24 +4293,24 @@ export default function luckysheetHandler() {
     // }
 
     //选区拖动替换
-    $("#luckysheet-cell-main div.luckysheet-cs-draghandle").mousedown(function (event) {
+    $("#tibetsheets-cell-main div.tibetsheets-cs-draghandle").mousedown(function (event) {
         if(isEditMode() || Store.allowEdit===false){//此模式下禁用选区拖动
             return;
         }
 
-        $("#luckysheet-cell-selected").find(".luckysheet-cs-fillhandle")
+        $("#tibetsheets-cell-selected").find(".tibetsheets-cs-fillhandle")
             .css("cursor", "move")
             .end()
-            .find(".luckysheet-cs-draghandle")
+            .find(".tibetsheets-cs-draghandle")
             .css("cursor", "move");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "move");
+        $("#tibetsheets-cell-main, #tibetsheetsTableContent, #tibetsheets-sheettable_0").css("cursor", "move");
 
-        Store.luckysheet_cell_selected_move = true;
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_cell_selected_move = true;
+        Store.tibetsheets_scroll_status = true;
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
         let row_location = rowLocation(y),
             row_pre = row_location[0],
@@ -4321,9 +4321,9 @@ export default function luckysheetHandler() {
             col = col_location[1],
             col_index = col_location[2];
 
-        Store.luckysheet_cell_selected_move_index = [row_index, col_index];
+        Store.tibetsheets_cell_selected_move_index = [row_index, col_index];
 
-        $("#luckysheet-cell-selected-move").css({
+        $("#tibetsheets-cell-selected-move").css({
             "left": col_pre,
             "width": col - col_pre - 1,
             "top": row_pre,
@@ -4335,25 +4335,25 @@ export default function luckysheetHandler() {
     });
 
     //选区下拉
-    $("#luckysheet-cell-main div.luckysheet-cs-fillhandle").mousedown(function (event) {
+    $("#tibetsheets-cell-main div.tibetsheets-cs-fillhandle").mousedown(function (event) {
         if(isEditMode() || Store.allowEdit===false){//此模式下禁用选区下拉
             return;
         }
 
-        $("#luckysheet-cell-selected").find(".luckysheet-cs-fillhandle")
+        $("#tibetsheets-cell-selected").find(".tibetsheets-cs-fillhandle")
             .css("cursor", "crosshair")
             .end()
-            .find(".luckysheet-cs-draghandle")
+            .find(".tibetsheets-cs-draghandle")
             .css("cursor", "crosshair");
-        $("#luckysheet-cell-main, #luckysheetTableContent, #luckysheet-sheettable_0").css("cursor", "crosshair");
+        $("#tibetsheets-cell-main, #tibetsheetsTableContent, #tibetsheets-sheettable_0").css("cursor", "crosshair");
 
-        Store.luckysheet_cell_selected_extend_time = setTimeout(function () {
-            Store.luckysheet_cell_selected_extend = true;
-            Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_cell_selected_extend_time = setTimeout(function () {
+            Store.tibetsheets_cell_selected_extend = true;
+            Store.tibetsheets_scroll_status = true;
 
             let mouse = mouseposition(event.pageX, event.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft() - 5;
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop() - 5;
+            let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft() - 5;
+            let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop() - 5;
 
             let row_location = rowLocation(y),
                 row_pre = row_location[0],
@@ -4364,9 +4364,9 @@ export default function luckysheetHandler() {
                 col = col_location[1],
                 col_index = col_location[2];
 
-            Store.luckysheet_cell_selected_extend_index = [row_index, col_index];
+            Store.tibetsheets_cell_selected_extend_index = [row_index, col_index];
 
-            $("#luckysheet-cell-selected-extend").css({
+            $("#tibetsheets-cell-selected-extend").css({
                 "left": col_pre,
                 "width": col - col_pre - 1,
                 "top": row_pre,
@@ -4377,10 +4377,10 @@ export default function luckysheetHandler() {
 
         event.stopPropagation();
     }).click(function () {
-        clearTimeout(Store.luckysheet_cell_selected_extend_time);
+        clearTimeout(Store.tibetsheets_cell_selected_extend_time);
         event.stopPropagation();
     }).dblclick(function () {
-        let last = Store.luckysheet_select_save[0];
+        let last = Store.tibetsheets_select_save[0];
 
         let r0 = last.row[0],
             r1 = last.row[1],
@@ -4467,29 +4467,29 @@ export default function luckysheetHandler() {
         }
 
         //复制范围
-        luckysheetDropCell.copyRange = { "row": [r0, r1], "column": [c0, c1] };
+        tibetsheetsDropCell.copyRange = { "row": [r0, r1], "column": [c0, c1] };
 
         //applyType
-        let typeItemHide = luckysheetDropCell.typeItemHide();
+        let typeItemHide = tibetsheetsDropCell.typeItemHide();
 
         if (!typeItemHide[0] && !typeItemHide[1] && !typeItemHide[2] && !typeItemHide[3] && !typeItemHide[4] && !typeItemHide[5] && !typeItemHide[6]) {
-            luckysheetDropCell.applyType = "0";
+            tibetsheetsDropCell.applyType = "0";
         }
         else {
-            luckysheetDropCell.applyType = "1";
+            tibetsheetsDropCell.applyType = "1";
         }
 
-        luckysheetDropCell.applyRange = { "row": [r1 + 1, r1 + step], "column": [c0, c1] };
-        luckysheetDropCell.direction = "down";
+        tibetsheetsDropCell.applyRange = { "row": [r1 + 1, r1 + step], "column": [c0, c1] };
+        tibetsheetsDropCell.direction = "down";
 
-        Store.luckysheet_select_save = [{ "row": [r0, r1 + step], "column": [c0, c1] }];
+        Store.tibetsheets_select_save = [{ "row": [r0, r1 + step], "column": [c0, c1] }];
 
-        luckysheetDropCell.update();
-        luckysheetDropCell.createIcon();
+        tibetsheetsDropCell.update();
+        tibetsheetsDropCell.createIcon();
 
-        $("#luckysheet-cell-selected-move").hide();
+        $("#tibetsheets-cell-selected-move").hide();
 
-        $("#luckysheet-sheettable").css("cursor", "default");
+        $("#tibetsheets-sheettable").css("cursor", "default");
         clearTimeout(Store.countfuncTimeout);
         Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
 
@@ -4497,19 +4497,19 @@ export default function luckysheetHandler() {
     });
 
     //
-    $("#luckysheet-bottom-add-row, #luckysheet-bottom-add-row-input, #luckysheet-bottom-return-top").on("mousedown dblclick mouseup", function (e) {
+    $("#tibetsheets-bottom-add-row, #tibetsheets-bottom-add-row-input, #tibetsheets-bottom-return-top").on("mousedown dblclick mouseup", function (e) {
         e.stopPropagation();
     });
 
     //底部添加行按钮
-    $("#luckysheet-bottom-add-row").on("click", function (e) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-bottom-add-row").on("click", function (e) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
-        let $t = $(this), value = $("#luckysheet-bottom-add-row-input").val();
+        let $t = $(this), value = $("#tibetsheets-bottom-add-row-input").val();
 
         if (value == "") {            
-            value = luckysheetConfigsetting.addRowCount || 100;
+            value = tibetsheetsConfigsetting.addRowCount || 100;
         }
 
         if (isNaN(parseInt(value))) {
@@ -4533,25 +4533,25 @@ export default function luckysheetHandler() {
             return;
         }
 
-        luckysheetextendtable("row", Store.flowdata.length - 1, value);
+        tibetsheetsextendtable("row", Store.flowdata.length - 1, value);
     });
 
-    $("#luckysheet-bottom-return-top").on("click", function (e) {
-        $("#luckysheet-scrollbar-y").scrollTop(0);
+    $("#tibetsheets-bottom-return-top").on("click", function (e) {
+        $("#tibetsheets-scrollbar-y").scrollTop(0);
     });
 
     //右键菜单 复制按钮
-    $("#luckysheet-copy-btn, #luckysheet-cols-copy-btn, #luckysheet-paste-btn-title").click(function (event) {
+    $("#tibetsheets-copy-btn, #tibetsheets-cols-copy-btn, #tibetsheets-paste-btn-title").click(function (event) {
         $(this).parent().hide();
         //复制范围内包含部分合并单元格，提示
         if (Store.config["merge"] != null) {
             let has_PartMC = false;
 
-            for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for (let s = 0; s < Store.tibetsheets_select_save.length; s++) {
+                let r1 = Store.tibetsheets_select_save[s].row[0],
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0],
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -4572,22 +4572,22 @@ export default function luckysheetHandler() {
         }
 
         //多重选区 有条件格式时 提示
-        let cdformat = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].luckysheet_conditionformat_save;
-        if (Store.luckysheet_select_save.length > 1 && cdformat != null && cdformat.length > 0) {
+        let cdformat = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].tibetsheets_conditionformat_save;
+        if (Store.tibetsheets_select_save.length > 1 && cdformat != null && cdformat.length > 0) {
             let hasCF = false;
 
             let cf_compute = conditionformat.getComputeMap();
 
             label:
-            for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
+            for (let s = 0; s < Store.tibetsheets_select_save.length; s++) {
                 if (hasCF) {
                     break;
                 }
 
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+                let r1 = Store.tibetsheets_select_save[s].row[0],
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0],
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 for (let r = r1; r <= r2; r++) {
                     for (let c = c1; c <= c2; c++) {
@@ -4611,19 +4611,19 @@ export default function luckysheetHandler() {
         }
 
         //多重选区 行不一样且列不一样时 提示       
-        if (Store.luckysheet_select_save.length > 1) {
+        if (Store.tibetsheets_select_save.length > 1) {
             let isSameRow = true,
-                str_r = Store.luckysheet_select_save[0].row[0],
-                end_r = Store.luckysheet_select_save[0].row[1];
+                str_r = Store.tibetsheets_select_save[0].row[0],
+                end_r = Store.tibetsheets_select_save[0].row[1];
             let isSameCol = true,
-                str_c = Store.luckysheet_select_save[0].column[0],
-                end_c = Store.luckysheet_select_save[0].column[1];
+                str_c = Store.tibetsheets_select_save[0].column[0],
+                end_c = Store.tibetsheets_select_save[0].column[1];
 
-            for (let s = 1; s < Store.luckysheet_select_save.length; s++) {
-                if (Store.luckysheet_select_save[s].row[0] != str_r || Store.luckysheet_select_save[s].row[1] != end_r) {
+            for (let s = 1; s < Store.tibetsheets_select_save.length; s++) {
+                if (Store.tibetsheets_select_save[s].row[0] != str_r || Store.tibetsheets_select_save[s].row[1] != end_r) {
                     isSameRow = false;
                 }
-                if (Store.luckysheet_select_save[s].column[0] != str_c || Store.luckysheet_select_save[s].column[1] != end_c) {
+                if (Store.tibetsheets_select_save[s].column[0] != str_c || Store.tibetsheets_select_save[s].column[1] != end_c) {
                     isSameCol = false;
                 }
             }
@@ -4643,25 +4643,25 @@ export default function luckysheetHandler() {
     });
 
     //右键菜单 粘贴按钮
-    $("#luckysheet-copy-paste, #luckysheet-cols-paste-btn, #luckysheet-paste-btn-title").click(function (event) {
+    $("#tibetsheets-copy-paste, #tibetsheets-cols-paste-btn, #tibetsheets-paste-btn-title").click(function (event) {
         selection.paste(event, "btn");
         $(this).parent().hide();
     });
 
     //Menu bar, Chart button
-    $("#luckysheet-chart-btn-title").click(function () {
+    $("#tibetsheets-chart-btn-title").click(function () {
         createLuckyChart();
     });
 
     // Right-click the menu, chart generation
-    $("#luckysheetdatavisual").click(function () {
+    $("#tibetsheetsdatavisual").click(function () {
         createLuckyChart();
-        $("#luckysheet-rightclick-menu").hide();
+        $("#tibetsheets-rightclick-menu").hide();
     });
 
 
     //菜单栏 数据透视表
-    $("#luckysheet-pivot-btn-title").click(function (e) {
+    $("#tibetsheets-pivot-btn-title").click(function (e) {
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "usePivotTablereports")){
             return;
         }
@@ -4669,9 +4669,9 @@ export default function luckysheetHandler() {
     });
 
     //菜单栏 截图按钮
-    $("#luckysheet-chart-btn-screenshot").click(function () {
+    $("#tibetsheets-chart-btn-screenshot").click(function () {
         const locale_screenshot = _locale.screenshot;
-        if (Store.luckysheet_select_save.length == 0) {
+        if (Store.tibetsheets_select_save.length == 0) {
             if (isEditMode()) {
                 alert(locale_screenshot.screenshotTipNoSelection);
             }
@@ -4681,7 +4681,7 @@ export default function luckysheetHandler() {
             return;
         }
 
-        if (Store.luckysheet_select_save.length > 1) {
+        if (Store.tibetsheets_select_save.length > 1) {
             if (isEditMode()) {
                 alert(locale_screenshot.screenshotTipHasMulti);
             }
@@ -4696,11 +4696,11 @@ export default function luckysheetHandler() {
         if (Store.config["merge"] != null) {
             let has_PartMC = false;
 
-            for (let s = 0; s < Store.luckysheet_select_save.length; s++) {
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for (let s = 0; s < Store.tibetsheets_select_save.length; s++) {
+                let r1 = Store.tibetsheets_select_save[s].row[0],
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0],
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -4720,10 +4720,10 @@ export default function luckysheetHandler() {
             }
         }
 
-        let st_r = Store.luckysheet_select_save[0].row[0],
-            ed_r = Store.luckysheet_select_save[0].row[1];
-        let st_c = Store.luckysheet_select_save[0].column[0],
-            ed_c = Store.luckysheet_select_save[0].column[1];
+        let st_r = Store.tibetsheets_select_save[0].row[0],
+            ed_r = Store.tibetsheets_select_save[0].row[1];
+        let st_c = Store.tibetsheets_select_save[0].column[0],
+            ed_c = Store.tibetsheets_select_save[0].column[1];
 
         let scrollHeight, rh_height;
         if (st_r - 1 < 0) {
@@ -4750,7 +4750,7 @@ export default function luckysheetHandler() {
             height: Math.ceil(rh_height * devicePixelRatio)
         }).css({ width: ch_width, height: rh_height });
 
-        luckysheetDrawMain(scrollWidth, scrollHeight, ch_width, rh_height, 1, 1, null, null, newCanvas);
+        tibetsheetsDrawMain(scrollWidth, scrollHeight, ch_width, rh_height, 1, 1, null, null, newCanvas);
         let ctx_newCanvas = newCanvas.get(0).getContext("2d");
 
         //补上 左边框和上边框
@@ -4764,7 +4764,7 @@ export default function luckysheetHandler() {
             Store.devicePixelRatio * rh_height
         );
         ctx_newCanvas.lineWidth = Store.devicePixelRatio * 2;
-        ctx_newCanvas.strokeStyle = luckysheetdefaultstyle.strokeStyle;        
+        ctx_newCanvas.strokeStyle = tibetsheetsdefaultstyle.strokeStyle;        
         ctx_newCanvas.stroke();
         ctx_newCanvas.closePath();
 
@@ -4778,7 +4778,7 @@ export default function luckysheetHandler() {
             0
         );
         ctx_newCanvas.lineWidth = Store.devicePixelRatio * 2;
-        ctx_newCanvas.strokeStyle = luckysheetdefaultstyle.strokeStyle;        
+        ctx_newCanvas.strokeStyle = tibetsheetsdefaultstyle.strokeStyle;        
         ctx_newCanvas.stroke();
         ctx_newCanvas.closePath();
 
@@ -4794,14 +4794,14 @@ export default function luckysheetHandler() {
         }
 
         let maxHeight = $(window).height() - 200;
-        tooltip.screenshot(locale_screenshot.screenshotTipSuccess, '<div id="luckysheet-confirm-screenshot-save" style="height:' + maxHeight + 'px;overflow:auto;"></div>', url);
-        $("#luckysheet-confirm-screenshot-save").append(image);
+        tooltip.screenshot(locale_screenshot.screenshotTipSuccess, '<div id="tibetsheets-confirm-screenshot-save" style="height:' + maxHeight + 'px;overflow:auto;"></div>', url);
+        $("#tibetsheets-confirm-screenshot-save").append(image);
         newCanvas.remove();
     });
 
     //截图下载
-    $(document).on("click.luckysheetEvent", "a.download", function () {
-        let dataURI = $("#luckysheet-confirm-screenshot-save img").attr("src");
+    $(document).on("click.tibetsheetsEvent", "a.download", function () {
+        let dataURI = $("#tibetsheets-confirm-screenshot-save img").attr("src");
         const locale_screenshot = _locale.screenshot;
         let binStr = atob(dataURI.split(",")[1]),
             len = binStr.length,
@@ -4836,23 +4836,23 @@ export default function luckysheetHandler() {
     })
 
     //菜单栏 分列按钮
-    $("#luckysheet-splitColumn-btn-title").click(function () {
+    $("#tibetsheets-splitColumn-btn-title").click(function () {
         if(!checkProtectionNotEnable(Store.currentSheetIndex)){
             return;
         }
 
-        if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+        if (Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0) {
             return;
         }
 
         const locale_splitText = _locale.splitText;
 
-        if (Store.luckysheet_select_save.length > 1) {
+        if (Store.tibetsheets_select_save.length > 1) {
             tooltip.info(locale_splitText.tipNoMulti, "");
             return;
         }
 
-        if (Store.luckysheet_select_save[0].column[0] != Store.luckysheet_select_save[0].column[1]) {
+        if (Store.tibetsheets_select_save[0].column[0] != Store.tibetsheets_select_save[0].column[1]) {
             tooltip.info(locale_splitText.tipNoMultiColumn, "");
             return;
         }
@@ -4862,7 +4862,7 @@ export default function luckysheetHandler() {
     });
 
     //菜单栏 插入图片按钮
-    $("#luckysheet-insertImg-btn-title").click(function () {
+    $("#tibetsheets-insertImg-btn-title").click(function () {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
             tooltip.info("", locale().pivotTable.errorNotAllowEdit);
@@ -4871,19 +4871,19 @@ export default function luckysheetHandler() {
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
             return;
         }
-        $("#luckysheet-imgUpload").click();    
+        $("#tibetsheets-imgUpload").click();    
     });
-    $("#luckysheetInsertImage").click(function () {
+    $("#tibetsheetsInsertImage").click(function () {
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects")){
             return;
         }
-        $("#luckysheet-imgUpload").click();
-        $("#luckysheet-rightclick-menu").hide();
+        $("#tibetsheets-imgUpload").click();
+        $("#tibetsheets-rightclick-menu").hide();
     })
-    $("#luckysheet-imgUpload").click(function (e) {
+    $("#tibetsheets-imgUpload").click(function (e) {
         e.stopPropagation();
     });
-    $("#luckysheet-imgUpload").on("change", function(e){
+    $("#tibetsheets-imgUpload").on("change", function(e){
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
             return;
         }
@@ -4892,7 +4892,7 @@ export default function luckysheetHandler() {
     });
 
     //菜单栏 插入链接按钮
-    $("#luckysheet-insertLink-btn-title").click(function () {
+    $("#tibetsheets-insertLink-btn-title").click(function () {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
             tooltip.info("", locale().pivotTable.errorNotAllowEdit);
@@ -4902,102 +4902,102 @@ export default function luckysheetHandler() {
             return;
         }
 
-        if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+        if (Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0) {
             return;
         }
 
         hyperlinkCtrl.createDialog();
         hyperlinkCtrl.init();
     })
-    $("#luckysheetInsertLink").click(function () {
-        $("#luckysheet-insertLink-btn-title").click();
-        $("#luckysheet-rightclick-menu").hide();
+    $("#tibetsheetsInsertLink").click(function () {
+        $("#tibetsheets-insertLink-btn-title").click();
+        $("#tibetsheets-rightclick-menu").hide();
     })
 
     //菜单栏 数据验证按钮
-    $("#luckysheet-dataVerification-btn-title").click(function () {
+    $("#tibetsheets-dataVerification-btn-title").click(function () {
         if(!checkProtectionNotEnable(Store.currentSheetIndex)){
             return;
         }
 
-        if (Store.luckysheet_select_save == null || Store.luckysheet_select_save.length == 0) {
+        if (Store.tibetsheets_select_save == null || Store.tibetsheets_select_save.length == 0) {
             return;
         }
 
         dataVerificationCtrl.createDialog();
         dataVerificationCtrl.init();
     });
-    $("#luckysheetDataVerification").click(function () {
-        $("#luckysheet-dataVerification-btn-title").click();
-        $("#luckysheet-rightclick-menu").hide();
+    $("#tibetsheetsDataVerification").click(function () {
+        $("#tibetsheets-dataVerification-btn-title").click();
+        $("#tibetsheets-rightclick-menu").hide();
     });
 
     //Cell format
-    $("#luckysheetCellFormatRightClickMenu").click(function () {
+    $("#tibetsheetsCellFormatRightClickMenu").click(function () {
         openCellFormatModel();
     });
 
     //冻结行列
-    $("#luckysheet-freezen-btn-horizontal").click(function () {
+    $("#tibetsheets-freezen-btn-horizontal").click(function () {
         if ($.trim($(this).text()) == locale().freezen.freezenCancel) {
 
-            luckysheetFreezen.saveFrozen("freezenCancel");
+            tibetsheetsFreezen.saveFrozen("freezenCancel");
 
-            if (luckysheetFreezen.freezenverticaldata != null) {
-                luckysheetFreezen.cancelFreezenVertical();
-                luckysheetFreezen.createAssistCanvas();
-                luckysheetrefreshgrid();
+            if (tibetsheetsFreezen.freezenverticaldata != null) {
+                tibetsheetsFreezen.cancelFreezenVertical();
+                tibetsheetsFreezen.createAssistCanvas();
+                tibetsheetsrefreshgrid();
             }
 
-            if (luckysheetFreezen.freezenhorizontaldata != null) {
-                luckysheetFreezen.cancelFreezenHorizontal();
-                luckysheetFreezen.createAssistCanvas();
-                luckysheetrefreshgrid();
+            if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+                tibetsheetsFreezen.cancelFreezenHorizontal();
+                tibetsheetsFreezen.createAssistCanvas();
+                tibetsheetsrefreshgrid();
             }
 
-            luckysheetFreezen.scrollAdapt();
+            tibetsheetsFreezen.scrollAdapt();
             // cancel 之后 勾勾取消
-            $('#luckysheet-icon-freezen-menu-menuButton').find('.fa.fa-check').remove();
+            $('#tibetsheets-icon-freezen-menu-menuButton').find('.fa.fa-check').remove();
         }
         else {
 
-            luckysheetFreezen.saveFrozen("freezenRow");
+            tibetsheetsFreezen.saveFrozen("freezenRow");
 
-            if (luckysheetFreezen.freezenverticaldata != null) {
-                luckysheetFreezen.cancelFreezenVertical();
-                luckysheetFreezen.createAssistCanvas();
-                luckysheetrefreshgrid();
+            if (tibetsheetsFreezen.freezenverticaldata != null) {
+                tibetsheetsFreezen.cancelFreezenVertical();
+                tibetsheetsFreezen.createAssistCanvas();
+                tibetsheetsrefreshgrid();
             }
 
-            if (luckysheetFreezen.freezenhorizontaldata == null) {
-                luckysheetFreezen.createFreezenHorizontal();
-                luckysheetFreezen.createAssistCanvas();
+            if (tibetsheetsFreezen.freezenhorizontaldata == null) {
+                tibetsheetsFreezen.createFreezenHorizontal();
+                tibetsheetsFreezen.createAssistCanvas();
             }
         }
     });
 
-    $("#luckysheet-freezen-btn-vertical").click(function () {
-        if (luckysheetFreezen.freezenverticaldata != null) {
+    $("#tibetsheets-freezen-btn-vertical").click(function () {
+        if (tibetsheetsFreezen.freezenverticaldata != null) {
 
-            luckysheetFreezen.saveFrozen("freezenCancel");
+            tibetsheetsFreezen.saveFrozen("freezenCancel");
 
-            luckysheetFreezen.cancelFreezenVertical();
-            luckysheetrefreshgrid();
+            tibetsheetsFreezen.cancelFreezenVertical();
+            tibetsheetsrefreshgrid();
         }
         else {
 
-            luckysheetFreezen.saveFrozen("freezenColumn");
+            tibetsheetsFreezen.saveFrozen("freezenColumn");
 
-            luckysheetFreezen.createFreezenVertical();
+            tibetsheetsFreezen.createFreezenVertical();
         }
-        luckysheetFreezen.createAssistCanvas();
+        tibetsheetsFreezen.createAssistCanvas();
     });
 
-    $("#luckysheet-rightclick-menu input").on("keydown", function (e) {
+    $("#tibetsheets-rightclick-menu input").on("keydown", function (e) {
         e.stopPropagation();
     });
 
-    $("#luckysheet-modal-dialog-mask").on("click dbclick mousedown mousemove mouseup", function (e) {
+    $("#tibetsheets-modal-dialog-mask").on("click dbclick mousedown mousemove mouseup", function (e) {
         e.stopPropagation();
         e.preventDefault();
     });
@@ -5008,52 +5008,52 @@ export default function luckysheetHandler() {
         }
     }
 
-    $(document).on("visibilitychange.luckysheetEvent webkitvisibilitychange.luckysheetEvent msvisibilitychange.luckysheetEvent", copychange).on("mouseleave.luckysheetEvent", function () {
+    $(document).on("visibilitychange.tibetsheetsEvent webkitvisibilitychange.tibetsheetsEvent msvisibilitychange.tibetsheetsEvent", copychange).on("mouseleave.tibetsheetsEvent", function () {
         Store.iscopyself = false;
-    }).on("mousedown.luckysheetEvent", function (event) {
+    }).on("mousedown.tibetsheetsEvent", function (event) {
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         hideMenuByCancel(event);
 
         //点击功能栏时 如果是单元格编辑模式 则退出编辑模式 
-        if ($(event.target).closest("#luckysheet-wa-editor").length > 0 && parseInt($("#luckysheet-input-box").css("top")) > 0) {
+        if ($(event.target).closest("#tibetsheets-wa-editor").length > 0 && parseInt($("#tibetsheets-input-box").css("top")) > 0) {
             
-            formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+            formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+            tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
         }
     });
 
     //表格左上角点击 全选表格
-    $("#luckysheet-left-top").click(function (event) {
+    $("#tibetsheets-left-top").click(function (event) {
         if(!checkProtectionAllSelected(Store.currentSheetIndex)){
             return;
         }
 
-        $("#luckysheet-wa-functionbox-confirm").click();
-        Store.luckysheet_select_status = false;
+        $("#tibetsheets-wa-functionbox-confirm").click();
+        Store.tibetsheets_select_status = false;
 
-        Store.luckysheet_select_save = [{ "row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1], "row_focus": 0, "column_focus": 0, row_select: true, column_select: true }];
+        Store.tibetsheets_select_save = [{ "row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1], "row_focus": 0, "column_focus": 0, row_select: true, column_select: true }];
         selectHightlightShow();
 
         clearTimeout(Store.countfuncTimeout);
         Store.countfuncTimeout = setTimeout(function () { countfunc() }, 500);
 
         /* 选中区域：发送网络请求 */
-        server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+        server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
 
         event.stopPropagation();
     });
 
 
     //回退 重做 按钮
-    $("#luckysheet-icon-undo").click(function (event) {
+    $("#tibetsheets-icon-undo").click(function (event) {
         if ($(this).hasClass('disabled')) {
             return;
         }
         controlHistory.redo(event);
     });
-    $("#luckysheet-icon-redo").click(function (event) {
+    $("#tibetsheets-icon-redo").click(function (event) {
         if ($(this).hasClass('disabled')) {
             return;
         }
@@ -5062,72 +5062,72 @@ export default function luckysheetHandler() {
 
 
     //模态框拖动
-    $(document).on("mousedown.luckysheetEvent", "div.luckysheet-modal-dialog", function (e) {
-        if (!$(e.target).is(".luckysheet-modal-dialog")) {
+    $(document).on("mousedown.tibetsheetsEvent", "div.tibetsheets-modal-dialog", function (e) {
+        if (!$(e.target).is(".tibetsheets-modal-dialog")) {
             return;
         }
 
-        Store.luckysheet_model_move_state = true;
+        Store.tibetsheets_model_move_state = true;
 
-        Store.luckysheet_model_move_obj = $(e.currentTarget);
-        let toffset = Store.luckysheet_model_move_obj.offset();
-        Store.luckysheet_model_xy = [e.pageX - toffset.left, e.pageY - toffset.top];
+        Store.tibetsheets_model_move_obj = $(e.currentTarget);
+        let toffset = Store.tibetsheets_model_move_obj.offset();
+        Store.tibetsheets_model_xy = [e.pageX - toffset.left, e.pageY - toffset.top];
     });
 
     //模态框关闭
-    $(document).on("click.luckysheetEvent", ".luckysheet-modal-dialog-title-close, .luckysheet-model-close-btn", function (e) {
+    $(document).on("click.tibetsheetsEvent", ".tibetsheets-modal-dialog-title-close, .tibetsheets-model-close-btn", function (e) {
         //选择文本颜色和单元格颜色弹出框取消
         if ($("#textcolorselect").is(":visible") || $("#cellcolorselect").is(":visible")) {
-            $("#luckysheet-conditionformat-dialog").show();
+            $("#tibetsheets-conditionformat-dialog").show();
         }
-        $(e.currentTarget).parents(".luckysheet-modal-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").hide();
+        $(e.currentTarget).parents(".tibetsheets-modal-dialog").hide();
+        $("#tibetsheets-modal-dialog-mask").hide();
 
         //函数查找功能所有弹出框关闭和取消
-        if ($(this).parents(".luckysheet-modal-dialog").hasClass("luckysheet-search-formula")) {
+        if ($(this).parents(".tibetsheets-modal-dialog").hasClass("tibetsheets-search-formula")) {
             formula.dontupdate();
-            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+            tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
         }
-        if ($(this).parents(".luckysheet-modal-dialog").hasClass("luckysheet-search-formula-parm")) {
+        if ($(this).parents(".tibetsheets-modal-dialog").hasClass("tibetsheets-search-formula-parm")) {
             formula.dontupdate();
-            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+            tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
         }
-        if ($(this).parents(".luckysheet-modal-dialog").hasClass("luckysheet-search-formula-parm-select")) {
+        if ($(this).parents(".tibetsheets-modal-dialog").hasClass("tibetsheets-search-formula-parm-select")) {
             formula.dontupdate();
-            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+            tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
         }
 
-        luckysheetContainerFocus();
+        tibetsheetsContainerFocus();
     });
 
     //左上角返回按钮
-    $("#luckysheet_info_detail_title").click(function () {
-        window.open(luckysheetConfigsetting.myFolderUrl, "_self");
+    $("#tibetsheets_info_detail_title").click(function () {
+        window.open(tibetsheetsConfigsetting.myFolderUrl, "_self");
     });
 
     //图表选区mousedown
-    $("#luckysheet-chart-rangeShow").on("mousedown.chartRangeShowMove", ".luckysheet-chart-rangeShow-move", function (event) {
+    $("#tibetsheets-chart-rangeShow").on("mousedown.chartRangeShowMove", ".tibetsheets-chart-rangeShow-move", function (event) {
         Store.chart_selection.rangeMove = true;
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
 
         Store.chart_selection.rangeMoveObj = $(this).parent();
 
         let chart_json = Store.currentChart
 
         let $id = $(this).parent().attr("id");
-        if ($id == "luckysheet-chart-rangeShow-content") {
+        if ($id == "tibetsheets-chart-rangeShow-content") {
             let row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.content.row[0];
             let col_s = chart_json.rangeArray[0].column[0] + chart_json.rangeSplitArray.content.column[0];
 
             Store.chart_selection.rangeMoveIndex = [row_s, col_s];
         }
-        else if ($id == "luckysheet-chart-rangeShow-rowtitle") {
+        else if ($id == "tibetsheets-chart-rangeShow-rowtitle") {
             let row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.rowtitle.row[0];
             let col_s = chart_json.rangeArray[0].column[0] + chart_json.rangeSplitArray.rowtitle.column[0];
 
             Store.chart_selection.rangeMoveIndex = [row_s, col_s];
         }
-        else if ($id == "luckysheet-chart-rangeShow-coltitle") {
+        else if ($id == "tibetsheets-chart-rangeShow-coltitle") {
             let row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.coltitle.row[0];
             let col_s = chart_json.rangeArray[0].column[0] + chart_json.rangeSplitArray.coltitle.column[0];
 
@@ -5135,8 +5135,8 @@ export default function luckysheetHandler() {
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
         let type = $(this).data("type");
         if (type == "top") {
             y += 3;
@@ -5159,9 +5159,9 @@ export default function luckysheetHandler() {
         event.stopPropagation();
     });
 
-    $("#luckysheet-chart-rangeShow").on("mousedown.chartRangeShowResize", ".luckysheet-chart-rangeShow-resize", function (event) {
+    $("#tibetsheets-chart-rangeShow").on("mousedown.chartRangeShowResize", ".tibetsheets-chart-rangeShow-resize", function (event) {
         Store.chart_selection.rangeResize = $(this).data("type");//开始状态resize
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
 
         Store.chart_selection.rangeResizeObj = $(this).parent();
 
@@ -5172,7 +5172,7 @@ export default function luckysheetHandler() {
         let col_e
 
         let $id = $(this).parent().attr("id");
-        if ($id == "luckysheet-chart-rangeShow-content") {
+        if ($id == "tibetsheets-chart-rangeShow-content") {
             if (chart_json.rangeRowCheck.exits) {
                  row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.content.row[0];
                  row_e = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.content.row[1];
@@ -5193,7 +5193,7 @@ export default function luckysheetHandler() {
 
             Store.chart_selection.rangeResizeIndex = { "row": [row_s, row_e], "column": [col_s, col_e] };
         }
-        else if ($id == "luckysheet-chart-rangeShow-rowtitle") {
+        else if ($id == "tibetsheets-chart-rangeShow-rowtitle") {
             let row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.rowtitle.row[0];
             let row_e = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.rowtitle.row[1];
 
@@ -5202,7 +5202,7 @@ export default function luckysheetHandler() {
 
             Store.chart_selection.rangeResizeIndex = { "row": [row_s, row_e], "column": [col_s, col_e] };
         }
-        else if ($id == "luckysheet-chart-rangeShow-coltitle") {
+        else if ($id == "tibetsheets-chart-rangeShow-coltitle") {
             let row_s = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.coltitle.row[0];
             let row_e = chart_json.rangeArray[0].row[0] + chart_json.rangeSplitArray.coltitle.row[1];
 
@@ -5213,8 +5213,8 @@ export default function luckysheetHandler() {
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
         if (Store.chart_selection.rangeResize == "lt") {
             x += 3;
@@ -5241,25 +5241,25 @@ export default function luckysheetHandler() {
         event.stopPropagation();
     })
 
-    $("#luckysheet-wa-calculate-size").mousedown(function (e) {
+    $("#tibetsheets-wa-calculate-size").mousedown(function (e) {
         let y = e.pageY;
         formula.functionResizeData.y = y;
         formula.functionResizeStatus = true;
         formula.functionResizeData.calculatebarHeight = Store.calculatebarHeight;
         if (formula.rangetosheet != null) {
-            formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
+            formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
         }
     });
 
     // 点击设置字体大小的下拉箭头，把自动聚焦输入框去除（认为下拉设置字体大小，不需要聚焦输入框）
     // //toolbar菜单
-    // $("#" + Store.container + " .luckysheet-wa-editor").on("click", ".luckysheet-toolbar-zoom-combobox", function (e) {
-    //     $(e.currentTarget).addClass("luckysheet-toolbar-combo-button-open");
-    //     $(e.currentTarget).find(".luckysheet-toolbar-combo-button-input").focus();
+    // $("#" + Store.container + " .tibetsheets-wa-editor").on("click", ".tibetsheets-toolbar-zoom-combobox", function (e) {
+    //     $(e.currentTarget).addClass("tibetsheets-toolbar-combo-button-open");
+    //     $(e.currentTarget).find(".tibetsheets-toolbar-combo-button-input").focus();
     // });
 
-    // $("#" + Store.container + " .luckysheet-wa-editor").on("blur", ".luckysheet-toolbar-combo-button-input", function (e) {
-    //     $(e.currentTarget).closest(".luckysheet-toolbar-zoom-combobox").removeClass("luckysheet-toolbar-combo-button-open");
+    // $("#" + Store.container + " .tibetsheets-wa-editor").on("blur", ".tibetsheets-toolbar-combo-button-input", function (e) {
+    //     $(e.currentTarget).closest(".tibetsheets-toolbar-zoom-combobox").removeClass("tibetsheets-toolbar-combo-button-open");
     // });
 
     //表格格式处理
@@ -5269,13 +5269,13 @@ export default function luckysheetHandler() {
     let dpi_y = document.getElementById('testdpidiv').offsetHeight * Store.devicePixelRatio;
 
     //粘贴事件处理
-    $(document).on("paste.luckysheetEvent", function (e) {
+    $(document).on("paste.tibetsheetsEvent", function (e) {
         if (isEditMode()) {//此模式下禁用粘贴
             return;
         }
 
         if (selection.isPasteAction) {
-            $("#luckysheet-rich-text-editor").blur();
+            $("#tibetsheets-rich-text-editor").blur();
             selection.isPasteAction = false;
 
             let clipboardData = window.clipboardData; //for IE
@@ -5287,7 +5287,7 @@ export default function luckysheetHandler() {
 
             //如果标示是qksheet复制的内容，判断剪贴板内容是否是当前页面复制的内容
             let isEqual = true;
-            if (txtdata.indexOf("luckysheet_copy_action_table") > - 1 && Store.luckysheet_copy_save["copyRange"] != null && Store.luckysheet_copy_save["copyRange"].length > 0) {
+            if (txtdata.indexOf("tibetsheets_copy_action_table") > - 1 && Store.tibetsheets_copy_save["copyRange"] != null && Store.tibetsheets_copy_save["copyRange"].length > 0) {
                 //剪贴板内容解析
                 let cpDataArr = [];
                 
@@ -5312,19 +5312,19 @@ export default function luckysheetHandler() {
                 }
 
                 //当前页面复制区内容
-                let copy_r1 = Store.luckysheet_copy_save["copyRange"][0].row[0],
-                    copy_r2 = Store.luckysheet_copy_save["copyRange"][0].row[1],
-                    copy_c1 = Store.luckysheet_copy_save["copyRange"][0].column[0],
-                    copy_c2 = Store.luckysheet_copy_save["copyRange"][0].column[1];
+                let copy_r1 = Store.tibetsheets_copy_save["copyRange"][0].row[0],
+                    copy_r2 = Store.tibetsheets_copy_save["copyRange"][0].row[1],
+                    copy_c1 = Store.tibetsheets_copy_save["copyRange"][0].column[0],
+                    copy_c2 = Store.tibetsheets_copy_save["copyRange"][0].column[1];
 
-                let copy_index = Store.luckysheet_copy_save["dataSheetIndex"];
+                let copy_index = Store.tibetsheets_copy_save["dataSheetIndex"];
 
                 let d;
                 if(copy_index == Store.currentSheetIndex){
                     d = editor.deepCopyFlowData(Store.flowdata);
                 }
                 else{
-                    d = Store.luckysheetfile[getSheetIndex(copy_index)].data;
+                    d = Store.tibetsheetsfile[getSheetIndex(copy_index)].data;
                 }
 
                 for(let r = copy_r1; r <= copy_r2; r++){
@@ -5382,31 +5382,31 @@ export default function luckysheetHandler() {
 
             
             // hook
-            if(!method.createHookFunction('rangePasteBefore',Store.luckysheet_select_save,txtdata)){
+            if(!method.createHookFunction('rangePasteBefore',Store.tibetsheets_select_save,txtdata)){
                 return;
             }
 
-            if (txtdata.indexOf("luckysheet_copy_action_table") > - 1 && Store.luckysheet_copy_save["copyRange"] != null && Store.luckysheet_copy_save["copyRange"].length > 0 && isEqual) {
-                //剪切板内容 和 luckysheet本身复制的内容 一致
-                if (Store.luckysheet_paste_iscut) {
-                    Store.luckysheet_paste_iscut = false;
-                    selection.pasteHandlerOfCutPaste(Store.luckysheet_copy_save);
+            if (txtdata.indexOf("tibetsheets_copy_action_table") > - 1 && Store.tibetsheets_copy_save["copyRange"] != null && Store.tibetsheets_copy_save["copyRange"].length > 0 && isEqual) {
+                //剪切板内容 和 tibetsheets本身复制的内容 一致
+                if (Store.tibetsheets_paste_iscut) {
+                    Store.tibetsheets_paste_iscut = false;
+                    selection.pasteHandlerOfCutPaste(Store.tibetsheets_copy_save);
                     selection.clearcopy(e);
                 }
                 else {
-                    selection.pasteHandlerOfCopyPaste(Store.luckysheet_copy_save);
+                    selection.pasteHandlerOfCopyPaste(Store.tibetsheets_copy_save);
                 }
             }
-            else if(txtdata.indexOf("luckysheet_copy_action_image") > - 1){
+            else if(txtdata.indexOf("tibetsheets_copy_action_image") > - 1){
                 imageCtrl.pasteImgItem();
             }
             else {
                 if (txtdata.indexOf("table") > -1) {
-                    $("#luckysheet-copy-content").html(txtdata);
+                    $("#tibetsheets-copy-content").html(txtdata);
 
-                    let data = new Array($("#luckysheet-copy-content").find("table tr").length);
+                    let data = new Array($("#tibetsheets-copy-content").find("table tr").length);
                     let colLen = 0;
-                    $("#luckysheet-copy-content").find("table tr").eq(0).find("td").each(function () {
+                    $("#tibetsheets-copy-content").find("table tr").eq(0).find("td").each(function () {
                         let colspan = parseInt($(this).attr("colspan"));
                         if (isNaN(colspan)) {
                             colspan = 1;
@@ -5420,7 +5420,7 @@ export default function luckysheetHandler() {
 
                     let r = 0;
                     let borderInfo = {};
-                    $("#luckysheet-copy-content").find("table tr").each(function () {
+                    $("#tibetsheets-copy-content").find("table tr").each(function () {
                         let $tr = $(this);
                         let c = 0;
                         $tr.find("td").each(function () {
@@ -5531,8 +5531,8 @@ export default function luckysheetHandler() {
                                     colspan = 1;
                                 }
 
-                                let r_ab = Store.luckysheet_select_save[0]["row"][0] + r;
-                                let c_ab = Store.luckysheet_select_save[0]["column"][0] + c;
+                                let r_ab = Store.tibetsheets_select_save[0]["row"][0] + r;
+                                let c_ab = Store.tibetsheets_select_save[0]["column"][0] + c;
 
                                 for (let rp = 0; rp < rowspan; rp++) {
                                     for (let cp = 0; cp < colspan; cp++) {
@@ -5624,9 +5624,9 @@ export default function luckysheetHandler() {
                         r++;
                     });
 
-                    Store.luckysheet_selection_range = [];
+                    Store.tibetsheets_selection_range = [];
                     selection.pasteHandler(data, borderInfo);
-                    $("#luckysheet-copy-content").empty();
+                    $("#tibetsheets-copy-content").empty();
                 }
                 //复制的是图片
                 else if(clipboardData.files.length == 1 && clipboardData.files[0].type.indexOf('image') > -1){
@@ -5640,7 +5640,7 @@ export default function luckysheetHandler() {
                 }
             }
         }
-        else if($(e.target).closest('#luckysheet-rich-text-editor').length > 0) {
+        else if($(e.target).closest('#tibetsheets-rich-text-editor').length > 0) {
             
             // 阻止默认粘贴
             e.preventDefault();
@@ -5656,16 +5656,16 @@ export default function luckysheetHandler() {
     });
 
     //是否允许加载下一页
-    if (luckysheetConfigsetting.enablePage) {
-        $("#luckysheet-bottom-page-next").click(function () {
-            let queryExps = luckysheetConfigsetting.pageInfo.queryExps;
-            let reportId = luckysheetConfigsetting.pageInfo.reportId;
-            let fields = luckysheetConfigsetting.pageInfo.fields;
-            let mobile = luckysheetConfigsetting.pageInfo.mobile;
-            let frezon = luckysheetConfigsetting.pageInfo.frezon;
-            let currentPage = luckysheetConfigsetting.pageInfo.currentPage;
-            let totalPage = luckysheetConfigsetting.pageInfo.totalPage;
-            let pageUrl = luckysheetConfigsetting.pageInfo.pageUrl;
+    if (tibetsheetsConfigsetting.enablePage) {
+        $("#tibetsheets-bottom-page-next").click(function () {
+            let queryExps = tibetsheetsConfigsetting.pageInfo.queryExps;
+            let reportId = tibetsheetsConfigsetting.pageInfo.reportId;
+            let fields = tibetsheetsConfigsetting.pageInfo.fields;
+            let mobile = tibetsheetsConfigsetting.pageInfo.mobile;
+            let frezon = tibetsheetsConfigsetting.pageInfo.frezon;
+            let currentPage = tibetsheetsConfigsetting.pageInfo.currentPage;
+            let totalPage = tibetsheetsConfigsetting.pageInfo.totalPage;
+            let pageUrl = tibetsheetsConfigsetting.pageInfo.pageUrl;
 
             
             method.addDataAjax({
@@ -5677,23 +5677,23 @@ export default function luckysheetHandler() {
                 "pageIndex": currentPage,
                 "currentPage": currentPage
             }, Store.currentSheetIndex, pageUrl, function () {
-                luckysheetConfigsetting.pageInfo.currentPage++;
-                if (luckysheetConfigsetting.pageInfo.totalPage == (luckysheetConfigsetting.pageInfo.currentPage)) {
-                    $("#luckysheet-bottom-page-next").hide();
+                tibetsheetsConfigsetting.pageInfo.currentPage++;
+                if (tibetsheetsConfigsetting.pageInfo.totalPage == (tibetsheetsConfigsetting.pageInfo.currentPage)) {
+                    $("#tibetsheets-bottom-page-next").hide();
                     let pageInfoFull = replaceHtml(locale_info.pageInfoFull, {
-                        total: luckysheetConfigsetting.total,
-                        totalPage: luckysheetConfigsetting.pageInfo.totalPage,
+                        total: tibetsheetsConfigsetting.total,
+                        totalPage: tibetsheetsConfigsetting.pageInfo.totalPage,
                     });
-                    $("#luckysheet-bottom-page-info").html(pageInfoFull);
+                    $("#tibetsheets-bottom-page-info").html(pageInfoFull);
                 }
                 else {
                     let pageInfo = replaceHtml(locale_info.pageInfo, {
-                        total: luckysheetConfigsetting.total,
-                        totalPage: luckysheetConfigsetting.pageInfo.totalPage,
-                        currentPage: luckysheetConfigsetting.pageInfo.currentPage
+                        total: tibetsheetsConfigsetting.total,
+                        totalPage: tibetsheetsConfigsetting.pageInfo.totalPage,
+                        currentPage: tibetsheetsConfigsetting.pageInfo.currentPage
 
                     });
-                    $("#luckysheet-bottom-page-info").html(pageInfo);
+                    $("#tibetsheets-bottom-page-info").html(pageInfo);
                 }
             });
         }).mousedown(function (e) {
@@ -5702,14 +5702,14 @@ export default function luckysheetHandler() {
     }
 
     //回到顶部
-    $("#luckysheet-bottom-bottom-top").click(function () {
-        $("#luckysheet-scrollbar-y").scrollTop(0);
+    $("#tibetsheets-bottom-bottom-top").click(function () {
+        $("#tibetsheets-scrollbar-y").scrollTop(0);
     }).mousedown(function (e) {
         e.stopPropagation();
     });
 
-    $('#luckysheet-wa-editor,#luckysheet-icon-morebtn-div,.luckysheet-toolbar-button').click(function(e){
-        if(this.id != 'luckysheet-icon-paintformat' && menuButton.luckysheetPaintModelOn){
+    $('#tibetsheets-wa-editor,#tibetsheets-icon-morebtn-div,.tibetsheets-toolbar-button').click(function(e){
+        if(this.id != 'tibetsheets-icon-paintformat' && menuButton.tibetsheetsPaintModelOn){
             menuButton.cancelPaintModel();
         }
     })
@@ -5717,14 +5717,14 @@ export default function luckysheetHandler() {
 
 // 协同编辑其他用户不在操作的时候，且已经展示了用户名10秒，则用户名框隐藏
 function hideUsername(){
-    let $showEle = $$('.luckysheet-multipleRange-show');
+    let $showEle = $$('.tibetsheets-multipleRange-show');
 
     if($showEle.length === undefined){
         $showEle = [$showEle];
     }
 
     $showEle.forEach((ele)=>{
-        const id = ele.id.replace('luckysheet-multipleRange-show-','');
+        const id = ele.id.replace('tibetsheets-multipleRange-show-','');
         
         if(Store.cooperativeEdit.usernameTimeout['user' + id] === null){
             $$('.username',ele).style.display = 'none';

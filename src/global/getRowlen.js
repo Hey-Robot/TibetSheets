@@ -1,4 +1,4 @@
-import { luckysheetfontformat } from '../utils/util';
+import { tibetsheetsfontformat } from '../utils/util';
 import menuButton from '../controllers/menuButton';
 import { checkstatusByCell } from './getdata';
 import { colLocationByIndex, colSpanLocationByIndex } from './location';
@@ -26,7 +26,7 @@ function rowlenByRange(d, r1, r2, cfg) {
         cfg_clone["customHeight"] = {};
     }
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = $("#tibetsheetsTableContent").get(0).getContext("2d");
 
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
@@ -101,7 +101,7 @@ function rowlenByRange(d, r1, r2, cfg) {
 function computeRowlenByContent(d, r) {
     let currentRowLen = 0;
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = $("#tibetsheetsTableContent").get(0).getContext("2d");
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for (let c = 0; c < d[r].length; c++) {
@@ -156,7 +156,7 @@ function computeColWidthByContent(d, c, rh) {
     let currentColLen = 0;
     let rowlenArr = computeRowlenArr(rh, c);
 
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = $("#tibetsheetsTableContent").get(0).getContext("2d");
     canvas.textBaseline = 'top'; //textBaseline以top计算
 
     for (var i = 0; i < d.length; i++) {
@@ -426,7 +426,7 @@ function getCellTextInfo(cell, ctx, option) {
         let sharedStrings = cell.ct.s, similarIndex = 0;
         for (let i = 0; i < sharedStrings.length; i++) {
             let shareCell = sharedStrings[i];
-            let scfontset = luckysheetfontformat(shareCell);
+            let scfontset = tibetsheetsfontformat(shareCell);
             let fc = shareCell.fc, cl = shareCell.cl, un = shareCell.un, v = shareCell.v, fs = shareCell.fs;
             v = v.replace(/\r\n/g, "_x000D_").replace(/&#13;&#10;/g, "_x000D_").replace(/\r/g, "_x000D_").replace(/\n/g, "_x000D_");
             let splitArr = v.split("_x000D_");
@@ -481,7 +481,7 @@ function getCellTextInfo(cell, ctx, option) {
         isInline = true;
     }
     else {
-        fontset = luckysheetfontformat(cell);
+        fontset = tibetsheetsfontformat(cell);
         ctx.font = fontset;
 
         cancelLine = checkstatusByCell(cell, "cl");//cancelLine

@@ -1,6 +1,6 @@
 # 认识团队
 
-Luckysheet是由个人主导、几个志同道合的小伙伴一同开发的项目。
+Tibetsheets是由个人主导、几个志同道合的小伙伴一同开发的项目。
 
 ## 核心团队活跃成员
 - [@wbfsa](https://github.com/wbfsa)

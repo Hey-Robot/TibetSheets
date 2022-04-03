@@ -1,6 +1,6 @@
 import Store from '../store';
 import { computeRowlenByContent,computeColWidthByContent } from './getRowlen';
-import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
+import tibetsheetsConfigsetting from '../controllers/tibetsheetsConfigsetting';
 
 export default function rhchInit(rowheight, colwidth) {
     zoomSetting();//Zoom sheet on first load
@@ -31,7 +31,7 @@ export default function rhchInit(rowheight, colwidth) {
         }
 
         // 如果增加行和回到顶部按钮隐藏，则减少底部空白区域，但是预留足够空间给单元格下拉按钮
-        if (!luckysheetConfigsetting.enableAddRow && !luckysheetConfigsetting.enableAddBackTop) {
+        if (!tibetsheetsConfigsetting.enableAddRow && !tibetsheetsConfigsetting.enableAddBackTop) {
             Store.rh_height += 29;
         } else {
             Store.rh_height += 80;  //最底部增加空白
@@ -97,9 +97,9 @@ export default function rhchInit(rowheight, colwidth) {
 
 export function zoomSetting(){
     //zoom
-    Store.rowHeaderWidth = luckysheetConfigsetting.rowHeaderWidth * Store.zoomRatio;
-    Store.columnHeaderHeight = luckysheetConfigsetting.columnHeaderHeight *Store.zoomRatio;
-    $("#luckysheet-rows-h").width((Store.rowHeaderWidth-1.5));
-    $("#luckysheet-cols-h-c").height((Store.columnHeaderHeight-1.5));
-    $("#luckysheet-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
+    Store.rowHeaderWidth = tibetsheetsConfigsetting.rowHeaderWidth * Store.zoomRatio;
+    Store.columnHeaderHeight = tibetsheetsConfigsetting.columnHeaderHeight *Store.zoomRatio;
+    $("#tibetsheets-rows-h").width((Store.rowHeaderWidth-1.5));
+    $("#tibetsheets-cols-h-c").height((Store.columnHeaderHeight-1.5));
+    $("#tibetsheets-left-top").css({width:Store.rowHeaderWidth-1.5, height:Store.columnHeaderHeight-1.5});
 }

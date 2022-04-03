@@ -16,54 +16,54 @@ import locale from '../locale/locale';
 import dayjs from 'dayjs'
 
 //选区下拉
-const luckysheetDropCell = {
-    iconHtml: '<div id="luckysheet-dropCell-icon" style="position: absolute;padding: 2px;background-color: #f1f1f1;z-index: 990;cursor: pointer;">'+
+const tibetsheetsDropCell = {
+    iconHtml: '<div id="tibetsheets-dropCell-icon" style="position: absolute;padding: 2px;background-color: #f1f1f1;z-index: 990;cursor: pointer;">'+
                 '<div id="icon_dropCell"></div>'+
               '</div>',
-    typeListHtml: '<div id="luckysheet-dropCell-typeList" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel">'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="0">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${copyCell}'+
+    typeListHtml: '<div id="tibetsheets-dropCell-typeList" class="tibetsheets-cols-menu tibetsheets-rightgclick-menu tibetsheets-mousedown-cancel">'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="0">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${copyCell}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="1">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${sequence}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="1">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${sequence}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="2">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${onlyFormat}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="2">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${onlyFormat}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="3">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${noFormat}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="3">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${noFormat}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="4">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${day}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="4">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${day}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="5">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${workDay}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="5">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${workDay}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="6">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${month}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="6">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${month}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="7">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${year}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="7">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${year}'+
                         '</div>'+
                     '</div>'+
-                    '<div class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-type="8">'+
-                        '<div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 2px;">'+
-                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span>${chineseNumber}'+
+                    '<div class="tibetsheets-cols-menuitem tibetsheets-mousedown-cancel" data-type="8">'+
+                        '<div class="tibetsheets-cols-menuitem-content tibetsheets-mousedown-cancel" style="padding: 3px 2px;">'+
+                            '<span style="margin-right:5px;width:13px;display:inline-block;" class="icon tibetsheets-mousedown-cancel"></span>${chineseNumber}'+
                         '</div>'+
                     '</div>'+
                   '</div>',
@@ -291,17 +291,17 @@ const luckysheetDropCell = {
         let col = colLocationByIndex(col_index)[1],
             col_pre = colLocationByIndex(col_index)[0];
 
-        $("#luckysheet-dropCell-icon").remove();
-        $("#luckysheet-cell-main").append(_this.iconHtml);
-        $("#luckysheet-dropCell-icon").css({"left": col, "top": row});
+        $("#tibetsheets-dropCell-icon").remove();
+        $("#tibetsheets-cell-main").append(_this.iconHtml);
+        $("#tibetsheets-dropCell-icon").css({"left": col, "top": row});
 
         //点击icon
-        $("#luckysheet-dropCell-icon").mouseover(function(){
+        $("#tibetsheets-dropCell-icon").mouseover(function(){
             $(this).css("background-color", "#ffe8e8");
         }).mouseleave(function(){
             $(this).css("background-color", "#f1f1f1");
         }).mousedown(function(event){
-            $("#luckysheet-dropCell-typeList").remove();
+            $("#tibetsheets-dropCell-typeList").remove();
             const _locale = locale();
             const locale_dropCell = _locale.dropCell;
             $("body").first().append(replaceHtml(_this.typeListHtml,{
@@ -318,30 +318,30 @@ const luckysheetDropCell = {
 
             let typeItemHide = _this.typeItemHide();
             if(!typeItemHide[0] && !typeItemHide[1] && !typeItemHide[2] && !typeItemHide[3] && !typeItemHide[4] && !typeItemHide[5] && !typeItemHide[6]){
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=1]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=1]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=4]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=5]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=6]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=7]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=8]").hide();
             }
 
             if(!typeItemHide[2]){
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=4]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=5]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=6]").hide();
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=7]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=4]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=5]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=6]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=7]").hide();
             }
 
             if(!typeItemHide[3]){
-                $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type=8]").hide();
+                $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type=8]").hide();
             }
 
             let left = $(this).offset().left;
             let top = $(this).offset().top + 25;
             let winH = $(window).height(), winW = $(window).width();
-            let menuW = $("#luckysheet-dropCell-typeList").width(),
-                menuH = $("#luckysheet-dropCell-typeList").height();
+            let menuW = $("#tibetsheets-dropCell-typeList").width(),
+                menuH = $("#tibetsheets-dropCell-typeList").height();
 
             if (left + menuW > winW) {
                 left = left - menuW;
@@ -355,27 +355,27 @@ const luckysheetDropCell = {
                 top = 0;
             }
 
-            $("#luckysheet-dropCell-typeList").css({"left": left, "top": top}).show();
-            $("#luckysheet-dropCell-icon").mouseleave(function(){ $(this).css("backgroundColor", "#ffe8e8") });
+            $("#tibetsheets-dropCell-typeList").css({"left": left, "top": top}).show();
+            $("#tibetsheets-dropCell-icon").mouseleave(function(){ $(this).css("backgroundColor", "#ffe8e8") });
 
             let type = _this.applyType;
-            $("#luckysheet-dropCell-typeList .luckysheet-cols-menuitem[data-type="+ type +"]").find("span").append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+            $("#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem[data-type="+ type +"]").find("span").append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
             event.stopPropagation();
         });
 
         //点击数据填充类型
-        $(document).off("click.dCtypeList").on("click.dCtypeList", "#luckysheet-dropCell-typeList .luckysheet-cols-menuitem", function(){
-            $("#luckysheet-dropCell-typeList .fa-check").remove();
-            $(this).find("span").append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+        $(document).off("click.dCtypeList").on("click.dCtypeList", "#tibetsheets-dropCell-typeList .tibetsheets-cols-menuitem", function(){
+            $("#tibetsheets-dropCell-typeList .fa-check").remove();
+            $(this).find("span").append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
 
             let type = $(this).attr("data-type");
             _this.applyType = type;
 
             _this.update();
 
-            $("#luckysheet-dropCell-typeList").hide();
-            $("#luckysheet-dropCell-icon").css("backgroundColor", "#f1f1f1");
-            $("#luckysheet-dropCell-icon").mouseleave(function(){ $(this).css("backgroundColor", "#f1f1f1") });
+            $("#tibetsheets-dropCell-typeList").hide();
+            $("#tibetsheets-dropCell-icon").css("backgroundColor", "#f1f1f1");
+            $("#tibetsheets-dropCell-icon").mouseleave(function(){ $(this).css("backgroundColor", "#f1f1f1") });
 
             countfunc();
         });
@@ -441,7 +441,7 @@ const luckysheetDropCell = {
         }
 
         let d = editor.deepCopyFlowData(Store.flowdata);
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
         let cfg = $.extend(true, {}, Store.config);
         let borderInfoCompute = getBorderInfoCompute();
@@ -854,7 +854,7 @@ const luckysheetDropCell = {
         }
 
         //条件格式
-        let cdformat = $.extend(true, [], file["luckysheet_conditionformat_save"]);
+        let cdformat = $.extend(true, [], file["tibetsheets_conditionformat_save"]);
         if(cdformat != null && cdformat.length > 0){
             for(let i = 0; i < cdformat.length; i++){
                 let cdformat_cellrange = cdformat[i].cellrange;
@@ -880,7 +880,7 @@ const luckysheetDropCell = {
             "cdformat": cdformat,
             "dataVerification": dataVerification
         }
-        jfrefreshgrid(d, Store.luckysheet_select_save, allParam);
+        jfrefreshgrid(d, Store.tibetsheets_select_save, allParam);
 
         selectHightlightShow();
     },
@@ -2749,4 +2749,4 @@ const luckysheetDropCell = {
     }
 }
 
-export default luckysheetDropCell;
+export default tibetsheetsDropCell;

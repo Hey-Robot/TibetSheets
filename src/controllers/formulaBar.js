@@ -1,8 +1,8 @@
 import menuButton from './menuButton';
-import {luckysheetupdateCell} from './updateCell';
+import {tibetsheetsupdateCell} from './updateCell';
 import { keycode } from './constant';
 import { 
-    luckysheetMoveHighlightCell,
+    tibetsheetsMoveHighlightCell,
 } from './sheetMove';
 
 import insertFormula from './insertFormula';
@@ -23,22 +23,22 @@ export function formulaBarInitial(){
     const _locale = locale();
     const locale_formula= _locale.formula;
 
-    $("#luckysheet-functionbox-cell").focus(function () {
+    $("#tibetsheets-functionbox-cell").focus(function () {
         if(isEditMode()){//此模式下禁用公式栏
             return;
         }
 
-        if(Store.luckysheet_select_save.length > 0){
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        if(Store.tibetsheets_select_save.length > 0){
+            let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
             let row_index = last["row_focus"], col_index = last["column_focus"];
             
-            // let $input = $("#luckysheet-rich-text-editor"),value = $input.text();
+            // let $input = $("#tibetsheets-rich-text-editor"),value = $input.text();
             // if(value) {
             //     formula.updatecell(row_index, col_index);
             // }
-            luckysheetupdateCell(row_index, col_index, Store.flowdata, null, true);
-            formula.rangeResizeTo = $("#luckysheet-functionbox-cell");
+            tibetsheetsupdateCell(row_index, col_index, Store.flowdata, null, true);
+            formula.rangeResizeTo = $("#tibetsheets-functionbox-cell");
         }
     }).keydown(function (event) {
         if(isEditMode()){//此模式下禁用公式栏
@@ -49,26 +49,26 @@ export function formulaBarInitial(){
         let altKey = event.altKey;
         let shiftKey = event.shiftKey;
         let kcode = event.keyCode;
-        let $inputbox = $("#luckysheet-input-box");
+        let $inputbox = $("#tibetsheets-input-box");
 
         if (kcode == keycode.ENTER && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
-                formula.searchFunctionEnter($("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active"));
+            if ($("#tibetsheets-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
+                formula.searchFunctionEnter($("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item-active"));
             }
             else {
-                formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                Store.luckysheet_select_save = [{ "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]], "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]], "row_focus": Store.luckysheetCellUpdate[0], "column_focus": Store.luckysheetCellUpdate[1] }];
-                luckysheetMoveHighlightCell("down", 1, "rangeOfSelect");
-                //$("#luckysheet-functionbox-cell").blur();
-                $("#luckysheet-rich-text-editor").focus();
+                formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+                Store.tibetsheets_select_save = [{ "row": [Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[0]], "column": [Store.tibetsheetsCellUpdate[1], Store.tibetsheetsCellUpdate[1]], "row_focus": Store.tibetsheetsCellUpdate[0], "column_focus": Store.tibetsheetsCellUpdate[1] }];
+                tibetsheetsMoveHighlightCell("down", 1, "rangeOfSelect");
+                //$("#tibetsheets-functionbox-cell").blur();
+                $("#tibetsheets-rich-text-editor").focus();
             }
             event.preventDefault();
         }
         else if (kcode == keycode.ESC && parseInt($inputbox.css("top")) > 0) {
             formula.dontupdate();
-            luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
-            //$("#luckysheet-functionbox-cell").blur();
-            $("#luckysheet-rich-text-editor").focus();
+            tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
+            //$("#tibetsheets-functionbox-cell").blur();
+            $("#tibetsheets-rich-text-editor").focus();
             event.preventDefault();
         }
         else if (kcode == keycode.F4 && parseInt($inputbox.css("top")) > 0) {
@@ -76,84 +76,84 @@ export function formulaBarInitial(){
             event.preventDefault();
         }
         else if (kcode == keycode.UP && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible")) {
-                let $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active").prev();
+            if ($("#tibetsheets-formula-search-c").is(":visible")) {
+                let $up = $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item-active").prev();
                 if ($up.length == 0) {
-                    $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").last();
+                    $up = $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item").last();
                 }
-                $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
-                $up.addClass("luckysheet-formula-search-item-active");
+                $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item").removeClass("tibetsheets-formula-search-item-active");
+                $up.addClass("tibetsheets-formula-search-item-active");
                 event.preventDefault();
             }
         }
         else if (kcode == keycode.DOWN && parseInt($inputbox.css("top")) > 0) {
-            if ($("#luckysheet-formula-search-c").is(":visible")) {
-                let $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active").next();
+            if ($("#tibetsheets-formula-search-c").is(":visible")) {
+                let $up = $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item-active").next();
                 if ($up.length == 0) {
-                    $up = $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").first();
+                    $up = $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item").first();
                 }
-                $("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item").removeClass("luckysheet-formula-search-item-active");
-                $up.addClass("luckysheet-formula-search-item-active");
+                $("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item").removeClass("tibetsheets-formula-search-item-active");
+                $up.addClass("tibetsheets-formula-search-item-active");
                 event.preventDefault();
             }
         }
         else if (kcode == keycode.LEFT && parseInt($inputbox.css("top")) > 0) {
-            formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+            formula.rangeHightlightselected($("#tibetsheets-functionbox-cell"));
         }
         else if (kcode == keycode.RIGHT && parseInt($inputbox.css("top")) > 0) {
-            formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+            formula.rangeHightlightselected($("#tibetsheets-functionbox-cell"));
         }
         else if (!((kcode >= 112 && kcode <= 123) || kcode <= 46 || kcode == 144 || kcode == 108 || event.ctrlKey || event.altKey || (event.shiftKey && (kcode == 37 || kcode == 38 || kcode == 39 || kcode == 40))) || kcode == 8 || kcode == 32 || kcode == 46 || (event.ctrlKey && kcode == 86)) {
-            formula.functionInputHanddler($("#luckysheet-rich-text-editor"), $("#luckysheet-functionbox-cell"), kcode);
+            formula.functionInputHanddler($("#tibetsheets-rich-text-editor"), $("#tibetsheets-functionbox-cell"), kcode);
         }
     }).click(function () {
         if(isEditMode()){//此模式下禁用公式栏
             return;
         }
 
-        formula.rangeHightlightselected($("#luckysheet-functionbox-cell"));
+        formula.rangeHightlightselected($("#tibetsheets-functionbox-cell"));
     });
 
     //公式栏 取消（X）按钮
-    $("#luckysheet-wa-functionbox-cancel").click(function () {
-        if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
+    $("#tibetsheets-wa-functionbox-cancel").click(function () {
+        if (!$(this).hasClass("tibetsheets-wa-calculate-active")) {
             return;
         }
         //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if($("#tibetsheets-search-formula-parm").is(":visible")){
+            $("#tibetsheets-search-formula-parm").hide();
         }
         //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if($("#tibetsheets-search-formula-parm-select").is(":visible")){
+            $("#tibetsheets-search-formula-parm-select").hide();
         }
 
         formula.dontupdate();
-        luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+        tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
     });
 
     //公式栏 确认（）按钮
-    $("#luckysheet-wa-functionbox-confirm").click(function () {
-        if (!$(this).hasClass("luckysheet-wa-calculate-active")) {
+    $("#tibetsheets-wa-functionbox-confirm").click(function () {
+        if (!$(this).hasClass("tibetsheets-wa-calculate-active")) {
             return;
         }
         //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if($("#tibetsheets-search-formula-parm").is(":visible")){
+            $("#tibetsheets-search-formula-parm").hide();
         }
         //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if($("#tibetsheets-search-formula-parm-select").is(":visible")){
+            $("#tibetsheets-search-formula-parm-select").hide();
         }
 
-        formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-        luckysheetMoveHighlightCell("down", 0, "rangeOfSelect");
+        formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+        tibetsheetsMoveHighlightCell("down", 0, "rangeOfSelect");
     });
 
     //公式栏 fx按钮
-    $("#luckysheet-wa-functionbox-fx").click(function () {
+    $("#tibetsheets-wa-functionbox-fx").click(function () {
         //点击函数查找弹出框
-        if(Store.luckysheet_select_save.length == 0){
+        if(Store.tibetsheets_select_save.length == 0){
             if(isEditMode()){
                 alert(locale_formula.tipSelectCell);
             }
@@ -164,11 +164,11 @@ export function formulaBarInitial(){
             return;
         }
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
         let row_index = last["row_focus"], col_index = last["column_focus"];
 
-        luckysheetupdateCell(row_index, col_index, Store.flowdata);
+        tibetsheetsupdateCell(row_index, col_index, Store.flowdata);
         
         let cell = Store.flowdata[row_index][col_index];
         if(cell != null && cell.f != null){
@@ -185,8 +185,8 @@ export function formulaBarInitial(){
         }
         else{
             //单元格无计算
-            $("#luckysheet-rich-text-editor").html('<span dir="auto" class="luckysheet-formula-text-color">=</span>');
-            $("#luckysheet-functionbox-cell").html($("#luckysheet-rich-text-editor").html());
+            $("#tibetsheets-rich-text-editor").html('<span dir="auto" class="tibetsheets-formula-text-color">=</span>');
+            $("#tibetsheets-functionbox-cell").html($("#tibetsheets-rich-text-editor").html());
             insertFormula.formulaListDialog();
         }
 
@@ -194,16 +194,16 @@ export function formulaBarInitial(){
     });
 
     //公式选区操作
-    $("#luckysheet-formula-functionrange").on("mousedown", ".luckysheet-copy", function (event) {
+    $("#tibetsheets-formula-functionrange").on("mousedown", ".tibetsheets-copy", function (event) {
         formula.rangeMove = true;
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
         formula.rangeMoveObj = $(this).parent();
         formula.rangeMoveIndex = $(this).parent().attr("rangeindex");
         
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-        let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
-        $("#luckysheet-formula-functionrange-highlight-" + formula.rangeMoveIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.13);
+        let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+        let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
+        $("#tibetsheets-formula-functionrange-highlight-" + formula.rangeMoveIndex).find(".tibetsheets-selection-copy-hc").css("opacity", 0.13);
         
         let type = $(this).data("type");
         if (type == "top") {
@@ -223,21 +223,21 @@ export function formulaBarInitial(){
         let col_index = colLocation(x)[2];
 
         formula.rangeMovexy = [row_index, col_index];
-        $("#luckysheet-sheettable").css("cursor", "move");
+        $("#tibetsheets-sheettable").css("cursor", "move");
         event.stopPropagation();
     });
 
-    $("#luckysheet-formula-functionrange").on("mousedown", ".luckysheet-highlight", function (event) {
+    $("#tibetsheets-formula-functionrange").on("mousedown", ".tibetsheets-highlight", function (event) {
         formula.rangeResize = $(this).data("type");//开始状态resize
         formula.rangeResizeIndex = $(this).parent().attr("rangeindex");
         
         let mouse = mouseposition(event.pageX, event.pageY), 
-            scrollLeft = $("#luckysheet-cell-main").scrollLeft(), 
-            scrollTop = $("#luckysheet-cell-main").scrollTop();
+            scrollLeft = $("#tibetsheets-cell-main").scrollLeft(), 
+            scrollTop = $("#tibetsheets-cell-main").scrollTop();
         let x = mouse[0] + scrollLeft;
         let y = mouse[1] + scrollTop;
         formula.rangeResizeObj = $(this).parent();
-        $("#luckysheet-formula-functionrange-highlight-" + formula.rangeResizeIndex).find(".luckysheet-selection-copy-hc").css("opacity", 0.13);
+        $("#tibetsheets-formula-functionrange-highlight-" + formula.rangeResizeIndex).find(".tibetsheets-selection-copy-hc").css("opacity", 0.13);
         
         if (formula.rangeResize == "lt") {
             x += 3;
@@ -274,9 +274,9 @@ export function formulaBarInitial(){
             position.left + scrollLeft, 
             position.top + scrollTop, col, row
         ];
-        formula.rangeResizeWinH = $("#luckysheet-cell-main")[0].scrollHeight;
-        formula.rangeResizeWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-        Store.luckysheet_scroll_status = true;
+        formula.rangeResizeWinH = $("#tibetsheets-cell-main")[0].scrollHeight;
+        formula.rangeResizeWinW = $("#tibetsheets-cell-main")[0].scrollWidth;
+        Store.tibetsheets_scroll_status = true;
         event.stopPropagation();
     });
 }

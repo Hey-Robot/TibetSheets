@@ -234,7 +234,7 @@ $.range_map = function(map) {
     return new RangeMap(map);
 };
 
-const luckysheetSparkline = {
+const tibetsheetsSparkline = {
     defaultOption:{
         // Settings common to most/all chart types
         common: {
@@ -2079,10 +2079,10 @@ const luckysheetSparkline = {
         this.render();
         return this.currentTargetShapeId;
     },
-    _canvasID:"luckysheetTableContent",
+    _canvasID:"tibetsheetsTableContent",
     render: function (shapeseq, shapes, offsetX, offsetY, pixelWidth, pixelHeight,canvasid,ctx) {
         if(canvasid==null){
-            canvasid = "luckysheetTableContent";
+            canvasid = "tibetsheetsTableContent";
         }
         this._canvasID = canvasid;
 
@@ -2213,44 +2213,44 @@ let barHighlightMixin = {
     }
 };
 
-let _luckysheetSparkLineOptions = {
+let _tibetsheetsSparkLineOptions = {
     get:function(type){
-        return luckysheetSparkline.mergedOptions[type];
+        return tibetsheetsSparkline.mergedOptions[type];
     }
 }
 
-let _luckysheetSparkLineTarget = {
+let _tibetsheetsSparkLineTarget = {
     drawLine:function(x1, y1, x2, y2, lineColor, lineWidth){
-        return luckysheetSparkline.drawLine(x1, y1, x2, y2, lineColor, lineWidth);
+        return tibetsheetsSparkline.drawLine(x1, y1, x2, y2, lineColor, lineWidth);
     },
 
     drawShape:function(path, lineColor, fillColor, lineWidth){
-        return luckysheetSparkline.drawShape(path, lineColor, fillColor, lineWidth);
+        return tibetsheetsSparkline.drawShape(path, lineColor, fillColor, lineWidth);
     },
 
     drawCircle:function(x, y, radius, lineColor, fillColor, lineWidth){
-        return luckysheetSparkline.drawCircle(x, y, radius, lineColor, fillColor, lineWidth);
+        return tibetsheetsSparkline.drawCircle(x, y, radius, lineColor, fillColor, lineWidth);
     },
 
     drawPieSlice:function(x, y, radius, startAngle, endAngle, lineColor, fillColor){
-        return luckysheetSparkline.drawPieSlice(x, y, radius, startAngle, endAngle, lineColor, fillColor);
+        return tibetsheetsSparkline.drawPieSlice(x, y, radius, startAngle, endAngle, lineColor, fillColor);
     },
 
     drawRect:function(x, y, width, height, lineColor, fillColor){
-        return luckysheetSparkline.drawRect(x, y, width, height, lineColor, fillColor);
+        return tibetsheetsSparkline.drawRect(x, y, width, height, lineColor, fillColor);
     }
 }
 
-for(let item in luckysheetSparkline){
+for(let item in tibetsheetsSparkline){
     if(item in {"line":null, "bar":null, "column":null, "tristate":null, "discrete":null, "bullet":null, "pie":null, "box":null}){
-        luckysheetSparkline[item].options = _luckysheetSparkLineOptions;
-        luckysheetSparkline[item].target = _luckysheetSparkLineTarget;
+        tibetsheetsSparkline[item].options = _tibetsheetsSparkLineOptions;
+        tibetsheetsSparkline[item].target = _tibetsheetsSparkLineTarget;
     }
 
     if(item in {"bar":null, "column":null, "tristate":null, "discrete":null}){
-        luckysheetSparkline[item].changeHighlight = barHighlightMixin.changeHighlight;
-        luckysheetSparkline[item].render = barHighlightMixin.render;
+        tibetsheetsSparkline[item].changeHighlight = barHighlightMixin.changeHighlight;
+        tibetsheetsSparkline[item].render = barHighlightMixin.render;
     }
 }
 
-export default luckysheetSparkline;
+export default tibetsheetsSparkline;

@@ -1,46 +1,46 @@
 import { getSheetIndex } from '../methods/get';
 import Store from '../store';
 
-function setluckysheet_select_save(v) {
-    Store.luckysheet_select_save = v;
+function settibetsheets_select_save(v) {
+    Store.tibetsheets_select_save = v;
 }
 
-function setluckysheet_scroll_status(v) {
-    Store.luckysheet_scroll_status = v;
+function settibetsheets_scroll_status(v) {
+    Store.tibetsheets_scroll_status = v;
 }
 
-function setluckysheetfile(d) {
-    Store.luckysheetfile = d;
+function settibetsheetsfile(d) {
+    Store.tibetsheetsfile = d;
 }
 
 function setconfig(v) {
     Store.config = v;
 
-    if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = v;
+    if(Store.tibetsheetsfile != null){
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = v;
     }
 }
 
 function setvisibledatarow(v) {
     Store.visibledatarow = v;
 
-    if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].visibledatarow = v;
+    if(Store.tibetsheetsfile != null){
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].visibledatarow = v;
     }
 }
 
 function setvisibledatacolumn(v) {
     Store.visibledatacolumn = v;
 
-    if(Store.luckysheetfile != null){
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].visibledatacolumn = v;
+    if(Store.tibetsheetsfile != null){
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].visibledatacolumn = v;
     }
 }
 
 export {
-    setluckysheet_select_save,
-    setluckysheet_scroll_status,
-    setluckysheetfile,
+    settibetsheets_select_save,
+    settibetsheets_scroll_status,
+    settibetsheetsfile,
     setconfig,
     setvisibledatarow,
     setvisibledatacolumn,

@@ -1,5 +1,5 @@
 import pivotTable from './pivotTable';
-import luckysheetFreezen from './freezen';
+import tibetsheetsFreezen from './freezen';
 import menuButton from './menuButton';
 import conditionformat from './conditionformat';
 import alternateformat from './alternateformat';
@@ -11,16 +11,16 @@ import { isEditMode } from '../global/validate';
 import { getcellvalue,getInlineStringStyle } from '../global/getdata';
 import { valueShowEs } from '../global/format';
 import formula from '../global/formula';
-import { luckysheetRangeLast } from '../global/cursorPos';
+import { tibetsheetsRangeLast } from '../global/cursorPos';
 import cleargridelement from '../global/cleargridelement';
 import {isInlineStringCell} from './inlineString';
 import Store from '../store';
 import server from './server';
 import method from '../global/method';
 
-export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocus) {
+export function tibetsheetsupdateCell(row_index1, col_index1, d, cover, isnotfocus) {
     if(!checkProtectionLocked(row_index1, col_index1, Store.currentSheetIndex)){
-        $("#luckysheet-functionbox-cell").blur();
+        $("#tibetsheets-functionbox-cell").blur();
         return;
     }
 
@@ -29,10 +29,10 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     }
 
     // 钩子函数
-    if(!method.createHookFunction('cellEditBefore',Store.luckysheet_select_save)){return;}
+    if(!method.createHookFunction('cellEditBefore',Store.tibetsheets_select_save)){return;}
 
     // 编辑单元格时发送指令到后台，通知其他单元格更新为“正在输入”状态
-    server.saveParam("mv", Store.currentSheetIndex,  {op:"enterEdit",range:Store.luckysheet_select_save});
+    server.saveParam("mv", Store.currentSheetIndex,  {op:"enterEdit",range:Store.tibetsheets_select_save});
 
     //数据验证
     if(dataVerificationCtrl.dataVerification != null && dataVerificationCtrl.dataVerification[row_index1 + '_' + col_index1] != null){
@@ -53,26 +53,26 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         row_index = size.row_index, 
         col_index = size.col_index;
 
-    if($("#luckysheet-dropCell-icon").is(":visible")){
-        $("#luckysheet-dropCell-icon").remove();
+    if($("#tibetsheets-dropCell-icon").is(":visible")){
+        $("#tibetsheets-dropCell-icon").remove();
     }
 
     let winH = $(window).height(), winW = $(window).width();
     let container_offset = $("#" + Store.container).offset();
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
     if (pivotTable.isPivotRange(row_index, col_index)) {
         return;
     }
 
     let left = col_pre + container_offset.left + Store.rowHeaderWidth - scrollLeft - 2;
-    if(luckysheetFreezen.freezenverticaldata != null && col_index1 <= luckysheetFreezen.freezenverticaldata[1]){
+    if(tibetsheetsFreezen.freezenverticaldata != null && col_index1 <= tibetsheetsFreezen.freezenverticaldata[1]){
         left = col_pre + container_offset.left + Store.rowHeaderWidth - 2;
     }
 
     let top = row_pre + container_offset.top + Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight - scrollTop - 2;
-    if(luckysheetFreezen.freezenhorizontaldata != null && row_index1 <= luckysheetFreezen.freezenhorizontaldata[1]){
+    if(tibetsheetsFreezen.freezenhorizontaldata != null && row_index1 <= tibetsheetsFreezen.freezenhorizontaldata[1]){
         top = row_pre + container_offset.top + Store.infobarHeight + Store.toolbarHeight + Store.calculatebarHeight + Store.columnHeaderHeight - 2;
     }
 
@@ -93,12 +93,12 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         "height":(100 / Store.zoomRatio) + "%",
     }
 
-    Store.luckysheetCellUpdate = [row_index, col_index];
+    Store.tibetsheetsCellUpdate = [row_index, col_index];
     if (!isnotfocus) {
-        $("#luckysheet-rich-text-editor").focus().select();
+        $("#tibetsheets-rich-text-editor").focus().select();
     }
 
-    $("#luckysheet-input-box").removeAttr("style").css({ 
+    $("#tibetsheets-input-box").removeAttr("style").css({ 
         "background-color": "rgb(255, 255, 255)", 
         "padding": "0px 2px", 
         "font-size": "13px", 
@@ -108,12 +108,12 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         "display":"flex",
     });
 
-    if(luckysheetFreezen.freezenverticaldata != null || luckysheetFreezen.freezenhorizontaldata != null){
-        $("#luckysheet-input-box").css("z-index", 10002);
+    if(tibetsheetsFreezen.freezenverticaldata != null || tibetsheetsFreezen.freezenhorizontaldata != null){
+        $("#tibetsheets-input-box").css("z-index", 10002);
     }
     
-    $("#luckysheet-input-box-index").html(chatatABC(col_index) + (row_index + 1)).hide();
-    $("#luckysheet-wa-functionbox-cancel, #luckysheet-wa-functionbox-confirm").addClass("luckysheet-wa-calculate-active");
+    $("#tibetsheets-input-box-index").html(chatatABC(col_index) + (row_index + 1)).hide();
+    $("#tibetsheets-wa-functionbox-cancel, #tibetsheets-wa-functionbox-confirm").addClass("tibetsheets-wa-calculate-active");
     
     let value = "", isCenter=false;
     
@@ -182,11 +182,11 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         }
         
         let style = menuButton.getStyleByCell(d, row_index, col_index);
-        style = $("#luckysheet-input-box").get(0).style.cssText + style;
+        style = $("#tibetsheets-input-box").get(0).style.cssText + style;
 
-        $("#luckysheet-input-box").get(0).style.cssText = style;
-        if($("#luckysheet-input-box").get(0).style.backgroundColor == "rgba(0, 0, 0, 0)"){
-            $("#luckysheet-input-box").get(0).style.background = "rgb(255,255,255)";
+        $("#tibetsheets-input-box").get(0).style.cssText = style;
+        if($("#tibetsheets-input-box").get(0).style.backgroundColor == "rgba(0, 0, 0, 0)"){
+            $("#tibetsheets-input-box").get(0).style.background = "rgb(255,255,255)";
         }
     }
     else{
@@ -199,10 +199,10 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         var checksCF = conditionformat.checksCF(row_index, col_index, cf_compute);
 
         if(checksCF != null && checksCF["cellColor"] != null){
-            $("#luckysheet-input-box").get(0).style.background = checksCF["cellColor"];
+            $("#tibetsheets-input-box").get(0).style.background = checksCF["cellColor"];
         }
         else if(checksAF != null){
-            $("#luckysheet-input-box").get(0).style.background = checksAF[1];
+            $("#tibetsheets-input-box").get(0).style.background = checksAF[1];
         }
     }
 
@@ -218,18 +218,18 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
     //     value = "<br/>";
     // }
     value = formula.xssDeal(value);
-    if(!checkProtectionCellHidden(row_index, col_index, Store.currentSheetIndex) && value.length>0 && value.substr(0, 63)=='<span dir="auto" class="luckysheet-formula-text-color">=</span>'){
-        $("#luckysheet-rich-text-editor").html("");
+    if(!checkProtectionCellHidden(row_index, col_index, Store.currentSheetIndex) && value.length>0 && value.substr(0, 63)=='<span dir="auto" class="tibetsheets-formula-text-color">=</span>'){
+        $("#tibetsheets-rich-text-editor").html("");
     }
     else{
-        $("#luckysheet-rich-text-editor").html(value);
+        $("#tibetsheets-rich-text-editor").html(value);
         if (!isnotfocus) {
-            luckysheetRangeLast($("#luckysheet-rich-text-editor")[0]);
+            tibetsheetsRangeLast($("#tibetsheets-rich-text-editor")[0]);
         }
     }
 
     if(isCenter){
-        let width = $("#luckysheet-input-box").width();
+        let width = $("#tibetsheets-input-box").width();
         if(width> input_postition["max-width"]){
             width = input_postition["max-width"];
         }
@@ -246,8 +246,8 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
         input_postition["left"] = newLeft-2;
     }
 
-    $("#luckysheet-input-box").css(input_postition);
-    $("#luckysheet-rich-text-editor").css(inputContentScale);
+    $("#tibetsheets-input-box").css(input_postition);
+    $("#tibetsheets-rich-text-editor").css(inputContentScale);
 
     //日期
     if(d[row_index1][col_index1] && d[row_index1][col_index1].ct && d[row_index1][col_index1].ct.t == 'd'){
@@ -256,7 +256,7 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
 
     formula.rangetosheet = Store.currentSheetIndex;
     formula.createRangeHightlight();
-    formula.rangeResizeTo = $("#luckysheet-rich-text-editor");
+    formula.rangeResizeTo = $("#tibetsheets-rich-text-editor");
     cleargridelement();
 }
 
@@ -278,8 +278,8 @@ export function setCenterInputPosition(row_index, col_index, d){
 
     let winH = $(window).height(), winW = $(window).width();
     let container_offset = $("#" + Store.container).offset();
-    let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-    let scrollTop = $("#luckysheet-cell-main").scrollTop();
+    let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
     let input_postition = { 
         "min-width": col - col_pre + 1 - 8, 
@@ -287,7 +287,7 @@ export function setCenterInputPosition(row_index, col_index, d){
         "left": col_pre + container_offset.left + Store.rowHeaderWidth - scrollLeft - 2, 
     }
 
-    let width = $("#luckysheet-input-box").width();
+    let width = $("#tibetsheets-input-box").width();
     if(width> input_postition["max-width"]){
         width = input_postition["max-width"];
     }
@@ -303,7 +303,7 @@ export function setCenterInputPosition(row_index, col_index, d){
 
     input_postition["left"] = newLeft-2;
 
-    $("#luckysheet-input-box").css(input_postition);
+    $("#tibetsheets-input-box").css(input_postition);
 }
 
 export function getColumnAndRowSize(row_index, col_index, d){

@@ -12,8 +12,8 @@ function getBorderInfoComputeRange(dataset_row_st,dataset_row_ed,dataset_col_st,
         data = Store.flowdata;
     }
     else{
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)].config;
-        data = Store.luckysheetfile[getSheetIndex(sheetIndex)].data;
+        cfg = Store.tibetsheetsfile[getSheetIndex(sheetIndex)].config;
+        data = Store.tibetsheetsfile[getSheetIndex(sheetIndex)].data;
     }
 
     let borderInfo = cfg["borderInfo"];
@@ -1089,8 +1089,8 @@ function getBorderInfoCompute(sheetIndex) {
         data = Store.flowdata;
     }
     else{
-        cfg = Store.luckysheetfile[getSheetIndex(sheetIndex)].config;
-        data = Store.luckysheetfile[getSheetIndex(sheetIndex)].data;
+        cfg = Store.tibetsheetsfile[getSheetIndex(sheetIndex)].config;
+        data = Store.tibetsheetsfile[getSheetIndex(sheetIndex)].data;
     }
 
     borderInfoCompute = getBorderInfoComputeRange(0, data.length,0, data[0].length, sheetIndex);

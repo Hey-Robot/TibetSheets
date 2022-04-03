@@ -17,26 +17,26 @@ Open source spreadsheet web application.
 Forked from:
 <br>     
         
-<a href="https://github.com/mengshukeji/Luckysheet">
- <img src="https://github.com/mengshukeji/Luckysheet/blob/master/docs/.vuepress/public/img/logo_text.png" alt="Learn More"></a>
+<a href="https://github.com/mengshukeji/Tibetsheets">
+ <img src="https://github.com/mengshukeji/Tibetsheets/blob/master/docs/.vuepress/public/img/logo_text.png" alt="Learn More"></a>
 
 </div>
 
-# Luckysheet 3.x is currently being rewritten in Typescript
+# Tibetsheets 3.x is currently being rewritten in Typescript
 
 English | [简体中文](./README-zh.md)
 
 ## Introduction
-🚀Luckysheet is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.
+🚀Tibetsheets is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.
 
 
 ## Links
  | Source Code   | Documentation | Demo | Plugins Demo | Forum |
  | ------ | -------- | ------ | ------ | ------ |
- | [Github](https://github.com/mengshukeji/Luckysheet)| [Online Documentation](https://mengshukeji.github.io/LuckysheetDocs/) | [Online Demo](https://mengshukeji.github.io/LuckysheetDemo) / [Cooperative editing demo](http://luckysheet.lashuju.com/demo/) | [Import Excel Demo](https://mengshukeji.github.io/LuckyexcelDemo/) | [Chinese Forum](https://support.qq.com/product/288322)  |
- | [Gitee Mirror](https://gitee.com/mengshukeji/Luckysheet)| [Gitee Online Documentation](https://mengshukeji.gitee.io/LuckysheetDocs/) | [Gitee Online Demo](https://mengshukeji.gitee.io/luckysheetdemo/) | [Gitee Import Excel Demo](https://mengshukeji.gitee.io/luckyexceldemo/) | [Google Group](https://groups.google.com/g/luckysheet) |
+ | [Github](https://github.com/mengshukeji/Tibetsheets)| [Online Documentation](https://mengshukeji.github.io/TibetsheetsDocs/) | [Online Demo](https://mengshukeji.github.io/TibetsheetsDemo) / [Cooperative editing demo](http://tibetsheets.lashuju.com/demo/) | [Import Excel Demo](https://mengshukeji.github.io/LuckyexcelDemo/) | [Chinese Forum](https://support.qq.com/product/288322)  |
+ | [Gitee Mirror](https://gitee.com/mengshukeji/Tibetsheets)| [Gitee Online Documentation](https://mengshukeji.gitee.io/TibetsheetsDocs/) | [Gitee Online Demo](https://mengshukeji.gitee.io/tibetsheetsdemo/) | [Gitee Import Excel Demo](https://mengshukeji.gitee.io/luckyexceldemo/) | [Google Group](https://groups.google.com/g/tibetsheets) |
 
-![Demo](/docs/.vuepress/public/img/LuckysheetDemo.gif)
+![Demo](/docs/.vuepress/public/img/TibetsheetsDemo.gif)
 
 ## Plugins
 - [Luckyexcel](https://github.com/mengshukeji/Luckyexcel): Excel import and export library
@@ -46,19 +46,19 @@ English | [简体中文](./README-zh.md)
 
 | Project | Description |
 |---------|-------------|
-| [Luckysheet Vue]          | Luckysheet and Luckyexcel in a vue cli3 project |
-| [Luckysheet Vue3]          | Luckysheet and Luckyexcel in a vue3 project with vite|
-| [Luckysheet React]          | Luckysheet in a React project |
+| [Tibetsheets Vue]          | Tibetsheets and Luckyexcel in a vue cli3 project |
+| [Tibetsheets Vue3]          | Tibetsheets and Luckyexcel in a vue3 project with vite|
+| [Tibetsheets React]          | Tibetsheets in a React project |
 | [Luckyexcel Node]          | Use Luckyexcel in koa2 |
-| [Luckysheet Server]          | Java backend Luckysheet Server |
-| [Luckysheet Server Starter]          | LuckysheetServer docker deployment startup template |
+| [Tibetsheets Server]          | Java backend Tibetsheets Server |
+| [Tibetsheets Server Starter]          | TibetsheetsServer docker deployment startup template |
 
-[Luckysheet Vue]: https://github.com/mengshukeji/luckysheet-vue
-[Luckysheet Vue3]: https://github.com/hjwforever/luckysheet-vue3-vite
-[Luckysheet React]: https://github.com/mengshukeji/luckysheet-react
+[Tibetsheets Vue]: https://github.com/mengshukeji/tibetsheets-vue
+[Tibetsheets Vue3]: https://github.com/hjwforever/tibetsheets-vue3-vite
+[Tibetsheets React]: https://github.com/mengshukeji/tibetsheets-react
 [Luckyexcel Node]: https://github.com/mengshukeji/Luckyexcel-node
-[Luckysheet Server]: https://github.com/mengshukeji/LuckysheetServer
-[Luckysheet Server Starter]: https://github.com/mengshukeji/LuckysheetServerStarter
+[Tibetsheets Server]: https://github.com/mengshukeji/TibetsheetsServer
+[Tibetsheets Server Starter]: https://github.com/mengshukeji/TibetsheetsServerStarter
 
 
 ## Features
@@ -71,11 +71,11 @@ English | [简体中文](./README-zh.md)
 - **Tables**: filter, sort
 - **Enhanced functions**: Pivot tables, charts, comments, cooperative editing, insert picture, matrix calculations, screenshots, copying to other formats, EXCEL import and export, etc.
 
-For a more detailed feature list, please refer to: [Features](https://mengshukeji.github.io/LuckysheetDocs/guide/#features)
+For a more detailed feature list, please refer to: [Features](https://mengshukeji.github.io/TibetsheetsDocs/guide/#features)
 
 ## 📖 Resources
-- Priority reading for new users: [User Guide](https://github.com/mengshukeji/Luckysheet/wiki/User-Guide)
-- For the tutorials, learning materials and supporting solutions provided by the community, please refer to: [Tutorials and Resources](https://mengshukeji.github.io/LuckysheetDocs/guide/resource.html)
+- Priority reading for new users: [User Guide](https://github.com/mengshukeji/Tibetsheets/wiki/User-Guide)
+- For the tutorials, learning materials and supporting solutions provided by the community, please refer to: [Tutorials and Resources](https://mengshukeji.github.io/TibetsheetsDocs/guide/resource.html)
 
 ## 📜 Changelog
 
@@ -83,32 +83,32 @@ Detailed changes for each release are documented in the [CHANGELOG.md](CHANGELOG
 
 ## ❗️ Issues
 
-Please make sure to read the [Issue Reporting Checklist](https://mengshukeji.github.io/LuckysheetDocs/guide/contribute.html#how-to-submit-issues) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
+Please make sure to read the [Issue Reporting Checklist](https://mengshukeji.github.io/TibetsheetsDocs/guide/contribute.html#how-to-submit-issues) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
 ## ✅ TODO
 
-Managed with [GitHub Projects](https://github.com/mengshukeji/Luckysheet/projects/1)
+Managed with [GitHub Projects](https://github.com/mengshukeji/Tibetsheets/projects/1)
 
 ## 💪Contribution
 
-Please make sure to read the[ Contributing Guide](https://mengshukeji.github.io/LuckysheetDocs/guide/contribute.html) before making a pull request.
+Please make sure to read the[ Contributing Guide](https://mengshukeji.github.io/TibetsheetsDocs/guide/contribute.html) before making a pull request.
 
 ## Usage
 
 ### First step
 Introduce dependencies through CDN
 ```
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
-<script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/plugins/css/pluginsCss.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/plugins/plugins.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/css/tibetsheets.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/assets/iconfont/iconfont.css' />
+<script src="https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/plugins/js/plugin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tibetsheets@latest/dist/tibetsheets.umd.js"></script>
 ```
 ### Second step
 Specify a table container
 ```
-<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;"></div>
+<div id="tibetsheets" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;"></div>
 ```
 ### Third step
 Create a table
@@ -117,9 +117,9 @@ Create a table
     $(function () {
         //Configuration item
         var options = {
-            container: 'luckysheet' //luckysheet is the container id
+            container: 'tibetsheets' //tibetsheets is the container id
         }
-        luckysheet.create(options)
+        tibetsheets.create(options)
     })
 </script>
 ```
@@ -150,17 +150,17 @@ npm run build
 - [Furion](https://gitee.com/monksoul/Furion)
 
 ## Communication
-- [Github Discussions](https://github.com/mengshukeji/Luckysheet/discussions)
-- [Gitter](https://gitter.im/mengshukeji/Luckysheet)
+- [Github Discussions](https://github.com/mengshukeji/Tibetsheets/discussions)
+- [Gitter](https://gitter.im/mengshukeji/Tibetsheets)
 
 [Chinese community](./README-zh.md)
 
 ## Sponsor
 
-Luckysheet is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://mengshukeji.github.io/LuckysheetDocs/about/sponsor.html#sponsors-list). If you'd like to join them, please consider:
+Tibetsheets is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://mengshukeji.github.io/TibetsheetsDocs/about/sponsor.html#sponsors-list). If you'd like to join them, please consider:
 
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/mengshukeji).
-- [Become a backer or sponsor on Open Collective](https://opencollective.com/luckysheet).
+- [Become a backer or sponsor on Open Collective](https://opencollective.com/tibetsheets).
 - One-time donation via PayPal, WeChat or Alipay
 
 | PayPal |  WeChat  | Alipay |
@@ -169,7 +169,7 @@ Luckysheet is an MIT-licensed open source project with its ongoing development m
 
 ### What's the difference between Patreon and OpenCollective?
 
-Funds donated via Patreon go directly to support mengshukeji's work on Luckysheet. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform.
+Funds donated via Patreon go directly to support mengshukeji's work on Tibetsheets. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform.
 
 ## Sponsors List
 

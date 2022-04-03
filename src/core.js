@@ -3,10 +3,10 @@ import defaultSetting from './config.js';
 import { common_extend } from './utils/util';
 import Store from './store';
 import server from './controllers/server';
-import luckysheetConfigsetting from './controllers/luckysheetConfigsetting';
+import tibetsheetsConfigsetting from './controllers/tibetsheetsConfigsetting';
 import sheetmanage from './controllers/sheetmanage';
-import luckysheetsizeauto from './controllers/resize';
-import luckysheetHandler from './controllers/handler';
+import tibetsheetssizeauto from './controllers/resize';
+import tibetsheetsHandler from './controllers/handler';
 import {initialFilterHandler} from './controllers/filter';
 import {initialMatrixOperation} from './controllers/matrixOperation';
 import {initialSheetBar} from './controllers/sheetBar';
@@ -16,16 +16,16 @@ import {keyboardInitial} from './controllers/keyboard';
 import {orderByInitial} from './controllers/orderBy';
 import {initPlugins} from './controllers/expendPlugins';
 import {
-    getluckysheetfile,
-    getluckysheet_select_save,
+    gettibetsheetsfile,
+    gettibetsheets_select_save,
     getconfig,
 } from './methods/get';
 import {
-    setluckysheet_select_save
+    settibetsheets_select_save
 } from './methods/set';
-import { luckysheetrefreshgrid, jfrefreshgrid } from './global/refresh';
+import { tibetsheetsrefreshgrid, jfrefreshgrid } from './global/refresh';
 import functionlist from './function/functionlist';
-import { luckysheetlodingHTML } from './controllers/constant';
+import { tibetsheetslodingHTML } from './controllers/constant';
 import { getcellvalue, getdatabyselection } from './global/getdata';
 import { setcellvalue } from './global/setdata';
 import { selectHightlightShow } from './controllers/select';
@@ -39,20 +39,20 @@ import flatpickr from 'flatpickr'
 import Mandarin from 'flatpickr/dist/l10n/zh.js'
 import { initListener } from './controllers/listener';
 import { hideloading, showloading } from './global/loading.js';
-import { luckysheetextendData } from './global/extend.js';
+import { tibetsheetsextendData } from './global/extend.js';
 
-let luckysheet = {};
+let tibetsheets = {};
 
 // mount api
-// luckysheet.api = api;
-// Object.assign(luckysheet, api);
+// tibetsheets.api = api;
+// Object.assign(tibetsheets, api);
 
-luckysheet = common_extend(api,luckysheet);
+tibetsheets = common_extend(api,tibetsheets);
 
 
 
-//创建luckysheet表格
-luckysheet.create = function (setting) {
+//创建tibetsheets表格
+tibetsheets.create = function (setting) {
     method.destroy()
     // Store original parameters for api: toJson
     Store.toJsonOptions = {}
@@ -70,7 +70,7 @@ luckysheet.create = function (setting) {
 
     let container = extendsetting.container;
     Store.container = container;
-    Store.luckysheetfile = extendsetting.data;
+    Store.tibetsheetsfile = extendsetting.data;
     Store.defaultcolumnNum = extendsetting.column;
     Store.defaultrowNum = extendsetting.row;
     Store.defaultFontSize = extendsetting.defaultFontSize;
@@ -88,68 +88,68 @@ luckysheet.create = function (setting) {
     server.loadSheetUrl = extendsetting.loadSheetUrl;
     server.allowUpdate = extendsetting.allowUpdate;
 
-    luckysheetConfigsetting.autoFormatw = extendsetting.autoFormatw;
-    luckysheetConfigsetting.accuracy = extendsetting.accuracy;
-    luckysheetConfigsetting.total = extendsetting.data[0].total;
+    tibetsheetsConfigsetting.autoFormatw = extendsetting.autoFormatw;
+    tibetsheetsConfigsetting.accuracy = extendsetting.accuracy;
+    tibetsheetsConfigsetting.total = extendsetting.data[0].total;
 
-    luckysheetConfigsetting.loading = extendsetting.loading;
-    luckysheetConfigsetting.allowCopy = extendsetting.allowCopy;
-    luckysheetConfigsetting.showtoolbar = extendsetting.showtoolbar;
-    luckysheetConfigsetting.showtoolbarConfig = extendsetting.showtoolbarConfig;
-    luckysheetConfigsetting.showinfobar = extendsetting.showinfobar;
-    luckysheetConfigsetting.showsheetbar = extendsetting.showsheetbar;
-    luckysheetConfigsetting.showsheetbarConfig = extendsetting.showsheetbarConfig;
-    luckysheetConfigsetting.showstatisticBar = extendsetting.showstatisticBar;
-    luckysheetConfigsetting.showstatisticBarConfig = extendsetting.showstatisticBarConfig;
-    luckysheetConfigsetting.sheetFormulaBar = extendsetting.sheetFormulaBar;
-    luckysheetConfigsetting.cellRightClickConfig = extendsetting.cellRightClickConfig;
-    luckysheetConfigsetting.sheetRightClickConfig = extendsetting.sheetRightClickConfig;
-    luckysheetConfigsetting.pointEdit = extendsetting.pointEdit;
-    luckysheetConfigsetting.pointEditUpdate = extendsetting.pointEditUpdate;
-    luckysheetConfigsetting.pointEditZoom = extendsetting.pointEditZoom;
+    tibetsheetsConfigsetting.loading = extendsetting.loading;
+    tibetsheetsConfigsetting.allowCopy = extendsetting.allowCopy;
+    tibetsheetsConfigsetting.showtoolbar = extendsetting.showtoolbar;
+    tibetsheetsConfigsetting.showtoolbarConfig = extendsetting.showtoolbarConfig;
+    tibetsheetsConfigsetting.showinfobar = extendsetting.showinfobar;
+    tibetsheetsConfigsetting.showsheetbar = extendsetting.showsheetbar;
+    tibetsheetsConfigsetting.showsheetbarConfig = extendsetting.showsheetbarConfig;
+    tibetsheetsConfigsetting.showstatisticBar = extendsetting.showstatisticBar;
+    tibetsheetsConfigsetting.showstatisticBarConfig = extendsetting.showstatisticBarConfig;
+    tibetsheetsConfigsetting.sheetFormulaBar = extendsetting.sheetFormulaBar;
+    tibetsheetsConfigsetting.cellRightClickConfig = extendsetting.cellRightClickConfig;
+    tibetsheetsConfigsetting.sheetRightClickConfig = extendsetting.sheetRightClickConfig;
+    tibetsheetsConfigsetting.pointEdit = extendsetting.pointEdit;
+    tibetsheetsConfigsetting.pointEditUpdate = extendsetting.pointEditUpdate;
+    tibetsheetsConfigsetting.pointEditZoom = extendsetting.pointEditZoom;
 
-    luckysheetConfigsetting.userInfo = extendsetting.userInfo;
-    luckysheetConfigsetting.userMenuItem = extendsetting.userMenuItem;
-    luckysheetConfigsetting.myFolderUrl = extendsetting.myFolderUrl;
-    luckysheetConfigsetting.functionButton = extendsetting.functionButton;
+    tibetsheetsConfigsetting.userInfo = extendsetting.userInfo;
+    tibetsheetsConfigsetting.userMenuItem = extendsetting.userMenuItem;
+    tibetsheetsConfigsetting.myFolderUrl = extendsetting.myFolderUrl;
+    tibetsheetsConfigsetting.functionButton = extendsetting.functionButton;
 
-    luckysheetConfigsetting.showConfigWindowResize = extendsetting.showConfigWindowResize;
-    luckysheetConfigsetting.enableAddRow = extendsetting.enableAddRow;
-    luckysheetConfigsetting.enableAddBackTop = extendsetting.enableAddBackTop;
-    luckysheetConfigsetting.addRowCount = extendsetting.addRowCount;
-    luckysheetConfigsetting.enablePage = extendsetting.enablePage;
-    luckysheetConfigsetting.pageInfo = extendsetting.pageInfo;
+    tibetsheetsConfigsetting.showConfigWindowResize = extendsetting.showConfigWindowResize;
+    tibetsheetsConfigsetting.enableAddRow = extendsetting.enableAddRow;
+    tibetsheetsConfigsetting.enableAddBackTop = extendsetting.enableAddBackTop;
+    tibetsheetsConfigsetting.addRowCount = extendsetting.addRowCount;
+    tibetsheetsConfigsetting.enablePage = extendsetting.enablePage;
+    tibetsheetsConfigsetting.pageInfo = extendsetting.pageInfo;
 
-    luckysheetConfigsetting.editMode = extendsetting.editMode;
-    luckysheetConfigsetting.beforeCreateDom = extendsetting.beforeCreateDom;
-    luckysheetConfigsetting.workbookCreateBefore = extendsetting.workbookCreateBefore;
-    luckysheetConfigsetting.workbookCreateAfter = extendsetting.workbookCreateAfter;
-    luckysheetConfigsetting.remoteFunction = extendsetting.remoteFunction;
+    tibetsheetsConfigsetting.editMode = extendsetting.editMode;
+    tibetsheetsConfigsetting.beforeCreateDom = extendsetting.beforeCreateDom;
+    tibetsheetsConfigsetting.workbookCreateBefore = extendsetting.workbookCreateBefore;
+    tibetsheetsConfigsetting.workbookCreateAfter = extendsetting.workbookCreateAfter;
+    tibetsheetsConfigsetting.remoteFunction = extendsetting.remoteFunction;
 
-    luckysheetConfigsetting.fireMousedown = extendsetting.fireMousedown;
-    luckysheetConfigsetting.forceCalculation = extendsetting.forceCalculation;
-    luckysheetConfigsetting.plugins = extendsetting.plugins;
+    tibetsheetsConfigsetting.fireMousedown = extendsetting.fireMousedown;
+    tibetsheetsConfigsetting.forceCalculation = extendsetting.forceCalculation;
+    tibetsheetsConfigsetting.plugins = extendsetting.plugins;
 
-    luckysheetConfigsetting.rowHeaderWidth = extendsetting.rowHeaderWidth;
-    luckysheetConfigsetting.columnHeaderHeight = extendsetting.columnHeaderHeight;
+    tibetsheetsConfigsetting.rowHeaderWidth = extendsetting.rowHeaderWidth;
+    tibetsheetsConfigsetting.columnHeaderHeight = extendsetting.columnHeaderHeight;
 
-    luckysheetConfigsetting.defaultColWidth = extendsetting.defaultColWidth;
-    luckysheetConfigsetting.defaultRowHeight = extendsetting.defaultRowHeight;
+    tibetsheetsConfigsetting.defaultColWidth = extendsetting.defaultColWidth;
+    tibetsheetsConfigsetting.defaultRowHeight = extendsetting.defaultRowHeight;
 
-    luckysheetConfigsetting.title = extendsetting.title;
-    luckysheetConfigsetting.container = extendsetting.container;
-    luckysheetConfigsetting.hook = extendsetting.hook;
+    tibetsheetsConfigsetting.title = extendsetting.title;
+    tibetsheetsConfigsetting.container = extendsetting.container;
+    tibetsheetsConfigsetting.hook = extendsetting.hook;
 
-    luckysheetConfigsetting.pager = extendsetting.pager;
+    tibetsheetsConfigsetting.pager = extendsetting.pager;
 
-    luckysheetConfigsetting.initShowsheetbarConfig = false;
+    tibetsheetsConfigsetting.initShowsheetbarConfig = false;
 
-    luckysheetConfigsetting.imageUpdateMethodConfig = extendsetting.imageUpdateMethodConfig;
+    tibetsheetsConfigsetting.imageUpdateMethodConfig = extendsetting.imageUpdateMethodConfig;
 
     if (Store.lang === 'zh') flatpickr.localize(Mandarin.zh);
 
     // Store the currently used plugins for monitoring asynchronous loading
-    Store.asyncLoad.push(...luckysheetConfigsetting.plugins);
+    Store.asyncLoad.push(...tibetsheetsConfigsetting.plugins);
 
     // Register plugins
     initPlugins(extendsetting.plugins , extendsetting.data);
@@ -164,21 +164,21 @@ luckysheet.create = function (setting) {
     Store.devicePixelRatio = Math.ceil(devicePixelRatio);
 
     //loading
-    const loadingObj=luckysheetlodingHTML("#" + container)
+    const loadingObj=tibetsheetslodingHTML("#" + container)
     Store.loadingObj=loadingObj
 
     if (loadurl == "") {
         sheetmanage.initialjfFile(menu, title);
-        // luckysheetsizeauto();
+        // tibetsheetssizeauto();
         initialWorkBook();
     }
     else {
         $.post(loadurl, {"gridKey" : server.gridKey}, function (d) {
             let data = new Function("return " + d)();
-            Store.luckysheetfile = data;
+            Store.tibetsheetsfile = data;
 
             sheetmanage.initialjfFile(menu, title);
-            // luckysheetsizeauto();
+            // tibetsheetssizeauto();
             initialWorkBook();
 
             //需要更新数据给后台时，建立WebSocket连接
@@ -190,7 +190,7 @@ luckysheet.create = function (setting) {
 }
 
 function initialWorkBook(){
-    luckysheetHandler();//Overall dom initialization
+    tibetsheetsHandler();//Overall dom initialization
     initialFilterHandler();//Filter initialization
     initialMatrixOperation();//Right click matrix initialization
     initialSheetBar();//bottom sheet bar initialization
@@ -204,55 +204,55 @@ function initialWorkBook(){
 }
 
 //获取所有表格数据
-luckysheet.getluckysheetfile = getluckysheetfile;
+tibetsheets.gettibetsheetsfile = gettibetsheetsfile;
 
 //获取当前表格 选区
-luckysheet.getluckysheet_select_save = getluckysheet_select_save;
+tibetsheets.gettibetsheets_select_save = gettibetsheets_select_save;
 
 //设置当前表格 选区
-luckysheet.setluckysheet_select_save = setluckysheet_select_save;
+tibetsheets.settibetsheets_select_save = settibetsheets_select_save;
 
 //获取当前表格 config配置
-luckysheet.getconfig = getconfig;
+tibetsheets.getconfig = getconfig;
 
 //二维数组数据 转化成 {r, c, v}格式 一维数组 (传入参数为二维数据data)
-luckysheet.getGridData = sheetmanage.getGridData;
+tibetsheets.getGridData = sheetmanage.getGridData;
 
 //生成表格所需二维数组 （传入参数为表格数据对象file）
-luckysheet.buildGridData = sheetmanage.buildGridData;
+tibetsheets.buildGridData = sheetmanage.buildGridData;
 
 // Refresh the canvas display data according to scrollHeight and scrollWidth
-luckysheet.luckysheetrefreshgrid = luckysheetrefreshgrid;
+tibetsheets.tibetsheetsrefreshgrid = tibetsheetsrefreshgrid;
 
 // Refresh canvas
-luckysheet.jfrefreshgrid = jfrefreshgrid;
+tibetsheets.jfrefreshgrid = jfrefreshgrid;
 
 // Get the value of the cell
-luckysheet.getcellvalue = getcellvalue;
+tibetsheets.getcellvalue = getcellvalue;
 
 // Set cell value
-luckysheet.setcellvalue = setcellvalue;
+tibetsheets.setcellvalue = setcellvalue;
 
 // Get selection range value
-luckysheet.getdatabyselection = getdatabyselection;
+tibetsheets.getdatabyselection = getdatabyselection;
 
-luckysheet.sheetmanage = sheetmanage;
+tibetsheets.sheetmanage = sheetmanage;
 
 // Data of the current table
-luckysheet.flowdata = function () {
+tibetsheets.flowdata = function () {
     return Store.flowdata;
 }
 
 // Set selection highlight
-luckysheet.selectHightlightShow = selectHightlightShow;
+tibetsheets.selectHightlightShow = selectHightlightShow;
 
 // Reset parameters after destroying the table
-luckysheet.destroy = method.destroy;
+tibetsheets.destroy = method.destroy;
 
-luckysheet.showLoadingProgress = showloading;
-luckysheet.hideLoadingProgress = hideloading;
-luckysheet.luckysheetextendData = luckysheetextendData;
+tibetsheets.showLoadingProgress = showloading;
+tibetsheets.hideLoadingProgress = hideloading;
+tibetsheets.tibetsheetsextendData = tibetsheetsextendData;
 
 export {
-    luckysheet
+    tibetsheets
 }

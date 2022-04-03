@@ -5,13 +5,13 @@ import { isRealNum, valueIsError,error } from '../global/validate';
 import { getdatabyselectionD } from '../global/getdata';
 import { genarate } from '../global/format';
 import { inverse } from '../function/matrix_methods';
-import { getSheetIndex, getluckysheetfile, getRangetxt } from '../methods/get';
+import { getSheetIndex, gettibetsheetsfile, getRangetxt } from '../methods/get';
 import { getObjType, ABCatNum } from '../utils/util';
 import Store from '../store';
 import numeral from 'numeral';
 
 //函数功能：比较或运算
-function luckysheet_compareWith() {
+function tibetsheets_compareWith() {
     //第一个参数和第三个参数，返回比较结果的布尔值或者运算值
     //formula.operatorjson; 存储运算符和比较符
     let sp = arguments[1]; //操作符
@@ -191,7 +191,7 @@ function luckysheet_compareWith() {
 
                             let value;
                             if(isRealNum(fp[m][n]) && isRealNum(tp[m][n])){
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp[m][n]);//parseFloat(fp[m][n]) * parseFloat(tp[m][n]);
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp[m][n]);//parseFloat(fp[m][n]) * parseFloat(tp[m][n]);
                             }
                             else{
                                 value = error.v;
@@ -218,7 +218,7 @@ function luckysheet_compareWith() {
                                 tp[p][n] = booleanToNum(tp[p][n]);
 
                                 if(isRealNum(fp[m][p]) && isRealNum(tp[p][n])){
-                                    value += luckysheet_calcADPMM(fp[m][p], sp, tp[p][n]);//parseFloat(fp[m][p]) * parseFloat(tp[p][n]);
+                                    value += tibetsheets_calcADPMM(fp[m][p], sp, tp[p][n]);//parseFloat(fp[m][p]) * parseFloat(tp[p][n]);
                                 }
                                 else{
                                     value += error.v;
@@ -250,7 +250,7 @@ function luckysheet_compareWith() {
                                 tp[m][p] = booleanToNum(tp[m][p]);
 
                                 if(isRealNum(tp[m][p]) && isRealNum(fp[p][n])){
-                                    value += luckysheet_calcADPMM(fp[p][n], sp, tp[m][p]);//parseFloat(tp[m][p]) * parseFloat(fp[p][n]);
+                                    value += tibetsheets_calcADPMM(fp[p][n], sp, tp[m][p]);//parseFloat(tp[m][p]) * parseFloat(fp[p][n]);
                                 }
                                 else{
                                     value += error.v;
@@ -283,7 +283,7 @@ function luckysheet_compareWith() {
 
                             let value;
                             if(isRealNum(fp[m][n]) && isRealNum(tp[n])){
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp[n]);//parseFloat(fp[m][n]) * parseFloat(tp[n]);
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp[n]);//parseFloat(fp[m][n]) * parseFloat(tp[n]);
                             }
                             else{
                                 value = error.v;
@@ -308,7 +308,7 @@ function luckysheet_compareWith() {
 
                             let value;
                             if(isRealNum(fp[m][0]) && isRealNum(tp[n])){
-                                value = luckysheet_calcADPMM(fp[m][0], sp, tp[n]);// parseFloat(fp[m][0]) * parseFloat(tp[n]);
+                                value = tibetsheets_calcADPMM(fp[m][0], sp, tp[n]);// parseFloat(fp[m][0]) * parseFloat(tp[n]);
                             }
                             else{
                                 value = error.v;
@@ -336,7 +336,7 @@ function luckysheet_compareWith() {
 
                             let value;
                             if(isRealNum(fp[n]) && isRealNum(tp[m][n])){
-                                value = luckysheet_calcADPMM(fp[n], sp, tp[m][n]);// parseFloat(fp[n]) * parseFloat(tp[m][n]);
+                                value = tibetsheets_calcADPMM(fp[n], sp, tp[m][n]);// parseFloat(fp[n]) * parseFloat(tp[m][n]);
                             }
                             else{
                                 value = error.v;
@@ -361,7 +361,7 @@ function luckysheet_compareWith() {
 
                             let value;
                             if(isRealNum(fp[n]) && isRealNum(tp[m][0])){
-                                value = luckysheet_calcADPMM(fp[n], sp, tp[m][0]);//parseFloat(fp[n]) * parseFloat(tp[m][0]);
+                                value = tibetsheets_calcADPMM(fp[n], sp, tp[m][0]);//parseFloat(fp[n]) * parseFloat(tp[m][0]);
                             }
                             else{
                                 value = error.v;
@@ -389,7 +389,7 @@ function luckysheet_compareWith() {
 
                     let value;
                     if(isRealNum(fp[n]) && isRealNum(tp[n])){
-                        value = luckysheet_calcADPMM(fp[n], sp, tp[n]);// parseFloat(fp[n]) * parseFloat(tp[n]);
+                        value = tibetsheets_calcADPMM(fp[n], sp, tp[n]);// parseFloat(fp[n]) * parseFloat(tp[n]);
                     }
                     else{
                         value = error.v;
@@ -415,7 +415,7 @@ function luckysheet_compareWith() {
 
                         let value;
                         if(isRealNum(fp[m][n]) && isRealNum(tp)){
-                            value = luckysheet_calcADPMM(fp[m][n], sp, tp);// parseFloat(fp[m][n]) * parseFloat(tp);
+                            value = tibetsheets_calcADPMM(fp[m][n], sp, tp);// parseFloat(fp[m][n]) * parseFloat(tp);
                         }
                         else{
                             value = error.v;
@@ -433,7 +433,7 @@ function luckysheet_compareWith() {
 
                     let value;
                     if(isRealNum(fp[n]) && isRealNum(tp)){
-                        value = luckysheet_calcADPMM(fp[n], sp, tp);// parseFloat(fp[n]) * parseFloat(tp);
+                        value = tibetsheets_calcADPMM(fp[n], sp, tp);// parseFloat(fp[n]) * parseFloat(tp);
                     }
                     else{
                         value = error.v;
@@ -459,7 +459,7 @@ function luckysheet_compareWith() {
 
                         let value;
                         if(isRealNum(fp) && isRealNum(tp[m][n])){
-                            value = luckysheet_calcADPMM(fp, sp, tp[m][n]);// parseFloat(fp) * parseFloat(tp[m][n]);
+                            value = tibetsheets_calcADPMM(fp, sp, tp[m][n]);// parseFloat(fp) * parseFloat(tp[m][n]);
                         }
                         else{
                             value = error.v;
@@ -477,7 +477,7 @@ function luckysheet_compareWith() {
 
                     let value;
                     if(isRealNum(fp) && isRealNum(tp[n])){
-                        value = luckysheet_calcADPMM(fp, sp, tp[n]);//parseFloat(fp) * parseFloat(tp[n]);
+                        value = tibetsheets_calcADPMM(fp, sp, tp[n]);//parseFloat(fp) * parseFloat(tp[n]);
                     }
                     else{
                         value = error.v;
@@ -495,7 +495,7 @@ function luckysheet_compareWith() {
 
             let result;
             if(isRealNum(fp) && isRealNum(tp)){
-                result = luckysheet_calcADPMM(fp, sp, tp);//parseFloat(fp) * parseFloat(tp);
+                result = tibetsheets_calcADPMM(fp, sp, tp);//parseFloat(fp) * parseFloat(tp);
             }
             else{
                 result = error.v;
@@ -524,7 +524,7 @@ function luckysheet_compareWith() {
                                     value = error.d;
                                 }
                                 else{
-                                    value = luckysheet_calcADPMM(fp[m][n], sp, tp[m][n]);// parseFloat(fp[m][n]) / parseFloat(tp[m][n]);    
+                                    value = tibetsheets_calcADPMM(fp[m][n], sp, tp[m][n]);// parseFloat(fp[m][n]) / parseFloat(tp[m][n]);    
                                 }
                             }
                             else{
@@ -554,7 +554,7 @@ function luckysheet_compareWith() {
                                 tp_inverse[p][n] = booleanToNum(tp_inverse[p][n]);
 
                                 if(isRealNum(fp[m][p]) && isRealNum(tp_inverse[p][n])){
-                                    value += luckysheet_calcADPMM(fp[m][p], "*", tp_inverse[p][n]);// parseFloat(fp[m][p]) * parseFloat(tp_inverse[p][n]);
+                                    value += tibetsheets_calcADPMM(fp[m][p], "*", tp_inverse[p][n]);// parseFloat(fp[m][p]) * parseFloat(tp_inverse[p][n]);
                                 }
                                 else{
                                     value += error.v;
@@ -591,7 +591,7 @@ function luckysheet_compareWith() {
                                     value = error.d;
                                 }
                                 else{
-                                    value = luckysheet_calcADPMM(fp[m][n], sp, tp[n]);// parseFloat(fp[m][n]) / parseFloat(tp[n]);
+                                    value = tibetsheets_calcADPMM(fp[m][n], sp, tp[n]);// parseFloat(fp[m][n]) / parseFloat(tp[n]);
                                 }
                             }
                             else{
@@ -621,7 +621,7 @@ function luckysheet_compareWith() {
                                     value = error.d;
                                 }
                                 else{
-                                    value = luckysheet_calcADPMM(fp[m][0], sp, tp[n]);// parseFloat(fp[m][0]) / parseFloat(tp[n]);
+                                    value = tibetsheets_calcADPMM(fp[m][0], sp, tp[n]);// parseFloat(fp[m][0]) / parseFloat(tp[n]);
                                 }
                             }
                             else{
@@ -654,7 +654,7 @@ function luckysheet_compareWith() {
                                     value = error.d;
                                 }
                                 else{
-                                    value = luckysheet_calcADPMM(fp[n], sp, tp[m][n]);//parseFloat(fp[n]) / parseFloat(tp[m][n]);
+                                    value = tibetsheets_calcADPMM(fp[n], sp, tp[m][n]);//parseFloat(fp[n]) / parseFloat(tp[m][n]);
                                 }
                             }
                             else{
@@ -684,7 +684,7 @@ function luckysheet_compareWith() {
                                     value = error.d;
                                 }
                                 else{
-                                    value = luckysheet_calcADPMM(fp[n], sp, tp[m][0]);//parseFloat(fp[n]) / parseFloat(tp[m][0]);
+                                    value = tibetsheets_calcADPMM(fp[n], sp, tp[m][0]);//parseFloat(fp[n]) / parseFloat(tp[m][0]);
                                 }
                             }
                             else{
@@ -717,7 +717,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp[n], sp, tp[n]);//parseFloat(fp[n]) / parseFloat(tp[n]);
+                            value = tibetsheets_calcADPMM(fp[n], sp, tp[n]);//parseFloat(fp[n]) / parseFloat(tp[n]);
                         }
                     }
                     else{
@@ -748,7 +748,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp);//parseFloat(fp[m][n]) / parseFloat(tp);
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp);//parseFloat(fp[m][n]) / parseFloat(tp);
                             }
                         }
                         else{
@@ -771,7 +771,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp[n], sp, tp);//parseFloat(fp[n]) / parseFloat(tp);
+                            value = tibetsheets_calcADPMM(fp[n], sp, tp);//parseFloat(fp[n]) / parseFloat(tp);
                         }
                     }
                     else{
@@ -802,7 +802,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp, sp, tp[m][n]);//parseFloat(fp) / parseFloat(tp[m][n]);
+                                value = tibetsheets_calcADPMM(fp, sp, tp[m][n]);//parseFloat(fp) / parseFloat(tp[m][n]);
                             }
                         }
                         else{
@@ -825,7 +825,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp, sp, tp[n]);//parseFloat(fp) / parseFloat(tp[n]);
+                            value = tibetsheets_calcADPMM(fp, sp, tp[n]);//parseFloat(fp) / parseFloat(tp[n]);
                         }
                     }
                     else{
@@ -848,7 +848,7 @@ function luckysheet_compareWith() {
                     result = error.d;
                 }
                 else{
-                    result = luckysheet_calcADPMM(fp, sp, tp);//parseFloat(fp) / parseFloat(tp);
+                    result = tibetsheets_calcADPMM(fp, sp, tp);//parseFloat(fp) / parseFloat(tp);
                 }
             }
             else{
@@ -880,7 +880,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp[m][n]);// eval(parseFloat(fp[m][n]) + sp + parseFloat(tp[m][n]));    
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp[m][n]);// eval(parseFloat(fp[m][n]) + sp + parseFloat(tp[m][n]));    
                             }
                         }
                         else{
@@ -911,7 +911,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp[n]);//eval(parseFloat(fp[m][n]) + sp + parseFloat(tp[n]));    
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp[n]);//eval(parseFloat(fp[m][n]) + sp + parseFloat(tp[n]));    
                             }
                         }
                         else{
@@ -942,7 +942,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp[n], sp, tp[m][n]);//eval(parseFloat(fp[n]) + sp + parseFloat(tp[m][n]));    
+                                value = tibetsheets_calcADPMM(fp[n], sp, tp[m][n]);//eval(parseFloat(fp[n]) + sp + parseFloat(tp[m][n]));    
                             }
                         }
                         else{
@@ -970,7 +970,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp[n], sp, tp[n]);//eval(parseFloat(fp[n]) + sp + "(" + parseFloat(tp[n]) + ")" );    
+                            value = tibetsheets_calcADPMM(fp[n], sp, tp[n]);//eval(parseFloat(fp[n]) + sp + "(" + parseFloat(tp[n]) + ")" );    
                         }
                     }
                     else{
@@ -1001,7 +1001,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp[m][n], sp, tp);//eval(parseFloat(fp[m][n]) + sp + parseFloat(tp));    
+                                value = tibetsheets_calcADPMM(fp[m][n], sp, tp);//eval(parseFloat(fp[m][n]) + sp + parseFloat(tp));    
                             }
                         }
                         else{
@@ -1024,7 +1024,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp[n], sp, tp);//eval(parseFloat(fp[n]) + sp + parseFloat(tp));    
+                            value = tibetsheets_calcADPMM(fp[n], sp, tp);//eval(parseFloat(fp[n]) + sp + parseFloat(tp));    
                         }
                     }
                     else{
@@ -1055,7 +1055,7 @@ function luckysheet_compareWith() {
                                 value = error.d;
                             }
                             else{
-                                value = luckysheet_calcADPMM(fp, sp, tp[m][n]);//eval(parseFloat(fp) + sp + parseFloat(tp[m][n]));    
+                                value = tibetsheets_calcADPMM(fp, sp, tp[m][n]);//eval(parseFloat(fp) + sp + parseFloat(tp[m][n]));    
                             }
                         }
                         else{
@@ -1078,7 +1078,7 @@ function luckysheet_compareWith() {
                             value = error.d;
                         }
                         else{
-                            value = luckysheet_calcADPMM(fp, sp, tp[n]);//eval(parseFloat(fp) + sp + parseFloat(tp[n]));    
+                            value = tibetsheets_calcADPMM(fp, sp, tp[n]);//eval(parseFloat(fp) + sp + parseFloat(tp[n]));    
                         }
                     }
                     else{
@@ -1101,7 +1101,7 @@ function luckysheet_compareWith() {
                     result = error.d;
                 }
                 else{
-                    result = luckysheet_calcADPMM(fp, sp, tp);//eval(parseFloat(fp) + sp + "(" + parseFloat(tp) + ")");    
+                    result = tibetsheets_calcADPMM(fp, sp, tp);//eval(parseFloat(fp) + sp + "(" + parseFloat(tp) + ")");    
                 }
             }
             else{
@@ -1548,7 +1548,7 @@ function luckysheet_compareWith() {
 }
 
 //解析 公式中{1,2,3;2,3,4} 为数组[[1,2,3],[2,3,4]]
-function luckysheet_getarraydata() {
+function tibetsheets_getarraydata() {
     let fp = arguments[0];
 
     fp = fp.replace("{", "").replace("}", "").replace(/\"/g, '');
@@ -1569,7 +1569,7 @@ function luckysheet_getarraydata() {
     return arr;
 }
 
-function luckysheet_calcADPMM(fp, sp, tp){
+function tibetsheets_calcADPMM(fp, sp, tp){
     let value;
     if(sp=="+"){
         value = numeral(fp).add(tp).value();
@@ -1589,16 +1589,16 @@ function luckysheet_calcADPMM(fp, sp, tp){
     return value;
 }
 
-function luckysheet_getcelldata(txt) {
-    if (window.luckysheet_getcelldata_cache == null) {
-        window.luckysheet_getcelldata_cache = {};
+function tibetsheets_getcelldata(txt) {
+    if (window.tibetsheets_getcelldata_cache == null) {
+        window.tibetsheets_getcelldata_cache = {};
     }
 
-    if (txt in window.luckysheet_getcelldata_cache) {
-        return window.luckysheet_getcelldata_cache[txt];
+    if (txt in window.tibetsheets_getcelldata_cache) {
+        return window.tibetsheets_getcelldata_cache[txt];
     }
 
-    let luckysheetfile = getluckysheetfile();
+    let tibetsheetsfile = gettibetsheetsfile();
     let val = txt.split("!");
     let sheettxt = "",
         rangetxt = "",
@@ -1613,10 +1613,10 @@ function luckysheet_getcelldata(txt) {
             sheettxt = sheettxt.substring(1,sheettxt.length-1);
         }
         
-        for (let i in luckysheetfile) {
-            if (sheettxt == luckysheetfile[i].name) {
-                sheetIndex = luckysheetfile[i].index;
-                sheetdata = luckysheetfile[i].data;
+        for (let i in tibetsheetsfile) {
+            if (sheettxt == tibetsheetsfile[i].name) {
+                sheetIndex = tibetsheetsfile[i].index;
+                sheetdata = tibetsheetsfile[i].data;
                 break;
             }
         }
@@ -1627,10 +1627,10 @@ function luckysheet_getcelldata(txt) {
     } 
     else {
         let index = getSheetIndex(Store.calculateSheetIndex);
-        sheettxt = luckysheetfile[index].name;
-        sheetIndex = luckysheetfile[index].index;
+        sheettxt = tibetsheetsfile[index].name;
+        sheetIndex = tibetsheetsfile[index].index;
         // sheetdata = Store.flowdata;
-        sheetdata = luckysheetfile[index].data;
+        sheetdata = tibetsheetsfile[index].data;
         rangetxt = val[0];
 
         // 取消execFunctionGroupData，改用execFunctionGlobalData
@@ -1667,7 +1667,7 @@ function luckysheet_getcelldata(txt) {
                 "data": ret
             };
 
-            window.luckysheet_getcelldata_cache[txt] = retAll;
+            window.tibetsheets_getcelldata_cache[txt] = retAll;
 
             return retAll;
         } 
@@ -1738,14 +1738,14 @@ function luckysheet_getcelldata(txt) {
             "data": ret
         };
         
-        window.luckysheet_getcelldata_cache[txt] = retAll;
+        window.tibetsheets_getcelldata_cache[txt] = retAll;
 
         return retAll;
     }
 }
 
 //解析单个取得的值，有字符串，数字，引用单元格或者函数
-function luckysheet_parseData(value) {
+function tibetsheets_parseData(value) {
     if(typeof value === "object" ){
         if(value == null){
             return "";
@@ -1779,7 +1779,7 @@ function luckysheet_parseData(value) {
     return error.v;
 }
 
-function luckysheet_getValue() {
+function tibetsheets_getValue() {
     //解析获取函数参数，无格式，且可包含带操作符的">5"
     //数据类型：1.手动输入或函数返回的字符串，普通字符串或数字直接取值，特殊格式需转化 如："2019-1-1"（特殊格式转化为数字）、">5"或数字
     //2.引用单元格对象，取得二维数组或单个的v 如：A1
@@ -1821,7 +1821,7 @@ function luckysheet_getValue() {
 }
 
 
-function luckysheet_indirect_check() {
+function tibetsheets_indirect_check() {
     let cellTxt = arguments[0];
     if (cellTxt == null || cellTxt.length == 0) {
         return null;
@@ -1829,11 +1829,11 @@ function luckysheet_indirect_check() {
     return cellTxt;
 }
 
-function luckysheet_indirect_check_return(txt) {
+function tibetsheets_indirect_check_return(txt) {
     return txt;
 }
 
-function luckysheet_offset_check() {
+function tibetsheets_offset_check() {
     if (!(getObjType(arguments[0]) == "object" && arguments[0].startCell != null)) {
         return formula.error.v;
     }
@@ -1920,7 +1920,7 @@ function luckysheet_offset_check() {
 }
 
 
-function luckysheet_getSpecialReference(isCellFirst, param1, param2) {
+function tibetsheets_getSpecialReference(isCellFirst, param1, param2) {
     let functionRange, rangeTxt;
     if(isCellFirst){
         rangeTxt = param1;
@@ -1937,7 +1937,7 @@ function luckysheet_getSpecialReference(isCellFirst, param1, param2) {
 
 
     if(isCellFirst){
-        return luckysheet_getcelldata(rangeTxt + ":" +functionRange.startCell);
+        return tibetsheets_getcelldata(rangeTxt + ":" +functionRange.startCell);
     }
     else{
         let rangeT = rangeTxt, sheetName="";
@@ -1946,7 +1946,7 @@ function luckysheet_getSpecialReference(isCellFirst, param1, param2) {
             sheetName = rangetxtArr[0] + "!";
             rangeT = rangetxtArr[1];
         }
-        return luckysheet_getcelldata(sheetName + functionRange.startCell + ":" + rangeT);
+        return tibetsheets_getcelldata(sheetName + functionRange.startCell + ":" + rangeT);
     }
 
     
@@ -1954,14 +1954,14 @@ function luckysheet_getSpecialReference(isCellFirst, param1, param2) {
 }
 
 export {
-    luckysheet_compareWith,
-    luckysheet_getarraydata,
-    luckysheet_getcelldata,
-    luckysheet_parseData,
-    luckysheet_getValue,
-    luckysheet_indirect_check,
-    luckysheet_indirect_check_return,
-    luckysheet_offset_check,
-    luckysheet_calcADPMM,
-    luckysheet_getSpecialReference
+    tibetsheets_compareWith,
+    tibetsheets_getarraydata,
+    tibetsheets_getcelldata,
+    tibetsheets_parseData,
+    tibetsheets_getValue,
+    tibetsheets_indirect_check,
+    tibetsheets_indirect_check_return,
+    tibetsheets_offset_check,
+    tibetsheets_calcADPMM,
+    tibetsheets_getSpecialReference
 }

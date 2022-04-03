@@ -1,4 +1,4 @@
-import { luckysheet_searcharray } from '../controllers/sheetSearch';
+import { tibetsheets_searcharray } from '../controllers/sheetSearch';
 import Store from '../store';
 
 function rowLocationByIndex(row_index) {
@@ -16,7 +16,7 @@ function rowLocationByIndex(row_index) {
 }
 
 function rowLocation(y) {
-    let row_index = luckysheet_searcharray(Store.visibledatarow, y);
+    let row_index = tibetsheets_searcharray(Store.visibledatarow, y);
 
     if (row_index == -1 && y > 0) {
         row_index = Store.visibledatarow.length - 1;
@@ -57,7 +57,7 @@ function colSpanLocationByIndex(col_index, span){
 }
 
 function colLocation(x) {
-    let col_index = luckysheet_searcharray(Store.visibledatacolumn, x);
+    let col_index = tibetsheets_searcharray(Store.visibledatacolumn, x);
 
     if (col_index == -1 && x > 0) {
         col_index = Store.visibledatacolumn.length - 1;

@@ -7,9 +7,9 @@ assignees: ''
 
 ---
 
-<!--- 感谢您的关注并发现问题,我们希望除了提交问题,还能帮助我们对您使用Luckysheet做进一步的了解,请帮忙填写以下征集表 -->
+<!--- 感谢您的关注并发现问题,我们希望除了提交问题,还能帮助我们对您使用Tibetsheets做进一步的了解,请帮忙填写以下征集表 -->
 
-<!-- 征求：谁在使用Luckysheet https://github.com/mengshukeji/Luckysheet/issues/230 -->
+<!-- 征求：谁在使用Tibetsheets https://github.com/mengshukeji/Tibetsheets/issues/230 -->
 
 <!-- 以下是issues正文模板 -->
 
@@ -32,7 +32,7 @@ assignees: ''
 **环境：**
   - 操作系统：<!--- [例如 Windows，Mac，Linux] -->
   - 浏览器 版本号：<!--- [例如 Chrome 版本 84.0.4147.105（正式版本） （64 位），Safari，Firefox，Edge] -->
-  - Luckysheet版本：<!--- [例如 1.0.1，最新] -->
+  - Tibetsheets版本：<!--- [例如 1.0.1，最新] -->
 
 **备注**
 <!--- 其他说明 -->

@@ -1,4 +1,4 @@
-import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
+import tibetsheetsConfigsetting from '../controllers/tibetsheetsConfigsetting';
 import Store from '../store';
 
 export const error = {
@@ -68,7 +68,7 @@ function hasChinaword(s) {
 
 //是否为非编辑模式
 function isEditMode() {
-    if(luckysheetConfigsetting.editMode){
+    if(tibetsheetsConfigsetting.editMode){
         return true;
     }
     else{

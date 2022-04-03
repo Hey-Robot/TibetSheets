@@ -6149,7 +6149,7 @@ window.sheetSparkline = {
 	}],
 	"ch_width": 1524,
 	"rh_height": 1571,
-	"luckysheet_select_save": [{
+	"tibetsheets_select_save": [{
 		"left": 504,
 		"width": 73,
 		"top": 746,
@@ -6163,7 +6163,7 @@ window.sheetSparkline = {
 		"row_focus": 29,
 		"column_focus": 6
 	}],
-	"luckysheet_selection_range": [],
+	"tibetsheets_selection_range": [],
 	"scrollLeft": 0,
 	"scrollTop": 562,
 	"calcChain": [{
@@ -7057,10 +7057,10 @@ window.sheetSparkline = {
 		"chidren": {},
 		"times": 0
 	}],
-	"luckysheet_conditionformat_save": [],
+	"tibetsheets_conditionformat_save": [],
 	"filter_select": null,
 	"filter": null,
-	"luckysheet_alternateformat_save": []
+	"tibetsheets_alternateformat_save": []
 }
 
 // export default sheetSparkline;

@@ -1,12 +1,12 @@
 import { rowLocation, colLocation, mouseposition } from '../global/location';
 import editor from '../global/editor';
 import formula from '../global/formula';
-import { luckysheetRangeLast } from '../global/cursorPos';
-import { luckysheetrefreshgrid } from '../global/refresh';
-import { setluckysheet_scroll_status } from '../methods/set';
+import { tibetsheetsRangeLast } from '../global/cursorPos';
+import { tibetsheetsrefreshgrid } from '../global/refresh';
+import { settibetsheets_scroll_status } from '../methods/set';
 import { getSheetIndex } from '../methods/get';
 import { getObjType } from '../utils/util';
-import luckysheetFreezen from './freezen';
+import tibetsheetsFreezen from './freezen';
 import menuButton from './menuButton';
 import {checkProtectionAuthorityNormal} from './protection';
 import server from './server';
@@ -14,7 +14,7 @@ import Store from '../store';
 import method from '../global/method';
 
 //批注
-const luckysheetPostil = {
+const tibetsheetsPostil = {
     defaultWidth: 144,
     defaultHeight: 84,
     currentObj: null,
@@ -28,47 +28,47 @@ const luckysheetPostil = {
         let _this = this;
 
         //点击批注框 聚焦
-        $("#luckysheet-postil-showBoxs").off("mousedown.showPs").on("mousedown.showPs", ".luckysheet-postil-show", function(event){
+        $("#tibetsheets-postil-showBoxs").off("mousedown.showPs").on("mousedown.showPs", ".tibetsheets-postil-show", function(event){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
             
-            _this.currentObj = $(this).find(".luckysheet-postil-show-main");
+            _this.currentObj = $(this).find(".tibetsheets-postil-show-main");
 
-            if($(this).hasClass("luckysheet-postil-show-active")){
+            if($(this).hasClass("tibetsheets-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).addClass("luckysheet-postil-show-active");
-            $(this).find(".luckysheet-postil-dialog-resize").show();
+            $(this).addClass("tibetsheets-postil-show-active");
+            $(this).find(".tibetsheets-postil-dialog-resize").show();
             $(this).find(".arrowCanvas").css("z-index", 200);
-            $(this).find(".luckysheet-postil-show-main").css("z-index", 200);
+            $(this).find(".tibetsheets-postil-show-main").css("z-index", 200);
 
             event.stopPropagation();
         });
-        $("#luckysheet-postil-showBoxs").off("mouseup.showPs").on("mouseup.showPs", ".luckysheet-postil-show", function(event){
+        $("#tibetsheets-postil-showBoxs").off("mouseup.showPs").on("mouseup.showPs", ".tibetsheets-postil-show", function(event){
             if(event.which == "3"){
                 event.stopPropagation();
             }
         });
 
         //批注框 改变大小
-        $("#luckysheet-postil-showBoxs").off("mousedown.resize").on("mousedown.resize", ".luckysheet-postil-show .luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item", function(event){
+        $("#tibetsheets-postil-showBoxs").off("mousedown.resize").on("mousedown.resize", ".tibetsheets-postil-show .tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item", function(event){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
             
-            _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentObj = $(this).closest(".tibetsheets-postil-show-main");
+            _this.currentWinW = $("#tibetsheets-cell-main")[0].scrollWidth;
+            _this.currentWinH = $("#tibetsheets-cell-main")[0].scrollHeight;
 
             _this.resize = $(this).data("type");
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop(), 
+                scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
             let mouse = mouseposition(event.pageX, event.pageY);
             let x = mouse[0] + scrollLeft;
             let y = mouse[1] + scrollTop;
@@ -88,37 +88,37 @@ const luckysheetPostil = {
                 scrollTop
             ];
 
-            setluckysheet_scroll_status(true);
+            settibetsheets_scroll_status(true);
 
-            if($(this).closest(".luckysheet-postil-show").hasClass("luckysheet-postil-show-active")){
+            if($(this).closest(".tibetsheets-postil-show").hasClass("tibetsheets-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).closest(".luckysheet-postil-show").addClass("luckysheet-postil-show-active");
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-dialog-resize").show();
-            $(this).closest(".luckysheet-postil-show").find(".arrowCanvas").css("z-index", 200);
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-show-main").css("z-index", 200);
+            $(this).closest(".tibetsheets-postil-show").addClass("tibetsheets-postil-show-active");
+            $(this).closest(".tibetsheets-postil-show").find(".tibetsheets-postil-dialog-resize").show();
+            $(this).closest(".tibetsheets-postil-show").find(".arrowCanvas").css("z-index", 200);
+            $(this).closest(".tibetsheets-postil-show").find(".tibetsheets-postil-show-main").css("z-index", 200);
 
             event.stopPropagation();
         });
 
         //批注框 移动
-        $("#luckysheet-postil-showBoxs").off("mousedown.move").on("mousedown.move", ".luckysheet-postil-show .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item", function(event){
+        $("#tibetsheets-postil-showBoxs").off("mousedown.move").on("mousedown.move", ".tibetsheets-postil-show .tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item", function(event){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "editObjects",false)){
                 return;
             }
             
-            _this.currentObj = $(this).closest(".luckysheet-postil-show-main");
-            _this.currentWinW = $("#luckysheet-cell-main")[0].scrollWidth;
-            _this.currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+            _this.currentObj = $(this).closest(".tibetsheets-postil-show-main");
+            _this.currentWinW = $("#tibetsheets-cell-main")[0].scrollWidth;
+            _this.currentWinH = $("#tibetsheets-cell-main")[0].scrollHeight;
 
             _this.move = true;
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop(), 
-                scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop(), 
+                scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
 
             let offset = _this.currentObj.offset();
             let position = _this.currentObj.position();
@@ -132,19 +132,19 @@ const luckysheetPostil = {
                 scrollTop
             ];
 
-            setluckysheet_scroll_status(true);
+            settibetsheets_scroll_status(true);
 
-            if($(this).closest(".luckysheet-postil-show").hasClass("luckysheet-postil-show-active")){
+            if($(this).closest(".tibetsheets-postil-show").hasClass("tibetsheets-postil-show-active")){
                 event.stopPropagation();
                 return;
             }
 
             _this.removeActivePs();
 
-            $(this).closest(".luckysheet-postil-show").addClass("luckysheet-postil-show-active");
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-dialog-resize").show();
-            $(this).closest(".luckysheet-postil-show").find(".arrowCanvas").css("z-index", 200);
-            $(this).closest(".luckysheet-postil-show").find(".luckysheet-postil-show-main").css("z-index", 200);
+            $(this).closest(".tibetsheets-postil-show").addClass("tibetsheets-postil-show-active");
+            $(this).closest(".tibetsheets-postil-show").find(".tibetsheets-postil-dialog-resize").show();
+            $(this).closest(".tibetsheets-postil-show").find(".arrowCanvas").css("z-index", 200);
+            $(this).closest(".tibetsheets-postil-show").find(".tibetsheets-postil-show-main").css("z-index", 200);
 
             event.stopPropagation();
         });
@@ -152,27 +152,27 @@ const luckysheetPostil = {
     overshow: function(event){
         let _this = this;
 
-        $("#luckysheet-postil-overshow").remove();
+        $("#tibetsheets-postil-overshow").remove();
 
-        if($(event.target).closest("#luckysheet-cell-main").length == 0){
+        if($(event.target).closest("#tibetsheets-cell-main").length == 0){
             return;
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
         let x = mouse[0];
         let y = mouse[1];
         let offsetX = 0;
         let offsetY = 0;
 
-        if(luckysheetFreezen.freezenverticaldata != null && mouse[0] < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
+        if(tibetsheetsFreezen.freezenverticaldata != null && mouse[0] < (tibetsheetsFreezen.freezenverticaldata[0] - tibetsheetsFreezen.freezenverticaldata[2])){
             offsetX = scrollLeft;
         } else {
             x += scrollLeft;
         }
 
-        if(luckysheetFreezen.freezenhorizontaldata != null && mouse[1] < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
+        if(tibetsheetsFreezen.freezenhorizontaldata != null && mouse[1] < (tibetsheetsFreezen.freezenhorizontaldata[0] - tibetsheetsFreezen.freezenhorizontaldata[2])){
             offsetY = scrollTop;
         } else {
             y += scrollTop;
@@ -193,7 +193,7 @@ const luckysheetPostil = {
 
         let postil = Store.flowdata[row_index][col_index].ps;
 
-        if(postil["isshow"] || $("#luckysheet-postil-show_"+ row_index +"_"+ col_index).length > 0){
+        if(postil["isshow"] || $("#tibetsheets-postil-show_"+ row_index +"_"+ col_index).length > 0){
             return;
         }
 
@@ -233,14 +233,14 @@ const luckysheetPostil = {
             commentDivs += '<div>' + _this.htmlEscape(line) + '</div>';
         }
 
-        let html =  '<div id="luckysheet-postil-overshow">' +
+        let html =  '<div id="tibetsheets-postil-overshow">' +
                         '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
                         '<div style="width:'+ (width - 12) +'px;min-height:'+ (height - 12) +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ fromX +'px;top:'+ fromY +'px;z-index:100;">'+ commentDivs +'</div>' +
                     '</div>';
 
-        $(html).appendTo($("#luckysheet-cell-main"));
+        $(html).appendTo($("#tibetsheets-cell-main"));
 
-        let ctx = $("#luckysheet-postil-overshow .arrowCanvas").get(0).getContext("2d");
+        let ctx = $("#tibetsheets-postil-overshow .arrowCanvas").get(0).getContext("2d");
 
         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
     },
@@ -322,7 +322,7 @@ const luckysheetPostil = {
     buildAllPs: function(data){
         let _this = this;
 
-        $("#luckysheet-cell-main #luckysheet-postil-showBoxs").empty();
+        $("#tibetsheets-cell-main #tibetsheets-postil-showBoxs").empty();
 
         for(let r = 0; r < data.length; r++){
             for(let c = 0; c < data[0].length; c++){
@@ -336,8 +336,8 @@ const luckysheetPostil = {
         _this.init();
     },
     buildPs: function(r, c, postil){
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+        if($("#tibetsheets-postil-show_"+ r +"_"+ c).length > 0){
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).remove();
         }
 
         if(postil == null){
@@ -383,24 +383,24 @@ const luckysheetPostil = {
                 commentDivs += '<div>' + _this.htmlEscape(line) + '</div>';
             }
 
-            let html =  '<div id="luckysheet-postil-show_'+ r +'_'+ c +'" class="luckysheet-postil-show">' +
+            let html =  '<div id="tibetsheets-postil-show_'+ r +'_'+ c +'" class="tibetsheets-postil-show">' +
                             '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
-                            '<div class="luckysheet-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
-                                '<div class="luckysheet-postil-dialog-move">' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
+                            '<div class="tibetsheets-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
+                                '<div class="tibetsheets-postil-dialog-move">' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-t" data-type="t"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-r" data-type="r"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-b" data-type="b"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-l" data-type="l"></div>' +
                                 '</div>' +
-                                '<div class="luckysheet-postil-dialog-resize" style="display:none;">' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rm" data-type="rm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rt" data-type="rt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lb" data-type="lb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize" style="display:none;">' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lt" data-type="lt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mt" data-type="mt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lm" data-type="lm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rm" data-type="rm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rt" data-type="rt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lb" data-type="lb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mb" data-type="mb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rb" data-type="rb"></div>' +
                                 '</div>' +
                                 '<div style="width:100%;height:100%;overflow:hidden;">' + 
                                     '<div class="formulaInputFocus" style="width:'+ (width - 12) +'px;height:'+ (height - 12) +'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
@@ -410,9 +410,9 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo($("#tibetsheets-cell-main #tibetsheets-postil-showBoxs"));
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = $("#tibetsheets-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
         }
@@ -458,24 +458,24 @@ const luckysheetPostil = {
 
         let size = _this.getArrowCanvasSize(fromX, fromY, toX, toY);
 
-        let html =  '<div id="luckysheet-postil-show_'+ r +'_'+ c +'" class="luckysheet-postil-show luckysheet-postil-show-active">' +
+        let html =  '<div id="tibetsheets-postil-show_'+ r +'_'+ c +'" class="tibetsheets-postil-show tibetsheets-postil-show-active">' +
                         '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
-                        '<div class="luckysheet-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ fromX +'px;top:'+ fromY +'px;box-sizing:border-box;z-index:100;">' +
-                            '<div class="luckysheet-postil-dialog-move">' +
-                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
-                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
-                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
-                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
+                        '<div class="tibetsheets-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ fromX +'px;top:'+ fromY +'px;box-sizing:border-box;z-index:100;">' +
+                            '<div class="tibetsheets-postil-dialog-move">' +
+                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-t" data-type="t"></div>' +
+                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-r" data-type="r"></div>' +
+                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-b" data-type="b"></div>' +
+                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-l" data-type="l"></div>' +
                             '</div>' +
-                            '<div class="luckysheet-postil-dialog-resize">' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rm" data-type="rm"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rt" data-type="rt"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lb" data-type="lb"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
-                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
+                            '<div class="tibetsheets-postil-dialog-resize">' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lt" data-type="lt"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mt" data-type="mt"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lm" data-type="lm"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rm" data-type="rm"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rt" data-type="rt"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lb" data-type="lb"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mb" data-type="mb"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rb" data-type="rb"></div>' +
                             '</div>' +
                             '<div style="width:100%;height:100%;overflow:hidden;">' + 
                                 '<div class="formulaInputFocus" style="width:132px;height:72px;line-height:20px;box-sizing:border-box;text-align: center;word-break:break-all;" spellcheck="false" contenteditable="true">' +
@@ -484,13 +484,13 @@ const luckysheetPostil = {
                         '</div>' +
                     '</div>';
 
-        $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+        $(html).appendTo($("#tibetsheets-cell-main #tibetsheets-postil-showBoxs"));
 
-        let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+        let ctx = $("#tibetsheets-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
-        $("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        $("#tibetsheets-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
 
         _this.init();
 
@@ -518,10 +518,10 @@ const luckysheetPostil = {
             return;
         }
 
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).show();
-            $("#luckysheet-postil-show_"+ r +"_"+ c).addClass("luckysheet-postil-show-active");
-            $("#luckysheet-postil-show_"+ r +"_"+ c).find(".luckysheet-postil-dialog-resize").show();
+        if($("#tibetsheets-postil-show_"+ r +"_"+ c).length > 0){
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).show();
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).addClass("tibetsheets-postil-show-active");
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).find(".tibetsheets-postil-dialog-resize").show();
         }
         else{
             let postil = Store.flowdata[r][c].ps;
@@ -561,24 +561,24 @@ const luckysheetPostil = {
                 commentDivs += '<div>' + _this.htmlEscape(line) + '</div>';
             }
 
-            let html =  '<div id="luckysheet-postil-show_'+ r +'_'+ c +'" class="luckysheet-postil-show luckysheet-postil-show-active">' +
+            let html =  '<div id="tibetsheets-postil-show_'+ r +'_'+ c +'" class="tibetsheets-postil-show tibetsheets-postil-show-active">' +
                             '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
-                            '<div class="luckysheet-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
-                                '<div class="luckysheet-postil-dialog-move">' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
+                            '<div class="tibetsheets-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
+                                '<div class="tibetsheets-postil-dialog-move">' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-t" data-type="t"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-r" data-type="r"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-b" data-type="b"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-l" data-type="l"></div>' +
                                 '</div>' +
-                                '<div class="luckysheet-postil-dialog-resize">' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rm" data-type="rm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rt" data-type="rt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lb" data-type="lb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize">' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lt" data-type="lt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mt" data-type="mt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lm" data-type="lm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rm" data-type="rm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rt" data-type="rt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lb" data-type="lb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mb" data-type="mb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rb" data-type="rb"></div>' +
                                 '</div>' +
                                 '<div style="width:100%;height:100%;overflow:hidden;">' + 
                                     '<div class="formulaInputFocus" style="width:'+ (width - 12) +'px;height:'+ (height - 12) +'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
@@ -588,15 +588,15 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo($("#tibetsheets-cell-main #tibetsheets-postil-showBoxs"));
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = $("#tibetsheets-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
         }
 
-        $("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
-        luckysheetRangeLast($("#luckysheet-postil-show_"+ r +"_"+ c +" .formulaInputFocus").get(0));
+        $("#tibetsheets-postil-show_"+ r +"_"+ c +" .formulaInputFocus").focus();
+        tibetsheetsRangeLast($("#tibetsheets-postil-show_"+ r +"_"+ c +" .formulaInputFocus").get(0));
 
         _this.init();
     },
@@ -610,8 +610,8 @@ const luckysheetPostil = {
             return;
         }
 
-        if($("#luckysheet-postil-show_"+ r +"_"+ c).length > 0){
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+        if($("#tibetsheets-postil-show_"+ r +"_"+ c).length > 0){
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).remove();
         }
 
         let d = editor.deepCopyFlowData(Store.flowdata);
@@ -639,7 +639,7 @@ const luckysheetPostil = {
         if(isshow){
             d[r][c].ps.isshow = false;
 
-            $("#luckysheet-postil-show_"+ r +"_"+ c).remove();
+            $("#tibetsheets-postil-show_"+ r +"_"+ c).remove();
         }
         else{
             d[r][c].ps.isshow = true;
@@ -658,16 +658,16 @@ const luckysheetPostil = {
                 col_pre = margeset.column[0];
             }
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
 
             let toX = col;
             let toY = row_pre;
 
-            if(luckysheetFreezen.freezenverticaldata != null && toX < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
+            if(tibetsheetsFreezen.freezenverticaldata != null && toX < (tibetsheetsFreezen.freezenverticaldata[0] - tibetsheetsFreezen.freezenverticaldata[2])){
                 toX += scrollLeft;
             }
-            if(luckysheetFreezen.freezenhorizontaldata != null && toY < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
+            if(tibetsheetsFreezen.freezenhorizontaldata != null && toY < (tibetsheetsFreezen.freezenhorizontaldata[0] - tibetsheetsFreezen.freezenhorizontaldata[2])){
                 toY += scrollTop;
             }
 
@@ -687,24 +687,24 @@ const luckysheetPostil = {
             for (let line of valueLines) {
                 commentDivs += '<div>' + _this.htmlEscape(line) + '</div>';
             }
-            let html =  '<div id="luckysheet-postil-show_'+ r +'_'+ c +'" class="luckysheet-postil-show">' +
+            let html =  '<div id="tibetsheets-postil-show_'+ r +'_'+ c +'" class="tibetsheets-postil-show">' +
                             '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
-                            '<div class="luckysheet-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
-                                '<div class="luckysheet-postil-dialog-move">' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
-                                    '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
+                            '<div class="tibetsheets-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
+                                '<div class="tibetsheets-postil-dialog-move">' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-t" data-type="t"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-r" data-type="r"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-b" data-type="b"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-l" data-type="l"></div>' +
                                 '</div>' +
-                                '<div class="luckysheet-postil-dialog-resize" style="display:none;">' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rm" data-type="rm"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rt" data-type="rt"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lb" data-type="lb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
-                                    '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
+                                '<div class="tibetsheets-postil-dialog-resize" style="display:none;">' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lt" data-type="lt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mt" data-type="mt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lm" data-type="lm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rm" data-type="rm"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rt" data-type="rt"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lb" data-type="lb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mb" data-type="mb"></div>' +
+                                    '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rb" data-type="rb"></div>' +
                                 '</div>' +
                                 '<div style="width:100%;height:100%;overflow:hidden;">' + 
                                     '<div class="formulaInputFocus" style="width:'+ (width - 12) +'px;height:'+ (height - 12) +'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
@@ -714,9 +714,9 @@ const luckysheetPostil = {
                             '</div>' +
                         '</div>';
 
-            $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+            $(html).appendTo($("#tibetsheets-cell-main #tibetsheets-postil-showBoxs"));
 
-            let ctx = $("#luckysheet-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
+            let ctx = $("#tibetsheets-postil-show_"+ r +"_"+ c +" .arrowCanvas").get(0).getContext("2d");
 
             _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
@@ -750,7 +750,7 @@ const luckysheetPostil = {
         let rc = [];
         if(allPs.length > 0){
             if(isAllShow){ //全部显示，操作为隐藏所有批注
-                $("#luckysheet-cell-main #luckysheet-postil-showBoxs").empty();
+                $("#tibetsheets-cell-main #tibetsheets-postil-showBoxs").empty();
 
                 for(let i = 0; i < allPs.length; i++){
                     let rowIndex = allPs[i].split("_")[0];
@@ -786,16 +786,16 @@ const luckysheetPostil = {
                             col_pre = margeset.column[0];
                         }
 
-                        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-                        let scrollTop = $("#luckysheet-cell-main").scrollTop();
+                        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+                        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
             
                         let toX = col;
                         let toY = row_pre;
             
-                        if(luckysheetFreezen.freezenverticaldata != null && toX < (luckysheetFreezen.freezenverticaldata[0] - luckysheetFreezen.freezenverticaldata[2])){
+                        if(tibetsheetsFreezen.freezenverticaldata != null && toX < (tibetsheetsFreezen.freezenverticaldata[0] - tibetsheetsFreezen.freezenverticaldata[2])){
                             toX += scrollLeft;
                         }
-                        if(luckysheetFreezen.freezenhorizontaldata != null && toY < (luckysheetFreezen.freezenhorizontaldata[0] - luckysheetFreezen.freezenhorizontaldata[2])){
+                        if(tibetsheetsFreezen.freezenhorizontaldata != null && toY < (tibetsheetsFreezen.freezenhorizontaldata[0] - tibetsheetsFreezen.freezenhorizontaldata[2])){
                             toY += scrollTop;
                         }
 
@@ -817,24 +817,24 @@ const luckysheetPostil = {
                             commentDivs += '<div>' + _this.htmlEscape(line) + '</div>';
                         }
 
-                        let html =  '<div id="luckysheet-postil-show_'+ rowIndex +'_'+ colIndex +'" class="luckysheet-postil-show">' +
+                        let html =  '<div id="tibetsheets-postil-show_'+ rowIndex +'_'+ colIndex +'" class="tibetsheets-postil-show">' +
                                         '<canvas class="arrowCanvas" width="'+ size[2] +'" height="'+ size[3] +'" style="position:absolute;left:'+ size[0] +'px;top:'+ size[1] +'px;z-index:100;pointer-events:none;"></canvas>' +
-                                        '<div class="luckysheet-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
-                                            '<div class="luckysheet-postil-dialog-move">' +
-                                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-t" data-type="t"></div>' +
-                                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-r" data-type="r"></div>' +
-                                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-b" data-type="b"></div>' +
-                                                '<div class="luckysheet-postil-dialog-move-item luckysheet-postil-dialog-move-item-l" data-type="l"></div>' +
+                                        '<div class="tibetsheets-postil-show-main" style="width:'+ width +'px;height:'+ height +'px;color:#000;padding:5px;border:1px solid #000;background-color:rgb(255,255,225);position:absolute;left:'+ left +'px;top:'+ top +'px;box-sizing:border-box;z-index:100;">' +
+                                            '<div class="tibetsheets-postil-dialog-move">' +
+                                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-t" data-type="t"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-r" data-type="r"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-b" data-type="b"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-move-item tibetsheets-postil-dialog-move-item-l" data-type="l"></div>' +
                                             '</div>' +
-                                            '<div class="luckysheet-postil-dialog-resize" style="display:none;">' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lt" data-type="lt"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mt" data-type="mt"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lm" data-type="lm"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rm" data-type="rm"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rt" data-type="rt"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-lb" data-type="lb"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-mb" data-type="mb"></div>' +
-                                                '<div class="luckysheet-postil-dialog-resize-item luckysheet-postil-dialog-resize-item-rb" data-type="rb"></div>' +
+                                            '<div class="tibetsheets-postil-dialog-resize" style="display:none;">' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lt" data-type="lt"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mt" data-type="mt"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lm" data-type="lm"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rm" data-type="rm"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rt" data-type="rt"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-lb" data-type="lb"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-mb" data-type="mb"></div>' +
+                                                '<div class="tibetsheets-postil-dialog-resize-item tibetsheets-postil-dialog-resize-item-rb" data-type="rb"></div>' +
                                             '</div>' +
                                             '<div style="width:100%;height:100%;overflow:hidden;">' + 
                                                 '<div class="formulaInputFocus" style="width:'+ (width - 12) +'px;height:'+ (height - 12) +'px;line-height:20px;box-sizing:border-box;text-align: center;;word-break:break-all;" spellcheck="false" contenteditable="true">' +
@@ -844,9 +844,9 @@ const luckysheetPostil = {
                                         '</div>' +
                                     '</div>';
 
-                        $(html).appendTo($("#luckysheet-cell-main #luckysheet-postil-showBoxs"));
+                        $(html).appendTo($("#tibetsheets-cell-main #tibetsheets-postil-showBoxs"));
 
-                        let ctx = $("#luckysheet-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").get(0).getContext("2d");
+                        let ctx = $("#tibetsheets-postil-show_"+ rowIndex +"_"+ colIndex +" .arrowCanvas").get(0).getContext("2d");
 
                         _this.drawArrow(ctx, size[4], size[5], size[6], size[7]);
 
@@ -861,12 +861,12 @@ const luckysheetPostil = {
         _this.init();
     },
     removeActivePs: function(){
-        if($("#luckysheet-postil-showBoxs .luckysheet-postil-show-active").length > 0){
+        if($("#tibetsheets-postil-showBoxs .tibetsheets-postil-show-active").length > 0){
             
 
-            let id = $("#luckysheet-postil-showBoxs .luckysheet-postil-show-active").attr("id");
-            let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-            let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+            let id = $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show-active").attr("id");
+            let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+            let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
             // interpret <div> as new line
             let value = $("#" + id).find(".formulaInputFocus").html().replaceAll('<div>', '\n').replaceAll(/<(.*)>.*?|<(.*) \/>/g, '').trim();
@@ -880,10 +880,10 @@ const luckysheetPostil = {
 
             const previousCell = $.extend(true,{},Store.flowdata[r][c]);
 
-            $("#" + id).removeClass("luckysheet-postil-show-active");
-            $("#" + id).find(".luckysheet-postil-dialog-resize").hide();
+            $("#" + id).removeClass("tibetsheets-postil-show-active");
+            $("#" + id).find(".tibetsheets-postil-dialog-resize").hide();
             $("#" + id).find(".arrowCanvas").css("z-index", 100);
-            $("#" + id).find(".luckysheet-postil-show-main").css("z-index", 100);
+            $("#" + id).find(".tibetsheets-postil-show-main").css("z-index", 100);
 
             let d = editor.deepCopyFlowData(Store.flowdata);
             let rc = [];
@@ -919,7 +919,7 @@ const luckysheetPostil = {
         Store.flowdata = data;
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].data = Store.flowdata;
         // formula.execFunctionGroupData = Store.flowdata;
 
         //共享编辑模式
@@ -934,17 +934,17 @@ const luckysheetPostil = {
         
         //刷新表格
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     },
     positionSync: function(){
         let _this = this;
 
-        $("#luckysheet-postil-showBoxs .luckysheet-postil-show").each(function(i, e){
+        $("#tibetsheets-postil-showBoxs .tibetsheets-postil-show").each(function(i, e){
             let id = $(e).attr("id");
 
-            let r = id.split("luckysheet-postil-show_")[1].split("_")[0];
-            let c = id.split("luckysheet-postil-show_")[1].split("_")[1];
+            let r = id.split("tibetsheets-postil-show_")[1].split("_")[0];
+            let c = id.split("tibetsheets-postil-show_")[1].split("_")[1];
 
             let cell = Store.flowdata[r][c];
             
@@ -977,4 +977,4 @@ const luckysheetPostil = {
     }
 }
 
-export default luckysheetPostil;
+export default tibetsheetsPostil;

@@ -1,22 +1,22 @@
 import server from '../controllers/server';
-import { luckysheetlodingHTML, luckyColor } from '../controllers/constant';
+import { tibetsheetslodingHTML, luckyColor } from '../controllers/constant';
 import sheetmanage from '../controllers/sheetmanage';
-import luckysheetformula from './formula';
+import tibetsheetsformula from './formula';
 import imageCtrl from '../controllers/imageCtrl';
 import dataVerificationCtrl from '../controllers/dataVerificationCtrl';
 import pivotTable from '../controllers/pivotTable';
-import luckysheetFreezen from '../controllers/freezen';
+import tibetsheetsFreezen from '../controllers/freezen';
 import { getSheetIndex } from '../methods/get';
-import { luckysheetextendData } from './extend';
-import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
+import { tibetsheetsextendData } from './extend';
+import tibetsheetsConfigsetting from '../controllers/tibetsheetsConfigsetting';
 import editor from './editor';
-import luckysheetcreatesheet from './createsheet';
+import tibetsheetscreatesheet from './createsheet';
 import Store from '../store';
 
 const defaultConfig = {
     defaultStore:{
         container: null, 
-        luckysheetfile: null, 
+        tibetsheetsfile: null, 
         defaultcolumnNum: 60, 
         defaultrowNum: 84, 
         fullscreenmode: true,
@@ -42,7 +42,7 @@ const defaultConfig = {
         cellMainSrollBarSize: 12,
         sheetBarHeight: 31,
         statisticBarHeight: 23,
-        luckysheetTableContentHW: [0, 0], 
+        tibetsheetsTableContentHW: [0, 0], 
     
         defaultcollen: 73,
         defaultrowlen: 19,
@@ -50,51 +50,51 @@ const defaultConfig = {
         jfcountfuncTimeout: null, 
         jfautoscrollTimeout: null,
     
-        luckysheet_select_status: false,
-        luckysheet_select_save: [{ "row": [0, 0], "column": [0, 0] }],
-        luckysheet_selection_range: [],
+        tibetsheets_select_status: false,
+        tibetsheets_select_save: [{ "row": [0, 0], "column": [0, 0] }],
+        tibetsheets_selection_range: [],
     
-        luckysheet_copy_save: {}, //复制粘贴
-        luckysheet_paste_iscut: false,
+        tibetsheets_copy_save: {}, //复制粘贴
+        tibetsheets_paste_iscut: false,
     
         filterchage: true, //筛选
-        luckysheet_filter_save: { "row": [], "column": [] },
+        tibetsheets_filter_save: { "row": [], "column": [] },
     
-        luckysheet_sheet_move_status: false,
-        luckysheet_sheet_move_data: [],
-        luckysheet_scroll_status: false,
+        tibetsheets_sheet_move_status: false,
+        tibetsheets_sheet_move_data: [],
+        tibetsheets_scroll_status: false,
     
-        luckysheetisrefreshdetail: true,
-        luckysheetisrefreshtheme: true,
-        luckysheetcurrentisPivotTable: false,
+        tibetsheetsisrefreshdetail: true,
+        tibetsheetsisrefreshtheme: true,
+        tibetsheetscurrentisPivotTable: false,
     
-        luckysheet_rows_selected_status: false,  //行列标题相关参
-        luckysheet_cols_selected_status: false,  
-        luckysheet_rows_change_size: false,
-        luckysheet_rows_change_size_start: [],
-        luckysheet_cols_change_size: false,
-        luckysheet_cols_change_size_start: [],
-        luckysheet_cols_dbclick_timeout: null,
-        luckysheet_cols_dbclick_times: 0,
+        tibetsheets_rows_selected_status: false,  //行列标题相关参
+        tibetsheets_cols_selected_status: false,  
+        tibetsheets_rows_change_size: false,
+        tibetsheets_rows_change_size_start: [],
+        tibetsheets_cols_change_size: false,
+        tibetsheets_cols_change_size_start: [],
+        tibetsheets_cols_dbclick_timeout: null,
+        tibetsheets_cols_dbclick_times: 0,
     
-        luckysheetCellUpdate: [],
+        tibetsheetsCellUpdate: [],
         
-        luckysheet_shiftpositon: null,
+        tibetsheets_shiftpositon: null,
     
         iscopyself: true,
     
         orderbyindex: 0, //排序下标
     
-        luckysheet_model_move_state: false, //模态框拖动
-        luckysheet_model_xy: [0, 0],
-        luckysheet_model_move_obj: null,
+        tibetsheets_model_move_state: false, //模态框拖动
+        tibetsheets_model_xy: [0, 0],
+        tibetsheets_model_move_obj: null,
     
-        luckysheet_cell_selected_move: false,  //选区拖动替换
-        luckysheet_cell_selected_move_index: [],
+        tibetsheets_cell_selected_move: false,  //选区拖动替换
+        tibetsheets_cell_selected_move_index: [],
     
-        luckysheet_cell_selected_extend: false,  //选区下拉
-        luckysheet_cell_selected_extend_index: [],
-        luckysheet_cell_selected_extend_time: null,
+        tibetsheets_cell_selected_extend: false,  //选区下拉
+        tibetsheets_cell_selected_extend_index: [],
+        tibetsheets_cell_selected_extend_time: null,
     
         clearjfundo: true,
         jfredo: [],
@@ -104,30 +104,30 @@ const defaultConfig = {
         highlightChart: '',
         zIndex: 15,
         chartparam: {
-            luckysheetCurrentChart: null, //current chart_id
-            luckysheetCurrentChartActive: false,
-            luckysheetCurrentChartMove: null, // Debounce state
-            luckysheetCurrentChartMoveTimeout: null,//拖动图表框的节流定时器
-            luckysheetCurrentChartMoveObj: null, //chart DOM object
-            luckysheetCurrentChartMoveXy: null, //上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
-            luckysheetCurrentChartMoveWinH: null, //左右滚动条滑动距离
-            luckysheetCurrentChartMoveWinW: null, //上下滚动条滑动距离
-            luckysheetCurrentChartResize: null,
-            luckysheetCurrentChartResizeObj: null,
-            luckysheetCurrentChartResizeXy: null,
-            luckysheetCurrentChartResizeWinH: null,
-            luckysheetCurrentChartResizeWinW: null,
-            luckysheetInsertChartTosheetChange: true, // 正在执行撤销
-            luckysheetCurrentChartZIndexRank : 100,
-            luckysheet_chart_redo_click:false, //撤销重做时标识
-            luckysheetCurrentChartMaxState: false, //图表全屏状态
+            tibetsheetsCurrentChart: null, //current chart_id
+            tibetsheetsCurrentChartActive: false,
+            tibetsheetsCurrentChartMove: null, // Debounce state
+            tibetsheetsCurrentChartMoveTimeout: null,//拖动图表框的节流定时器
+            tibetsheetsCurrentChartMoveObj: null, //chart DOM object
+            tibetsheetsCurrentChartMoveXy: null, //上一次操作结束的图表信息，x,y: chart框位置，scrollLeft1,scrollTop1: 滚动条位置
+            tibetsheetsCurrentChartMoveWinH: null, //左右滚动条滑动距离
+            tibetsheetsCurrentChartMoveWinW: null, //上下滚动条滑动距离
+            tibetsheetsCurrentChartResize: null,
+            tibetsheetsCurrentChartResizeObj: null,
+            tibetsheetsCurrentChartResizeXy: null,
+            tibetsheetsCurrentChartResizeWinH: null,
+            tibetsheetsCurrentChartResizeWinW: null,
+            tibetsheetsInsertChartTosheetChange: true, // 正在执行撤销
+            tibetsheetsCurrentChartZIndexRank : 100,
+            tibetsheets_chart_redo_click:false, //撤销重做时标识
+            tibetsheetsCurrentChartMaxState: false, //图表全屏状态
             jfrefreshchartall: '',
             changeChartCellData: '',
             renderChart: '',
             getChartJson: ''
         },
         functionList:null, //function list explanation
-        luckysheet_function:null,
+        tibetsheets_function:null,
         chart_selection: {},
         currentChart: '',
         scrollRefreshSwitch:true,
@@ -221,7 +221,7 @@ const defaultConfig = {
         caljs: null,
         initial: true,
         filterparm: null,
-        luckysheet_pivotTable_select_state: false,
+        tibetsheets_pivotTable_select_state: false,
         jgridCurrentPivotInput: null,
         movestate: false,
         moveitemposition: [],
@@ -302,7 +302,7 @@ const method = {
             url = server.loadSheetUrl;
         }
 
-        $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
+        $("#tibetsheets-grid-window-1").append(tibetsheetslodingHTML());
         param.currentPage++;
         
         let dataType = 'application/json;charset=UTF-8';
@@ -323,7 +323,7 @@ const method = {
                 let dataset = d.data;
                 
                 let newData = dataset.celldata;
-                luckysheetextendData(dataset["row"], newData);
+                tibetsheetsextendData(dataset["row"], newData);
 
                 setTimeout(function(){
                     Store.loadingObj.close()
@@ -347,11 +347,11 @@ const method = {
             url = server.loadSheetUrl;
         }
 
-        $("#luckysheet-grid-window-1").append(luckysheetlodingHTML());
+        $("#tibetsheets-grid-window-1").append(tibetsheetslodingHTML());
 
         let arg = {"gridKey" : server.gridKey, "index": index};
         param = $.extend(true, param, arg);
-        let file = Store.luckysheetfile[getSheetIndex(index)];
+        let file = Store.tibetsheetsfile[getSheetIndex(index)];
 
         $.post(url, param, function (d) {
             let dataset = new Function("return " + d)();
@@ -366,11 +366,11 @@ const method = {
             Store.flowdata = data;
             editor.webWorkerFlowDataCache(data);//worker存数据
 
-            luckysheetcreatesheet(data[0].length, data.length, data, null, false);
+            tibetsheetscreatesheet(data[0].length, data.length, data, null, false);
             file["load"] = "1";
 
-            Store.luckysheet_select_save.length = 0;
-            Store.luckysheet_selection_range = [];
+            Store.tibetsheets_select_save.length = 0;
+            Store.tibetsheets_selection_range = [];
 
             server.saveParam("shs", null, Store.currentSheetIndex);
 
@@ -383,7 +383,7 @@ const method = {
     },
     clearSheetByIndex: function(i){
         let index = getSheetIndex(i);
-        let sheetfile = Store.luckysheetfile[index];
+        let sheetfile = Store.tibetsheetsfile[index];
 
         if(!sheetfile.isPivotTable){
             sheetfile.data = [];
@@ -403,23 +403,23 @@ const method = {
             Store.flowdata = [];
             editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
 
-            $("#"+ Store.container +" .luckysheet-data-visualization-chart").remove();
-            $("#"+ Store.container +" .luckysheet-datavisual-selection-set").remove();
+            $("#"+ Store.container +" .tibetsheets-data-visualization-chart").remove();
+            $("#"+ Store.container +" .tibetsheets-datavisual-selection-set").remove();
 
-            $("#luckysheet-row-count-show, #luckysheet-formula-functionrange-select, #luckysheet-row-count-show, #luckysheet-column-count-show, #luckysheet-change-size-line, #luckysheet-cell-selected-focus, #luckysheet-selection-copy, #luckysheet-cell-selected-extend, #luckysheet-cell-selected-move, #luckysheet-cell-selected").hide();
+            $("#tibetsheets-row-count-show, #tibetsheets-formula-functionrange-select, #tibetsheets-row-count-show, #tibetsheets-column-count-show, #tibetsheets-change-size-line, #tibetsheets-cell-selected-focus, #tibetsheets-selection-copy, #tibetsheets-cell-selected-extend, #tibetsheets-cell-selected-move, #tibetsheets-cell-selected").hide();
 
             delete sheetfile.load;
         }
         else {
-            delete Store.luckysheetfile[index];
+            delete Store.tibetsheetsfile[index];
         }
     },
     clear: function(index){
         let _this = this;
 
         if(index == "all"){
-            for(let i = 0; i < Store.luckysheetfile.length; i++){
-                let sheetfile = Store.luckysheetfile[i];
+            for(let i = 0; i < Store.tibetsheetsfile.length; i++){
+                let sheetfile = Store.tibetsheetsfile[i];
                 _this.clearSheetByIndex(sheetfile.index);
             }
             
@@ -431,24 +431,24 @@ const method = {
             _this.clearSheetByIndex(index);
         }
 
-        sheetmanage.changeSheet(Store.luckysheetfile[0].index);
+        sheetmanage.changeSheet(Store.tibetsheetsfile[0].index);
     },
     destroy:function(){
         $("#" + Store.container).empty();
-        $("body > .luckysheet-cols-menu").remove();
+        $("body > .tibetsheets-cols-menu").remove();
 
-        $("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
-        $("#luckysheet-input-box").parent().remove();
-        $("#luckysheet-formula-help-c").remove();
-        $(".chartSetting, .luckysheet-modal-dialog-slider").remove();
+        $("#tibetsheets-modal-dialog-mask, #tibetsheetsTextSizeTest, #tibetsheets-icon-morebtn-div").remove();
+        $("#tibetsheets-input-box").parent().remove();
+        $("#tibetsheets-formula-help-c").remove();
+        $(".chartSetting, .tibetsheets-modal-dialog-slider").remove();
 
         //document event release
-        $(document).off(".luckysheetEvent");
-        $(document).off(".luckysheetProtection");
+        $(document).off(".tibetsheetsEvent");
+        $(document).off(".tibetsheetsProtection");
         
         //参数重置
-        luckysheetFreezen.initialHorizontal = true;
-        luckysheetFreezen.initialVertical = true;
+        tibetsheetsFreezen.initialHorizontal = true;
+        tibetsheetsFreezen.initialVertical = true;
 
         let defaultStore = $.extend(true, {}, defaultConfig.defaultStore);
         for(let key in defaultStore){
@@ -459,8 +459,8 @@ const method = {
 
         let defaultFormula = $.extend(true, {}, defaultConfig.defaultFormula);
         for(let key in defaultFormula){
-            if(key in luckysheetformula){
-                luckysheetformula[key] = defaultFormula[key];
+            if(key in tibetsheetsformula){
+                tibetsheetsformula[key] = defaultFormula[key];
             }
         }
 
@@ -497,15 +497,15 @@ const method = {
     },
     editorChart:function(c){
         let chart_selection_color = luckyColor[0];
-        let chart_id = "luckysheetEditMode-datav-chart";
+        let chart_id = "tibetsheetsEditMode-datav-chart";
         let chart_selection_id = chart_id + "_selection";
         c.chart_id = chart_id;
         let chartTheme = c.chartTheme;
         chartTheme = chartTheme == null ? "default0000" : chartTheme;
 
-        luckysheet.insertChartTosheet(c.sheetIndex, c.dataSheetIndex, c.option, c.chartType, c.selfOption, c.defaultOption, c.row, c.column, chart_selection_color, chart_id, chart_selection_id, c.chartStyle, c.rangeConfigCheck, c.rangeRowCheck, c.rangeColCheck, c.chartMarkConfig, c.chartTitleConfig, c.winWidth, c.winHeight, c.scrollLeft, c.scrollTop, chartTheme, c.myWidth, c.myHeight, c.myLeft!=null?parseFloat(c.myLeft):null, c.myTop!=null?parseFloat(c.myTop):null, c.myindexrank, true);
+        tibetsheets.insertChartTosheet(c.sheetIndex, c.dataSheetIndex, c.option, c.chartType, c.selfOption, c.defaultOption, c.row, c.column, chart_selection_color, chart_id, chart_selection_id, c.chartStyle, c.rangeConfigCheck, c.rangeRowCheck, c.rangeColCheck, c.chartMarkConfig, c.chartTitleConfig, c.winWidth, c.winHeight, c.scrollLeft, c.scrollTop, chartTheme, c.myWidth, c.myHeight, c.myLeft!=null?parseFloat(c.myLeft):null, c.myTop!=null?parseFloat(c.myTop):null, c.myindexrank, true);
 
-        $("#"+chart_id).find(".luckysheet-modal-controll-update").click();
+        $("#"+chart_id).find(".tibetsheets-modal-controll-update").click();
     },
     /**
      * 获取单元格的值
@@ -514,10 +514,10 @@ const method = {
      */
     createHookFunction:function(){
         let hookName = arguments[0];
-        if(luckysheetConfigsetting.hook && luckysheetConfigsetting.hook[hookName]!=null && (typeof luckysheetConfigsetting.hook[hookName] == "function")){
+        if(tibetsheetsConfigsetting.hook && tibetsheetsConfigsetting.hook[hookName]!=null && (typeof tibetsheetsConfigsetting.hook[hookName] == "function")){
             var args = Array.prototype.slice.apply(arguments);
             args.shift();
-            let ret = luckysheetConfigsetting.hook[hookName].apply(this, args);
+            let ret = tibetsheetsConfigsetting.hook[hookName].apply(this, args);
             if(ret===false){
                 return false;
             }

@@ -1,4 +1,4 @@
-import { modelHTML, luckysheetchartpointconfigHTML, luckysheetToolHTML } from '../controllers/constant';
+import { modelHTML, tibetsheetschartpointconfigHTML, tibetsheetsToolHTML } from '../controllers/constant';
 import browser from './browser';
 import { replaceHtml } from '../utils/util';
 import locale from '../locale/locale';
@@ -6,30 +6,30 @@ import server from '../controllers/server';
 
 const tooltip = {
     info: function (title, content) {
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-info").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-info").remove();
 
         let _locale = locale();
         let locale_button = _locale.button;
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-info", 
+            "id": "tibetsheets-info", 
             "addclass": "", 
             "title": title, 
             "content": content, 
-            "botton": '<button class="btn btn-default luckysheet-model-close-btn">&nbsp;&nbsp;'+locale_button.close+'&nbsp;&nbsp;</button>', 
+            "botton": '<button class="btn btn-default tibetsheets-model-close-btn">&nbsp;&nbsp;'+locale_button.close+'&nbsp;&nbsp;</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-info").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
+        let $t = $("#tibetsheets-info").find(".tibetsheets-modal-dialog-content").css("min-width", 300).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $("#tibetsheets-info").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
     },
     confirm: function (title, content, func1, func2, name1, name2) {
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-confirm").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-confirm").remove();
 
         const _locale = locale();
         const locale_button = _locale.button;
@@ -42,56 +42,56 @@ const tooltip = {
         }
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-confirm", 
+            "id": "tibetsheets-confirm", 
             "addclass": "", 
             "style": "z-index:100003", 
             "title": title, 
             "content": content, 
-            "botton": '<button class="btn btn-primary luckysheet-model-conform-btn">&nbsp;&nbsp;'+ name1 +'&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-cancel-btn">&nbsp;&nbsp;'+ name2 +'&nbsp;&nbsp;</button>' 
+            "botton": '<button class="btn btn-primary tibetsheets-model-conform-btn">&nbsp;&nbsp;'+ name1 +'&nbsp;&nbsp;</button><button class="btn btn-default tibetsheets-model-cancel-btn">&nbsp;&nbsp;'+ name2 +'&nbsp;&nbsp;</button>' 
         }));
-        let $t = $("#luckysheet-confirm").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
+        let $t = $("#tibetsheets-confirm").find(".tibetsheets-modal-dialog-content").css("min-width", 300).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
-        $t.find(".luckysheet-model-conform-btn").click(function () {
+        $("#tibetsheets-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $t.find(".tibetsheets-model-conform-btn").click(function () {
             if (typeof func1 == 'function') {
                 func1();
             }
             server.keepHighLightBox();
-            $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();  
+            $("#tibetsheets-confirm").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();  
         });
-        $t.find(".luckysheet-model-cancel-btn").click(function () {
+        $t.find(".tibetsheets-model-cancel-btn").click(function () {
             if (typeof func2 == 'function') {
                 func2();
             }
-            $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            $("#tibetsheets-confirm").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
         });
     },
     screenshot: function (title, content, imgurl) {
 
         const _locale = locale();
         const locale_screenshot = _locale.screenshot;
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-confirm").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-confirm").remove();
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-confirm", 
+            "id": "tibetsheets-confirm", 
             "addclass": "", 
             "style": "z-index:100003", 
             "title": title, 
             "content": content, 
-            "botton": '<a style="text-decoration:none;color:#fff;" class="download btn btn-primary luckysheet-model-conform-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadBtn +'&nbsp;&nbsp;</a>&nbsp;&nbsp;<button class="btn btn-primary luckysheet-model-copy-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadCopy +'&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-cancel-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadClose +'&nbsp;&nbsp;</button>' 
+            "botton": '<a style="text-decoration:none;color:#fff;" class="download btn btn-primary tibetsheets-model-conform-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadBtn +'&nbsp;&nbsp;</a>&nbsp;&nbsp;<button class="btn btn-primary tibetsheets-model-copy-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadCopy +'&nbsp;&nbsp;</button><button class="btn btn-default tibetsheets-model-cancel-btn">&nbsp;&nbsp;'+ locale_screenshot.downLoadClose +'&nbsp;&nbsp;</button>' 
         }));
-        let $t = $("#luckysheet-confirm").find(".luckysheet-modal-dialog-content").css("min-width", 300).end(), 
+        let $t = $("#tibetsheets-confirm").find(".tibetsheets-modal-dialog-content").css("min-width", 300).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
-        $t.find(".luckysheet-model-conform-btn").click(function () {
+        $("#tibetsheets-confirm").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $t.find(".tibetsheets-model-conform-btn").click(function () {
             if(browser.isIE() == "1"){
                 alert(locale_screenshot.browserNotTip);
             }
@@ -110,12 +110,12 @@ const tooltip = {
                 }  
             }
         });
-        $t.find(".luckysheet-model-cancel-btn").click(function () {
-            $("#luckysheet-confirm").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+        $t.find(".tibetsheets-model-cancel-btn").click(function () {
+            $("#tibetsheets-confirm").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
         });
 
-        $('#luckysheet-confirm .luckysheet-model-copy-btn').click(function(){
+        $('#tibetsheets-confirm .tibetsheets-model-copy-btn').click(function(){
             let dt = new clipboard.DT();
             dt.setData("text/html", "<img src='"+ imgurl +"'>");
             if(browser.isIE() == "1"){
@@ -130,36 +130,36 @@ const tooltip = {
     chartPointConfig: function (id, savefunc1, closefunc2) {
         $("body").first().append(replaceHtml(modelHTML, { 
             "id": id, 
-            "addclass": "luckysheet-chart-point-config-c", 
+            "addclass": "tibetsheets-chart-point-config-c", 
             "title": "数据点批量设置", 
-            "content": luckysheetchartpointconfigHTML, 
-            "botton": '<button class="btn btn-danger luckysheet-model-save-btn">&nbsp;&nbsp;保存设置&nbsp;&nbsp;</button><button class="btn btn-default luckysheet-model-close-btn">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>', 
+            "content": tibetsheetschartpointconfigHTML, 
+            "botton": '<button class="btn btn-danger tibetsheets-model-save-btn">&nbsp;&nbsp;保存设置&nbsp;&nbsp;</button><button class="btn btn-default tibetsheets-model-close-btn">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>', 
             "style": "z-index:100003;height:80%;width:80%;top:10%;left:10%;" 
         }));
-        $("#luckysheet-modal-dialog-mask").show();
+        $("#tibetsheets-modal-dialog-mask").show();
         let winw = $(window).width(), winh = $(window).height();
-        $("#" + id).find(".luckysheet-chart-point-config").css("height", winh - 160);
+        $("#" + id).find(".tibetsheets-chart-point-config").css("height", winh - 160);
         $("#" + id).css({ 
             "height": winh - 90, 
             "width": winw - 100, 
             "left": 7, 
             "top": 14 
-        }).show().find(".luckysheet-model-save-btn").click(function () {
+        }).show().find(".tibetsheets-model-save-btn").click(function () {
             if (typeof savefunc1 == 'function') {
                 savefunc1();
             }
 
             $("#" + id).hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
         });
 
-        $("#" + id).find(".luckysheet-model-save-btn").click(function () {
+        $("#" + id).find(".tibetsheets-model-save-btn").click(function () {
             if (typeof closefunc2 == 'function') {
                 closefunc2();
             }
 
             $("#" + id).hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
         });
     },
     sheetConfig: function () {
@@ -179,7 +179,7 @@ const tooltip = {
             _this.hoverTipshowTimeOut = setTimeout(function(){
                 let $t = $(e.currentTarget), 
                     toffset = $t.offset(), 
-                    $toolup = $("#luckysheet-tooltip-up");
+                    $toolup = $("#tibetsheets-tooltip-up");
                 
                 let tips = $t.data("tips");
                 if (tips == null || tips.length == 0) {
@@ -191,8 +191,8 @@ const tooltip = {
                 }
 
                 if ($toolup.length == 0) {
-                    $("body").first().append(luckysheetToolHTML);
-                    $toolup = $("#luckysheet-tooltip-up");
+                    $("body").first().append(tibetsheetsToolHTML);
+                    $toolup = $("#tibetsheets-tooltip-up");
                 }
 
                 $toolup.removeClass("jfk-tooltip-hide").find("div.jfk-tooltip-contentId").html(tips);
@@ -211,11 +211,11 @@ const tooltip = {
         }).on("mouseout", to, function (e) {
             _this.hoverTipshowState = false;
             clearTimeout(_this.hoverTipshowTimeOut);
-            $("#luckysheet-tooltip-up").addClass("jfk-tooltip-hide");
+            $("#tibetsheets-tooltip-up").addClass("jfk-tooltip-hide");
         }).on("click", to, function (e) {
             _this.hoverTipshowState = true;
             clearTimeout(_this.hoverTipshowTimeOut);
-            $("#luckysheet-tooltip-up").addClass("jfk-tooltip-hide");
+            $("#tibetsheets-tooltip-up").addClass("jfk-tooltip-hide");
         });
     },
     popover: function(content, position, close, style, btntxt, exitsFuc){
@@ -227,13 +227,13 @@ const tooltip = {
             btntxt = locale_button.close;
         }
 
-        let htmldiv = '<div id="luckysheetpopover" class="luckysheetpopover"><div class="luckysheetpopover-content">'+locale_paint.start+'</div><div class="luckysheetpopover-btn">'+ btntxt +'</div></div>';
-        $("#luckysheetpopover").remove();
+        let htmldiv = '<div id="tibetsheetspopover" class="tibetsheetspopover"><div class="tibetsheetspopover-content">'+locale_paint.start+'</div><div class="tibetsheetspopover-btn">'+ btntxt +'</div></div>';
+        $("#tibetsheetspopover").remove();
         $("body").first().append(htmldiv);
-        $("#luckysheetpopover .luckysheetpopover-content").html(content);
+        $("#tibetsheetspopover .tibetsheetspopover-content").html(content);
 
-        let w = $("#luckysheetpopover").outerWidth(),
-            h = $("#luckysheetpopover").outerHeight();
+        let w = $("#tibetsheetspopover").outerWidth(),
+            h = $("#tibetsheetspopover").outerHeight();
         let pcss = {};
 
         if(position == 'topLeft'){
@@ -287,14 +287,14 @@ const tooltip = {
         if(style == "white"){
             pcss.background = "rgba(255, 255, 255, 0.65)";
             pcss.color = "#000";
-            $("#luckysheetpopover .luckysheetpopover-btn").css({"border": "1px solid #000"});
+            $("#tibetsheetspopover .tibetsheetspopover-btn").css({"border": "1px solid #000"});
         }
 
         setTimeout(function(){
-            $("#luckysheetpopover .luckysheetpopover-content").css({"margin-left": -$("#luckysheetpopover .luckysheetpopover-btn").outerWidth()/2});
+            $("#tibetsheetspopover .tibetsheetspopover-content").css({"margin-left": -$("#tibetsheetspopover .tibetsheetspopover-btn").outerWidth()/2});
         }, 1);
-        $("#luckysheetpopover").css(pcss).fadeIn();
-        $("#luckysheetpopover .luckysheetpopover-btn").click(function(){
+        $("#tibetsheetspopover").css(pcss).fadeIn();
+        $("#tibetsheetspopover .tibetsheetspopover-btn").click(function(){
             if(typeof(exitsFuc) == "function"){
                 exitsFuc();
             }
@@ -302,7 +302,7 @@ const tooltip = {
 
         if(close != null && typeof(close) == "number"){
             setTimeout(function(){
-                $("#luckysheetpopover").fadeOut().remove();
+                $("#tibetsheetspopover").fadeOut().remove();
                 if(typeof(exitsFuc) == "function"){
                     exitsFuc();
                 }

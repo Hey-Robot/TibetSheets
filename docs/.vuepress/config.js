@@ -1,26 +1,26 @@
 module.exports = {
-	base: '/LuckysheetDocs/',
+	base: '/TibetsheetsDocs/',
 	locales: {
 		// 键名是该语言所属的子路径
 		// 作为特例，默认语言可以使用 '/' 作为其路径。
 		'/': {
 			lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
-			title: 'Luckysheet Document',
-			description: 'Luckysheet is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.This site contains official configuration document, API, and tutorial.'
+			title: 'Tibetsheets Document',
+			description: 'Tibetsheets is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.This site contains official configuration document, API, and tutorial.'
 		},
 		'/zh/': {
 			lang: 'zh-CN',
-			title: 'Luckysheet文档',
-			description: 'Luckysheet ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。本站包含官方配置文档,API,教程。'
+			title: 'Tibetsheets文档',
+			description: 'Tibetsheets ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。本站包含官方配置文档,API,教程。'
 		},
 		
 	},
 	themeConfig: {
-		domain: 'https://mengshukeji.github.io/LuckysheetDemo',
+		domain: 'https://mengshukeji.github.io/TibetsheetsDemo',
 		logo: '/img/logo.png',
-		author: 'Luckysheet',
+		author: 'Tibetsheets',
 		// 仓库地址
-		repo: 'mengshukeji/Luckysheet',
+		repo: 'mengshukeji/Tibetsheets',
 		// 允许编辑链接文字
 		editLinks: true,
 		// 仓库的文档目录 
@@ -43,7 +43,7 @@ module.exports = {
 				nav: [
 					{ text: 'Home', link: '/' },
 					{ text: 'Guide', link: '/guide/' },
-					{ text: 'Demo', link: 'https://mengshukeji.github.io/LuckysheetDemo/' },
+					{ text: 'Demo', link: 'https://mengshukeji.github.io/TibetsheetsDemo/' },
 					{
 						text: 'More',
 						ariaLabel: 'More',
@@ -92,7 +92,7 @@ module.exports = {
 				nav: [
 					{ text: '首页', link: '/zh/' },
 					{ text: '指南', link: '/zh/guide/' },
-					{ text: '演示', link: 'https://mengshukeji.github.io/LuckysheetDemo/' },
+					{ text: '演示', link: 'https://mengshukeji.github.io/TibetsheetsDemo/' },
 					{
 						text: '了解更多',
 						ariaLabel: '了解更多',
@@ -127,7 +127,7 @@ module.exports = {
 	plugins: {
 		'vuepress-plugin-baidu-autopush': {},
 		'sitemap': {
-			hostname: 'https://mengshukeji.github.io/LuckysheetDocs'
+			hostname: 'https://mengshukeji.github.io/TibetsheetsDocs'
 		},
 		'vuepress-plugin-code-copy': true,
 		'seo': {

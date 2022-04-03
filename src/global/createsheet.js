@@ -2,11 +2,11 @@ import { datagridgrowth } from './getdata';
 import editor from './editor';
 import rhchInit from './rhchInit';
 import formula from './formula';
-import { luckysheetrefreshgrid } from './refresh';
+import { tibetsheetsrefreshgrid } from './refresh';
 import sheetmanage from '../controllers/sheetmanage';
 import Store from '../store';
 
-export default function luckysheetcreatesheet(colwidth, rowheight, data, cfg, active) {
+export default function tibetsheetscreatesheet(colwidth, rowheight, data, cfg, active) {
     if(active == null){
         active = true;
     }
@@ -51,7 +51,7 @@ export default function luckysheetcreatesheet(colwidth, rowheight, data, cfg, ac
             sheetmanage.restoreCache();
             formula.execFunctionGroup();
             sheetmanage.restoreSheetAll(Store.currentSheetIndex);
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     }
 }

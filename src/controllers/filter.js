@@ -4,8 +4,8 @@ import { isRealNull, isEditMode } from '../global/validate';
 import tooltip from '../global/tooltip';
 import { rowlenByRange } from '../global/getRowlen';
 import { selectHightlightShow } from './select';
-import { luckysheetMoveEndCell } from './sheetMove';
-import { luckysheetlodingHTML } from '../controllers/constant';
+import { tibetsheetsMoveEndCell } from './sheetMove';
+import { tibetsheetslodingHTML } from '../controllers/constant';
 import server from './server';
 import locale from '../locale/locale';
 import Store from '../store';
@@ -29,7 +29,7 @@ import { update, genarate } from '../global/format';
 //筛选配置状态
 function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, str, edr, cindex, stc, edc) {
     if (optionstate) {
-        $top.addClass("luckysheet-filter-options-active").data("rowhidden", JSON.stringify(rowhidden)).data("caljs", JSON.stringify(caljs)).html('<i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i>');
+        $top.addClass("tibetsheets-filter-options-active").data("rowhidden", JSON.stringify(rowhidden)).data("caljs", JSON.stringify(caljs)).html('<i class="fa fa-filter tibetsheets-mousedown-cancel" aria-hidden="true"></i>');
 
         if (caljs != null) {
             $top.data("byconditionvalue", caljs["value"]).data("byconditiontype", caljs["type"]).data("byconditiontext", caljs["text"]);
@@ -44,13 +44,13 @@ function labelFilterOptionState($top, optionstate, rowhidden, caljs, notSave, st
         }
     }
     else {
-        $top.removeClass("luckysheet-filter-options-active").data("rowhidden", "").data("caljs", "").html('<i class="fa fa-caret-down luckysheet-mousedown-cancel" aria-hidden="true"></i>');
+        $top.removeClass("tibetsheets-filter-options-active").data("rowhidden", "").data("caljs", "").html('<i class="fa fa-caret-down tibetsheets-mousedown-cancel" aria-hidden="true"></i>');
 
         $top.data("byconditionvalue", "null").data("byconditiontype", "0").data("byconditiontext", "无").data("byconditionvalue1", "").data("byconditionvalue2", "");
     }
 
     if(!!notSave){
-        let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+        let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
         if(file.filter == null){
             file.filter = {};
@@ -143,9 +143,9 @@ function createFilter() {
         return;
     }
 
-    if(Store.luckysheet_select_save.length > 1){
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+    if(Store.tibetsheets_select_save.length > 1){
+        $("#tibetsheets-rightclick-menu").hide();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         $("#" + Store.container).attr("tabindex", 0).focus();
 
         const locale_splitText = locale().splitText;
@@ -160,13 +160,13 @@ function createFilter() {
         return;
     }
 
-    if(Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].isPivotTable){
+    if(Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].isPivotTable){
         return;
     }
 
-    $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
+    $('#tibetsheets-filter-selected-sheet' + Store.currentSheetIndex + ', #tibetsheets-filter-options-sheet' + Store.currentSheetIndex).remove();
 
-    let last = Store.luckysheet_select_save[0];
+    let last = Store.tibetsheets_select_save[0];
     if (last["row"][0] == last["row"][1] && last["column"][0] == last["column"][1]) {
         let st_c, ed_c, curR = last["row"][1];
 
@@ -188,22 +188,22 @@ function createFilter() {
             ed_c = Store.flowdata[curR].length - 1;
         }
 
-        Store.luckysheet_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
+        Store.tibetsheets_select_save = [{ "row": [curR, curR], "column": [st_c, ed_c] }];
         selectHightlightShow();
 
-        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
-        luckysheetMoveEndCell("down", "range");
+        Store.tibetsheets_shiftpositon = $.extend(true, {}, last);
+        tibetsheetsMoveEndCell("down", "range");
     }
     else if (last["row"][1] - last["row"][0] < 2) {
-        Store.luckysheet_shiftpositon = $.extend(true, {}, last);
-        luckysheetMoveEndCell("down", "range");
+        Store.tibetsheets_shiftpositon = $.extend(true, {}, last);
+        tibetsheetsMoveEndCell("down", "range");
     }
 
-    Store.luckysheet_filter_save = $.extend(true, {}, Store.luckysheet_select_save[0]);
+    Store.tibetsheets_filter_save = $.extend(true, {}, Store.tibetsheets_select_save[0]);
 
-    createFilterOptions(Store.luckysheet_filter_save);
+    createFilterOptions(Store.tibetsheets_filter_save);
 
-    server.saveParam("all", Store.currentSheetIndex, Store.luckysheet_filter_save, { "k": "filter_select" });
+    server.saveParam("all", Store.currentSheetIndex, Store.tibetsheets_filter_save, { "k": "filter_select" });
 
     if (Store.filterchage) {
         Store.jfredo.push({ 
@@ -211,38 +211,38 @@ function createFilter() {
             "data": [], 
             "curdata": [], 
             "sheetIndex": Store.currentSheetIndex, 
-            "filter_save": Store.luckysheet_filter_save 
+            "filter_save": Store.tibetsheets_filter_save 
         });
     }
 }
 
 //创建筛选配置
-function createFilterOptions(luckysheet_filter_save, filterObj) {
-    $("#luckysheet-filter-selected-sheet" + Store.currentSheetIndex).remove();
-    $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex).remove();
+function createFilterOptions(tibetsheets_filter_save, filterObj) {
+    $("#tibetsheets-filter-selected-sheet" + Store.currentSheetIndex).remove();
+    $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex).remove();
     
-    if(luckysheet_filter_save == null || JSON.stringify(luckysheet_filter_save) == "{}"){
+    if(tibetsheets_filter_save == null || JSON.stringify(tibetsheets_filter_save) == "{}"){
         return;
     }
 
-    let r1 = luckysheet_filter_save.row[0], 
-        r2 = luckysheet_filter_save.row[1];
-    let c1 = luckysheet_filter_save.column[0], 
-        c2 = luckysheet_filter_save.column[1];
+    let r1 = tibetsheets_filter_save.row[0], 
+        r2 = tibetsheets_filter_save.row[1];
+    let c1 = tibetsheets_filter_save.column[0], 
+        c2 = tibetsheets_filter_save.column[1];
 
     let row = Store.visibledatarow[r2], 
         row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
     let col = Store.visibledatacolumn[c2], 
         col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
     
-    let newSelectedHTML = '<div id="luckysheet-filter-selected-sheet'+ Store.currentSheetIndex +'" class="luckysheet-cell-selected luckysheet-filter-selected"  style="left:'+ col_pre +'px;width:'+ (col - col_pre - 1) +'px;top:'+ row_pre +'px;height:'+ (row - row_pre - 1) +'px;display:block;border-color:#897BFF;z-index:20;background:none;"></div>';
-    $("#luckysheet-cell-main").append(newSelectedHTML);
+    let newSelectedHTML = '<div id="tibetsheets-filter-selected-sheet'+ Store.currentSheetIndex +'" class="tibetsheets-cell-selected tibetsheets-filter-selected"  style="left:'+ col_pre +'px;width:'+ (col - col_pre - 1) +'px;top:'+ row_pre +'px;height:'+ (row - row_pre - 1) +'px;display:block;border-color:#897BFF;z-index:20;background:none;"></div>';
+    $("#tibetsheets-cell-main").append(newSelectedHTML);
     
     let optionHTML = "";
 
     for (let c = c1; c <= c2; c++) {
         if(filterObj == null || filterObj[c - c1] == null){
-            optionHTML += '<div data-rowhidden="" data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:block;"><i class="fa fa-caret-down" aria-hidden="true"></i></div>';
+            optionHTML += '<div data-rowhidden="" data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="tibetsheets-filter-options" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:block;"><i class="fa fa-caret-down" aria-hidden="true"></i></div>';
         }
         else{
             let caljs_data;
@@ -274,21 +274,21 @@ function createFilterOptions(luckysheet_filter_save, filterObj) {
                 caljs_data = '';
             }
 
-            optionHTML += '<div data-rowhidden="'+ JSON.stringify(filterObj[c - c1].rowhidden).replace(/\"/g, "'") +'" '+ caljs_data +' data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="luckysheet-filter-options luckysheet-filter-options-active" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:block;"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i></div>';
+            optionHTML += '<div data-rowhidden="'+ JSON.stringify(filterObj[c - c1].rowhidden).replace(/\"/g, "'") +'" '+ caljs_data +' data-str="'+ r1 +'" data-edr="'+ r2 +'" data-cindex="'+ c +'" data-stc="'+ c1 +'" data-edc="'+ c2 +'" class="tibetsheets-filter-options tibetsheets-filter-options-active" style="left:'+ (Store.visibledatacolumn[c] - 20) +'px;top:'+ row_pre +'px;display:block;"><i class="fa fa-filter tibetsheets-mousedown-cancel" aria-hidden="true"></i></div>';
         }
     }
 
-    $("#luckysheet-cell-main").append('<div id="luckysheet-filter-options-sheet'+ Store.currentSheetIndex +'" class="luckysheet-filter-options-c">' + optionHTML + '</div>');
-    $("#luckysheet-rightclick-menu").hide();
-    $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+    $("#tibetsheets-cell-main").append('<div id="tibetsheets-filter-options-sheet'+ Store.currentSheetIndex +'" class="tibetsheets-filter-options-c">' + optionHTML + '</div>');
+    $("#tibetsheets-rightclick-menu").hide();
+    $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
 
-    if ($("#luckysheet-cell-main").scrollTop() > luckysheet_filter_save["top_move"]) {
-        $("#luckysheet-scrollbar-y").scrollTop(luckysheet_filter_save["top_move"]);
+    if ($("#tibetsheets-cell-main").scrollTop() > tibetsheets_filter_save["top_move"]) {
+        $("#tibetsheets-scrollbar-y").scrollTop(tibetsheets_filter_save["top_move"]);
     }
 
-    let file = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)];
+    let file = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)];
 
-    file.filter_select = luckysheet_filter_save;
+    file.filter_select = tibetsheets_filter_save;
 }
 
 function initialFilterHandler(){
@@ -297,11 +297,11 @@ function initialFilterHandler(){
     const _locale = locale();
     const locale_filter = _locale.filter;
     const locale_button= _locale.button;
-    $("#luckysheetfilter").click(createFilter);
+    $("#tibetsheetsfilter").click(createFilter);
 
     //右键菜单 菜单项hover
     let submenuhide = null, rightclickmenu = null;
-    $(".luckysheet-cols-menu .luckysheet-cols-submenu").hover(
+    $(".tibetsheets-cols-menu .tibetsheets-cols-submenu").hover(
         function () {
             let $t = $(this), attrid = $t.attr("id"), $attr = $("#" + attrid + "_sub"), $con = $t.parent();
             let winW = $(window).width(), winH = $(window).height();
@@ -326,84 +326,84 @@ function initialFilterHandler(){
         }
     );
 
-    $(".luckysheet-rightgclick-menu-sub").hover(
+    $(".tibetsheets-rightgclick-menu-sub").hover(
         function () {
-            rightclickmenu.addClass("luckysheet-cols-menuitem-hover");
+            rightclickmenu.addClass("tibetsheets-cols-menuitem-hover");
             clearTimeout(submenuhide);
         },
         function () {
-            rightclickmenu.removeClass("luckysheet-cols-menuitem-hover");
+            rightclickmenu.removeClass("tibetsheets-cols-menuitem-hover");
             $(this).hide();
         }
     );
 
-    $("#luckysheet-filter-menu").mouseover(function () {
+    $("#tibetsheets-filter-menu").mouseover(function () {
         clearTimeout(hidefilersubmenu);
         
         hidefilersubmenu = setTimeout(function () {
-            $("#luckysheet-filter-submenu").hide();
+            $("#tibetsheets-filter-submenu").hide();
         }, 500);
     });
     
 
-    $("#luckysheet-filter-submenu").mouseover(function () {
+    $("#tibetsheets-filter-submenu").mouseover(function () {
         clearTimeout(hidefilersubmenu);
-    }).find(".luckysheet-cols-menuitem").click(function (e) {
-        $("#luckysheet-filter-selected span").html($(this).find(".luckysheet-cols-menuitem-content").text()).data("value", $(this).data("value"));
-        $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide();
+    }).find(".tibetsheets-cols-menuitem").click(function (e) {
+        $("#tibetsheets-filter-selected span").html($(this).find(".tibetsheets-cols-menuitem-content").text()).data("value", $(this).data("value"));
+        $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").hide();
 
         let $type = $(this).data("type");
         let $value = $(this).attr("data-value");
         
         if ($type == "2") {
-            $("#luckysheet-filter-selected span").data("type", "2");
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input2").show();
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input input").prop("type", "number");
+            $("#tibetsheets-filter-selected span").data("type", "2");
+            $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input2").show();
+            $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input input").prop("type", "number");
         }
         else if ($type == "0") {
-            $("#luckysheet-filter-selected span").data("type", "0");
+            $("#tibetsheets-filter-selected span").data("type", "0");
         }
         else {
-            $("#luckysheet-filter-selected span").data("type", "1");
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input").eq(0).show();
+            $("#tibetsheets-filter-selected span").data("type", "1");
+            $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").eq(0).show();
             
             //若是日期 改变input type类型为date
             if($value == "dateequal" || $value == "datelessthan" || $value == "datemorethan"){
-                $("#luckysheet-filter-menu .luckysheet-filter-selected-input input").prop("type", "date");
+                $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input input").prop("type", "date");
             }
             else if($value == "morethan" || $value == "moreequalthan" || $value == "lessthan" || $value == "lessequalthan" || $value == "equal" || $value == "noequal"){
-                $("#luckysheet-filter-menu .luckysheet-filter-selected-input input").prop("type", "number");
+                $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input input").prop("type", "number");
             }
             else{
-                $("#luckysheet-filter-menu .luckysheet-filter-selected-input input").prop("type", "text");
+                $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input input").prop("type", "text");
             }
         }
 
-        $("#luckysheet-filter-byvalue").next().slideUp();
-        $("#luckysheet-filter-submenu").hide();
+        $("#tibetsheets-filter-byvalue").next().slideUp();
+        $("#tibetsheets-filter-submenu").hide();
     });
 
-    $("#luckysheet-filter-bycondition, #luckysheet-filter-byvalue").click(function () {
+    $("#tibetsheets-filter-bycondition, #tibetsheets-filter-byvalue").click(function () {
         let $t = $(this);
         $t.next().slideToggle(200);
 
         setTimeout(function () {
-            if ($t.attr("id") == "luckysheet-filter-bycondition" && $("#luckysheet-filter-bycondition").next().is(":visible")) {
-                if ($("#luckysheet-filter-selected span").text() != locale_filter.filiterInputNone) {
-                    $("#luckysheet-filter-byvalue").next().slideUp(200);
+            if ($t.attr("id") == "tibetsheets-filter-bycondition" && $("#tibetsheets-filter-bycondition").next().is(":visible")) {
+                if ($("#tibetsheets-filter-selected span").text() != locale_filter.filiterInputNone) {
+                    $("#tibetsheets-filter-byvalue").next().slideUp(200);
                 }
             }
 
-            if ($t.is($("#luckysheet-filter-bycondition"))) {
-                if ($("#luckysheet-filter-bycondition").next().is(":hidden") && $("#luckysheet-filter-byvalue").next().is(":hidden")) {
-                    $("#luckysheet-filter-byvalue").next().slideDown(200);
+            if ($t.is($("#tibetsheets-filter-bycondition"))) {
+                if ($("#tibetsheets-filter-bycondition").next().is(":hidden") && $("#tibetsheets-filter-byvalue").next().is(":hidden")) {
+                    $("#tibetsheets-filter-byvalue").next().slideDown(200);
                 }
             }
         }, 300);
     });
 
-    $("#luckysheet-filter-selected").click(function () {
-        let $t = $(this), toffset = $t.offset(), $menu = $("#luckysheet-filter-submenu");
+    $("#tibetsheets-filter-selected").click(function () {
+        let $t = $(this), toffset = $t.offset(), $menu = $("#tibetsheets-filter-submenu");
         $menu.hide();
     
         let winH = $(window).height(), winW = $(window).width();
@@ -429,13 +429,13 @@ function initialFilterHandler(){
     });
 
     //筛选按钮点击事件
-    $("#luckysheet-cell-main").on("click", ".luckysheet-filter-options", function (e) {
+    $("#tibetsheets-cell-main").on("click", ".tibetsheets-filter-options", function (e) {
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "filter")){
             return;
         }
         let $t = $(e.currentTarget), 
             toffset = $t.offset(), 
-            $menu = $("#luckysheet-filter-menu"), 
+            $menu = $("#tibetsheets-filter-menu"), 
             winH = $(window).height(), 
             winW = $(window).width();
 
@@ -446,11 +446,11 @@ function initialFilterHandler(){
             ed_c = $t.data("edc"), 
             rowhidden = $t.data("rowhidden") == "" ? {} : JSON.parse($t.data("rowhidden").replace(/\'/g, '"'));
 
-        $("body .luckysheet-cols-menu").hide();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
-        $("#luckysheet-filter-byvalue-input").val("");
-        $("#luckysheet-filter-bycondition").next().hide();
-        $("#luckysheet-filter-byvalue").next().show();
+        $("body .tibetsheets-cols-menu").hide();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
+        $("#tibetsheets-filter-byvalue-input").val("");
+        $("#tibetsheets-filter-bycondition").next().hide();
+        $("#tibetsheets-filter-byvalue").next().show();
         
         $menu.data("str", st_r);
         $menu.data("edr", ed_r);
@@ -458,34 +458,34 @@ function initialFilterHandler(){
         $menu.data("stc", st_c);
         $menu.data("edc", ed_c);
 
-        $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
-        $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
+        $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").hide().find("input").val();
+        $("#tibetsheets-filter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
 
         let byconditiontype = $t.data("byconditiontype");
-        $("#luckysheet-filter-selected span").data("value", $t.data("byconditionvalue")).data("type", byconditiontype).text($t.data("byconditiontext"));
+        $("#tibetsheets-filter-selected span").data("value", $t.data("byconditionvalue")).data("type", byconditiontype).text($t.data("byconditiontext"));
 
         if (byconditiontype == "2") {
-            let $input = $("#luckysheet-filter-menu .luckysheet-filter-selected-input2").show().find("input");
+            let $input = $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input2").show().find("input");
             $input.eq(0).val($t.data("byconditionvalue1"));
             $input.eq(1).val($t.data("byconditionvalue2"));
         }
         else if (byconditiontype == "1") {
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input").eq(0).show().find("input").val($t.data("byconditionvalue1"));
+            $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").eq(0).show().find("input").val($t.data("byconditionvalue1"));
         }
 
-        $("#luckysheet-filter-orderby-asc").off("click").on("click", function () {
+        $("#tibetsheets-filter-orderby-asc").off("click").on("click", function () {
             orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, true);
         });
 
-        $("#luckysheet-filter-orderby-desc").off("click").on("click", function () {
+        $("#tibetsheets-filter-orderby-desc").off("click").on("click", function () {
             orderbydatafiler(st_r, st_c, ed_r, ed_c, cindex, false);
         });
 
-        const loadingObj = luckysheetlodingHTML("#luckysheet-filter-byvalue-select",{text:locale_filter.filiterMoreDataTip});
-        $("#luckysheet-filter-byvalue-select").empty().append(loadingObj.el);
+        const loadingObj = tibetsheetslodingHTML("#tibetsheets-filter-byvalue-select",{text:locale_filter.filiterMoreDataTip});
+        $("#tibetsheets-filter-byvalue-select").empty().append(loadingObj.el);
 
         let rowhiddenother = {}; //其它筛选列的隐藏行
-        $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").not(this).each(function () {
+        $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").not(this).each(function () {
             let $t = $(this), rh = $t.data("rowhidden");
             
             if (rh == "") {
@@ -611,17 +611,17 @@ function initialFilterHandler(){
 
                             //日是否选中状态
                             if((y in dvmap_uncheck) && (m in dvmap_uncheck) && (d in dvmap_uncheck)){
-                                dayHtml +=  '<div class="day luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT +'-'+ dT +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + d + '</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + dayL + ' )</span>' +
+                                dayHtml +=  '<div class="day tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT +'-'+ dT +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + d + '</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + dayL + ' )</span>' +
                                             '</div>';
                             }
                             else{
-                                dayHtml +=  '<div class="day luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT +'-'+ dT +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + d + '</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + dayL + ' )</span>' +
+                                dayHtml +=  '<div class="day tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT +'-'+ dT +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + d + '</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + dayL + ' )</span>' +
                                             '</div>';
                             }
                         }
@@ -639,25 +639,25 @@ function initialFilterHandler(){
 
                         //月是否选中状态
                         if((y in dvmap_uncheck) && (m in dvmap_uncheck)){
-                            monthHtml += '<div class="monthBox luckysheet-mousedown-cancel">' +
-                                            '<div class="month luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT2 +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + m + ''+ locale_filter.filiterMonthText +'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + msum + ' )</span>' +
+                            monthHtml += '<div class="monthBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="month tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT2 +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + m + ''+ locale_filter.filiterMonthText +'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + msum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="dayList luckysheet-mousedown-cancel">' + dayHtml + '</div>' +
+                                            '<div class="dayList tibetsheets-mousedown-cancel">' + dayHtml + '</div>' +
                                         '</div>';
                         }
                         else{
-                            monthHtml += '<div class="monthBox luckysheet-mousedown-cancel">' +
-                                            '<div class="month luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT2 +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + m + ''+ locale_filter.filiterMonthText +'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + msum + ' )</span>' +
+                            monthHtml += '<div class="monthBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="month tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT2 +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + m + ''+ locale_filter.filiterMonthText +'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + msum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="dayList luckysheet-mousedown-cancel">' + dayHtml + '</div>' +
+                                            '<div class="dayList tibetsheets-mousedown-cancel">' + dayHtml + '</div>' +
                                         '</div>';
                         }
                     }
@@ -665,25 +665,25 @@ function initialFilterHandler(){
                     //年是否选中状态
                     let yearHtml;
                     if(y in dvmap_uncheck){
-                        yearHtml =  '<div class="yearBox luckysheet-mousedown-cancel">' +
-                                            '<div class="year luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + y + ''+ locale_filter.filiterYearText +'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + ysum + ' )</span>' +
+                        yearHtml =  '<div class="yearBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="year tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + y + ''+ locale_filter.filiterYearText +'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + ysum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="monthList luckysheet-mousedown-cancel">' + monthHtml + '</div>' +
+                                            '<div class="monthList tibetsheets-mousedown-cancel">' + monthHtml + '</div>' +
                                         '</div>';
                     }
                     else{
-                        yearHtml =  '<div class="yearBox luckysheet-mousedown-cancel">' +
-                                            '<div class="year luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + y + ''+ locale_filter.filiterYearText +'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + ysum + ' )</span>' +
+                        yearHtml =  '<div class="yearBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="year tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + y + ''+ locale_filter.filiterYearText +'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + ysum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="monthList luckysheet-mousedown-cancel">' + monthHtml + '</div>' +
+                                            '<div class="monthList tibetsheets-mousedown-cancel">' + monthHtml + '</div>' +
                                         '</div>';
                     }
 
@@ -710,17 +710,17 @@ function initialFilterHandler(){
                         //是否选中状态
                         let dataHtml;
                         if((v + "#$$$#" + x) in vmap_uncheck){
-                            dataHtml =  '<div class="textBox luckysheet-mousedown-cancel cf" data-check="false" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ text +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + text + '</label>' +
-                                                '<span class="luckysheet-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
+                            dataHtml =  '<div class="textBox tibetsheets-mousedown-cancel cf" data-check="false" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ text +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + text + '</label>' +
+                                                '<span class="tibetsheets-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
                                             '</div>';
                         }
                         else{
-                            dataHtml =  '<div class="textBox luckysheet-mousedown-cancel cf" data-check="true" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ text +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + text + '</label>' +
-                                                '<span class="luckysheet-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
+                            dataHtml =  '<div class="textBox tibetsheets-mousedown-cancel cf" data-check="true" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ text +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + text + '</label>' +
+                                                '<span class="tibetsheets-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
                                             '</div>';
                         }
 
@@ -732,9 +732,9 @@ function initialFilterHandler(){
             // 适配小屏设备
             let containerH = winH - toffset.top - 350
             if (containerH < 0) containerH = 100
-            //$("#luckysheet-filter-byvalue-select").html("<div class='ListBox luckysheet-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='luckysheet-mousedown-cancel'>" + item.join("") + "</table></div>");
+            //$("#tibetsheets-filter-byvalue-select").html("<div class='ListBox tibetsheets-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='tibetsheets-mousedown-cancel'>" + item.join("") + "</table></div>");
 
-            $("#luckysheet-filter-byvalue-select").append("<div class='ListBox luckysheet-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='luckysheet-mousedown-cancel'>" + item.join("") + "</table></div>");
+            $("#tibetsheets-filter-byvalue-select").append("<div class='ListBox tibetsheets-mousedown-cancel' style='min-height: 100px; max-height: " + containerH + "px; overflow-y: auto; overflow-x: hidden;'><table cellspacing='0' style='width:100%;' class='tibetsheets-mousedown-cancel'>" + item.join("") + "</table></div>");
             loadingObj.close();
         }, 1);
 
@@ -745,10 +745,10 @@ function initialFilterHandler(){
     });
 
     //按颜色筛选
-    $("#luckysheet-filter-orderby-color").hover(
+    $("#tibetsheets-filter-orderby-color").hover(
         function(){
             //遍历筛选列颜色
-            let $menu = $("#luckysheet-filter-menu");
+            let $menu = $("#tibetsheets-filter-menu");
             let st_r = $menu.data("str"), 
                 ed_r = $menu.data("edr"), 
                 cindex = $menu.data("cindex"), 
@@ -828,13 +828,13 @@ function initialFilterHandler(){
                 let bgColorItemHtml = '';
                 for(let b in bgMap){
                     if(bgMap[b] == 0){
-                        bgColorItemHtml += '<div class="item luckysheet-mousedown-cancel"><label class="luckysheet-mousedown-cancel" style="background-color: ' + b + '" title="' + b + '"></label><input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/></div>';
+                        bgColorItemHtml += '<div class="item tibetsheets-mousedown-cancel"><label class="tibetsheets-mousedown-cancel" style="background-color: ' + b + '" title="' + b + '"></label><input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/></div>';
                     }
                     else{
-                        bgColorItemHtml += '<div class="item luckysheet-mousedown-cancel"><label class="luckysheet-mousedown-cancel" style="background-color: ' + b + '" title="' + b + '"></label><input class="luckysheet-mousedown-cancel" type="checkbox"/></div>';
+                        bgColorItemHtml += '<div class="item tibetsheets-mousedown-cancel"><label class="tibetsheets-mousedown-cancel" style="background-color: ' + b + '" title="' + b + '"></label><input class="tibetsheets-mousedown-cancel" type="checkbox"/></div>';
                     }
                 }
-                filterBgColorHtml = '<div id="filterBgColor" class="box luckysheet-mousedown-cancel"><div class="title luckysheet-mousedown-cancel">'+locale_filter.filiterByColorTip+'</div><div style="max-height:128px;overflow:auto;" class="luckysheet-mousedown-cancel">' + bgColorItemHtml + '</div></div>';
+                filterBgColorHtml = '<div id="filterBgColor" class="box tibetsheets-mousedown-cancel"><div class="title tibetsheets-mousedown-cancel">'+locale_filter.filiterByColorTip+'</div><div style="max-height:128px;overflow:auto;" class="tibetsheets-mousedown-cancel">' + bgColorItemHtml + '</div></div>';
             }
     
             let filterFcColorHtml = '';
@@ -842,26 +842,26 @@ function initialFilterHandler(){
                 let fcColorItemHtml = '';
                 for(let f in fcMap){
                     if(fcMap[f] == 0){
-                        fcColorItemHtml += '<div class="item luckysheet-mousedown-cancel"><label class="luckysheet-mousedown-cancel" style="background-color: ' + f + '" title="' + f + '"></label><input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/></div>';
+                        fcColorItemHtml += '<div class="item tibetsheets-mousedown-cancel"><label class="tibetsheets-mousedown-cancel" style="background-color: ' + f + '" title="' + f + '"></label><input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/></div>';
                     }
                     else{
-                        fcColorItemHtml += '<div class="item luckysheet-mousedown-cancel"><label class="luckysheet-mousedown-cancel" style="background-color: ' + f + '" title="' + f + '"></label><input class="luckysheet-mousedown-cancel" type="checkbox"/></div>';
+                        fcColorItemHtml += '<div class="item tibetsheets-mousedown-cancel"><label class="tibetsheets-mousedown-cancel" style="background-color: ' + f + '" title="' + f + '"></label><input class="tibetsheets-mousedown-cancel" type="checkbox"/></div>';
                     }
                 }
-                filterFcColorHtml = '<div id="filterFcColor" class="box luckysheet-mousedown-cancel"><div class="title luckysheet-mousedown-cancel">'+locale_filter.filiterByTextColorTip+'</div><div style="max-height:128px;overflow:auto;" class="luckysheet-mousedown-cancel">' + fcColorItemHtml + '</div></div>';
+                filterFcColorHtml = '<div id="filterFcColor" class="box tibetsheets-mousedown-cancel"><div class="title tibetsheets-mousedown-cancel">'+locale_filter.filiterByTextColorTip+'</div><div style="max-height:128px;overflow:auto;" class="tibetsheets-mousedown-cancel">' + fcColorItemHtml + '</div></div>';
             }
             //
             let content;
             if(filterBgColorHtml == '' && filterFcColorHtml == ''){
-                content = '<div class="luckysheet-mousedown-cancel" style="padding: 10px 30px;text-align: center;">'+locale_filter.filterContainerOneColorTip+'</div>';
+                content = '<div class="tibetsheets-mousedown-cancel" style="padding: 10px 30px;text-align: center;">'+locale_filter.filterContainerOneColorTip+'</div>';
             }
             else{
-                content = filterBgColorHtml + filterFcColorHtml + '<div class="luckysheet-mousedown-cancel"><button id="luckysheet-filter-orderby-color-confirm" class="btn btn-primary luckysheet-mousedown-cancel" style="margin: 5px 20px;width: 70px;">'+locale_button.confirm+'</button></div>';
+                content = filterBgColorHtml + filterFcColorHtml + '<div class="tibetsheets-mousedown-cancel"><button id="tibetsheets-filter-orderby-color-confirm" class="btn btn-primary tibetsheets-mousedown-cancel" style="margin: 5px 20px;width: 70px;">'+locale_button.confirm+'</button></div>';
             }
             //颜色筛选子菜单
-            $("#luckysheet-filter-orderby-color-submenu").remove();
-            $("body").first().append('<div id="luckysheet-filter-orderby-color-submenu" class="luckysheet-cols-menu luckysheet-mousedown-cancel">'+content+'</div>');
-            let $t = $("#luckysheet-filter-orderby-color-submenu").end();
+            $("#tibetsheets-filter-orderby-color-submenu").remove();
+            $("body").first().append('<div id="tibetsheets-filter-orderby-color-submenu" class="tibetsheets-cols-menu tibetsheets-mousedown-cancel">'+content+'</div>');
+            let $t = $("#tibetsheets-filter-orderby-color-submenu").end();
             let $con = $(this).parent();
             let winW = $(window).width(), winH = $(window).height();
             let menuW = $con.width(), 
@@ -878,14 +878,14 @@ function initialFilterHandler(){
                 top = winH - myh;
             }
     
-            $("#luckysheet-filter-orderby-color-submenu").css({ "top": top, "left": left }).show();
+            $("#tibetsheets-filter-orderby-color-submenu").css({ "top": top, "left": left }).show();
         },
         function(){
-            submenuhide = setTimeout(function () { $("#luckysheet-filter-orderby-color-submenu").hide(); }, 200);
+            submenuhide = setTimeout(function () { $("#tibetsheets-filter-orderby-color-submenu").hide(); }, 200);
         }
     );
 
-    $(document).on("mouseover mouseleave", "#luckysheet-filter-orderby-color-submenu", function(e){
+    $(document).on("mouseover mouseleave", "#tibetsheets-filter-orderby-color-submenu", function(e){
         if (e.type === "mouseover") {
             clearTimeout(submenuhide);
         } 
@@ -893,14 +893,14 @@ function initialFilterHandler(){
             $(this).hide();
         }
     });
-    $(document).on("click", "#luckysheet-filter-orderby-color-submenu .item label", function(){
+    $(document).on("click", "#tibetsheets-filter-orderby-color-submenu .item label", function(){
         $(this).siblings("input[type='checkbox']").click();
     });
-    $(document).off("click.orderbyColorConfirm").on("click.orderbyColorConfirm", "#luckysheet-filter-orderby-color-submenu #luckysheet-filter-orderby-color-confirm", function(){
+    $(document).off("click.orderbyColorConfirm").on("click.orderbyColorConfirm", "#tibetsheets-filter-orderby-color-submenu #tibetsheets-filter-orderby-color-confirm", function(){
         let bg_colorMap = {};
         let fc_colorMap = {};
         
-        $("#luckysheet-filter-orderby-color-submenu .item").each(function(i, e){
+        $("#tibetsheets-filter-orderby-color-submenu .item").each(function(i, e){
             if($(e).find("input[type='checkbox']").is(":checked")){
                 let color = $(this).find("label").attr("title");
                 let $id = $(this).closest(".box").attr("id");
@@ -915,7 +915,7 @@ function initialFilterHandler(){
         });
         
         let bg_filter;
-        if($("#luckysheet-filter-orderby-color-submenu #filterBgColor").length > 0){
+        if($("#tibetsheets-filter-orderby-color-submenu #filterBgColor").length > 0){
             bg_filter = true;
         }
         else{
@@ -923,14 +923,14 @@ function initialFilterHandler(){
         }
         
         let fc_filter;
-        if($("#luckysheet-filter-orderby-color-submenu #filterFcColor").length > 0){
+        if($("#tibetsheets-filter-orderby-color-submenu #filterFcColor").length > 0){
             fc_filter = true;
         }
         else{
             fc_filter = false;
         }
     
-        let $menu = $("#luckysheet-filter-menu");
+        let $menu = $("#tibetsheets-filter-menu");
         let st_r = $menu.data("str"), 
             ed_r = $menu.data("edr"), 
             cindex = $menu.data("cindex"), 
@@ -938,7 +938,7 @@ function initialFilterHandler(){
             ed_c = $menu.data("edc");
     
         let rowhiddenother = {}; //其它筛选列的隐藏行
-        $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").not($("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(cindex - st_c).get(0)).each(function () {
+        $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").not($("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(cindex - st_c).get(0)).each(function () {
             let $t = $(this), rh = $t.data("rowhidden");
     
             if (rh == "") {
@@ -1030,7 +1030,7 @@ function initialFilterHandler(){
             }
         }
     
-        let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(cindex - st_c);
+        let $top = $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(cindex - st_c);
     
         let optionstate = Object.keys(rowhidden).length > 0;
     
@@ -1067,19 +1067,19 @@ function initialFilterHandler(){
     
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
         server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
     
         //行高、列宽 刷新  
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu, #luckysheet-filter-orderby-color-submenu").hide();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu, #tibetsheets-filter-orderby-color-submenu").hide();
         cleargridelement();
     });
 
     //点击复选框
-    $(document).off("click.filterCheckbox1").on("click.filterCheckbox1", "#luckysheet-filter-byvalue-select .textBox",function(){
+    $(document).off("click.filterCheckbox1").on("click.filterCheckbox1", "#tibetsheets-filter-byvalue-select .textBox",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -1089,7 +1089,7 @@ function initialFilterHandler(){
             $(this).find("input[type='checkbox']").prop("checked", true);
         }
     })
-    $(document).off("click.filterCheckbox2").on("click.filterCheckbox2", "#luckysheet-filter-byvalue-select .year",function(){
+    $(document).off("click.filterCheckbox2").on("click.filterCheckbox2", "#tibetsheets-filter-byvalue-select .year",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).parents(".yearBox").find(".month").attr("data-check", "false");
@@ -1103,7 +1103,7 @@ function initialFilterHandler(){
             $(this).parents(".yearBox").find("input[type='checkbox']").prop("checked", true);
         }
     })
-    $(document).off("click.filterCheckbox3").on("click.filterCheckbox3", "#luckysheet-filter-byvalue-select .month",function(){
+    $(document).off("click.filterCheckbox3").on("click.filterCheckbox3", "#tibetsheets-filter-byvalue-select .month",function(){
         //月份 对应的 天
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
@@ -1135,7 +1135,7 @@ function initialFilterHandler(){
             $(this).parents(".yearBox").find(".year input[type='checkbox']").removeAttr("checked");
         }
     })
-    $(document).off("click.filterCheckbox4").on("click.filterCheckbox4", "#luckysheet-filter-byvalue-select .day",function(){
+    $(document).off("click.filterCheckbox4").on("click.filterCheckbox4", "#tibetsheets-filter-byvalue-select .day",function(){
         if($(this).attr("data-check") == "true"){
             $(this).attr("data-check", "false");
             $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -1185,8 +1185,8 @@ function initialFilterHandler(){
     })
 
     //日期 三级下拉显示
-    $(document).off("click.filterYearDropdown").on("click.filterYearDropdown", "#luckysheet-filter-byvalue-select .yearBox .fa-caret-right",function(event){
-        let $p = $(this).parents(".luckysheet-mousedown-cancel");
+    $(document).off("click.filterYearDropdown").on("click.filterYearDropdown", "#tibetsheets-filter-byvalue-select .yearBox .fa-caret-right",function(event){
+        let $p = $(this).parents(".tibetsheets-mousedown-cancel");
         if($p.hasClass("year")){
             $(this).parents(".yearBox").find(".monthList").slideToggle();
         }
@@ -1198,32 +1198,32 @@ function initialFilterHandler(){
     });
 
     //全选
-    $("#luckysheet-filter-byvalue-btn-all").click(function () {
-        $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").prop("checked", true);
-        $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").parents(".luckysheet-mousedown-cancel").attr("data-check", "true");
+    $("#tibetsheets-filter-byvalue-btn-all").click(function () {
+        $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").prop("checked", true);
+        $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").parents(".tibetsheets-mousedown-cancel").attr("data-check", "true");
     });
 
     //清除
-    $("#luckysheet-filter-byvalue-btn-clear").click(function () {
-        $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").removeAttr("checked");
-        $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").parents(".luckysheet-mousedown-cancel").attr("data-check", "false");
+    $("#tibetsheets-filter-byvalue-btn-clear").click(function () {
+        $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").removeAttr("checked");
+        $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").parents(".tibetsheets-mousedown-cancel").attr("data-check", "false");
     });
 
     //反选
-    $("#luckysheet-filter-byvalue-btn-contra").click(function () {
-        let $input = $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']");
+    $("#tibetsheets-filter-byvalue-btn-contra").click(function () {
+        let $input = $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']");
         $input.each(function(i, e){
             if($(e).is(":checked")){
                 $(e).removeAttr("checked");
-                $(e).parents(".luckysheet-mousedown-cancel").attr("data-check", "false");
+                $(e).parents(".tibetsheets-mousedown-cancel").attr("data-check", "false");
             }
             else{
                 $(e).prop("checked", true);
-                $(e).parents(".luckysheet-mousedown-cancel").attr("data-check", "true");
+                $(e).parents(".tibetsheets-mousedown-cancel").attr("data-check", "true");
             }
         });
         //天 对应的 月份
-        let $month = $("#luckysheet-filter-byvalue-select .ListBox .monthBox");
+        let $month = $("#tibetsheets-filter-byvalue-select .ListBox .monthBox");
         $month.each(function(index, event){
             let monthDayAllCheck = true;
             let $monthDay = $(event).find(".day input[type='checkbox']");
@@ -1245,7 +1245,7 @@ function initialFilterHandler(){
             }
         });
         //天 对应的 年份
-        let $year = $("#luckysheet-filter-byvalue-select .ListBox .yearBox");
+        let $year = $("#tibetsheets-filter-byvalue-select .ListBox .yearBox");
         $year.each(function(index, event){
             let yearDayAllCheck = true;
             let $yearDay = $(event).find(".day input[type='checkbox']");
@@ -1269,13 +1269,13 @@ function initialFilterHandler(){
     });
 
     //清除筛选
-    $("#luckysheet-filter-initial").click(function () {
+    $("#tibetsheets-filter-initial").click(function () {
         if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "filter")){
             return;
         }
 
-        $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
-        $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text(locale_filter.conditionNone);
+        $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").hide().find("input").val();
+        $("#tibetsheets-filter-selected span").data("type", "0").data("type", null).text(locale_filter.conditionNone);
 
         let redo = {};
         redo["type"] = "datachangeAll_filter_clear";
@@ -1285,13 +1285,13 @@ function initialFilterHandler(){
         Store.config["rowhidden"] = {};
         redo["curconfig"] = $.extend(true, {}, Store.config);
 
-        redo["filter_save"] = $.extend(true, {}, Store.luckysheet_filter_save);
+        redo["filter_save"] = $.extend(true, {}, Store.tibetsheets_filter_save);
 
         let optiongroups = [];
-        $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function () {
+        $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").each(function () {
             let $t = $(this);
 
-            let optionstate = $t.hasClass("luckysheet-filter-options-active");
+            let optionstate = $t.hasClass("tibetsheets-filter-options-active");
             let rowhidden = json.parseJsonParm($t.data("rowhidden"));
             let caljs = json.parseJsonParm($t.data("caljs"));
 
@@ -1311,17 +1311,17 @@ function initialFilterHandler(){
         Store.jfundo.length  = 0;
         Store.jfredo.push(redo);
 
-        $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        $('#tibetsheets-filter-selected-sheet' + Store.currentSheetIndex + ', #tibetsheets-filter-options-sheet' + Store.currentSheetIndex).remove();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
 
         //清除筛选发送给后台
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter = null;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].filter_select = null;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].filter = null;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].filter_select = null;
 
         server.saveParam("fsc", Store.currentSheetIndex, null);
 
         //config
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
         server.saveParam("cg", Store.currentSheetIndex, {}, { "k": "rowhidden" });
 
@@ -1330,12 +1330,12 @@ function initialFilterHandler(){
     });
 
     //按照值进行筛选
-    $("#luckysheet-filter-byvalue-input").on('input propertychange', function () {
+    $("#tibetsheets-filter-byvalue-input").on('input propertychange', function () {
         let v = $(this).val().toString();
-        $("#luckysheet-filter-byvalue-select .ListBox .luckysheet-mousedown-cancel").show();
+        $("#tibetsheets-filter-byvalue-select .ListBox .tibetsheets-mousedown-cancel").show();
         
         if(v != ""){
-            $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
+            $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
                 if($(e).closest(".day").length > 0){
                     let day = $(e).siblings("label").text().toString();
                     let month = $(e).closest(".monthBox").find(".month label").text().toString();
@@ -1371,13 +1371,13 @@ function initialFilterHandler(){
     });
 
     //筛选取消
-    $("#luckysheet-filter-cancel").click(function () {
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+    $("#tibetsheets-filter-cancel").click(function () {
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
     });
 
     //筛选 确认
-    $("#luckysheet-filter-confirm").click(function () {
-        let $menu = $("#luckysheet-filter-menu");
+    $("#tibetsheets-filter-confirm").click(function () {
+        let $menu = $("#tibetsheets-filter-menu");
         let st_r = $menu.data("str"), 
             ed_r = $menu.data("edr"), 
             cindex = $menu.data("cindex"), 
@@ -1385,7 +1385,7 @@ function initialFilterHandler(){
             ed_c = $menu.data("edc");
 
         let rowhiddenother = {}; //其它筛选列的隐藏行
-        $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").not($("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(cindex - st_c).get(0)).each(function () {
+        $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").not($("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(cindex - st_c).get(0)).each(function () {
             let $t = $(this), rh = $t.data("rowhidden");
 
             if (rh == "") {
@@ -1403,8 +1403,8 @@ function initialFilterHandler(){
         let rowhidden = {};
         let caljs = {};
 
-        if ($("#luckysheet-filter-bycondition").next().is(":visible") && $("#luckysheet-filter-byvalue").next().is(":hidden") && $("#luckysheet-filter-selected span").data("value") != "null") {
-            let $t = $("#luckysheet-filter-selected span");
+        if ($("#tibetsheets-filter-bycondition").next().is(":visible") && $("#tibetsheets-filter-byvalue").next().is(":hidden") && $("#tibetsheets-filter-selected span").data("value") != "null") {
+            let $t = $("#tibetsheets-filter-selected span");
             let type = $t.data("type"), value = $t.data("value");
 
             caljs["value"] = value;
@@ -1414,14 +1414,14 @@ function initialFilterHandler(){
                 caljs["type"] = "0";
             }
             else if (type == "2") {
-                let $input = $("#luckysheet-filter-menu .luckysheet-filter-selected-input2 input");
+                let $input = $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input2 input");
                 caljs["type"] = "2";
                 caljs["value1"] = $input.eq(0).val();
                 caljs["value2"] = $input.eq(1).val();
             }
             else {
                 caljs["type"] = "1";
-                caljs["value1"] = $("#luckysheet-filter-menu .luckysheet-filter-selected-input").eq(0).find("input").val();
+                caljs["value1"] = $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").eq(0).find("input").val();
             }
 
             for (let r = st_r + 1; r <= ed_r; r++) {
@@ -1693,7 +1693,7 @@ function initialFilterHandler(){
             }
         }
         else {
-            $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
+            $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
                 if($(e).is(":visible") && $(e).is(":checked")){
                     return true;
                 }
@@ -1752,9 +1752,9 @@ function initialFilterHandler(){
             }
         }
 
-        let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(cindex - st_c);
+        let $top = $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(cindex - st_c);
 
-        let optionstate = $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']:visible:checked").length < $("#luckysheet-filter-byvalue-select .ListBox input[type='checkbox']:visible").length || $("#luckysheet-filter-byvalue-input").val().length > 0 || ($("#luckysheet-filter-bycondition").next().is(":visible") && $("#luckysheet-filter-byvalue").next().is(":hidden") && $("#luckysheet-filter-selected span").data("value") != "null");
+        let optionstate = $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']:visible:checked").length < $("#tibetsheets-filter-byvalue-select .ListBox input[type='checkbox']:visible").length || $("#tibetsheets-filter-byvalue-input").val().length > 0 || ($("#tibetsheets-filter-bycondition").next().is(":visible") && $("#tibetsheets-filter-byvalue").next().is(":hidden") && $("#tibetsheets-filter-selected span").data("value") != "null");
 
         let rowhiddenall = $.extend(true, rowhiddenother, rowhidden), 
             rowhidenPre = json.parseJsonParm($top.data("rowhidden"));
@@ -1789,14 +1789,14 @@ function initialFilterHandler(){
 
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
         server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
 
         //行高、列宽 刷新  
         jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
 
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         cleargridelement();
     });
 }

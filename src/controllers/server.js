@@ -1,13 +1,13 @@
 import pako from 'pako'
 import { showloading, hideloading } from '../global/loading';
-import { luckysheetrefreshgrid, jfrefreshgrid_rhcw } from '../global/refresh';
+import { tibetsheetsrefreshgrid, jfrefreshgrid_rhcw } from '../global/refresh';
 import editor from '../global/editor'
 import { sheetHTML, luckyColor } from './constant';
 import sheetmanage from './sheetmanage';
 import menuButton from './menuButton';
 import { createFilterOptions } from './filter';
-import luckysheetFreezen from './freezen';
-import luckysheetPostil from './postil';
+import tibetsheetsFreezen from './freezen';
+import tibetsheetsPostil from './postil';
 import imageCtrl from './imageCtrl';
 import dataVerificationCtrl from './dataVerificationCtrl';
 import hyperlinkCtrl from './hyperlinkCtrl';
@@ -18,7 +18,7 @@ import { collaborativeEditBox } from './select'
 import locale from '../locale/locale';
 import dayjs from "dayjs";
 import json from '../global/json';
-import luckysheetConfigsetting from './luckysheetConfigsetting';
+import tibetsheetsConfigsetting from './tibetsheetsConfigsetting';
 import {customImageUpdate} from './imageUpdateCtrl';
 import method from '../global/method';
 
@@ -145,7 +145,7 @@ const server = {
 	    }
 
 	    // TODO 配置自定义方式同步图片
-        const customImageUpdateMethodConfig = luckysheetConfigsetting.imageUpdateMethodConfig
+        const customImageUpdateMethodConfig = tibetsheetsConfigsetting.imageUpdateMethodConfig
 		if (JSON.stringify(customImageUpdateMethodConfig) !== "{}") {
             if ("images" != d.k) {
                 let msg = pako.gzip(encodeURIComponent(JSON.stringify(d)), {to: "string"});
@@ -206,7 +206,7 @@ const server = {
 				let {message,id} = data;
 				// 用户退出时，关闭协同编辑时其提示框
 				if(message === '用户退出') {
-					$("#luckysheet-multipleRange-show-" + id).hide();
+					$("#tibetsheets-multipleRange-show-" + id).hide();
 					Store.cooperativeEdit.changeCollaborationSize = Store.cooperativeEdit.changeCollaborationSize.filter(value => {
 						return value.id != id
 					})
@@ -216,16 +216,16 @@ const server = {
 				}
 	            if(type == 1){ //send 成功或失败
                 const oldIndex = data.data.v.index;
-                const sheetToUpdate = Store.luckysheetfile.filter((sheet)=> sheet.index === oldIndex)[0];
+                const sheetToUpdate = Store.tibetsheetsfile.filter((sheet)=> sheet.index === oldIndex)[0];
                 if (sheetToUpdate !== null) {
                   setTimeout(() => {
                     const index = data.data.i;
                     sheetToUpdate.index = index;
                     Store.currentSheetIndex = index;
 
-                    $(`#luckysheet-sheets-item${oldIndex}`).attr('data-index', index);
-                    $(`#luckysheet-sheets-item${oldIndex}`).prop('id', `luckysheet-sheets-item${index}`);
-                    $(`#luckysheet-datavisual-selection-set-${oldIndex}`).prop('id', `luckysheet-datavisual-selection-set-${index}`);
+                    $(`#tibetsheets-sheets-item${oldIndex}`).attr('data-index', index);
+                    $(`#tibetsheets-sheets-item${oldIndex}`).prop('id', `tibetsheets-sheets-item${index}`);
+                    $(`#tibetsheets-datavisual-selection-set-${oldIndex}`).prop('id', `tibetsheets-datavisual-selection-set-${index}`);
                   }, 1);
                 }
 	            }
@@ -326,14 +326,14 @@ const server = {
 					//其他客户端切换页面时
 					Store.cooperativeEdit.checkoutData.forEach(item => {
 						if(item.index != Store.currentSheetIndex) {
-							$("#luckysheet-multipleRange-show-" + item.id).hide();
+							$("#tibetsheets-multipleRange-show-" + item.id).hide();
 							item.op == ''
 						}
 					})
 
-					if($("#luckysheet-multipleRange-show-" + id)[0]) {
-						let change_bottom = $("#luckysheet-multipleRange-show-" + id)[0].offsetHeight - 1
-						$("#luckysheet-multipleRange-show-" + id + ">.username").css({"bottom":change_bottom + 'px'})
+					if($("#tibetsheets-multipleRange-show-" + id)[0]) {
+						let change_bottom = $("#tibetsheets-multipleRange-show-" + id)[0].offsetHeight - 1
+						$("#tibetsheets-multipleRange-show-" + id + ">.username").css({"bottom":change_bottom + 'px'})
 					}
 	            }
 	            else if(type == 4){ //批量指令更新
@@ -385,7 +385,7 @@ const server = {
 	        index = item.i,
 	        value = item.v;
 
-	    let file = Store.luckysheetfile[getSheetIndex(index)];
+	    let file = Store.tibetsheetsfile[getSheetIndex(index)];
 
 	    if(["v","rv","cg","all","fc","drc","arc","f","fsc","fsr","sh","c"].includes(type) && file == null){
 	        return;
@@ -405,14 +405,14 @@ const server = {
 
 	            //如果更新的单元格有批注
 	            if(value != null && value.ps != null){
-	                luckysheetPostil.buildPs(r, c, value.ps);
+	                tibetsheetsPostil.buildPs(r, c, value.ps);
 	            }
 	            else{
-	                luckysheetPostil.buildPs(r, c, null);
+	                tibetsheetsPostil.buildPs(r, c, null);
 	            }
 
 	            setTimeout(function () {
-	                luckysheetrefreshgrid();
+	                tibetsheetsrefreshgrid();
 	            }, 1);
 	        }
 	    }
@@ -443,16 +443,16 @@ const server = {
 	            for(let r = r1; r <= r2; r++){
 	                for(let c = c1; c <= c2; c++){
 	                    if(value[r - r1][c - c1] != null && value[r - r1][c - c1].ps != null){
-	                        luckysheetPostil.buildPs(r, c, value[r - r1][c - c1].ps);
+	                        tibetsheetsPostil.buildPs(r, c, value[r - r1][c - c1].ps);
 	                    }
 	                    else{
-	                        luckysheetPostil.buildPs(r, c, null);
+	                        tibetsheetsPostil.buildPs(r, c, null);
 	                    }
 	                }
 	            }
 
 	            setTimeout(function () {
-	                luckysheetrefreshgrid();
+	                tibetsheetsrefreshgrid();
 	            }, 1);
 			}
 	    }
@@ -492,7 +492,7 @@ const server = {
 	            }
 
 	            setTimeout(function () {
-	                luckysheetrefreshgrid();
+	                tibetsheetsrefreshgrid();
 	            }, 1);
 	        }
 	    }
@@ -501,46 +501,46 @@ const server = {
 	        file[k] = value;
 
 	        if(k == "name"){ //工作表名
-	            $("#luckysheet-sheet-container-c #luckysheet-sheets-item" + index).find("span.luckysheet-sheets-item-name").html(value);
+	            $("#tibetsheets-sheet-container-c #tibetsheets-sheets-item" + index).find("span.tibetsheets-sheets-item-name").html(value);
 	        }
 	        else if(k == "color"){ //工作表颜色
-	            let currentSheetItem = $("#luckysheet-sheet-container-c #luckysheet-sheets-item" + index);
-	            currentSheetItem.find(".luckysheet-sheets-item-color").remove();
+	            let currentSheetItem = $("#tibetsheets-sheet-container-c #tibetsheets-sheets-item" + index);
+	            currentSheetItem.find(".tibetsheets-sheets-item-color").remove();
 
 	            if(value != null || value != ""){
-	                currentSheetItem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + value + ';"></div>');
+	                currentSheetItem.append('<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + value + ';"></div>');
 	            }
 	        }
 	        else if(k == "pivotTable"){ //PivotTable
-	            // luckysheet.pivotTable.changePivotTable(index);
+	            // tibetsheets.pivotTable.changePivotTable(index);
 	        }
 			else if(k == "frozen"){ //freezen row and column
 
 				// tranform frozen
-				luckysheetFreezen.frozenTofreezen();
+				tibetsheetsFreezen.frozenTofreezen();
 
 	            if(index == Store.currentSheetIndex){
 					const _locale = locale();
 					const locale_freezen = _locale.freezen;
 	                if(file["freezen"].horizontal == null){
-	                    $("#luckysheet-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale_freezen.freezenRow);
-	                    luckysheetFreezen.freezenhorizontaldata = null;
-	                    $("#luckysheet-freezebar-horizontal").hide();
+	                    $("#tibetsheets-freezen-btn-horizontal").html('<i class="fa fa-list-alt"></i> '+locale_freezen.freezenRow);
+	                    tibetsheetsFreezen.freezenhorizontaldata = null;
+	                    $("#tibetsheets-freezebar-horizontal").hide();
 	                }
 	                else{
-	                    luckysheetFreezen.createFreezenHorizontal(file["freezen"].horizontal.freezenhorizontaldata, file["freezen"].horizontal.top);
+	                    tibetsheetsFreezen.createFreezenHorizontal(file["freezen"].horizontal.freezenhorizontaldata, file["freezen"].horizontal.top);
 	                }
 
 	                if(file["freezen"].vertical == null){
-	                    $("#luckysheet-freezen-btn-vertical").html('<i class="fa fa-indent"></i> '+locale_freezen.freezenColumn);
-	                    luckysheetFreezen.freezenverticaldata = null;
-	                    $("#luckysheet-freezebar-vertical").hide();
+	                    $("#tibetsheets-freezen-btn-vertical").html('<i class="fa fa-indent"></i> '+locale_freezen.freezenColumn);
+	                    tibetsheetsFreezen.freezenverticaldata = null;
+	                    $("#tibetsheets-freezebar-vertical").hide();
 	                }
 	                else{
-	                    luckysheetFreezen.createFreezenVertical(file["freezen"].vertical.freezenverticaldata, file["freezen"].vertical.left);
+	                    tibetsheetsFreezen.createFreezenVertical(file["freezen"].vertical.freezenverticaldata, file["freezen"].vertical.left);
 	                }
 
-	                luckysheetFreezen.createAssistCanvas();
+	                tibetsheetsFreezen.createAssistCanvas();
 	            }
 	        }
 	        else if(k == "filter_select"){ //筛选范围
@@ -553,17 +553,17 @@ const server = {
 	                createFilterOptions(file.filter_select, value);
 	            }
 	        }
-	        else if(k == "luckysheet_conditionformat_save"){ //条件格式
+	        else if(k == "tibetsheets_conditionformat_save"){ //条件格式
 	            if(index == Store.currentSheetIndex){
 	                setTimeout(function () {
-	                    luckysheetrefreshgrid();
+	                    tibetsheetsrefreshgrid();
 	                }, 1);
 	            }
 	        }
-	        else if(k == "luckysheet_alternateformat_save"){ //交替颜色
+	        else if(k == "tibetsheets_alternateformat_save"){ //交替颜色
 	            if(index == Store.currentSheetIndex){
 	                setTimeout(function () {
-	                    luckysheetrefreshgrid();
+	                    tibetsheetsrefreshgrid();
 	                }, 1);
 	            }
 	        }
@@ -576,7 +576,7 @@ const server = {
 	        else if(k == "dynamicArray"){ //动态数组
 	            if(index == Store.currentSheetIndex){
 	                setTimeout(function () {
-	                    luckysheetrefreshgrid();
+	                    tibetsheetsrefreshgrid();
 	                }, 1);
 	            }
 			}
@@ -630,7 +630,7 @@ const server = {
 	        // }
 
 	        setTimeout(function () {
-	            luckysheetrefreshgrid();
+	            tibetsheetsrefreshgrid();
 	        }, 1);
 	    }
 	    else if(type == "drc"){ //删除行列
@@ -693,7 +693,7 @@ const server = {
 	            Store.config["borderInfo"] = borderInfo;
 
 	            setTimeout(function () {
-	                luckysheetrefreshgrid();
+	                tibetsheetsrefreshgrid();
 	            }, 1);
 	        }
 	    }
@@ -774,7 +774,7 @@ const server = {
 	            Store.config["borderInfo"] = borderInfo;
 
 	            setTimeout(function () {
-	                luckysheetrefreshgrid();
+	                tibetsheetsrefreshgrid();
 	            }, 1);
 	        }
 	    }
@@ -803,8 +803,8 @@ const server = {
 	        file.filter_select = null;
 
 	        if(index == Store.currentSheetIndex){
-	            $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
-	            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+	            $('#tibetsheets-filter-selected-sheet' + Store.currentSheetIndex + ', #tibetsheets-filter-options-sheet' + Store.currentSheetIndex).remove();
+	            $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
 	        }
 	    }
 	    else if(type == "fsr"){ //恢复筛选
@@ -816,15 +816,15 @@ const server = {
 	        }
 	    }
 	    else if(type == "sha"){ //新建sheet
-	        Store.luckysheetfile.push(value);
+	        Store.tibetsheetsfile.push(value);
 
 	        let colorset = '';
 	        if(value.color != null){
-	            colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + value.color + ';"></div>';
+	            colorset = '<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + value.color + ';"></div>';
 	        }
 
-	        $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, { "index": value.index, "active": "", "name": value.name, "style": "", "colorset": colorset }));
-	        $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + value.index + '" class="luckysheet-datavisual-selection-set"></div>');
+	        $("#tibetsheets-sheet-container-c").append(replaceHtml(sheetHTML, { "index": value.index, "active": "", "name": value.name, "style": "", "colorset": colorset }));
+	        $("#tibetsheets-cell-main").append('<div id="tibetsheets-datavisual-selection-set-' + value.index + '" class="tibetsheets-datavisual-selection-set"></div>');
 
 					// *添加sheet之后,要判断是否需要显示sheet滚动按钮
 					sheetmanage.locationSheet()
@@ -833,61 +833,61 @@ const server = {
 	        let copyindex = value.copyindex, name = value.name;
 
 	        let copyarrindex = getSheetIndex(copyindex);
-	        let copyjson = $.extend(true, {}, Store.luckysheetfile[copyarrindex]);
+	        let copyjson = $.extend(true, {}, Store.tibetsheetsfile[copyarrindex]);
 
 	        copyjson.index = index;
 	        copyjson.name = name;
 
-	        Store.luckysheetfile.splice(copyarrindex + 1, 0, copyjson);
+	        Store.tibetsheetsfile.splice(copyarrindex + 1, 0, copyjson);
 
-	        let copyobject = $("#luckysheet-sheets-item" + copyindex);
-	        $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, { "index": copyjson.index, "active": "", "name": copyjson.name, "style": "", "colorset": "" }));
-	        $("#luckysheet-sheets-item" + copyjson.index).insertAfter(copyobject);
-	        $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + copyjson.index + '" class="luckysheet-datavisual-selection-set"></div>');
+	        let copyobject = $("#tibetsheets-sheets-item" + copyindex);
+	        $("#tibetsheets-sheet-container-c").append(replaceHtml(sheetHTML, { "index": copyjson.index, "active": "", "name": copyjson.name, "style": "", "colorset": "" }));
+	        $("#tibetsheets-sheets-item" + copyjson.index).insertAfter(copyobject);
+	        $("#tibetsheets-cell-main").append('<div id="tibetsheets-datavisual-selection-set-' + copyjson.index + '" class="tibetsheets-datavisual-selection-set"></div>');
 	    }
 	    else if(type == "shd"){ //删除sheet
-	        for(let i = 0; i < Store.luckysheetfile.length; i++){
-	            if(Store.luckysheetfile[i].index == value.deleIndex){
+	        for(let i = 0; i < Store.tibetsheetsfile.length; i++){
+	            if(Store.tibetsheetsfile[i].index == value.deleIndex){
 
 					// 如果删除的是当前sheet，则切换到前一个sheet页
 					if(Store.currentSheetIndex === value.deleIndex){
 						const index = value.deleIndex;
 
-						Store.luckysheetfile[sheetmanage.getSheetIndex(index)].hide = 1;
+						Store.tibetsheetsfile[sheetmanage.getSheetIndex(index)].hide = 1;
 
-						let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + index);
-						luckysheetcurrentSheetitem.hide();
+						let tibetsheetscurrentSheetitem = $("#tibetsheets-sheets-item" + index);
+						tibetsheetscurrentSheetitem.hide();
 
-						$("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
+						$("#tibetsheets-sheet-area div.tibetsheets-sheets-item").removeClass("tibetsheets-sheets-item-active");
 
-						let indicator = luckysheetcurrentSheetitem.nextAll(":visible");
-						if (luckysheetcurrentSheetitem.nextAll(":visible").length > 0) {
+						let indicator = tibetsheetscurrentSheetitem.nextAll(":visible");
+						if (tibetsheetscurrentSheetitem.nextAll(":visible").length > 0) {
 							indicator = indicator.eq(0).data("index");
 						}
 						else {
-							indicator = luckysheetcurrentSheetitem.prevAll(":visible").eq(0).data("index");
+							indicator = tibetsheetscurrentSheetitem.prevAll(":visible").eq(0).data("index");
 						}
-						$("#luckysheet-sheets-item" + indicator).addClass("luckysheet-sheets-item-active");
+						$("#tibetsheets-sheets-item" + indicator).addClass("tibetsheets-sheets-item-active");
 
 						sheetmanage.changeSheetExec(indicator);
 					}
 
-					server.sheetDeleSave.push(Store.luckysheetfile[i]);
+					server.sheetDeleSave.push(Store.tibetsheetsfile[i]);
 
-					Store.luckysheetfile.splice(i, 1);
+					Store.tibetsheetsfile.splice(i, 1);
 
 	                break;
 	            }
 	        }
 
-	        $("#luckysheet-sheets-item" + value.deleIndex).remove();
-			$("#luckysheet-datavisual-selection-set-" + value.deleIndex).remove();
+	        $("#tibetsheets-sheets-item" + value.deleIndex).remove();
+			$("#tibetsheets-datavisual-selection-set-" + value.deleIndex).remove();
 			sheetmanage.locationSheet()
 
 	    }
 	    else if(type == "shr"){ //sheet位置
 	        for(let x in value){
-	            Store.luckysheetfile[getSheetIndex(x)].order = value[x];
+	            Store.tibetsheetsfile[getSheetIndex(x)].order = value[x];
 	        }
 	    }
 	    else if(type == "shre"){ //删除sheet恢复操作
@@ -895,15 +895,15 @@ const server = {
 	            if(server.sheetDeleSave[i].index == value.reIndex){
 	                let datav = server.sheetDeleSave[i];
 
-	                Store.luckysheetfile.push(datav);
+	                Store.tibetsheetsfile.push(datav);
 
 	                let colorset = '';
 	                if(value.color != null){
-	                    colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + datav.color + ';"></div>';
+	                    colorset = '<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + datav.color + ';"></div>';
 	                }
 
-	                $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, { "index": datav.index, "active": "", "name": datav.name, "style": "", "colorset": colorset }));
-	                $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + datav.index + '" class="luckysheet-datavisual-selection-set"></div>');
+	                $("#tibetsheets-sheet-container-c").append(replaceHtml(sheetHTML, { "index": datav.index, "active": "", "name": datav.name, "style": "", "colorset": colorset }));
+	                $("#tibetsheets-cell-main").append('<div id="tibetsheets-datavisual-selection-set-' + datav.index + '" class="tibetsheets-datavisual-selection-set"></div>');
 	                break;
 	            }
 	        }
@@ -913,16 +913,16 @@ const server = {
 
 	        if(op == "hide"){
 	            file.hide = 1;
-	            $("#luckysheet-sheets-item" + index).hide();
+	            $("#tibetsheets-sheets-item" + index).hide();
 
 	            if(index == Store.currentSheetIndex){
-	                $("#luckysheet-sheets-item" + cur).addClass("luckysheet-sheets-item-active");
+	                $("#tibetsheets-sheets-item" + cur).addClass("tibetsheets-sheets-item-active");
 	                sheetmanage.changeSheetExec(cur);
 	            }
 	        }
 	        else if(op == "show"){
 	            file.hide = 0;
-	            $("#luckysheet-sheets-item" + index).show();
+	            $("#tibetsheets-sheets-item" + index).show();
 	        }
 				sheetmanage.locationSheet()
 	    }
@@ -932,7 +932,7 @@ const server = {
 	        if(op == "add"){ //插入
 	            file.chart.push(value);
 
-	            luckysheet.insertChartTosheet(value.sheetIndex, value.dataSheetIndex, value.option, value.chartType, value.selfOption, value.defaultOption, value.row, value.column, value.chart_selection_color, value.chart_id, value.chart_selection_id, value.chartStyle, value.rangeConfigCheck, value.rangeRowCheck, value.rangeColCheck, value.chartMarkConfig, value.chartTitleConfig, value.winWidth, value.winHeight, value.scrollLeft1, value.scrollTop1, value.chartTheme, value.myWidth, value.myHeight, value.myLeft, value.myTop, value.myindexrank1, true);
+	            tibetsheets.insertChartTosheet(value.sheetIndex, value.dataSheetIndex, value.option, value.chartType, value.selfOption, value.defaultOption, value.row, value.column, value.chart_selection_color, value.chart_id, value.chart_selection_id, value.chartStyle, value.rangeConfigCheck, value.rangeRowCheck, value.rangeColCheck, value.chartMarkConfig, value.chartTitleConfig, value.winWidth, value.winHeight, value.scrollLeft1, value.scrollTop1, value.chartTheme, value.myWidth, value.myHeight, value.myLeft, value.myTop, value.myindexrank1, true);
 	        }
 	        else if(op == "xy" || op == "wh" || op == "update"){ //移动 缩放 更新
 	            for(let i = 0; i < file.chart.length; i++){
@@ -969,7 +969,7 @@ const server = {
 	        }
 	    }
 	    else if(type == "na"){ //表格名称
-	        $("#luckysheet_info_detail_input").val(value).css("width", getByteLen(value) * 10);
+	        $("#tibetsheets_info_detail_input").val(value).css("width", getByteLen(value) * 10);
 	    }
 	},
     multipleIndex: 0,
@@ -1010,11 +1010,11 @@ const server = {
 				name += " " + locale().edit.typing;
 			}
 
-	    if($("#luckysheet-multipleRange-show-" + id).length > 0){
-			$("#luckysheet-multipleRange-show-" + id).css({ "position": "absolute", "left": col_pre - 1, "width": col - col_pre - 1, "top": row_pre - 1, "height": row - row_pre - 1 });
+	    if($("#tibetsheets-multipleRange-show-" + id).length > 0){
+			$("#tibetsheets-multipleRange-show-" + id).css({ "position": "absolute", "left": col_pre - 1, "width": col - col_pre - 1, "top": row_pre - 1, "height": row - row_pre - 1 });
 
-			$("#luckysheet-multipleRange-show-" + id + " .username").text(name);
-			$("#luckysheet-multipleRange-show-" + id + " .username").show();
+			$("#tibetsheets-multipleRange-show-" + id + " .username").text(name);
+			$("#tibetsheets-multipleRange-show-" + id + " .username").show();
 
 			if(Store.cooperativeEdit.usernameTimeout['user' + id] != null){
 				clearTimeout(Store.cooperativeEdit.usernameTimeout['user' + id])
@@ -1028,13 +1028,13 @@ const server = {
 
 	    }
 	    else{
-	        // let itemHtml = '<div id="luckysheet-multipleRange-show-'+ id +'" data-color="'+ luckyColor[_this.multipleIndex] +'" title="'+ name +'" style="position: absolute;left: '+ (col_pre - 1) +'px;width: '+ (col - col_pre - 1) +'px;top: '+ (row_pre - 1) +'px;height: '+ (row - row_pre - 1) +'px;border: 1px solid '+ luckyColor[_this.multipleIndex] +';z-index: 15;">'+
+	        // let itemHtml = '<div id="tibetsheets-multipleRange-show-'+ id +'" data-color="'+ luckyColor[_this.multipleIndex] +'" title="'+ name +'" style="position: absolute;left: '+ (col_pre - 1) +'px;width: '+ (col - col_pre - 1) +'px;top: '+ (row_pre - 1) +'px;height: '+ (row - row_pre - 1) +'px;border: 1px solid '+ luckyColor[_this.multipleIndex] +';z-index: 15;">'+
 	        //                 '<div style="width: 100%;height: 100%;position: absolute;top: 0;right: 0;bottom: 0;left: 0;opacity: 0.03;background-color: '+ luckyColor[_this.multipleIndex] +'"></div>'+
 			//                '</div>';
 
 			let itemHtml = `<div
-								id="luckysheet-multipleRange-show-${id}"
-								class="luckysheet-multipleRange-show"
+								id="tibetsheets-multipleRange-show-${id}"
+								class="tibetsheets-multipleRange-show"
 								data-color="${luckyColor[_this.multipleIndex]}"
 								title="${fullName}"
 								style="position: absolute;left: ${col_pre - 1}px;width: ${col - col_pre - 1}px;top: ${row_pre - 1}px;height: ${row - row_pre - 1}px;border: 1px solid ${luckyColor[_this.multipleIndex]};z-index: 15;">
@@ -1049,7 +1049,7 @@ const server = {
 							</div>`;
 							// 正在输入
 
-	        $(itemHtml).appendTo($("#luckysheet-cell-main #luckysheet-multipleRange-show"));
+	        $(itemHtml).appendTo($("#tibetsheets-cell-main #tibetsheets-multipleRange-show"));
 
 			_this.multipleIndex++;
 
@@ -1125,12 +1125,12 @@ const server = {
                 $.post(_this.updateUrl, { compress: iscommpress, gridKey: _this.gridKey, data: params }, function (data) {
 					let re = new Function("return " + data)();
                     if(re.status){
-                        $("#luckysheet_info_detail_update").html("最近存档时间:"+ dayjs().format("M-D H:m:s"));
-                        $("#luckysheet_info_detail_save").html("同步成功");
+                        $("#tibetsheets_info_detail_update").html("最近存档时间:"+ dayjs().format("M-D H:m:s"));
+                        $("#tibetsheets_info_detail_save").html("同步成功");
                         _this.clearcachelocaldata();
                     }
                     else{
-                        $("#luckysheet_info_detail_save").html("<span style='color:#ff2121'>同步失败</span>");
+                        $("#tibetsheets_info_detail_save").html("<span style='color:#ff2121'>同步失败</span>");
                         _this.restorecachelocaldata();
                     }
                     _this.requestlast = dayjs();
@@ -1145,9 +1145,9 @@ const server = {
     imageRequest: function(){
         let _this = this;
 
-        html2canvas($("#" + container).find(".luckysheet-grid-window").get(0), {
+        html2canvas($("#" + container).find(".tibetsheets-grid-window").get(0), {
           onrendered: function(canvas) {
-            //let imgcut = $("#luckysheet-cell-main").find(".luckysheet-grid-window");
+            //let imgcut = $("#tibetsheets-cell-main").find(".tibetsheets-grid-window");
             //document.body.appendChild(canvas);
             let old = $(canvas).appendTo("body");
             old.hide();
@@ -1174,7 +1174,7 @@ const server = {
             //console.log(base64);
             //console.log("压缩：", pako.gzip(base64, { to: "string" }));
             //console.log("imageRequest");
-            let curindex = luckysheet.sheetmanage.getCurSheetnoset();
+            let curindex = tibetsheets.sheetmanage.getCurSheetnoset();
             _this.imageRequestLock =true;
             // let data1 = pako.gzip(encodeURIComponent(JSON.stringify({"t":"thumb", "img": base64, "curindex":curindex })), { to: "string" });
             let data1 = encodeURIComponent(JSON.stringify({"t":"thumb", "img": base64, "curindex":curindex }));
@@ -1188,7 +1188,7 @@ const server = {
                         imageRequestLast = dayjs();
                     }
                     else{
-                        $("#luckysheet_info_detail_save").html("<span style='color:#ff2121'>网络不稳定</span>");
+                        $("#tibetsheets_info_detail_save").html("<span style='color:#ff2121'>网络不稳定</span>");
                     }
                     _this.imageRequestLock =true;
                 });

@@ -6,7 +6,7 @@ import locale from '../locale/locale';
 
 //表格计数栏
 export function countfunc() {
-    if(Store.luckysheet_select_save.length == 0){
+    if(Store.tibetsheets_select_save.length == 0){
         return;
     }
 
@@ -16,8 +16,8 @@ export function countfunc() {
     	count = 0,        //计数（非空单元格）
     	mean = 0;         //平均值
 
-    for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-        let data = getdatabyselectionNoCopy(Store.luckysheet_select_save[s]);
+    for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+        let data = getdatabyselectionNoCopy(Store.tibetsheets_select_save[s]);
 
         for (let r = 0; r < data.length; r++) {
             for (let c = 0; c < data[0].length; c++) {
@@ -71,5 +71,5 @@ export function countfunc() {
         ret += "<span>"+locale_formula.min+":" + update("w", min) + "</span>";
     }
 
-    $("#luckysheet-sta-content").html(ret);
+    $("#tibetsheets-sta-content").html(ret);
 }

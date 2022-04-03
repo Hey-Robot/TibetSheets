@@ -1,8 +1,8 @@
 # 常见问题
 
-本章内容搜集了大家反馈的常见问题，如果官方文档和此列表都不能解答您的疑问，推荐到[官方论坛](https://github.com/mengshukeji/Luckysheet/discussions)反馈
+本章内容搜集了大家反馈的常见问题，如果官方文档和此列表都不能解答您的疑问，推荐到[官方论坛](https://github.com/mengshukeji/Tibetsheets/discussions)反馈
 
-## luckysheetfile中的data和celldata有什么区别？
+## tibetsheetsfile中的data和celldata有什么区别？
 
 **<span style="font-size:20px;">A</span>**：表格初始化时使用一维数组格式的 [celldata](/zh/guide/sheet.html#celldata)，初始化完成后转化为二维数组格式的data作为存储更新使用，celldata不再使用。
 
@@ -12,10 +12,10 @@
 总结如下：
 ```js
 // data => celldata 二维数组数据 转化成 {r, c, v}格式 一维数组
-luckysheet.transToCellData(data)
+tibetsheets.transToCellData(data)
 
 // celldata => data 生成表格所需二维数组
-luckysheet.transToData(celldata)
+tibetsheets.transToData(celldata)
 ```
 
 ------------
@@ -26,12 +26,12 @@ luckysheet.transToData(celldata)
 
 ------------
 
-## 如何在Vue/React项目中使用Luckysheet？
+## 如何在Vue/React项目中使用Tibetsheets？
 
 **<span style="font-size:20px;">A</span>**：参考
 
-- Vue案例：[luckysheet-vue](https://github.com/mengshukeji/luckysheet-vue)
-- React案例：[luckysheet-react](https://github.com/mengshukeji/luckysheet-react)
+- Vue案例：[tibetsheets-vue](https://github.com/mengshukeji/tibetsheets-vue)
+- React案例：[tibetsheets-react](https://github.com/mengshukeji/tibetsheets-react)
 
 ------------
 
@@ -43,7 +43,7 @@ luckysheet.transToData(celldata)
 
 ## 远端加载数据是loadUrl还是updateUrl？
 
-**<span style="font-size:20px;">A</span>**：[loadUrl](/zh/guide/config.html#loadurl)。配置了loadUrl，Luckysheet会通过ajax请求整个表格数据，而updateUrl会作为协同编辑实时保存的接口地址。
+**<span style="font-size:20px;">A</span>**：[loadUrl](/zh/guide/config.html#loadurl)。配置了loadUrl，Tibetsheets会通过ajax请求整个表格数据，而updateUrl会作为协同编辑实时保存的接口地址。
 注意：初始化数据需要配置loadUrl参数，而协同编辑则在配置loadUrl、updateUrl和allowUpdate四个参数才能生效。
 
 ------------
@@ -65,27 +65,27 @@ luckysheet.transToData(celldata)
 
 ## excel导入导出怎么做？
 
-**<span style="font-size:20px;">A</span>**：配合Luckysheet开发的excel导入导出库-[Luckyexcel](https://github.com/mengshukeji/Luckyexcel)已经实现了excel导入功能，导出功能正在开发当中。现阶段excel导出可以参考这2篇博文： 
+**<span style="font-size:20px;">A</span>**：配合Tibetsheets开发的excel导入导出库-[Luckyexcel](https://github.com/mengshukeji/Luckyexcel)已经实现了excel导入功能，导出功能正在开发当中。现阶段excel导出可以参考这2篇博文： 
 
-- [基于LuckySheet在线表格的Excel下载功能开发](https://www.cnblogs.com/recode-hyh/p/13168226.html)
-- [使用exceljs导出luckysheet表格](https://blog.csdn.net/csdn_lsy/article/details/107179708)
+- [基于TibetSheets在线表格的Excel下载功能开发](https://www.cnblogs.com/recode-hyh/p/13168226.html)
+- [使用exceljs导出tibetsheets表格](https://blog.csdn.net/csdn_lsy/article/details/107179708)
 
 ------------
 
 ## 初始化时合并单元格怎么做？
 
 **<span style="font-size:20px;">A</span>**：参考以下案例
-- [Luckysheet如何初始化含合并单元格的数据](https://www.cnblogs.com/DuShuSir/p/13272397.html)
+- [Tibetsheets如何初始化含合并单元格的数据](https://www.cnblogs.com/DuShuSir/p/13272397.html)
 
 ------------
 
-## Luckysheet如何把表格里的数据保存到数据库？有没有服务端存储和协作的解决方案？
+## Tibetsheets如何把表格里的数据保存到数据库？有没有服务端存储和协作的解决方案？
 
 **<span style="font-size:20px;">A</span>**：有两个方案：
 
-- 一是表格操作完成后，使用`luckysheet.getAllSheets()`方法获取到全部的工作表数据，全部发送到后台存储。
+- 一是表格操作完成后，使用`tibetsheets.getAllSheets()`方法获取到全部的工作表数据，全部发送到后台存储。
 - 二是开启协同编辑功能，实时传输数据给后端。
-具体的操作步骤参考这篇文章：[Luckysheet如何把表格里的数据保存到数据库](https://www.cnblogs.com/DuShuSir/p/13857874.html)
+具体的操作步骤参考这篇文章：[Tibetsheets如何把表格里的数据保存到数据库](https://www.cnblogs.com/DuShuSir/p/13857874.html)
 
 ------------
 
@@ -104,17 +104,17 @@ luckysheet.transToData(celldata)
 
 ## 项目使用了jQuery吗？
 
-**<span style="font-size:20px;">A</span>**：是的。Luckysheet内部启动时间比开源的时间早很多，所以用到了jQuery。打包工具会把jQuery集成到打包目录的`./plugins/js/plugin.js`文件中。
+**<span style="font-size:20px;">A</span>**：是的。Tibetsheets内部启动时间比开源的时间早很多，所以用到了jQuery。打包工具会把jQuery集成到打包目录的`./plugins/js/plugin.js`文件中。
 
 如果您的项目中（比如React/Vue）也自己全局引用了jQuery，且造成了冲突，可以尝试去掉一个jQuery。
 
-要想在Luckysheet里去除jQuery，需要在源码根目录下的`gulpfile.js`文件中找到打包jQuery的地方：[src/plugins/js/jquery.min.js](https://github.com/mengshukeji/Luckysheet/blob/master/gulpfile.js)，删除jQuery相关的信息即可。
+要想在Tibetsheets里去除jQuery，需要在源码根目录下的`gulpfile.js`文件中找到打包jQuery的地方：[src/plugins/js/jquery.min.js](https://github.com/mengshukeji/Tibetsheets/blob/master/gulpfile.js)，删除jQuery相关的信息即可。
 
 ------------
 
 ## 如何为单元格对象新增字段？
 
-**<span style="font-size:20px;">A</span>**：首先参考[单元格对象格式](/zh/guide/cell.html)，然后参照源码批注的部分[src/controllers/postil.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/postil.js)。批注是一个加在单元格对象上的一个配置。
+**<span style="font-size:20px;">A</span>**：首先参考[单元格对象格式](/zh/guide/cell.html)，然后参照源码批注的部分[src/controllers/postil.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/postil.js)。批注是一个加在单元格对象上的一个配置。
 
 ------------
 
@@ -122,7 +122,7 @@ luckysheet.transToData(celldata)
 
 **<span style="font-size:20px;">A</span>**：工具栏及其他部分图标采用了iconfont图标，加载不出来是因为缺少了iconfont.css的引入，之前旧版官方文档未写清楚这一点对大家造成误导，很抱歉。
 
-详细的Luckysheet使用教程参考已经更新的[官方文档](/zh/guide/#使用步骤)
+详细的Tibetsheets使用教程参考已经更新的[官方文档](/zh/guide/#使用步骤)
 
 ------------
 
@@ -147,7 +147,7 @@ Luckyexcel是excel导入导出库，项目采用了gulp作为打包工具，旧�
 
 <iframe frameborder="0" src="https://v.qq.com/txp/iframe/player.html?vid=g3162sacwn6" allowFullScreen="true"></iframe>
 
-跟着演示操作一下本地的工作表，然后打开浏览器控制台，使用`luckysheet.getLuckysheetfile()[0].config.authority`就可以获取到第一个工作表的工作表保护参数。
+跟着演示操作一下本地的工作表，然后打开浏览器控制台，使用`tibetsheets.getTibetsheetsfile()[0].config.authority`就可以获取到第一个工作表的工作表保护参数。
 
 ------------
 
@@ -157,9 +157,9 @@ Luckyexcel是excel导入导出库，项目采用了gulp作为打包工具，旧�
 
 ------------
 
-## Luckysheet通过引入CDN有案例吗？
+## Tibetsheets通过引入CDN有案例吗？
 
-**<span style="font-size:20px;">A</span>**：Luckysheet支持CDN方式引入，参考：[本地HTML采用cdn加载方式引入Luckysheet的案例](https://www.cnblogs.com/DuShuSir/p/13859103.html)
+**<span style="font-size:20px;">A</span>**：Tibetsheets支持CDN方式引入，参考：[本地HTML采用cdn加载方式引入Tibetsheets的案例](https://www.cnblogs.com/DuShuSir/p/13859103.html)
 
 ------------
 
@@ -181,7 +181,7 @@ Luckyexcel是excel导入导出库，项目采用了gulp作为打包工具，旧�
 
 **<span style="font-size:20px;">A</span>**：有两种方式可以获取
 
-- 一是使用`luckysheet.getLuckysheetfile()`获取到所有工作表配置后，在各个工作表的配置中直接取得默认行高`defaultRowHeight`和默认列宽`defaultColWidth`。
+- 一是使用`tibetsheets.getTibetsheetsfile()`获取到所有工作表配置后，在各个工作表的配置中直接取得默认行高`defaultRowHeight`和默认列宽`defaultColWidth`。
 - 二是开放了API可以获取到工作表默认的行高[getDefaultRowHeight](/zh/guide/api.html#getdefaultrowheight-setting)和列宽[getDefaultColWidth](/zh/guide/api.html#getdefaultcolwidth-setting)
 
 ------------
@@ -215,11 +215,11 @@ Luckyexcel是excel导入导出库，项目采用了gulp作为打包工具，旧�
 
 **<span style="font-size:20px;">A</span>**：第一步，检查下您是否使用了CDN的方式引入，
 
-Luckysheet教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/package/npm/luckysheet) 提供的服务，代码是从 [npmjs.com](https://www.npmjs.com/) 自动同步过去的，不是从 [Github](https://github.com/mengshukeji/Luckysheet/) 同步过去的。因为我们新提交的代码，还需要经过一段时间的测试，所以不会立即发布到npm使用，导致了npm的代码稍滞后于Github。
+Tibetsheets教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/package/npm/tibetsheets) 提供的服务，代码是从 [npmjs.com](https://www.npmjs.com/) 自动同步过去的，不是从 [Github](https://github.com/mengshukeji/Tibetsheets/) 同步过去的。因为我们新提交的代码，还需要经过一段时间的测试，所以不会立即发布到npm使用，导致了npm的代码稍滞后于Github。
 
-如果需要尝试最新代码，我们强烈建议您从 [Luckysheet Github](https://github.com/mengshukeji/Luckysheet/) 主仓库拉取代码。后续我们版本稳定了，会考虑实时发布npm包。
+如果需要尝试最新代码，我们强烈建议您从 [Tibetsheets Github](https://github.com/mengshukeji/Tibetsheets/) 主仓库拉取代码。后续我们版本稳定了，会考虑实时发布npm包。
 
-第二步，如果是引用github仓库打包后的代码，测试判断是否有bug，您可以查找问题并尝试修复，再[提交PR](https://github.com/mengshukeji/Luckysheet/pulls)，如果修复不了，请[提交issues](https://github.com/mengshukeji/Luckysheet/issues)。
+第二步，如果是引用github仓库打包后的代码，测试判断是否有bug，您可以查找问题并尝试修复，再[提交PR](https://github.com/mengshukeji/Tibetsheets/pulls)，如果修复不了，请[提交issues](https://github.com/mengshukeji/Tibetsheets/issues)。
 
 ------------
 
@@ -237,15 +237,15 @@ Luckysheet教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/pac
 
 ------------
 
-## 怎样在vue工程里对Luckysheet进行二次开发？
+## 怎样在vue工程里对Tibetsheets进行二次开发？
 
-**<span style="font-size:20px;">A</span>**：[luckysheet-vue](https://github.com/mengshukeji/luckysheet-vue) 案例是提供一个应用集成的方案。
+**<span style="font-size:20px;">A</span>**：[tibetsheets-vue](https://github.com/mengshukeji/tibetsheets-vue) 案例是提供一个应用集成的方案。
 
 如果本地直接开发的话：
-1. 把Luckysheet的工程和自己的Vue工程都启动起来，比如Luckysheet的工程在 `http://localhost:3001`
-2. 在Vue工程里面通过 `http://localhost:3001` 引入Luckysheet使用
+1. 把Tibetsheets的工程和自己的Vue工程都启动起来，比如Tibetsheets的工程在 `http://localhost:3001`
+2. 在Vue工程里面通过 `http://localhost:3001` 引入Tibetsheets使用
 
-这样的话，Luckysheet实时修改后，Vue工程里是可以看到更改的
+这样的话，Tibetsheets实时修改后，Vue工程里是可以看到更改的
 
 ------------
 
@@ -254,7 +254,7 @@ Luckysheet教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/pac
 **<span style="font-size:20px;">A</span>**：需要引入图表插件才能使用，工作簿初始化的时候应该配置图表插件使用，参考
 
 - 插件配置 [plugins](/zh/guide/config.html#配置项)
-- 或 官方demo [src/index.html](https://github.com/mengshukeji/Luckysheet/blob/master/src/index.html)
+- 或 官方demo [src/index.html](https://github.com/mengshukeji/Tibetsheets/blob/master/src/index.html)
 
 通常，参考demo配置完后就可以和demo一样正常使用了，但是还是会偶现`chartmix is not defined`，这时需要在谷歌浏览器控制台的network里检查下图表的依赖是否都加载了，有5项依赖需要关注：`vue / vuex / element-ui / echarts / chartmix.umd.js`。
 
@@ -274,7 +274,7 @@ Luckysheet教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/pac
 
 ## create回调为什么没有效果？
 
-**<span style="font-size:20px;">A</span>**：API 方法`luckysheet.create()`这个方法没有回调，但是Luckysheet提供了钩子函数用于在指定位置执行回调方法，比如：
+**<span style="font-size:20px;">A</span>**：API 方法`tibetsheets.create()`这个方法没有回调，但是Tibetsheets提供了钩子函数用于在指定位置执行回调方法，比如：
 - 表格创建之前触发 [workbookCreateBefore](/zh/guide/config.html#workbookcreatebefore)
 - 表格创建之后触发 [workbookCreateAfter](/zh/guide/config.html#workbookcreateafter)
 
@@ -285,31 +285,31 @@ Luckysheet教程里采用的CDN链接是 [jsdelivr](https://www.jsdelivr.com/pac
 **<span style="font-size:20px;">A</span>**：选中单元格时默认是高亮，把高亮去除即可，使用API: [setRangeShow](/zh/guide/api.html#setrangeshow-range-setting)
 
 ```js
-luckysheet.setRangeShow("A2",{show:false})
+tibetsheets.setRangeShow("A2",{show:false})
 ```
 
 ------------
 
 ## 右键事件绑定在哪？
 
-**<span style="font-size:20px;">A</span>**：在源码的 [src/controllers/hander.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/handler.js) 搜索`event.which == "3"`即可找到右键事件触发执行的代码。
+**<span style="font-size:20px;">A</span>**：在源码的 [src/controllers/hander.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/handler.js) 搜索`event.which == "3"`即可找到右键事件触发执行的代码。
 
 ------------
 
 ## 如何添加自定义工具栏？
 
 **<span style="font-size:20px;">A</span>**：暂未提供配置，可以参照工具栏打印按钮的实现来修改源码：
-1. 全局搜索 `luckysheet-icon-print`即可找到打印按钮的实现，在 [src/controllers/constant.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/constant.js) 中增加一个类似的模板字符串，需要自定义一个唯一id
-2. 修改 [src/controllers/resize.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/resize.js) ，在toobarConfig对象中新增一条记录
-3. 修改 [src/controllers/menuButton.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/menuButton.js) ，新增一个事件监听
+1. 全局搜索 `tibetsheets-icon-print`即可找到打印按钮的实现，在 [src/controllers/constant.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/constant.js) 中增加一个类似的模板字符串，需要自定义一个唯一id
+2. 修改 [src/controllers/resize.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/resize.js) ，在toobarConfig对象中新增一条记录
+3. 修改 [src/controllers/menuButton.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/menuButton.js) ，新增一个事件监听
 
 ------------
 
 ## 如何添加自定义公式？
 
 **<span style="font-size:20px;">A</span>**：需要修改两处源码：
-1. 在 [src/function/functionImplementation.js](https://github.com/mengshukeji/Luckysheet/blob/master/src/function/functionImplementation.js) 文件中的`functionImplementation`对象中增加一个公式，格式参考`SUM`/`AVERAGE`等公式
-2. 修改 [src/locale](https://github.com/mengshukeji/Luckysheet/blob/master/src/locale) 文件目录下所有的语言包，将自己新增的公式说明加到`functionlist`数组中。其中，`t`是函数的类别，`m`是参数的个数，最小参数个数和最大参数个数。
+1. 在 [src/function/functionImplementation.js](https://github.com/mengshukeji/Tibetsheets/blob/master/src/function/functionImplementation.js) 文件中的`functionImplementation`对象中增加一个公式，格式参考`SUM`/`AVERAGE`等公式
+2. 修改 [src/locale](https://github.com/mengshukeji/Tibetsheets/blob/master/src/locale) 文件目录下所有的语言包，将自己新增的公式说明加到`functionlist`数组中。其中，`t`是函数的类别，`m`是参数的个数，最小参数个数和最大参数个数。
 
 ------------
 

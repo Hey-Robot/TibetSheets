@@ -1,22 +1,22 @@
-.luckysheet-icon-img-container.iconfont,
-.luckysheet-submenu-arrow .iconfont
+.tibetsheets-icon-img-container.iconfont,
+.tibetsheets-submenu-arrow .iconfont
 {
     font-size: 24px;
 }
 
-.luckysheet-toolbar-menu-button .luckysheet-iconfont-xiayige,
-.luckysheet-toolbar-combo-button .luckysheet-iconfont-xiayige
+.tibetsheets-toolbar-menu-button .tibetsheets-iconfont-xiayige,
+.tibetsheets-toolbar-combo-button .tibetsheets-iconfont-xiayige
 {
     font-size: 12px;
     top: -8px;
     left: -3px;
 }
 
-.luckysheet-toolbar-select .luckysheet-iconfont-xiayige{
+.tibetsheets-toolbar-select .tibetsheets-iconfont-xiayige{
     margin-right: 4px;
 }
 
-#luckysheet-icon-morebtn{
+#tibetsheets-icon-morebtn{
     position: absolute;
     right: 15px;
     transform: translate(0,-50%);
@@ -24,28 +24,28 @@
 }
 
 
-.toolbar .luckysheet-icon-text-color,
-.toolbar .luckysheet-icon-cell-color,
-.toolbar .luckysheet-icon-border-all,
-.toolbar .luckysheet-icon-valign,
-.toolbar .luckysheet-icon-textwrap
+.toolbar .tibetsheets-icon-text-color,
+.toolbar .tibetsheets-icon-cell-color,
+.toolbar .tibetsheets-icon-border-all,
+.toolbar .tibetsheets-icon-valign,
+.toolbar .tibetsheets-icon-textwrap
 {
     margin-right: -3px;
 }
 
-.toolbar .luckysheet-icon-merge-button,
-.toolbar .luckysheet-icon-align,
-.toolbar .luckysheet-icon-rotation,
-.toolbar .luckysheet-icon-function,
-.toolbar .luckysheet-freezen-btn-horizontal
+.toolbar .tibetsheets-icon-merge-button,
+.toolbar .tibetsheets-icon-align,
+.toolbar .tibetsheets-icon-rotation,
+.toolbar .tibetsheets-icon-function,
+.toolbar .tibetsheets-freezen-btn-horizontal
 {
     margin-right: -4px;
 }
 
-#luckysheet-icon-morebtn{
+#tibetsheets-icon-morebtn{
     padding: 2px 13px 0 5px;
 }
-#luckysheet-icon-morebtn .iconfont{
+#tibetsheets-icon-morebtn .iconfont{
     top:-9px;
 }
 
@@ -63,27 +63,27 @@
 }
 
 /* more button border */
-#luckysheet-icon-morebtn-div{
+#tibetsheets-icon-morebtn-div{
     border: 1px solid rgb(212, 212, 212);
 }
 
 /* sheet bar add/menu button */
-/* #luckysheet-sheets-add, #luckysheet-sheets-m{
+/* #tibetsheets-sheets-add, #tibetsheets-sheets-m{
     padding: 1px 3px;
 } */
-.luckysheet-sheets-add .iconfont, .luckysheet-sheets-m .iconfont{
+.tibetsheets-sheets-add .iconfont, .tibetsheets-sheets-m .iconfont{
     font-size: 21px;
 }
 
 /* sheet bar left/right scroll */
-#luckysheet-sheets-leftscroll , #luckysheet-sheets-rightscroll{
+#tibetsheets-sheets-leftscroll , #tibetsheets-sheets-rightscroll{
     padding:6px 10px;
 }
 
-input.luckysheet-mousedown-cancel{
+input.tibetsheets-mousedown-cancel{
     border:1px solid #A1A1A1;
 }
-input.luckysheet-mousedown-cancel:focus{
+input.tibetsheets-mousedown-cancel:focus{
     border: 1px solid rgb(1, 136, 251);
     outline: none;
 }

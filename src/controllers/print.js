@@ -1,4 +1,4 @@
-import luckysheetConfigsetting from './luckysheetConfigsetting';
+import tibetsheetsConfigsetting from './tibetsheetsConfigsetting';
 import {zoomChange} from './zoom';
 import sheetmanage from './sheetmanage';
 import server from './server';
@@ -90,7 +90,7 @@ function printLineAndNumberCreate(sheet){
 }
 
 function switchViewBtn($t){
-    let $viewList = $t.parent(), preType=$viewList.find("luckysheet-print-viewBtn-active").attr("type");
+    let $viewList = $t.parent(), preType=$viewList.find("tibetsheets-print-viewBtn-active").attr("type");
     if($t.attr("type") == preType){
         return;
     }
@@ -103,14 +103,14 @@ function switchViewBtn($t){
         return;
     }
 
-    $t.parent().find(".luckysheet-print-viewBtn").removeClass("luckysheet-print-viewBtn-active");
-    $t.addClass("luckysheet-print-viewBtn-active");
+    $t.parent().find(".tibetsheets-print-viewBtn").removeClass("tibetsheets-print-viewBtn-active");
+    $t.addClass("tibetsheets-print-viewBtn-active");
 }
 
 export function printInitial(){
-    let container = luckysheetConfigsetting.container;
+    let container = tibetsheetsConfigsetting.container;
     let _this = this;
-    $("#"+container).find(".luckysheet-print-viewBtn").click(function(){
+    $("#"+container).find(".tibetsheets-print-viewBtn").click(function(){
         switchViewBtn($(this));
     });
 

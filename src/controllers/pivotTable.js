@@ -17,26 +17,26 @@ import { jfrefreshgrid, jfrefreshgridall } from '../global/refresh';
 import tooltip from '../global/tooltip';
 import editor from '../global/editor';
 import cleargridelement from '../global/cleargridelement';
-import luckysheetArray from '../global/array';
+import tibetsheetsArray from '../global/array';
 import analysis from '../global/analysis';
 import { selectHightlightShow } from './select';
-import { luckysheet_searcharray } from './sheetSearch';
+import { tibetsheets_searcharray } from './sheetSearch';
 import { 
     modelHTML, 
     filtermenuHTML, 
     filtersubmenuHTML, 
     pivottableconfigHTML,
     pivottablesumHTML,
-    luckysheetPivotTableHTML 
+    tibetsheetsPivotTableHTML 
 } from './constant';
 import sheetmanage from './sheetmanage';
-import luckysheetsizeauto from './resize';
+import tibetsheetssizeauto from './resize';
 import server from './server';
 import {checkProtectionAuthorityNormal} from './protection';
 import Store from '../store';
 import locale from '../locale/locale';
 import numeral from 'numeral';
-import { luckysheetlodingHTML } from '../controllers/constant';
+import { tibetsheetslodingHTML } from '../controllers/constant';
 
 const pivotTable = {
     pivotDatas: null,
@@ -57,28 +57,28 @@ const pivotTable = {
 
         let realIndex = getSheetIndex(sheetIndex);
 
-        if (getObjType(Store.luckysheetfile[realIndex].pivotTable) != "object"){
-            Store.luckysheetfile[realIndex].pivotTable = new Function("return " + Store.luckysheetfile[realIndex].pivotTable )();
+        if (getObjType(Store.tibetsheetsfile[realIndex].pivotTable) != "object"){
+            Store.tibetsheetsfile[realIndex].pivotTable = new Function("return " + Store.tibetsheetsfile[realIndex].pivotTable )();
         }
 
-        if (Store.luckysheetfile[realIndex].pivotTable != null) {
-            _this.column = Store.luckysheetfile[realIndex].pivotTable.column;
-            _this.row = Store.luckysheetfile[realIndex].pivotTable.row;
-            _this.values = Store.luckysheetfile[realIndex].pivotTable.values;
-            _this.filter = Store.luckysheetfile[realIndex].pivotTable.filter;
-            _this.showType = Store.luckysheetfile[realIndex].pivotTable.showType;
+        if (Store.tibetsheetsfile[realIndex].pivotTable != null) {
+            _this.column = Store.tibetsheetsfile[realIndex].pivotTable.column;
+            _this.row = Store.tibetsheetsfile[realIndex].pivotTable.row;
+            _this.values = Store.tibetsheetsfile[realIndex].pivotTable.values;
+            _this.filter = Store.tibetsheetsfile[realIndex].pivotTable.filter;
+            _this.showType = Store.tibetsheetsfile[realIndex].pivotTable.showType;
 
-            _this.filterparm = Store.luckysheetfile[realIndex].pivotTable.filterparm;
+            _this.filterparm = Store.tibetsheetsfile[realIndex].pivotTable.filterparm;
 
-            if (Store.luckysheetfile[realIndex].pivotTable.drawPivotTable != null) {
-                _this.drawPivotTable = Store.luckysheetfile[realIndex].pivotTable.drawPivotTable;
+            if (Store.tibetsheetsfile[realIndex].pivotTable.drawPivotTable != null) {
+                _this.drawPivotTable = Store.tibetsheetsfile[realIndex].pivotTable.drawPivotTable;
             }
             else {
                 _this.drawPivotTable = true;
             }
 
-            if (Store.luckysheetfile[realIndex].pivotTable.pivotTableBoundary != null) {
-                _this.pivotTableBoundary = Store.luckysheetfile[realIndex].pivotTable.pivotTableBoundary;
+            if (Store.tibetsheetsfile[realIndex].pivotTable.pivotTableBoundary != null) {
+                _this.pivotTableBoundary = Store.tibetsheetsfile[realIndex].pivotTable.pivotTableBoundary;
             }
             else {
                 _this.pivotTableBoundary = [12, 6];
@@ -88,14 +88,14 @@ const pivotTable = {
                 _this.pivot_select_save = data_select_save;
             }
             else {
-                _this.pivot_select_save = Store.luckysheetfile[realIndex].pivotTable.pivot_select_save;
+                _this.pivot_select_save = Store.tibetsheetsfile[realIndex].pivotTable.pivot_select_save;
             }
 
             if (datasheetindex != null) {
                 _this.pivotDataSheetIndex = datasheetindex;
             }
             else {
-                _this.pivotDataSheetIndex = Store.luckysheetfile[realIndex].pivotTable.pivotDataSheetIndex;
+                _this.pivotDataSheetIndex = Store.tibetsheetsfile[realIndex].pivotTable.pivotDataSheetIndex;
             }
         }
         else {
@@ -114,7 +114,7 @@ const pivotTable = {
                 _this.pivot_select_save = data_select_save;
             }
             else {
-                _this.pivot_select_save = Store.luckysheet_select_save;
+                _this.pivot_select_save = Store.tibetsheets_select_save;
             }
 
             if (datasheetindex != null) {
@@ -127,7 +127,7 @@ const pivotTable = {
 
         let pivotrealIndex = getSheetIndex(_this.pivotDataSheetIndex);
 
-        let otherfile = Store.luckysheetfile[pivotrealIndex];
+        let otherfile = Store.tibetsheetsfile[pivotrealIndex];
         if(otherfile["data"] == null){
             otherfile["data"] = sheetmanage.buildGridData(otherfile);
         }
@@ -175,7 +175,7 @@ const pivotTable = {
     caljs: null,
     initial: true,
     filterparm: null,
-    luckysheet_pivotTable_select_state: false,
+    tibetsheets_pivotTable_select_state: false,
     jgridCurrentPivotInput: null,
     movestate: false,
     moveitemposition: [],
@@ -183,37 +183,37 @@ const pivotTable = {
     showvaluecolrow: function () {
         let _this = this;
 
-        if ($("#luckysheet-modal-dialog-config-value .luckysheet-modal-dialog-slider-config-item").length >= 2) {
-            $("#luckysheetpivottablevaluecolrowshow").show();
+        if ($("#tibetsheets-modal-dialog-config-value .tibetsheets-modal-dialog-slider-config-item").length >= 2) {
+            $("#tibetsheetspivottablevaluecolrowshow").show();
 
             if (_this.showType == "column") {
-                $("#luckysheetpivottablevaluecolrow").prop("checked", true);
-                $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow']").addClass("ui-state-active");
+                $("#tibetsheetspivottablevaluecolrow").prop("checked", true);
+                $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow']").addClass("ui-state-active");
 
-                $("#luckysheetpivottablevaluecolrow1").prop("checked", false);
-                $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow1']").removeClass("ui-state-active");
+                $("#tibetsheetspivottablevaluecolrow1").prop("checked", false);
+                $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow1']").removeClass("ui-state-active");
             }
             else {
-                $("#luckysheetpivottablevaluecolrow1").prop("checked", true);
-                $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow1']").addClass("ui-state-active");
+                $("#tibetsheetspivottablevaluecolrow1").prop("checked", true);
+                $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow1']").addClass("ui-state-active");
 
-                $("#luckysheetpivottablevaluecolrow").prop("checked", false);
-                $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow']").removeClass("ui-state-active");
+                $("#tibetsheetspivottablevaluecolrow").prop("checked", false);
+                $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow']").removeClass("ui-state-active");
             }
         }
         else {
-            $("#luckysheetpivottablevaluecolrowshow").hide();
+            $("#tibetsheetspivottablevaluecolrowshow").hide();
         }
     },
     resetOrderby: function (obj) {
-        let orderby = $("#luckysheet-modal-dialog-config-value .luckysheet-modal-dialog-slider-config-item").index(obj);
-        $("#luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+        let orderby = $("#tibetsheets-modal-dialog-config-value .tibetsheets-modal-dialog-slider-config-item").index(obj);
+        $("#tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
             if ($(this).data("orderby") == orderby) {
                 $(this).data("orderby", "self");
             }
         });
     },
-    luckysheetsliderlistclearfilter: function ($filter) {
+    tibetsheetssliderlistclearfilter: function ($filter) {
         let _this = this;
 
         let $t = $filter.parent();
@@ -224,7 +224,7 @@ const pivotTable = {
             d = _this.origindata, 
             filterdata = {};
 
-        $t.data("rowhidden", "").find(".luckysheet-slider-list-item-filtered").hide();
+        $t.data("rowhidden", "").find(".tibetsheets-slider-list-item-filtered").hide();
         _this.setDatatojsfile("selected", {}, cindex);
         _this.setDatatojsfile("rowhidden", null, cindex);
 
@@ -238,9 +238,9 @@ const pivotTable = {
 
         _this.celldata = newdata;
         _this.refreshPivotTable();
-        $("#luckysheet-pivotTableFilter-menu, #luckysheet-pivotTableFilter-submenu").hide();
+        $("#tibetsheets-pivotTableFilter-menu, #tibetsheets-pivotTableFilter-submenu").hide();
     },
-    luckysheetsliderlistitemfilter: function ($filter) {
+    tibetsheetssliderlistitemfilter: function ($filter) {
         let _this = this;
 
         const _locale = locale();
@@ -248,7 +248,7 @@ const pivotTable = {
 
         let $t = $filter.parent(), 
             toffset = $t.offset(), 
-            $menu = $("#luckysheet-pivotTableFilter-menu"), 
+            $menu = $("#tibetsheets-pivotTableFilter-menu"), 
             winH = $(window).height(), 
             winW = $(window).width();
 
@@ -262,33 +262,33 @@ const pivotTable = {
             rowhidden = JSON.parse(rowhidden);
         }
 
-        $("body .luckysheet-cols-menu").hide();
-        $("#luckysheet-pivotTableFilter-menu, #luckysheet-pivotTableFilter-submenu").hide();
-        $("#luckysheet-pivotTableFilter-byvalue-input").val("");
-        $("#luckysheet-pivotTableFilter-bycondition").next().hide();
-        $("#luckysheet-pivotTableFilter-byvalue").next().show();
+        $("body .tibetsheets-cols-menu").hide();
+        $("#tibetsheets-pivotTableFilter-menu, #tibetsheets-pivotTableFilter-submenu").hide();
+        $("#tibetsheets-pivotTableFilter-byvalue-input").val("");
+        $("#tibetsheets-pivotTableFilter-bycondition").next().hide();
+        $("#tibetsheets-pivotTableFilter-byvalue").next().show();
 
         $menu.data("index", cindex);
 
-        $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").hide().find("input").val();
-        $("#luckysheet-pivotTableFilter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
+        $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").hide().find("input").val();
+        $("#tibetsheets-pivotTableFilter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
 
         let byconditiontype = $t.data("byconditiontype");
-        $("#luckysheet-pivotTableFilter-selected span").data("value", $t.data("byconditionvalue")).data("type", byconditiontype).text($t.data("byconditiontext"));
+        $("#tibetsheets-pivotTableFilter-selected span").data("value", $t.data("byconditionvalue")).data("type", byconditiontype).text($t.data("byconditiontext"));
 
         if (byconditiontype == "2") {
-            let $input = $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input2").show().find("input");
+            let $input = $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input2").show().find("input");
             $input.eq(0).val($t.data("byconditionvalue1"));
             $input.eq(1).val($t.data("byconditionvalue2"));
         }
         else if (byconditiontype == "1") {
-            $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").eq(0).show().find("input").val($t.data("byconditionvalue1"));
+            $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").eq(0).show().find("input").val($t.data("byconditionvalue1"));
         }
-        const loadingObj = luckysheetlodingHTML("#luckysheet-pivotTableFilter-byvalue-select",{text:locale_filter.filiterMoreDataTip});
-        $("#luckysheet-pivotTableFilter-byvalue-select").empty().append(loadingObj.el)
+        const loadingObj = tibetsheetslodingHTML("#tibetsheets-pivotTableFilter-byvalue-select",{text:locale_filter.filiterMoreDataTip});
+        $("#tibetsheets-pivotTableFilter-byvalue-select").empty().append(loadingObj.el)
         
         let rowhiddenother = {}; //其它筛选列的隐藏行
-        $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").not($t.get(0)).each(function () {
+        $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").not($t.get(0)).each(function () {
             let $t = $(this), rh = $t.data("rowhidden");
 
             if (rh == null || rh == "") {
@@ -416,17 +416,17 @@ const pivotTable = {
 
                             //日是否选中状态
                             if((y in dvmap_uncheck) && (m in dvmap_uncheck) && (d in dvmap_uncheck)){
-                                dayHtml +=  '<div class="day luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT +'-'+ dT +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + d + '</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + dayL + ' )</span>' +
+                                dayHtml +=  '<div class="day tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT +'-'+ dT +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + d + '</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + dayL + ' )</span>' +
                                             '</div>';
                             }
                             else{
-                                dayHtml +=  '<div class="day luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT +'-'+ dT +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + d + '</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + dayL + ' )</span>' +
+                                dayHtml +=  '<div class="day tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT +'-'+ dT +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + d + '</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + dayL + ' )</span>' +
                                             '</div>';
                             }
                         }
@@ -444,25 +444,25 @@ const pivotTable = {
 
                         //月是否选中状态
                         if((y in dvmap_uncheck) && (m in dvmap_uncheck)){
-                            monthHtml += '<div class="monthBox luckysheet-mousedown-cancel">' +
-                                            '<div class="month luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT2 +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + m + ''+locale_filter.filiterMonthText+'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + msum + ' )</span>' +
+                            monthHtml += '<div class="monthBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="month tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'-'+ mT2 +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + m + ''+locale_filter.filiterMonthText+'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + msum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="dayList luckysheet-mousedown-cancel">' + dayHtml + '</div>' +
+                                            '<div class="dayList tibetsheets-mousedown-cancel">' + dayHtml + '</div>' +
                                          '</div>';
                         }
                         else{
-                            monthHtml += '<div class="monthBox luckysheet-mousedown-cancel">' +
-                                            '<div class="month luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT2 +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + m + ''+locale_filter.filiterMonthText+'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + msum + ' )</span>' +
+                            monthHtml += '<div class="monthBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="month tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'-'+ mT2 +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + m + ''+locale_filter.filiterMonthText+'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + msum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="dayList luckysheet-mousedown-cancel">' + dayHtml + '</div>' +
+                                            '<div class="dayList tibetsheets-mousedown-cancel">' + dayHtml + '</div>' +
                                          '</div>';
                         }
                     }
@@ -470,25 +470,25 @@ const pivotTable = {
                     //年是否选中状态
                     let yearHtml;
                     if(y in dvmap_uncheck){
-                        yearHtml =  '<div class="yearBox luckysheet-mousedown-cancel">' +
-                                            '<div class="year luckysheet-mousedown-cancel cf" data-check="false" title="'+ y +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + y + ''+locale_filter.filiterYearText+'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + ysum + ' )</span>' +
+                        yearHtml =  '<div class="yearBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="year tibetsheets-mousedown-cancel cf" data-check="false" title="'+ y +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + y + ''+locale_filter.filiterYearText+'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + ysum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="monthList luckysheet-mousedown-cancel">' + monthHtml + '</div>' +
+                                            '<div class="monthList tibetsheets-mousedown-cancel">' + monthHtml + '</div>' +
                                         '</div>';
                     }
                     else{
-                        yearHtml =  '<div class="yearBox luckysheet-mousedown-cancel">' +
-                                            '<div class="year luckysheet-mousedown-cancel cf" data-check="true" title="'+ y +'">' +
-                                                '<i class="fa fa-caret-right luckysheet-mousedown-cancel" aria-hidden="true"></i>' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + y + ''+locale_filter.filiterYearText+'</label>' +
-                                                '<span class="count luckysheet-mousedown-cancel">( ' + ysum + ' )</span>' +
+                        yearHtml =  '<div class="yearBox tibetsheets-mousedown-cancel">' +
+                                            '<div class="year tibetsheets-mousedown-cancel cf" data-check="true" title="'+ y +'">' +
+                                                '<i class="fa fa-caret-right tibetsheets-mousedown-cancel" aria-hidden="true"></i>' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + y + ''+locale_filter.filiterYearText+'</label>' +
+                                                '<span class="count tibetsheets-mousedown-cancel">( ' + ysum + ' )</span>' +
                                             '</div>' +
-                                            '<div class="monthList luckysheet-mousedown-cancel">' + monthHtml + '</div>' +
+                                            '<div class="monthList tibetsheets-mousedown-cancel">' + monthHtml + '</div>' +
                                         '</div>';
                     }
 
@@ -515,17 +515,17 @@ const pivotTable = {
                         //是否选中状态
                         let dataHtml;
                         if((v + "#$$$#" + x) in vmap_uncheck){
-                            dataHtml =  '<div class="textBox luckysheet-mousedown-cancel cf" data-check="false" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ x +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + text + '</label>' +
-                                                '<span class="luckysheet-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
+                            dataHtml =  '<div class="textBox tibetsheets-mousedown-cancel cf" data-check="false" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ x +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + text + '</label>' +
+                                                '<span class="tibetsheets-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
                                             '</div>';
                         }
                         else{
-                            dataHtml =  '<div class="textBox luckysheet-mousedown-cancel cf" data-check="true" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ x +'">' +
-                                                '<input class="luckysheet-mousedown-cancel" type="checkbox" checked="checked"/>' +
-                                                '<label class="luckysheet-mousedown-cancel">' + text + '</label>' +
-                                                '<span class="luckysheet-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
+                            dataHtml =  '<div class="textBox tibetsheets-mousedown-cancel cf" data-check="true" data-filter="'+ (v + "#$$$#" + x) +'" title="'+ x +'">' +
+                                                '<input class="tibetsheets-mousedown-cancel" type="checkbox" checked="checked"/>' +
+                                                '<label class="tibetsheets-mousedown-cancel">' + text + '</label>' +
+                                                '<span class="tibetsheets-mousedown-cancel count">( ' + vmap[v][x] + ' )</span>' +
                                             '</div>';
                         }
 
@@ -537,10 +537,10 @@ const pivotTable = {
             // 适配小屏设备
             let containerH = winH - toffset.top - 350
             if (containerH < 0) containerH = 100
-            //$("#luckysheet-pivotTableFilter-byvalue-select").html("<div class='ListBox luckysheet-mousedown-cancel' style='max-height:" + containerH + "px;overflow-y:auto;overflow-x:hidden;'>" + item.join("") + "</div>");
+            //$("#tibetsheets-pivotTableFilter-byvalue-select").html("<div class='ListBox tibetsheets-mousedown-cancel' style='max-height:" + containerH + "px;overflow-y:auto;overflow-x:hidden;'>" + item.join("") + "</div>");
 
 
-            $("#luckysheet-pivotTableFilter-byvalue-select").append("<div class='ListBox luckysheet-mousedown-cancel' style='max-height:" + containerH + "px;overflow-y:auto;overflow-x:hidden;'>" + item.join("") + "</div>");
+            $("#tibetsheets-pivotTableFilter-byvalue-select").append("<div class='ListBox tibetsheets-mousedown-cancel' style='max-height:" + containerH + "px;overflow-y:auto;overflow-x:hidden;'>" + item.join("") + "</div>");
             loadingObj.close()
 
         }, 1);
@@ -599,23 +599,23 @@ const pivotTable = {
         let _this = this;
 
         let index = getSheetIndex(_this.pivotSheetIndex);
-        if (Store.luckysheetfile[index]["pivotTable"] == null) {
-            Store.luckysheetfile[index]["pivotTable"] = {};
+        if (Store.tibetsheetsfile[index]["pivotTable"] == null) {
+            Store.tibetsheetsfile[index]["pivotTable"] = {};
         }
 
         if (cindex == null) {
-            Store.luckysheetfile[index]["pivotTable"][attr] = value;
+            Store.tibetsheetsfile[index]["pivotTable"][attr] = value;
             _this[attr] = value;
         }
         else {
-            if (Store.luckysheetfile[index]["pivotTable"]["filterparm"] == null) {
-                Store.luckysheetfile[index]["pivotTable"]["filterparm"] = {};
+            if (Store.tibetsheetsfile[index]["pivotTable"]["filterparm"] == null) {
+                Store.tibetsheetsfile[index]["pivotTable"]["filterparm"] = {};
             }
 
-            if (Store.luckysheetfile[index]["pivotTable"]["filterparm"][cindex.toString()] == null) {
-                Store.luckysheetfile[index]["pivotTable"]["filterparm"][cindex.toString()] = {};
+            if (Store.tibetsheetsfile[index]["pivotTable"]["filterparm"][cindex.toString()] == null) {
+                Store.tibetsheetsfile[index]["pivotTable"]["filterparm"][cindex.toString()] = {};
             }
-            Store.luckysheetfile[index]["pivotTable"]["filterparm"][cindex.toString()][attr] = value;
+            Store.tibetsheetsfile[index]["pivotTable"]["filterparm"][cindex.toString()][attr] = value;
 
             if (_this["filterparm"] == null) {
                 _this["filterparm"] = {};
@@ -645,17 +645,17 @@ const pivotTable = {
             return;
         }
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             tooltip.info("", locale_pivotTable.errorNotAllowMulti);
             return
         }
 
-        if (Store.luckysheet_select_save.length == 0 || Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] || Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1]) {
+        if (Store.tibetsheets_select_save.length == 0 || Store.tibetsheets_select_save[0].row[0] == Store.tibetsheets_select_save[0].row[1] || Store.tibetsheets_select_save[0].column[0] == Store.tibetsheets_select_save[0].column[1]) {
             tooltip.info("", locale_pivotTable.errorSelectRange);
             return;
         }
 
-        let select_save = $.extend(true, {}, Store.luckysheet_select_save[0]);
+        let select_save = $.extend(true, {}, Store.tibetsheets_select_save[0]);
         sheetmanage.addNewSheet(e, true);
 
         _this.getCellData(Store.currentSheetIndex, datasheetindex, select_save);
@@ -671,7 +671,7 @@ const pivotTable = {
         const _locale = locale();
         const locale_pivotTable = _locale.pivotTable;
 
-        let pivotDataSheetIndex = Store.luckysheetfile[getSheetIndex(index)].pivotTable.pivotDataSheetIndex;
+        let pivotDataSheetIndex = Store.tibetsheetsfile[getSheetIndex(index)].pivotTable.pivotDataSheetIndex;
         let real_pivotDataSheetIndex = getSheetIndex(pivotDataSheetIndex);
 
         if(real_pivotDataSheetIndex == null){
@@ -742,10 +742,10 @@ const pivotTable = {
         Store.clearjfundo = false;
         
         if (addr > 0 || addc > 0) {
-            jfrefreshgridall(data[0].length, data.length, data, null, Store.luckysheet_select_save, "datachangeAll", undefined, undefined,isRefreshCanvas);
+            jfrefreshgridall(data[0].length, data.length, data, null, Store.tibetsheets_select_save, "datachangeAll", undefined, undefined,isRefreshCanvas);
         }
         else {
-            jfrefreshgrid(data, Store.luckysheet_select_save, {}, null, isRefreshCanvas);
+            jfrefreshgrid(data, Store.tibetsheets_select_save, {}, null, isRefreshCanvas);
             selectHightlightShow();
         }
 
@@ -760,7 +760,7 @@ const pivotTable = {
 
 
 
-        let file = Store.luckysheetfile[getSheetIndex(index)];
+        let file = Store.tibetsheetsfile[getSheetIndex(index)];
 
         if(!file.isPivotTable){
             return;
@@ -773,28 +773,28 @@ const pivotTable = {
             return;
         }
 
-        let slider = $("#luckysheet-modal-dialog-slider-pivot");        
+        let slider = $("#tibetsheets-modal-dialog-slider-pivot");        
 
         let isRangeClick = this.isPivotRange(row_index, col_index);
         if (isRangeClick && slider.is(":hidden")) {
             if(!checkProtectionAuthorityNormal(index, "usePivotTablereports",false)){
-                // Store.luckysheet_select_status = false;
+                // Store.tibetsheets_select_status = false;
                 return;
             }
             slider.show();
-            luckysheetsizeauto();
-            $("#luckysheet-sta-content").css("padding-right", 260);
+            tibetsheetssizeauto();
+            $("#tibetsheets-sta-content").css("padding-right", 260);
         }
         else if(!isRangeClick && slider.is(":visible")) {
             slider.hide();
-            luckysheetsizeauto();
-            $("#luckysheet-sta-content").css("padding-right", 10);
+            tibetsheetssizeauto();
+            $("#tibetsheets-sta-content").css("padding-right", 10);
         }
     },
     isPivotRange: function (row_index, col_index) {
         let _this = this;
 
-        if (!!Store.luckysheetcurrentisPivotTable) {
+        if (!!Store.tibetsheetscurrentisPivotTable) {
             if (row_index < _this.pivotTableBoundary[0] && col_index < _this.pivotTableBoundary[1]) {
                 return true;
             }
@@ -807,41 +807,41 @@ const pivotTable = {
         let _this = this;
         let columnarr = [], rowarr = [], filterarr = [], valuesarr = [];
 
-        $("#luckysheet-modal-dialog-config-filter .luckysheet-modal-dialog-slider-config-item").each(function () {
+        $("#tibetsheets-modal-dialog-config-filter .tibetsheets-modal-dialog-slider-config-item").each(function () {
             let item = {};
             item["index"] = $(this).data("index");
             item["name"] = $(this).data("name");
-            item["fullname"] = $(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text();
+            item["fullname"] = $(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text();
             filterarr.push(item);
         });
 
-        $("#luckysheet-modal-dialog-config-row .luckysheet-modal-dialog-slider-config-item").each(function () {
+        $("#tibetsheets-modal-dialog-config-row .tibetsheets-modal-dialog-slider-config-item").each(function () {
             let item = {};
             item["index"] = $(this).data("index");
             item["name"] = $(this).data("name");
-            item["fullname"] = $(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text();
+            item["fullname"] = $(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text();
             item["order"] = $(this).data("order");
             item["orderby"] = $(this).data("orderby");
             item["stastic"] = $(this).data("stastic");
             rowarr.push(item);
         });
 
-        $("#luckysheet-modal-dialog-config-column .luckysheet-modal-dialog-slider-config-item").each(function () {
+        $("#tibetsheets-modal-dialog-config-column .tibetsheets-modal-dialog-slider-config-item").each(function () {
             let item = {};
             item["index"] = $(this).data("index");
             item["name"] = $(this).data("name");
-            item["fullname"] = $(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text();
+            item["fullname"] = $(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text();
             item["order"] = $(this).data("order");
             item["orderby"] = $(this).data("orderby");
             item["stastic"] = $(this).data("stastic");
             columnarr.push(item);
         });
 
-        $("#luckysheet-modal-dialog-config-value .luckysheet-modal-dialog-slider-config-item").each(function () {
+        $("#tibetsheets-modal-dialog-config-value .tibetsheets-modal-dialog-slider-config-item").each(function () {
             let item = {};
             item["index"] = $(this).data("index");
             item["name"] = $(this).data("name");
-            item["fullname"] = $(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text();
+            item["fullname"] = $(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text();
             item["sumtype"] = $(this).data("sumtype");
             item["nameindex"] = $(this).data("nameindex");
             valuesarr.push(item);
@@ -851,7 +851,7 @@ const pivotTable = {
         _this.setDatatojsfile("row", rowarr);
         _this.setDatatojsfile("filter", filterarr);
         _this.setDatatojsfile("values", valuesarr);
-        let showtype = $("#luckysheetpivottablevaluecolrow:checked, #luckysheetpivottablevaluecolrow1:checked").val();
+        let showtype = $("#tibetsheetspivottablevaluecolrow:checked, #tibetsheetspivottablevaluecolrow1:checked").val();
         _this.setDatatojsfile("showType", showtype == "0" ? "row" : "column");
 
         let pivotTable = _this.getPivotTableData();
@@ -864,10 +864,10 @@ const pivotTable = {
         }
 
         let index = getSheetIndex(dataindex);
-        let pivotTable = Store.luckysheetfile[index]["pivotTable"];
+        let pivotTable = Store.tibetsheetsfile[index]["pivotTable"];
 
         if(getObjType(pivotTable) == "object"){
-            pivotTable = $.extend(true, {}, Store.luckysheetfile[index]["pivotTable"]);
+            pivotTable = $.extend(true, {}, Store.tibetsheetsfile[index]["pivotTable"]);
         }
         else{
             pivotTable = new Function("return " + pivotTable )();
@@ -916,41 +916,41 @@ const pivotTable = {
 
 
 
-            $("body").first().append(luckysheetPivotTableHTML());
-            $("#luckysheet-modal-dialog-slider-close").click(function () {
-                $("#luckysheet-modal-dialog-slider-pivot").hide();
-                luckysheetsizeauto();
+            $("body").first().append(tibetsheetsPivotTableHTML());
+            $("#tibetsheets-modal-dialog-slider-close").click(function () {
+                $("#tibetsheets-modal-dialog-slider-pivot").hide();
+                tibetsheetssizeauto();
             });
 
-            $("body").first().append(replaceHtml(modelHTML, { "id": "luckysheet-data-pivotTable-selection", "addclass": "luckysheet-data-pivotTable-selection", "title": locale_pivotTable.titleSelectionDataRange, "content": '<input id="luckysheet-pivotTable-range-selection-input" class="luckysheet-datavisual-range-container" style="font-size: 14px;padding:5px;max-width:none;" spellcheck="false" aria-label="'+locale_pivotTable.titleDataRange+'" placeholder="'+locale_pivotTable.titleDataRange+'">', "botton": '<button id="luckysheet-pivotTable-selection-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>' }));
+            $("body").first().append(replaceHtml(modelHTML, { "id": "tibetsheets-data-pivotTable-selection", "addclass": "tibetsheets-data-pivotTable-selection", "title": locale_pivotTable.titleSelectionDataRange, "content": '<input id="tibetsheets-pivotTable-range-selection-input" class="tibetsheets-datavisual-range-container" style="font-size: 14px;padding:5px;max-width:none;" spellcheck="false" aria-label="'+locale_pivotTable.titleDataRange+'" placeholder="'+locale_pivotTable.titleDataRange+'">', "botton": '<button id="tibetsheets-pivotTable-selection-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default tibetsheets-model-close-btn">'+locale_button.cancel+'</button>' }));
 
             $("body").first().append(replaceHtml(filtermenuHTML(), { "menuid": "pivotTableFilter" }));
             $("body").first().append(replaceHtml(filtersubmenuHTML(), { "menuid": "pivotTableFilter" }));
             $("body").first().append(pivottableconfigHTML());
             $("body").first().append(pivottablesumHTML());
 
-            $("#luckysheet-pivotTableFilter-orderby-asc").remove();
-            $("#luckysheet-pivotTableFilter-orderby-desc").next().remove();
-            $("#luckysheet-pivotTableFilter-orderby-desc").remove();
-            $("#luckysheet-pivotTableFilter-orderby-color").next().remove();
-            $("#luckysheet-pivotTableFilter-orderby-color").remove();
+            $("#tibetsheets-pivotTableFilter-orderby-asc").remove();
+            $("#tibetsheets-pivotTableFilter-orderby-desc").next().remove();
+            $("#tibetsheets-pivotTableFilter-orderby-desc").remove();
+            $("#tibetsheets-pivotTableFilter-orderby-color").next().remove();
+            $("#tibetsheets-pivotTableFilter-orderby-color").remove();
 
-            $("#luckysheetpivottablevaluecolrow, #luckysheetpivottablevaluecolrow1").checkboxradio({
+            $("#tibetsheetspivottablevaluecolrow, #tibetsheetspivottablevaluecolrow1").checkboxradio({
                 icon: false
             }).change(function () {
                 _this.refreshPivotTable();
             });
 
             let hidefilersubmenu = null;
-            $("#luckysheet-pivotTableFilter-menu").mouseover(function () {
+            $("#tibetsheets-pivotTableFilter-menu").mouseover(function () {
                 clearTimeout(hidefilersubmenu);
                 hidefilersubmenu = setTimeout(function () {
-                    $("#luckysheet-pivotTableFilter-submenu").hide();
+                    $("#tibetsheets-pivotTableFilter-submenu").hide();
                 }, 500);
             });
 
             //点击复选框
-            $(document).off("click.ptFilterCheckbox1").on("click.ptFilterCheckbox1", "#luckysheet-pivotTableFilter-byvalue-select .textBox",function(){
+            $(document).off("click.ptFilterCheckbox1").on("click.ptFilterCheckbox1", "#tibetsheets-pivotTableFilter-byvalue-select .textBox",function(){
                 if($(this).attr("data-check") == "true"){
                     $(this).attr("data-check", "false");
                     $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -960,7 +960,7 @@ const pivotTable = {
                     $(this).find("input[type='checkbox']").prop("checked", true);
                 }
             })
-            $(document).off("click.ptFilterCheckbox2").on("click.ptFilterCheckbox2", "#luckysheet-pivotTableFilter-byvalue-select .year",function(){
+            $(document).off("click.ptFilterCheckbox2").on("click.ptFilterCheckbox2", "#tibetsheets-pivotTableFilter-byvalue-select .year",function(){
                 if($(this).attr("data-check") == "true"){
                     $(this).attr("data-check", "false");
                     $(this).parents(".yearBox").find(".month").attr("data-check", "false");
@@ -974,7 +974,7 @@ const pivotTable = {
                     $(this).parents(".yearBox").find("input[type='checkbox']").prop("checked", true);
                 }
             })
-            $(document).off("click.ptFilterCheckbox3").on("click.ptFilterCheckbox3", "#luckysheet-pivotTableFilter-byvalue-select .month",function(){
+            $(document).off("click.ptFilterCheckbox3").on("click.ptFilterCheckbox3", "#tibetsheets-pivotTableFilter-byvalue-select .month",function(){
                 //月份 对应的 天
                 if($(this).attr("data-check") == "true"){
                     $(this).attr("data-check", "false");
@@ -1006,7 +1006,7 @@ const pivotTable = {
                     $(this).parents(".yearBox").find(".year input[type='checkbox']").removeAttr("checked");
                 }
             })
-            $(document).off("click.ptFilterCheckbox4").on("click.ptFilterCheckbox4", "#luckysheet-pivotTableFilter-byvalue-select .day",function(){
+            $(document).off("click.ptFilterCheckbox4").on("click.ptFilterCheckbox4", "#tibetsheets-pivotTableFilter-byvalue-select .day",function(){
                 if($(this).attr("data-check") == "true"){
                     $(this).attr("data-check", "false");
                     $(this).find("input[type='checkbox']").removeAttr("checked");
@@ -1056,8 +1056,8 @@ const pivotTable = {
             })
 
             //日期 三级下拉显示
-            $(document).off("click.ptFilterYearDropdown").on("click.ptFilterYearDropdown", "#luckysheet-pivotTableFilter-byvalue-select .yearBox .fa-caret-right",function(){
-                let $p = $(this).parents(".luckysheet-mousedown-cancel");
+            $(document).off("click.ptFilterYearDropdown").on("click.ptFilterYearDropdown", "#tibetsheets-pivotTableFilter-byvalue-select .yearBox .fa-caret-right",function(){
+                let $p = $(this).parents(".tibetsheets-mousedown-cancel");
                 if($p.hasClass("year")){
                     $(this).parents(".yearBox").find(".monthList").slideToggle();
                 }
@@ -1067,26 +1067,26 @@ const pivotTable = {
             });
 
             //全选
-            $("#luckysheet-pivotTableFilter-byvalue-btn-all").click(function () {
-                $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").prop("checked", true);
-                $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").parents(".luckysheet-mousedown-cancel").attr("data-check", "true");
+            $("#tibetsheets-pivotTableFilter-byvalue-btn-all").click(function () {
+                $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").prop("checked", true);
+                $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").parents(".tibetsheets-mousedown-cancel").attr("data-check", "true");
             });
 
             //反选
-            $("#luckysheet-pivotTableFilter-byvalue-btn-contra").click(function () {
-                let $input = $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']");
+            $("#tibetsheets-pivotTableFilter-byvalue-btn-contra").click(function () {
+                let $input = $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']");
                 $input.each(function(i, e){
                     if($(e).is(":checked")){
                         $(e).removeAttr("checked");
-                        $(e).parents(".luckysheet-mousedown-cancel").attr("data-check", "false");
+                        $(e).parents(".tibetsheets-mousedown-cancel").attr("data-check", "false");
                     }
                     else{
                         $(e).prop("checked", true);
-                        $(e).parents(".luckysheet-mousedown-cancel").attr("data-check", "true");
+                        $(e).parents(".tibetsheets-mousedown-cancel").attr("data-check", "true");
                     }
                 });
                 //天 对应的 月份
-                let $month = $("#luckysheet-pivotTableFilter-byvalue-select .ListBox .monthBox");
+                let $month = $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox .monthBox");
                 $month.each(function(index, event){
                     let monthDayAllCheck = true;
                     let $monthDay = $(event).find(".day input[type='checkbox']");
@@ -1108,7 +1108,7 @@ const pivotTable = {
                     }
                 });
                 //天 对应的 年份
-                let $year = $("#luckysheet-pivotTableFilter-byvalue-select .ListBox .yearBox");
+                let $year = $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox .yearBox");
                 $year.each(function(index, event){
                     let yearDayAllCheck = true;
                     let $yearDay = $(event).find(".day input[type='checkbox']");
@@ -1132,19 +1132,19 @@ const pivotTable = {
             });
 
             //清除
-            $("#luckysheet-pivotTableFilter-byvalue-btn-clear").click(function () {
-                $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").removeAttr("checked");
-                $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").parents(".luckysheet-mousedown-cancel").attr("data-check", "false");
+            $("#tibetsheets-pivotTableFilter-byvalue-btn-clear").click(function () {
+                $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").removeAttr("checked");
+                $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").parents(".tibetsheets-mousedown-cancel").attr("data-check", "false");
             });
 
             //按照值进行筛选
-            $("#luckysheet-pivotTableFilter-byvalue-input").on('input propertychange', function () {
+            $("#tibetsheets-pivotTableFilter-byvalue-input").on('input propertychange', function () {
                 let v = $(this).val().toString();
-                $("#luckysheet-pivotTableFilter-byvalue-select .ListBox .luckysheet-mousedown-cancel").show();
+                $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox .tibetsheets-mousedown-cancel").show();
                 if(v != ""){
-                    let $check = $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']");
+                    let $check = $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']");
                     $check.each(function(i, e){
-                        let $p = $(e).parents(".luckysheet-mousedown-cancel");
+                        let $p = $(e).parents(".tibetsheets-mousedown-cancel");
                         if($p.hasClass("day")){ //日期
                             let day = $(e).siblings("label").text().toString();
                             let month = $(e).parents(".monthBox").find(".month label").text().toString();
@@ -1176,19 +1176,19 @@ const pivotTable = {
                 }
             });
 
-            $("#luckysheet-pivotTableFilter-bycondition, #luckysheet-pivotTableFilter-byvalue").click(function () {
+            $("#tibetsheets-pivotTableFilter-bycondition, #tibetsheets-pivotTableFilter-byvalue").click(function () {
                 let $t = $(this);
                 $t.next().slideToggle(200);
                 setTimeout(function () {
-                    if ($t.attr("id") == "luckysheet-pivotTableFilter-bycondition" && $("#luckysheet-pivotTableFilter-bycondition").next().is(":visible")) {
-                        if ($("#luckysheet-pivotTableFilter-selected span").text() != locale_filter.filiterInputNone) {
-                            $("#luckysheet-pivotTableFilter-byvalue").next().slideUp(200);
+                    if ($t.attr("id") == "tibetsheets-pivotTableFilter-bycondition" && $("#tibetsheets-pivotTableFilter-bycondition").next().is(":visible")) {
+                        if ($("#tibetsheets-pivotTableFilter-selected span").text() != locale_filter.filiterInputNone) {
+                            $("#tibetsheets-pivotTableFilter-byvalue").next().slideUp(200);
                         }
                     }
 
-                    if ($t.is($("#luckysheet-pivotTableFilter-bycondition"))) {
-                        if ($("#luckysheet-pivotTableFilter-bycondition").next().is(":hidden") && $("#luckysheet-pivotTableFilter-byvalue").next().is(":hidden")) {
-                            $("#luckysheet-pivotTableFilter-byvalue").next().slideDown(200);
+                    if ($t.is($("#tibetsheets-pivotTableFilter-bycondition"))) {
+                        if ($("#tibetsheets-pivotTableFilter-bycondition").next().is(":hidden") && $("#tibetsheets-pivotTableFilter-byvalue").next().is(":hidden")) {
+                            $("#tibetsheets-pivotTableFilter-byvalue").next().slideDown(200);
                         }
                     }
                 }, 300);
@@ -1196,12 +1196,12 @@ const pivotTable = {
             });
 
             //取消按钮
-            $("#luckysheet-pivotTableFilter-cancel").click(function () {
-                $("#luckysheet-pivotTableFilter-menu, #luckysheet-pivotTableFilter-submenu").hide();
+            $("#tibetsheets-pivotTableFilter-cancel").click(function () {
+                $("#tibetsheets-pivotTableFilter-menu, #tibetsheets-pivotTableFilter-submenu").hide();
             });
 
-            $("#luckysheet-pivotTableFilter-selected").click(function () {
-                let $t = $(this), toffset = $t.offset(), $menu = $("#luckysheet-pivotTableFilter-submenu");
+            $("#tibetsheets-pivotTableFilter-selected").click(function () {
+                let $t = $(this), toffset = $t.offset(), $menu = $("#tibetsheets-pivotTableFilter-submenu");
                 $menu.hide();
                 let winH = $(window).height(), winW = $(window).width();
                 let menuW = $menu.width(), menuH = $menu.height();
@@ -1224,68 +1224,68 @@ const pivotTable = {
             });
 
             //按条件过滤
-            $("#luckysheet-pivotTableFilter-submenu").mouseover(function () {
+            $("#tibetsheets-pivotTableFilter-submenu").mouseover(function () {
                 clearTimeout(hidefilersubmenu);
-            }).find(".luckysheet-cols-menuitem").click(function (e) {
-                $("#luckysheet-pivotTableFilter-selected span").html($(this).find(".luckysheet-cols-menuitem-content").text()).data("value", $(this).data("value"));
-                $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").hide();
+            }).find(".tibetsheets-cols-menuitem").click(function (e) {
+                $("#tibetsheets-pivotTableFilter-selected span").html($(this).find(".tibetsheets-cols-menuitem-content").text()).data("value", $(this).data("value"));
+                $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").hide();
                 if ($(this).data("type") == "2") {
-                    $("#luckysheet-pivotTableFilter-selected span").data("type", "2");
-                    $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input2").show();
+                    $("#tibetsheets-pivotTableFilter-selected span").data("type", "2");
+                    $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input2").show();
                 }
                 else if ($(this).data("type") == "0") {
-                    $("#luckysheet-pivotTableFilter-selected span").data("type", "0");
+                    $("#tibetsheets-pivotTableFilter-selected span").data("type", "0");
                 }
                 else {
-                    $("#luckysheet-pivotTableFilter-selected span").data("type", "1");
-                    $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").eq(0).show();
+                    $("#tibetsheets-pivotTableFilter-selected span").data("type", "1");
+                    $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").eq(0).show();
                     //若是日期 改变input type类型为date
                     if($(this).attr("data-value") == "dateequal" || $(this).attr("data-value") == "datelessthan" || $(this).attr("data-value") == "datemorethan"){
-                        $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input input").prop("type", "date");
+                        $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input input").prop("type", "date");
                     }
                     else{
-                        $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input input").prop("type", "text");
+                        $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input input").prop("type", "text");
                     }
                 }
-                $("#luckysheet-pivotTableFilter-byvalue").next().slideUp();
-                $("#luckysheet-pivotTableFilter-submenu").hide();
+                $("#tibetsheets-pivotTableFilter-byvalue").next().slideUp();
+                $("#tibetsheets-pivotTableFilter-submenu").hide();
             });
 
-            $("#luckysheet-modal-dialog-pivotTable-list").on("click", " .luckysheet-slider-list-item-filter", function (e) {
-                _this.luckysheetsliderlistitemfilter($(this));
+            $("#tibetsheets-modal-dialog-pivotTable-list").on("click", " .tibetsheets-slider-list-item-filter", function (e) {
+                _this.tibetsheetssliderlistitemfilter($(this));
                 e.stopPropagation();
                 return false;
             });
 
-            $("#luckysheet-modal-dialog-pivotTable-list").on("click", " .luckysheet-slider-list-item-filtered", function (e) {
-                _this.luckysheetsliderlistclearfilter($(this).next());
+            $("#tibetsheets-modal-dialog-pivotTable-list").on("click", " .tibetsheets-slider-list-item-filtered", function (e) {
+                _this.tibetsheetssliderlistclearfilter($(this).next());
                 e.stopPropagation();
                 return false;
             });
 
-            $("#luckysheet-dialog-pivotTable-range-seleted").click(function () {
-                $("#luckysheet-modal-dialog-slider-pivot").hide();
-                luckysheetsizeauto();
-                let $t = $("#luckysheet-data-pivotTable-selection"), 
+            $("#tibetsheets-dialog-pivotTable-range-seleted").click(function () {
+                $("#tibetsheets-modal-dialog-slider-pivot").hide();
+                tibetsheetssizeauto();
+                let $t = $("#tibetsheets-data-pivotTable-selection"), 
                     myh = $t.outerHeight(), 
                     myw = $t.outerWidth();
                 let winw = $(window).width(), winh = $(window).height();
                 let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
 
-                $("#luckysheet-data-pivotTable-selection").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 4 }).show();
+                $("#tibetsheets-data-pivotTable-selection").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 4 }).show();
 
-                _this.jgridCurrentPivotInput = $("#luckysheet-dialog-pivotTable-range").html();
-                $("#luckysheet-pivotTable-range-selection-input").val(_this.jgridCurrentPivotInput);
-                _this.luckysheet_pivotTable_select_state = true;
+                _this.jgridCurrentPivotInput = $("#tibetsheets-dialog-pivotTable-range").html();
+                $("#tibetsheets-pivotTable-range-selection-input").val(_this.jgridCurrentPivotInput);
+                _this.tibetsheets_pivotTable_select_state = true;
             });
 
             //清除筛选按钮
-            $("#luckysheet-pivotTableFilter-initial").click(function () {
-                $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-slider-list-item-filtered").hide();
-                $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").data("rowhidden", "");
-                $("#luckysheet-pivotTableFilter-menu, #luckysheet-pivotTableFilter-submenu").hide();
-                $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").hide().find("input").val();
-                $("#luckysheet-pivotTableFilter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
+            $("#tibetsheets-pivotTableFilter-initial").click(function () {
+                $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-slider-list-item-filtered").hide();
+                $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").data("rowhidden", "");
+                $("#tibetsheets-pivotTableFilter-menu, #tibetsheets-pivotTableFilter-submenu").hide();
+                $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").hide().find("input").val();
+                $("#tibetsheets-pivotTableFilter-selected span").data("type", "0").data("type", null).text(locale_filter.filiterInputNone);
 
                 _this.setDatatojsfile("filterparm", null);
                 _this.celldata = _this.origindata;
@@ -1293,9 +1293,9 @@ const pivotTable = {
                 _this.refreshPivotTable();
             });
 
-            $("#luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column").on("click", ".luckysheet-modal-dialog-slider-config-item-icon", function (e) {
+            $("#tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column").on("click", ".tibetsheets-modal-dialog-slider-config-item-icon", function (e) {
                 let $t = $(e.target), 
-                    $item = $t.closest(".luckysheet-modal-dialog-slider-config-item"), 
+                    $item = $t.closest(".tibetsheets-modal-dialog-slider-config-item"), 
                     cindex = $item.data("index"), 
                     toffset = $item.offset();
                 let order = $item.data("order"), 
@@ -1306,12 +1306,12 @@ const pivotTable = {
                     order = "default";
                 }
 
-                let option = '<option value="self">' + $item.find(".luckysheet-modal-dialog-slider-config-item-txt").data("name") + '</option>';
+                let option = '<option value="self">' + $item.find(".tibetsheets-modal-dialog-slider-config-item-txt").data("name") + '</option>';
 
-                $("#luckysheet-modal-dialog-config-value .luckysheet-modal-dialog-slider-config-item").each(function (i) {
-                    option += '<option value="' + i + '">' + $(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text() + '</option>';
+                $("#tibetsheets-modal-dialog-config-value .tibetsheets-modal-dialog-slider-config-item").each(function (i) {
+                    option += '<option value="' + i + '">' + $(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text() + '</option>';
                 });
-                $("#luckysheet-pivotTable-config-option-orderby").empty().html(option);
+                $("#tibetsheets-pivotTable-config-option-orderby").empty().html(option);
                 
                 if (orderby == null) {
                     orderby = "self";
@@ -1321,30 +1321,30 @@ const pivotTable = {
                     stastic = "1";
                 }
 
-                $("#luckysheet-pivotTable-config-option-order").val(order).data("index", cindex);
-                $("#luckysheet-pivotTable-config-option-orderby").val(orderby).data("index", cindex);
-                $("#luckysheet-pivotTable-config-option-stastic").val(stastic).data("index", cindex);
+                $("#tibetsheets-pivotTable-config-option-order").val(order).data("index", cindex);
+                $("#tibetsheets-pivotTable-config-option-orderby").val(orderby).data("index", cindex);
+                $("#tibetsheets-pivotTable-config-option-stastic").val(stastic).data("index", cindex);
 
-                mouseclickposition($("#luckysheet-pivotTable-config-option"), toffset.left + $item.outerWidth(), toffset.top - 13, "rightbottom");
+                mouseclickposition($("#tibetsheets-pivotTable-config-option"), toffset.left + $item.outerWidth(), toffset.top - 13, "rightbottom");
                 e.stopPropagation();
                 return false;
             });
 
-            $("#luckysheet-pivotTable-config-option-order,#luckysheet-pivotTable-config-option-orderby,#luckysheet-pivotTable-config-option-stastic").change(function () {
+            $("#tibetsheets-pivotTable-config-option-order,#tibetsheets-pivotTable-config-option-orderby,#tibetsheets-pivotTable-config-option-stastic").change(function () {
                 let $t = $(this), cindex = $t.data("index");
                 
-                $("#luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+                $("#tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
                     if ($(this).data("index") == cindex) {
-                        $(this).data($t.attr("id").replace("luckysheet-pivotTable-config-option-", ""), $t.val());
+                        $(this).data($t.attr("id").replace("tibetsheets-pivotTable-config-option-", ""), $t.val());
                     }
                 });
 
                 _this.refreshPivotTable();
             });
 
-            $("#luckysheet-modal-dialog-config-value").on("click", ".luckysheet-modal-dialog-slider-config-item-icon", function (e) {
+            $("#tibetsheets-modal-dialog-config-value").on("click", ".tibetsheets-modal-dialog-slider-config-item-icon", function (e) {
                 let $t = $(e.target), 
-                    $item = $t.closest(".luckysheet-modal-dialog-slider-config-item"), 
+                    $item = $t.closest(".tibetsheets-modal-dialog-slider-config-item"), 
                     cindex = $item.data("index"), 
                     toffset = $item.offset(), 
                     sumtype = $item.data("sumtype");
@@ -1359,9 +1359,9 @@ const pivotTable = {
                     }
                 }
 
-                let $menu = $("#luckysheet-pivotTable-config-option-sumtype");
-                $menu.find(".luckysheet-submenu-arrow").hide();
-                $menu.find(".luckysheet-cols-menuitem[sumtype='" + sumtype + "'] .luckysheet-submenu-arrow").css("display", "inline");
+                let $menu = $("#tibetsheets-pivotTable-config-option-sumtype");
+                $menu.find(".tibetsheets-submenu-arrow").hide();
+                $menu.find(".tibetsheets-cols-menuitem[sumtype='" + sumtype + "'] .tibetsheets-submenu-arrow").css("display", "inline");
                 $menu.data("item", $item);
 
                 mouseclickposition($menu, toffset.left + $item.outerWidth(), toffset.top - 13, "rightbottom");
@@ -1369,31 +1369,31 @@ const pivotTable = {
                 return false;
             });
 
-            $("#luckysheet-pivotTable-config-option-sumtype .luckysheet-cols-menuitem").click(function () {
-                let $item = $("#luckysheet-pivotTable-config-option-sumtype").data("item");
+            $("#tibetsheets-pivotTable-config-option-sumtype .tibetsheets-cols-menuitem").click(function () {
+                let $item = $("#tibetsheets-pivotTable-config-option-sumtype").data("item");
                 let sumtype = $(this).attr("sumtype");
                 $item.data("sumtype", $(this).attr("sumtype"));
                 let name = _this.getSumTypeName(sumtype) + ":" + $item.data("name");
-                $item.attr("title", name).find(".luckysheet-modal-dialog-slider-config-item-txt").html(name);
-                $("#luckysheet-pivotTable-config-option-sumtype").hide();
+                $item.attr("title", name).find(".tibetsheets-modal-dialog-slider-config-item-txt").html(name);
+                $("#tibetsheets-pivotTable-config-option-sumtype").hide();
                 _this.refreshPivotTable();
             });
 
-            $("#luckysheet-modal-dialog-config-filter").on("click", ".luckysheet-modal-dialog-slider-config-item-icon", function (e) {
+            $("#tibetsheets-modal-dialog-config-filter").on("click", ".tibetsheets-modal-dialog-slider-config-item-icon", function (e) {
                 let $t = $(e.target), 
-                    cindex = $t.closest(".luckysheet-modal-dialog-slider-config-item").data("index");
-                _this.luckysheetsliderlistitemfilter($("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(cindex).find(".luckysheet-slider-list-item-filter"));
+                    cindex = $t.closest(".tibetsheets-modal-dialog-slider-config-item").data("index");
+                _this.tibetsheetssliderlistitemfilter($("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(cindex).find(".tibetsheets-slider-list-item-filter"));
                 e.stopPropagation();
                 return false;
             });
 
             //确认按钮
-            $("#luckysheet-pivotTableFilter-confirm").click(function () {
-                let $menu = $("#luckysheet-pivotTableFilter-menu");
+            $("#tibetsheets-pivotTableFilter-confirm").click(function () {
+                let $menu = $("#tibetsheets-pivotTableFilter-menu");
                 let cindex = $menu.data("index");
 
                 let rowhiddenother = {}; //其它筛选列的隐藏行
-                $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").each(function () {
+                $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").each(function () {
                     let $t = $(this), rh = $t.data("rowhidden");
 
                     if($t.data("index") != cindex){
@@ -1417,8 +1417,8 @@ const pivotTable = {
                 let rowhidden = {};
                 let caljs = {};
 
-                if ($("#luckysheet-pivotTableFilter-bycondition").next().is(":visible") && $("#luckysheet-pivotTableFilter-byvalue").next().is(":hidden") && $("#luckysheet-pivotTableFilter-selected span").data("value") != "null") {
-                    let $t = $("#luckysheet-pivotTableFilter-selected span");
+                if ($("#tibetsheets-pivotTableFilter-bycondition").next().is(":visible") && $("#tibetsheets-pivotTableFilter-byvalue").next().is(":hidden") && $("#tibetsheets-pivotTableFilter-selected span").data("value") != "null") {
+                    let $t = $("#tibetsheets-pivotTableFilter-selected span");
                     let type = $t.data("type"), value = $t.data("value");
 
                     caljs["value"] = value;
@@ -1428,14 +1428,14 @@ const pivotTable = {
                         caljs["type"] = "0";
                     }
                     else if (type == "2") {
-                        let $input = $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input2 input");
+                        let $input = $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input2 input");
                         caljs["type"] = "2";
                         caljs["value1"] = $input.eq(0).val();
                         caljs["value2"] = $input.eq(1).val();
                     }
                     else {
                         caljs["type"] = "1";
-                        caljs["value1"] = $("#luckysheet-pivotTableFilter-menu .luckysheet-pivotTableFilter-selected-input").eq(0).find("input").val();
+                        caljs["value1"] = $("#tibetsheets-pivotTableFilter-menu .tibetsheets-pivotTableFilter-selected-input").eq(0).find("input").val();
                     }
 
                     for (let r = 1; r < d.length; r++) {
@@ -1707,7 +1707,7 @@ const pivotTable = {
                     }
                 }
                 else {
-                    $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
+                    $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']").each(function(i, e){
                         if($(e).is(":visible") && $(e).is(":checked")){
                             return true;
                         }
@@ -1766,9 +1766,9 @@ const pivotTable = {
                     }
                 }
 
-                let $top = $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(cindex);
-                if ($("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']:visible:checked").length < $("#luckysheet-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']:visible").length || $("#luckysheet-pivotTableFilter-byvalue-input").val().length > 0 || ($("#luckysheet-pivotTableFilter-bycondition").next().is(":visible") && $("#luckysheet-pivotTableFilter-byvalue").next().is(":hidden") && $("#luckysheet-pivotTableFilter-selected span").data("value") != "null")) {
-                    $top.data("rowhidden", JSON.stringify(rowhidden)).find(".luckysheet-slider-list-item-filtered").show();
+                let $top = $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(cindex);
+                if ($("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']:visible:checked").length < $("#tibetsheets-pivotTableFilter-byvalue-select .ListBox input[type='checkbox']:visible").length || $("#tibetsheets-pivotTableFilter-byvalue-input").val().length > 0 || ($("#tibetsheets-pivotTableFilter-bycondition").next().is(":visible") && $("#tibetsheets-pivotTableFilter-byvalue").next().is(":hidden") && $("#tibetsheets-pivotTableFilter-selected span").data("value") != "null")) {
+                    $top.data("rowhidden", JSON.stringify(rowhidden)).find(".tibetsheets-slider-list-item-filtered").show();
                     _this.setDatatojsfile("rowhidden", rowhidden, cindex);
 
                     if (caljs != null) {
@@ -1786,7 +1786,7 @@ const pivotTable = {
                     }
                 }
                 else {
-                    $top.data("rowhidden", "").find(".luckysheet-slider-list-item-filtered").hide();
+                    $top.data("rowhidden", "").find(".tibetsheets-slider-list-item-filtered").hide();
                     _this.setDatatojsfile("rowhidden", null, cindex);
                 }
 
@@ -1801,31 +1801,31 @@ const pivotTable = {
 
                 _this.celldata = newdata;
                 _this.refreshPivotTable();
-                $("#luckysheet-pivotTableFilter-menu, #luckysheet-pivotTableFilter-submenu").hide();
+                $("#tibetsheets-pivotTableFilter-menu, #tibetsheets-pivotTableFilter-submenu").hide();
 
                 cleargridelement();
             });
 
-            $("#luckysheet-data-pivotTable-selection .luckysheet-model-close-btn, #luckysheet-data-pivotTable-selection .luckysheet-modal-dialog-title-close").click(function () {
-                $("#luckysheet-modal-dialog-slider-pivot").show();
-                luckysheetsizeauto();
-                $("#luckysheet-cell-main .luckysheet-pivotTable-selection-set div").show();
+            $("#tibetsheets-data-pivotTable-selection .tibetsheets-model-close-btn, #tibetsheets-data-pivotTable-selection .tibetsheets-modal-dialog-title-close").click(function () {
+                $("#tibetsheets-modal-dialog-slider-pivot").show();
+                tibetsheetssizeauto();
+                $("#tibetsheets-cell-main .tibetsheets-pivotTable-selection-set div").show();
 
-                $("#luckysheet-data-pivotTable-selection").hide();
+                $("#tibetsheets-data-pivotTable-selection").hide();
 
                 sheetmanage.changeSheetExec(_this.pivotSheetIndex);
 
-                _this.luckysheet_pivotTable_select_state = false;
+                _this.tibetsheets_pivotTable_select_state = false;
 
                 cleargridelement();
             });
 
-            $("#luckysheet-pivotTable-selection-confirm").click(function () {
-                let $input = $("#luckysheet-pivotTable-range-selection-input"), val = $input.val();
+            $("#tibetsheets-pivotTable-selection-confirm").click(function () {
+                let $input = $("#tibetsheets-pivotTable-range-selection-input"), val = $input.val();
 
                 if ($.trim(val).length == 0 || $.trim(val).toUpperCase() == _this.jgridCurrentPivotInput.toUpperCase()) {
                     $input.val(_this.jgridCurrentPivotInput);
-                    $("#luckysheet-data-pivotTable-selection .luckysheet-model-close-btn").click();
+                    $("#tibetsheets-data-pivotTable-selection .tibetsheets-model-close-btn").click();
                     return;
                 }
                 else {
@@ -1836,9 +1836,9 @@ const pivotTable = {
                         sheettxt = val1[0];
                         rangetxt = val1[1];
 
-                        for (let i in Store.luckysheetfile) {
-                            if (sheettxt == Store.luckysheetfile[i].name) {
-                                sheetIndex = Store.luckysheetfile[i].index;
+                        for (let i in Store.tibetsheetsfile) {
+                            if (sheettxt == Store.tibetsheetsfile[i].name) {
+                                sheetIndex = Store.tibetsheetsfile[i].index;
                                 break;
                             }
                         }
@@ -1849,12 +1849,12 @@ const pivotTable = {
                     }
                     else {
                         let index = getSheetIndex(Store.currentSheetIndex);
-                        sheettxt = Store.luckysheetfile[index].name;
-                        sheetIndex = Store.luckysheetfile[index].index;
+                        sheettxt = Store.tibetsheetsfile[index].name;
+                        sheetIndex = Store.tibetsheetsfile[index].index;
                         rangetxt = val1[0];
                     }
 
-                    if(Store.luckysheetfile[getSheetIndex(sheetIndex)].isPivotTable){
+                    if(Store.tibetsheetsfile[getSheetIndex(sheetIndex)].isPivotTable){
                         if(isEditMode()){
                             alert(locale_pivotTable.errorNotAllowPivotData);
                         }
@@ -1915,23 +1915,23 @@ const pivotTable = {
 
                     _this.initialPivotManage();
 
-                    $("#luckysheet-dialog-pivotTable-range").html(val);
+                    $("#tibetsheets-dialog-pivotTable-range").html(val);
 
-                    $("#luckysheet-modal-dialog-slider-pivot").show();
+                    $("#tibetsheets-modal-dialog-slider-pivot").show();
 
-                    $("#luckysheet-data-pivotTable-selection").hide();
+                    $("#tibetsheets-data-pivotTable-selection").hide();
 
-                    _this.luckysheet_pivotTable_select_state = false;
+                    _this.tibetsheets_pivotTable_select_state = false;
 
                     _this.refreshPivotTable();
 
-                    luckysheetsizeauto();
+                    tibetsheetssizeauto();
 
                     cleargridelement();
                 }
             });
 
-            $("#luckysheet-modal-dialog-slider-pivot").on("mousedown", ".luckysheet-slider-list-item-name, .luckysheet-modal-dialog-slider-config-item-txt", function (e) {
+            $("#tibetsheets-modal-dialog-slider-pivot").on("mousedown", ".tibetsheets-slider-list-item-name, .tibetsheets-modal-dialog-slider-config-item-txt", function (e) {
                 let $cur = $(e.target);
                 _this.movestate = true;
                 _this.movesave.obj = $cur.parent();
@@ -1939,49 +1939,49 @@ const pivotTable = {
                 _this.movesave.containerid = $cur.parent().parent().attr("id");
                 _this.movesave.index = $cur.data("index");
                 
-                if ($("#luckysheet-modal-dialog-slider-pivot-move").length == 0) {
-                    $("body").first().append('<div id="luckysheet-modal-dialog-slider-pivot-move">' + _this.movesave.name + '</div>');
+                if ($("#tibetsheets-modal-dialog-slider-pivot-move").length == 0) {
+                    $("body").first().append('<div id="tibetsheets-modal-dialog-slider-pivot-move">' + _this.movesave.name + '</div>');
                 }
 
-                _this.movesave.width = $("#luckysheet-modal-dialog-slider-pivot-move").outerWidth();
-                _this.movesave.height = $("#luckysheet-modal-dialog-slider-pivot-move").outerHeight();
+                _this.movesave.width = $("#tibetsheets-modal-dialog-slider-pivot-move").outerWidth();
+                _this.movesave.height = $("#tibetsheets-modal-dialog-slider-pivot-move").outerHeight();
 
-                $("#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").css("cursor", "default");
+                $("#tibetsheets-modal-dialog-pivotTable-list, #tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").css("cursor", "default");
             });
 
-            $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").mousemove(function (e) {
+            $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").mousemove(function (e) {
                 if (_this.movestate) {
                     if (_this.moveitemposition.length == 0) {
                         _this.moveitemposition = [0];
                         
-                        $(this).find(".luckysheet-modal-dialog-slider-config-item").each(function (i) {
+                        $(this).find(".tibetsheets-modal-dialog-slider-config-item").each(function (i) {
                             let $t = $(this), h = $t.outerHeight();
                             _this.moveitemposition.push(_this.moveitemposition[i] + h + 2);
                         });
-                        $(this).append('<div id="luckysheet-modal-dialog-config-order-help" style="position:absolute;height:3px;width:100%;background:#007ACC;z-index:1;pointer-events: none;user-select:none;"></div>');
+                        $(this).append('<div id="tibetsheets-modal-dialog-config-order-help" style="position:absolute;height:3px;width:100%;background:#007ACC;z-index:1;pointer-events: none;user-select:none;"></div>');
                     }
 
-                    $("#luckysheet-modal-dialog-slider-pivot-move").css({ "background": "#FD8585", "color": "#fff", "border": "1px solid #FD7070" });
+                    $("#tibetsheets-modal-dialog-slider-pivot-move").css({ "background": "#FD8585", "color": "#fff", "border": "1px solid #FD7070" });
                     let x = event.pageX, y = event.pageY, $container = $(this);
                     let curtop = y - $container.offset().top + $container.scrollTop();
                     let position = _this.moveitemposition;
-                    let row_index = luckysheet_searcharray(position, curtop);
+                    let row_index = tibetsheets_searcharray(position, curtop);
 
                     if (row_index == -1) {
-                        $("#luckysheet-modal-dialog-config-order-help").css({ "top": position[position.length - 1] });
+                        $("#tibetsheets-modal-dialog-config-order-help").css({ "top": position[position.length - 1] });
                     }
                     else if ((curtop - position[row_index - 1]) > (position[row_index] - position[row_index - 1]) / 2) {
-                        $("#luckysheet-modal-dialog-config-order-help").css({ "top": position[row_index] });
+                        $("#tibetsheets-modal-dialog-config-order-help").css({ "top": position[row_index] });
                     }
                     else {
-                        $("#luckysheet-modal-dialog-config-order-help").css({ "top": position[row_index - 1] });
+                        $("#tibetsheets-modal-dialog-config-order-help").css({ "top": position[row_index - 1] });
                     }
                 }
             }).mouseleave(function () {
                 if (_this.movestate) {
-                    $("#luckysheet-modal-dialog-slider-pivot-move").css({ "background": "#fff", "color": "#000", "border": "1px dotted #000" });
+                    $("#tibetsheets-modal-dialog-slider-pivot-move").css({ "background": "#fff", "color": "#000", "border": "1px dotted #000" });
                     _this.moveitemposition = [];
-                    $("#luckysheet-modal-dialog-config-order-help").remove();
+                    $("#tibetsheets-modal-dialog-config-order-help").remove();
                 }
             }).mouseup(function (e) {
                 if (_this.movestate) {
@@ -1996,7 +1996,7 @@ const pivotTable = {
                             sumtype = "", 
                             nameindex = "";
                         
-                        if ($t.attr("id") == "luckysheet-modal-dialog-config-value") {
+                        if ($t.attr("id") == "tibetsheets-modal-dialog-config-value") {
                             let type = _this.pivot_data_type[_this.movesave.index.toString()];
                             
                             if (type == "num") {
@@ -2010,8 +2010,8 @@ const pivotTable = {
                                 nameindex = "data-nameindex='0'";
                             }
 
-                            $("#luckysheet-modal-dialog-config-value").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
-                                if ($(this).find(".luckysheet-modal-dialog-slider-config-item-txt").text() == name) {
+                            $("#tibetsheets-modal-dialog-config-value").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
+                                if ($(this).find(".tibetsheets-modal-dialog-slider-config-item-txt").text() == name) {
                                     let ni = parseFloat($(this).data("nameindex")) + 1;
                                     name = name + ni.toString();
                                     $(this).data("nameindex", ni);
@@ -2020,16 +2020,16 @@ const pivotTable = {
                             });
                         }
 
-                        itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" ' + nameindex + ' ' + sumtype + ' data-index="' + _this.movesave.index + '" data-name="' + _this.movesave.name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" ' + nameindex + ' ' + sumtype + ' data-index="' + _this.movesave.index + '" data-name="' + _this.movesave.name + '">' + name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                        itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" ' + nameindex + ' ' + sumtype + ' data-index="' + _this.movesave.index + '" data-name="' + _this.movesave.name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" ' + nameindex + ' ' + sumtype + ' data-index="' + _this.movesave.index + '" data-name="' + _this.movesave.name + '">' + name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
                     }
 
                     let x = event.pageX, y = event.pageY, $container = $(this);
                     let curtop = y - $container.offset().top + $container.scrollTop();
                     let position = _this.moveitemposition;
-                    let row_index = luckysheet_searcharray(position, curtop);
+                    let row_index = tibetsheets_searcharray(position, curtop);
 
-                    if ((_this.movesave.containerid == "luckysheet-modal-dialog-pivotTable-list") || (_this.movesave.containerid == "luckysheet-modal-dialog-config-value" && _this.movesave.containerid != $t.attr("id"))) {
-                        $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+                    if ((_this.movesave.containerid == "tibetsheets-modal-dialog-pivotTable-list") || (_this.movesave.containerid == "tibetsheets-modal-dialog-config-value" && _this.movesave.containerid != $t.attr("id"))) {
+                        $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
                             if ($(this).data("index") == _this.movesave.index) {
                                 $(this).remove();
                             }
@@ -2037,73 +2037,73 @@ const pivotTable = {
                     }
 
                     if (row_index == -1) {
-                        if ($t.find(".luckysheet-modal-dialog-slider-config-item").length == 0) {
+                        if ($t.find(".tibetsheets-modal-dialog-slider-config-item").length == 0) {
                             $t.append(itemHTML);
                         }
                         else {
-                            $t.find(".luckysheet-modal-dialog-slider-config-item").last().after(itemHTML);
+                            $t.find(".tibetsheets-modal-dialog-slider-config-item").last().after(itemHTML);
                         }
 
                     }
                     else if ((curtop - position[row_index - 1]) > (position[row_index] - position[row_index - 1]) / 2) {
-                        $t.find(".luckysheet-modal-dialog-slider-config-item").eq(row_index - 1).after(itemHTML);
+                        $t.find(".tibetsheets-modal-dialog-slider-config-item").eq(row_index - 1).after(itemHTML);
                     }
                     else {
-                        $t.find(".luckysheet-modal-dialog-slider-config-item").eq(row_index - 1).before(itemHTML);
+                        $t.find(".tibetsheets-modal-dialog-slider-config-item").eq(row_index - 1).before(itemHTML);
                     }
 
-                    if (_this.movesave.containerid == "luckysheet-modal-dialog-pivotTable-list") {
+                    if (_this.movesave.containerid == "tibetsheets-modal-dialog-pivotTable-list") {
 
                     }
-                    else if (_this.movesave.containerid == "luckysheet-modal-dialog-config-value" && _this.movesave.containerid != $t.attr("id")) {
+                    else if (_this.movesave.containerid == "tibetsheets-modal-dialog-config-value" && _this.movesave.containerid != $t.attr("id")) {
 
                     }
                     else {
                         _this.movesave.obj.remove();
                     }
 
-                    $("#luckysheet-modal-dialog-pivotTable-list").find(".luckysheet-modal-dialog-slider-list-item").each(function () {
-                        let $seleted = $(this).find(".luckysheet-slider-list-item-selected");
+                    $("#tibetsheets-modal-dialog-pivotTable-list").find(".tibetsheets-modal-dialog-slider-list-item").each(function () {
+                        let $seleted = $(this).find(".tibetsheets-slider-list-item-selected");
                         if ($(this).data("index") == _this.movesave.index && $seleted.find("i").length == 0) {
-                            $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                            $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                         }
                     });
 
                     _this.refreshPivotTable();
 
-                    $("#luckysheet-modal-dialog-slider-pivot-move").remove();
+                    $("#tibetsheets-modal-dialog-slider-pivot-move").remove();
                     _this.movestate = false;
-                    $("#luckysheet-modal-dialog-pivotTable-list, #luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").css("cursor", "default");
+                    $("#tibetsheets-modal-dialog-pivotTable-list, #tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").css("cursor", "default");
                     _this.moveitemposition = [];
-                    $("#luckysheet-modal-dialog-config-order-help").remove();
+                    $("#tibetsheets-modal-dialog-config-order-help").remove();
                     _this.showvaluecolrow();
                     e.stopPropagation();
                 }
             });
 
-            $("#luckysheet-modal-dialog-pivotTable-list").on("click", ".luckysheet-slider-list-item-selected", function () {
+            $("#tibetsheets-modal-dialog-pivotTable-list").on("click", ".tibetsheets-slider-list-item-selected", function () {
                 let $t = $(this), 
                     $item = $t.parent(), 
                     index = $item.data("index"), 
                     name = $item.data("name");
                 
                 if ($t.find("i").length == 0) {
-                    $t.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                    $t.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
 
                     let type = _this.pivot_data_type[index.toString()], 
                         itemHTML;
 
                     if (type == "num") {
-                        itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" data-nameindex="0" data-sumtype="SUM" data-index="' + index + '" data-name="' + name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" data-nameindex="0" data-sumtype="SUM" data-index="' + index + '" data-name="' + name + '">求和:' + name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
-                        $("#luckysheet-modal-dialog-config-value").append(itemHTML);
+                        itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" data-nameindex="0" data-sumtype="SUM" data-index="' + index + '" data-name="' + name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" data-nameindex="0" data-sumtype="SUM" data-index="' + index + '" data-name="' + name + '">求和:' + name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                        $("#tibetsheets-modal-dialog-config-value").append(itemHTML);
                     }
                     else {
-                        itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" data-index="' + index + '" data-name="' + name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" data-index="' + index + '" data-name="' + name + '">' + name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                        itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" data-index="' + index + '" data-name="' + name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" data-index="' + index + '" data-name="' + name + '">' + name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
                         
-                        let $column = $("#luckysheet-modal-dialog-config-column"), 
-                            $row = $("#luckysheet-modal-dialog-config-row");
-                        let columnitem = $column.find(".luckysheet-modal-dialog-slider-config-item"), 
-                            rowitem = $row.find(".luckysheet-modal-dialog-slider-config-item");
+                        let $column = $("#tibetsheets-modal-dialog-config-column"), 
+                            $row = $("#tibetsheets-modal-dialog-config-row");
+                        let columnitem = $column.find(".tibetsheets-modal-dialog-slider-config-item"), 
+                            rowitem = $row.find(".tibetsheets-modal-dialog-slider-config-item");
 
                         if (columnitem.length < 2) {
                             $column.append(itemHTML);
@@ -2118,9 +2118,9 @@ const pivotTable = {
                 }
                 else {
                     $t.find("i").remove();
-                    $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+                    $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
                         if ($(this).data("index") == index) {
-                            if ($(this).parent().attr("id") == "luckysheet-modal-dialog-config-value") {
+                            if ($(this).parent().attr("id") == "tibetsheets-modal-dialog-config-value") {
                                 _this.resetOrderby($(this));
                             }
                             $(this).remove();
@@ -2132,13 +2132,13 @@ const pivotTable = {
                 _this.showvaluecolrow();
             });
 
-            $("#luckysheet-dialog-pivotTable-clearitem").click(function () {
-                $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").find(".luckysheet-modal-dialog-slider-config-item").each(function () {
+            $("#tibetsheets-dialog-pivotTable-clearitem").click(function () {
+                $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").find(".tibetsheets-modal-dialog-slider-config-item").each(function () {
                     $(this).remove();
                 });
 
-                $("#luckysheet-modal-dialog-pivotTable-list").find(".luckysheet-modal-dialog-slider-list-item").each(function () {
-                    $(this).find(".luckysheet-slider-list-item-selected").find("i").remove();
+                $("#tibetsheets-modal-dialog-pivotTable-list").find(".tibetsheets-modal-dialog-slider-list-item").each(function () {
+                    $(this).find(".tibetsheets-slider-list-item-selected").find("i").remove();
                 });
 
                 _this.refreshPivotTable();
@@ -2236,28 +2236,28 @@ const pivotTable = {
                 style = "display:block;";
             }
 
-            selecteditem += '<div class="luckysheet-modal-dialog-slider-list-item" ' + dataother + ' data-index="' + i + '" data-name="' + name + '"><div title="'+locale_pivotTable.titleAddColumn+'" class="luckysheet-slider-list-item-selected"><div></div></div><div title="'+locale_pivotTable.titleMoveColumn+'" class="luckysheet-slider-list-item-name" ' + dataother + ' data-index="' + i + '" data-name="' + name + '">' + name + '</div><div title="'+locale_pivotTable.titleClearColumnFilter+'" class="luckysheet-slider-list-item-filtered" style="' + style + '"><i class="fa fa-filter luckysheet-mousedown-cancel" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true"></i></div><div title="'+locale_pivotTable.titleFilterColumn+'" class="luckysheet-slider-list-item-filter"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+            selecteditem += '<div class="tibetsheets-modal-dialog-slider-list-item" ' + dataother + ' data-index="' + i + '" data-name="' + name + '"><div title="'+locale_pivotTable.titleAddColumn+'" class="tibetsheets-slider-list-item-selected"><div></div></div><div title="'+locale_pivotTable.titleMoveColumn+'" class="tibetsheets-slider-list-item-name" ' + dataother + ' data-index="' + i + '" data-name="' + name + '">' + name + '</div><div title="'+locale_pivotTable.titleClearColumnFilter+'" class="tibetsheets-slider-list-item-filtered" style="' + style + '"><i class="fa fa-filter tibetsheets-mousedown-cancel" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true"></i></div><div title="'+locale_pivotTable.titleFilterColumn+'" class="tibetsheets-slider-list-item-filter"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
         }
-        $("#luckysheet-modal-dialog-pivotTable-list").html(selecteditem);
+        $("#tibetsheets-modal-dialog-pivotTable-list").html(selecteditem);
 
-        $("#luckysheetpivottablevaluecolrowshow").hide();
-        $("#luckysheetpivottablevaluecolrow").prop("checked", true);
-        $("#luckysheetpivottablevaluecolrow1").prop("checked", false);
+        $("#tibetsheetspivottablevaluecolrowshow").hide();
+        $("#tibetsheetspivottablevaluecolrow").prop("checked", true);
+        $("#tibetsheetspivottablevaluecolrow1").prop("checked", false);
 
-        $("#luckysheet-modal-dialog-config-filter, #luckysheet-modal-dialog-config-row, #luckysheet-modal-dialog-config-column, #luckysheet-modal-dialog-config-value").empty();
+        $("#tibetsheets-modal-dialog-config-filter, #tibetsheets-modal-dialog-config-row, #tibetsheets-modal-dialog-config-column, #tibetsheets-modal-dialog-config-value").empty();
         
         if (restore) {
             if (_this.filter != null && _this.filter.length > 0) {
                 for (let i = 0; i < _this.filter.length; i++) {
                     let item = _this.filter[i];
 
-                    let itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" data-index="' + item.index + '" data-name="' + item.name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                    let itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" data-index="' + item.index + '" data-name="' + item.name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
 
-                    $("#luckysheet-modal-dialog-config-filter").append(itemHTML);
+                    $("#tibetsheets-modal-dialog-config-filter").append(itemHTML);
 
-                    let $seleted = $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(item.index).find(".luckysheet-slider-list-item-selected");
+                    let $seleted = $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(item.index).find(".tibetsheets-slider-list-item-selected");
                     if ($seleted.find("i").length == 0) {
-                        $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                        $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                     }
                 }
             }
@@ -2279,13 +2279,13 @@ const pivotTable = {
                         otherset += "data-stastic = '" + item.stastic + "'";
                     }
 
-                    let itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                    let itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
 
-                    $("#luckysheet-modal-dialog-config-row").append(itemHTML);
+                    $("#tibetsheets-modal-dialog-config-row").append(itemHTML);
 
-                    let $seleted = $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(item.index).find(".luckysheet-slider-list-item-selected");
+                    let $seleted = $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(item.index).find(".tibetsheets-slider-list-item-selected");
                     if ($seleted.find("i").length == 0) {
-                        $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                        $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                     }
                 }
             }
@@ -2307,13 +2307,13 @@ const pivotTable = {
                         otherset += "data-stastic = '" + item.stastic + "'";
                     }
 
-                    let itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                    let itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + item.name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
 
-                    $("#luckysheet-modal-dialog-config-column").append(itemHTML);
+                    $("#tibetsheets-modal-dialog-config-column").append(itemHTML);
 
-                    let $seleted = $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(item.index).find(".luckysheet-slider-list-item-selected");
+                    let $seleted = $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(item.index).find(".tibetsheets-slider-list-item-selected");
                     if ($seleted.find("i").length == 0) {
-                        $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                        $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                     }
                 }
             }
@@ -2331,40 +2331,40 @@ const pivotTable = {
                         otherset += "data-nameindex = '" + item.nameindex + "'";
                     }
 
-                    let itemHTML = '<div title="' + name + '" class="luckysheet-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="luckysheet-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + _this.getSumTypeName(item.sumtype) + ":" + item.name + '</div><div class="luckysheet-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
+                    let itemHTML = '<div title="' + name + '" class="tibetsheets-modal-dialog-slider-config-item" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '"><div class="tibetsheets-modal-dialog-slider-config-item-txt" ' + otherset + ' data-index="' + item.index + '" data-name="' + item.name + '">' + _this.getSumTypeName(item.sumtype) + ":" + item.name + '</div><div class="tibetsheets-modal-dialog-slider-config-item-icon"><i class="fa fa-sort-desc" aria-hidden="true"></i></div></div>';
 
-                    $("#luckysheet-modal-dialog-config-value").append(itemHTML);
+                    $("#tibetsheets-modal-dialog-config-value").append(itemHTML);
 
-                    let $seleted = $("#luckysheet-modal-dialog-pivotTable-list .luckysheet-modal-dialog-slider-list-item").eq(item.index).find(".luckysheet-slider-list-item-selected");
+                    let $seleted = $("#tibetsheets-modal-dialog-pivotTable-list .tibetsheets-modal-dialog-slider-list-item").eq(item.index).find(".tibetsheets-slider-list-item-selected");
                     if ($seleted.find("i").length == 0) {
-                        $seleted.append('<i class="fa fa-check luckysheet-mousedown-cancel"></i>');
+                        $seleted.append('<i class="fa fa-check tibetsheets-mousedown-cancel"></i>');
                     }
                 }
 
                 if (_this.values.length >= 2) {
-                    $("#luckysheetpivottablevaluecolrowshow").show();
+                    $("#tibetsheetspivottablevaluecolrowshow").show();
                     if (_this.showType == "column") {
-                        $("#luckysheetpivottablevaluecolrow").prop("checked", true);
-                        $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow']").addClass("ui-state-active");
+                        $("#tibetsheetspivottablevaluecolrow").prop("checked", true);
+                        $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow']").addClass("ui-state-active");
 
-                        $("#luckysheetpivottablevaluecolrow1").prop("checked", false);
-                        $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow1']").removeClass("ui-state-active");
+                        $("#tibetsheetspivottablevaluecolrow1").prop("checked", false);
+                        $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow1']").removeClass("ui-state-active");
                     }
                     else {
-                        $("#luckysheetpivottablevaluecolrow1").prop("checked", true);
-                        $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow1']").addClass("ui-state-active");
+                        $("#tibetsheetspivottablevaluecolrow1").prop("checked", true);
+                        $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow1']").addClass("ui-state-active");
 
-                        $("#luckysheetpivottablevaluecolrow").prop("checked", false);
-                        $("#luckysheetpivottablevaluecolrowshow label[for='luckysheetpivottablevaluecolrow']").removeClass("ui-state-active");
+                        $("#tibetsheetspivottablevaluecolrow").prop("checked", false);
+                        $("#tibetsheetspivottablevaluecolrowshow label[for='tibetsheetspivottablevaluecolrow']").removeClass("ui-state-active");
                     }
                 }
             }
         }
 
-        $("#luckysheet-dialog-pivotTable-range").html(getRangetxt(_this.pivotDataSheetIndex, _this.pivot_select_save));
-        $("#luckysheet-modal-dialog-slider-pivot").show();
+        $("#tibetsheets-dialog-pivotTable-range").html(getRangetxt(_this.pivotDataSheetIndex, _this.pivot_select_save));
+        $("#tibetsheets-modal-dialog-slider-pivot").show();
         
-        luckysheetsizeauto(false);
+        tibetsheetssizeauto(false);
     },
     getComposeArray: function (data) {
         if (data.length == 0) {
@@ -2919,7 +2919,7 @@ const pivotTable = {
         }
 
         let datacoltitle_index = datacoltitle;
-        datacoltitle = luckysheetArray.transpose(datacoltitle, false);
+        datacoltitle = tibetsheetsArray.transpose(datacoltitle, false);
 
         let valuenslen = values.length == 0 ? 0 : 1;
         let rowLen = (datacoltitle.length == 0 ? valuenslen : datacoltitle.length) + (datarowtitle.length == 0 ? valuenslen : datarowtitle.length), colLen = (datacoltitle.length == 0 ? valuenslen : datacoltitle[0].length) + (datarowtitle.length == 0 ? valuenslen : datarowtitle[0].length);
@@ -3165,10 +3165,10 @@ const pivotTable = {
             }
         }
 
-        Store.luckysheet_select_save = [{ "row": [0, rowArr.length], "column": [0, _this.celldata[0].length - 1] }];
+        Store.tibetsheets_select_save = [{ "row": [0, rowArr.length], "column": [0, _this.celldata[0].length - 1] }];
 
         Store.clearjfundo = false;
-        jfrefreshgrid(d, Store.luckysheet_select_save);
+        jfrefreshgrid(d, Store.tibetsheets_select_save);
         selectHightlightShow();
         Store.clearjfundo = true;
     }

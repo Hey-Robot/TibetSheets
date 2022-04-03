@@ -2,9 +2,9 @@ import Store from '../store';
 import locale from '../locale/locale';
 import { modelHTML } from './constant';
 import { getSheetIndex } from '../methods/get';
-import { setluckysheet_scroll_status } from '../methods/set';
+import { settibetsheets_scroll_status } from '../methods/set';
 import sheetmanage from './sheetmanage';
-import luckysheetsizeauto from './resize';
+import tibetsheetssizeauto from './resize';
 import dataVerificationCtrl from './dataVerificationCtrl';
 import { replaceHtml,transformRangeToAbsolute,openSelfModel } from '../utils/util';
 import { selectionCopyShow } from './select';
@@ -41,27 +41,27 @@ function addRangeItem(item){
     
     let passwordTxt = "";
     if(password!=null && password.length>0){
-        passwordTxt = '<i class="icon iconfont luckysheet-iconfont-bianji2" title="'+ local_protection.rangeItemHasPassword+'"></i>';
+        passwordTxt = '<i class="icon iconfont tibetsheets-iconfont-bianji2" title="'+ local_protection.rangeItemHasPassword+'"></i>';
     }
 
     let rangeItemTemplate = `
-        <div class="luckysheet-protection-rangeItem" title="${local_protection.rangeItemDblclick}">
-            <div class="luckysheet-protection-rangeItem-del" title="${locale_button.delete}">
-                <i class="icon iconfont luckysheet-iconfont-shanchu"></i>
+        <div class="tibetsheets-protection-rangeItem" title="${local_protection.rangeItemDblclick}">
+            <div class="tibetsheets-protection-rangeItem-del" title="${locale_button.delete}">
+                <i class="icon iconfont tibetsheets-iconfont-shanchu"></i>
             </div>
-            <div class="luckysheet-protection-rangeItem-name" title="${title}">
+            <div class="tibetsheets-protection-rangeItem-name" title="${title}">
                 ${title}${passwordTxt}
             </div>
-            <div class="luckysheet-protection-rangeItem-range" title="${sqref}">
+            <div class="tibetsheets-protection-rangeItem-range" title="${sqref}">
                 ${sqref}
             </div>
-            <div class="luckysheet-protection-rangeItem-update" title="${locale_button.update}">
-                <i class="icon iconfont luckysheet-iconfont-bianji"></i>
+            <div class="tibetsheets-protection-rangeItem-update" title="${locale_button.update}">
+                <i class="icon iconfont tibetsheets-iconfont-bianji"></i>
             </div>
         </div>
     `;
 
-    $("#luckysheet-protection-rangeItem-container").append(rangeItemTemplate);
+    $("#tibetsheets-protection-rangeItem-container").append(rangeItemTemplate);
 }
 
 function initialEvent(file){
@@ -71,7 +71,7 @@ function initialEvent(file){
     const locale_button = _locale.button;
 
     //confirm protection
-    $("#luckysheet-slider-protection-ok").click(function(){
+    $("#tibetsheets-slider-protection-ok").click(function(){
         let password = $("#protection-password").val();
         let sheet = $("#protection-swichProtectionState").is(":checked");
         let hint = $("#protection-hint").val();
@@ -109,7 +109,7 @@ function initialEvent(file){
 
         for(let i=0;i<authorityItemArr.length;i++){
             let name = authorityItemArr[i];
-            let checkId = "luckysheet-protection-check-" + name;
+            let checkId = "tibetsheets-protection-check-" + name;
             let authorityValue =  $("#"+checkId).is(':checked');
             
             authorityData[name] = authorityValue==true?1:0;
@@ -133,17 +133,17 @@ function initialEvent(file){
     });
 
     //cancel protection
-    $("#luckysheet-slider-protection-cancel, #luckysheet-modal-dialog-protection-close").click(function(){
+    $("#tibetsheets-slider-protection-cancel, #tibetsheets-modal-dialog-protection-close").click(function(){
         closeProtectionModal();
     });
 
     //Add allow edit range
-    $("#luckysheet-slider-protection-addRange").click(function(){
+    $("#tibetsheets-slider-protection-addRange").click(function(){
         initialProtectionRangeModal();
         isAddRangeItemState = true;
-        $("#luckysheet-protection-rangeItem-confirm").html(locale_button.insert);
+        $("#tibetsheets-protection-rangeItem-confirm").html(locale_button.insert);
 
-        openSelfModel("luckysheet-protection-rangeItem-dialog");
+        openSelfModel("tibetsheets-protection-rangeItem-dialog");
 
         $("#protection-allowRangeAdd-title").val("Default"+rangeItemListCache.length);
         $("#protection-allowRangeAdd-range input").val("");
@@ -153,19 +153,19 @@ function initialEvent(file){
     });
 
     //update allow edit range
-    $(document).off("click.luckysheetProtection.rangeItemUpdate").on("click.luckysheetProtection.rangeItemUpdate","#luckysheet-protection-rangeItem-container .luckysheet-protection-rangeItem-update", function(e){
+    $(document).off("click.tibetsheetsProtection.rangeItemUpdate").on("click.tibetsheetsProtection.rangeItemUpdate","#tibetsheets-protection-rangeItem-container .tibetsheets-protection-rangeItem-update", function(e){
         initialProtectionRangeModal();
 
         isAddRangeItemState = false;
-        $("#luckysheet-protection-rangeItem-confirm").html(locale_button.update);
+        $("#tibetsheets-protection-rangeItem-confirm").html(locale_button.update);
 
-        openSelfModel("luckysheet-protection-rangeItem-dialog");
+        openSelfModel("tibetsheets-protection-rangeItem-dialog");
 
-        let $rangeItem = $(e.target).closest(".luckysheet-protection-rangeItem");
+        let $rangeItem = $(e.target).closest(".tibetsheets-protection-rangeItem");
 
-        let $rangeItemContainer =  $("#luckysheet-protection-rangeItem-container");
+        let $rangeItemContainer =  $("#tibetsheets-protection-rangeItem-container");
 
-        let index = $rangeItemContainer.find("> div.luckysheet-protection-rangeItem").index($rangeItem);
+        let index = $rangeItemContainer.find("> div.tibetsheets-protection-rangeItem").index($rangeItem);
 
         let item = rangeItemListCache[index];
 
@@ -183,12 +183,12 @@ function initialEvent(file){
     });
 
     //delete allow edit range
-    $(document).off("click.luckysheetProtection.rangeItemDelete").on("click.luckysheetProtection.rangeItemDelete","#luckysheet-protection-rangeItem-container .luckysheet-protection-rangeItem-del", function(e){
-        let $rangeItem = $(e.target).closest(".luckysheet-protection-rangeItem");
+    $(document).off("click.tibetsheetsProtection.rangeItemDelete").on("click.tibetsheetsProtection.rangeItemDelete","#tibetsheets-protection-rangeItem-container .tibetsheets-protection-rangeItem-del", function(e){
+        let $rangeItem = $(e.target).closest(".tibetsheets-protection-rangeItem");
 
-        let $rangeItemContainer =  $("#luckysheet-protection-rangeItem-container");
+        let $rangeItemContainer =  $("#tibetsheets-protection-rangeItem-container");
 
-        let index = $rangeItemContainer.find("> div.luckysheet-protection-rangeItem").index($rangeItem);
+        let index = $rangeItemContainer.find("> div.tibetsheets-protection-rangeItem").index($rangeItem);
 
         let item = rangeItemListCache[index];
 
@@ -197,7 +197,7 @@ function initialEvent(file){
     });
 
     //confirm allow edit range
-    $(document).off("click.luckysheetProtection.rangeItemConfirm").on("click.luckysheetProtection.rangeItemConfirm","#luckysheet-protection-rangeItem-confirm", function(){
+    $(document).off("click.tibetsheetsProtection.rangeItemConfirm").on("click.tibetsheetsProtection.rangeItemConfirm","#tibetsheets-protection-rangeItem-confirm", function(){
         let name = $("#protection-allowRangeAdd-title").val(),
         rangeText = $("#protection-allowRangeAdd-range input").val(),
         password = $("#protection-allowRangeAdd-password").val(),
@@ -250,43 +250,43 @@ function initialEvent(file){
                 item.algorithmName = "None";
             }
 
-            let $rangeItemContainer =  $("#luckysheet-protection-rangeItem-container");
+            let $rangeItemContainer =  $("#tibetsheets-protection-rangeItem-container");
 
-            let $rangeitem = $rangeItemContainer.find("> div.luckysheet-protection-rangeItem").eq(index);
+            let $rangeitem = $rangeItemContainer.find("> div.tibetsheets-protection-rangeItem").eq(index);
 
-            let $name = $rangeitem.find(".luckysheet-protection-rangeItem-name");
+            let $name = $rangeitem.find(".tibetsheets-protection-rangeItem-name");
 
             let passwordTxt = "";
             if(password!=null && password.length>0){
-                passwordTxt = '<i class="icon iconfont luckysheet-iconfont-bianji2" title="'+ local_protection.rangeItemHasPassword+'"></i>';
+                passwordTxt = '<i class="icon iconfont tibetsheets-iconfont-bianji2" title="'+ local_protection.rangeItemHasPassword+'"></i>';
             }
 
             $name.html(name+passwordTxt).attr("title",name);
 
-            let $range = $rangeitem.find(".luckysheet-protection-rangeItem-range");
+            let $range = $rangeitem.find(".tibetsheets-protection-rangeItem-range");
 
             $range.html(rangeText).attr("title",rangeText);
         }
 
 
 
-        $("#luckysheet-protection-rangeItem-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").hide();
+        $("#tibetsheets-protection-rangeItem-dialog").hide();
+        $("#tibetsheets-modal-dialog-mask").hide();
 
     });
 
 
     //sheet validation check passWord
-    $(document).off("click.luckysheetProtection.validationConfirm").on("click.luckysheetProtection.validationConfirm","#luckysheet-protection-sheet-validation-confirm", function(e){
-        let $validation = $("#luckysheet-protection-sheet-validation");
+    $(document).off("click.tibetsheetsProtection.validationConfirm").on("click.tibetsheetsProtection.validationConfirm","#tibetsheets-protection-sheet-validation-confirm", function(e){
+        let $validation = $("#tibetsheets-protection-sheet-validation");
         let aut = validationAuthority;
 
         if(aut==null){
             restoreProtectionConfig(validationAuthority);
             $validation.hide();
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-modal-dialog-slider-protection").show();
-            luckysheetsizeauto();
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-slider-protection").show();
+            tibetsheetssizeauto();
             return;
         }
         
@@ -312,9 +312,9 @@ function initialEvent(file){
         if(password==aut.password){
             restoreProtectionConfig(validationAuthority);
             $validation.hide();
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-modal-dialog-slider-protection").show();
-            luckysheetsizeauto();
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-slider-protection").show();
+            tibetsheetssizeauto();
             firstInputSheetProtectionPassword = false;
         }
         else{
@@ -323,8 +323,8 @@ function initialEvent(file){
         
     });
 
-    $("#luckysheet-protection-check-selectLockedCells").change(function() { 
-        let $selectLockedCells = $("#luckysheet-protection-check-selectLockedCells"), $selectunLockedCells = $("#luckysheet-protection-check-selectunLockedCells");
+    $("#tibetsheets-protection-check-selectLockedCells").change(function() { 
+        let $selectLockedCells = $("#tibetsheets-protection-check-selectLockedCells"), $selectunLockedCells = $("#tibetsheets-protection-check-selectunLockedCells");
 
         let selectLockedCellsChecked = $selectLockedCells.is(":checked"), selectunLockedCellsChecked = $selectunLockedCells.is(":checked");
 
@@ -333,8 +333,8 @@ function initialEvent(file){
         }
     });
 
-    $("#luckysheet-protection-check-selectunLockedCells").change(function() { 
-        let $selectLockedCells = $("#luckysheet-protection-check-selectLockedCells"), $selectunLockedCells = $("#luckysheet-protection-check-selectunLockedCells");
+    $("#tibetsheets-protection-check-selectunLockedCells").change(function() { 
+        let $selectLockedCells = $("#tibetsheets-protection-check-selectLockedCells"), $selectunLockedCells = $("#tibetsheets-protection-check-selectunLockedCells");
 
         let selectLockedCellsChecked = $selectLockedCells.is(":checked"), selectunLockedCellsChecked = $selectunLockedCells.is(":checked");
 
@@ -345,8 +345,8 @@ function initialEvent(file){
 
 
     //Cell range select controll
-    $(document).off("click.luckysheetProtection.dvRange").on("click.luckysheetProtection.dvRange", "#protection-allowRangeAdd-range .fa-table", function(e) {
-        $("#luckysheet-protection-rangeItem-dialog").hide();
+    $(document).off("click.tibetsheetsProtection.dvRange").on("click.tibetsheetsProtection.dvRange", "#protection-allowRangeAdd-range .fa-table", function(e) {
+        $("#tibetsheets-protection-rangeItem-dialog").hide();
 
         let dataSource = "0";
         let txt = $(this).siblings("input").val().trim(); 
@@ -385,8 +385,8 @@ function initialEvent(file){
         
         selectionCopyShow(dataVerificationCtrl.selectRange);
     }); 
-    $(document).off("click.luckysheetProtection.dvRange2").on("click.luckysheetProtection.dvRange2", "#luckysheet-protection-rangeItem-dialog .show-box-item-dropdown .range .fa-table", function(e) {
-        $("#luckysheet-protection-rangeItem-dialog").hide();
+    $(document).off("click.tibetsheetsProtection.dvRange2").on("click.tibetsheetsProtection.dvRange2", "#tibetsheets-protection-rangeItem-dialog .show-box-item-dropdown .range .fa-table", function(e) {
+        $("#tibetsheets-protection-rangeItem-dialog").hide();
 
         let dataSource = "1";
         let txt = $(this).siblings("input").val().trim(); 
@@ -425,8 +425,8 @@ function initialEvent(file){
         
         selectionCopyShow(dataVerificationCtrl.selectRange);
     });
-    $(document).off("click.luckysheetProtection.dvRangeConfirm").on("click.luckysheetProtection.dvRangeConfirm", "#luckysheet-dataVerificationRange-dialog-confirm", function(e) {
-        let txt = $(this).parents("#luckysheet-dataVerificationRange-dialog").find("input").val();
+    $(document).off("click.tibetsheetsProtection.dvRangeConfirm").on("click.tibetsheetsProtection.dvRangeConfirm", "#tibetsheets-dataVerificationRange-dialog-confirm", function(e) {
+        let txt = $(this).parents("#tibetsheets-dataVerificationRange-dialog").find("input").val();
 
         let $input = $("#protection-allowRangeAdd-range input"), inputValue = $input.val();
         if(inputValue.substr(inputValue.length-1, 1)==","){
@@ -435,25 +435,25 @@ function initialEvent(file){
         else{
             $input.val(txt);
         }
-        $("#luckysheet-dataVerificationRange-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-protection-rangeItem-dialog").show();
+        $("#tibetsheets-dataVerificationRange-dialog").hide();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-protection-rangeItem-dialog").show();
 
         let range = [];
         selectionCopyShow(range);
     });
-    $(document).off("click.luckysheetProtection.dvRangeClose").on("click.dvRangeClose", "#luckysheet-dataVerificationRange-dialog-close", function(e) {
-        $("#luckysheet-dataVerificationRange-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-protection-rangeItem-dialog").show();
+    $(document).off("click.tibetsheetsProtection.dvRangeClose").on("click.dvRangeClose", "#tibetsheets-dataVerificationRange-dialog-close", function(e) {
+        $("#tibetsheets-dataVerificationRange-dialog").hide();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-protection-rangeItem-dialog").show();
 
         let range = [];
         selectionCopyShow(range);
     });
-    $(document).on("click.luckysheetProtection.luckysheetProtection", "#luckysheet-dataVerificationRange-dialog .luckysheet-modal-dialog-title-close", function(e) {
-        $("#luckysheet-dataVerificationRange-dialog").hide();
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-protection-rangeItem-dialog").show();
+    $(document).on("click.tibetsheetsProtection.tibetsheetsProtection", "#tibetsheets-dataVerificationRange-dialog .tibetsheets-modal-dialog-title-close", function(e) {
+        $("#tibetsheets-dataVerificationRange-dialog").hide();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-protection-rangeItem-dialog").show();
 
         let range = [];
         selectionCopyShow(range);
@@ -470,50 +470,50 @@ function initialProtectionRangeModal(file){
     let local_protection = _locale.protection;
     const locale_button = _locale.button;
     $("body").first().append(replaceHtml(modelHTML, { 
-        "id": "luckysheet-protection-rangeItem-dialog", 
-        "addclass": "luckysheet-protection-rangeItem-dialog", 
+        "id": "tibetsheets-protection-rangeItem-dialog", 
+        "addclass": "tibetsheets-protection-rangeItem-dialog", 
         "title": local_protection.allowRangeTitle, 
         "content": `
-            <div class="luckysheet-protection-rangeItem-content">
-                <div class="luckysheet-slider-protection-row">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-3x">
+            <div class="tibetsheets-protection-rangeItem-content">
+                <div class="tibetsheets-slider-protection-row">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-3x">
                         ${local_protection.allowRangeAddTitle}
                     </div>
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-7x" style="left:30%">
-                        <input class="luckysheet-protection-rangeItemiInput" id="protection-allowRangeAdd-title"  placeHolder="${local_protection.allowRangeAddtitleDefault}">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-7x" style="left:30%">
+                        <input class="tibetsheets-protection-rangeItemiInput" id="protection-allowRangeAdd-title"  placeHolder="${local_protection.allowRangeAddtitleDefault}">
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-3x">
+                <div class="tibetsheets-slider-protection-row">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-3x">
                         ${local_protection.allowRangeAddSqrf}
                     </div>
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-7x" style="left:30%">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-7x" style="left:30%">
                         <div id="protection-allowRangeAdd-range" class="range">
                             <input class="formulaInputFocus" spellcheck="false" placeHolder="${local_protection.selectCellRangeHolder}">
                             <i class="fa fa-table" aria-hidden="true" title="${local_protection.selectCellRange}"></i>
                         </div>
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-3x">
+                <div class="tibetsheets-slider-protection-row">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-3x">
                         ${local_protection.allowRangeAddTitlePassword}
                     </div>
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-7x" style="left:30%">
-                        <input class="luckysheet-protection-rangeItemiInput" id="protection-allowRangeAdd-password"  placeHolder="${local_protection.enterPassword}">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-7x" style="left:30%">
+                        <input class="tibetsheets-protection-rangeItemiInput" id="protection-allowRangeAdd-password"  placeHolder="${local_protection.enterPassword}">
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-3x">
+                <div class="tibetsheets-slider-protection-row">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-3x">
                         ${local_protection.allowRangeAddTitleHint}
                     </div>
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-7x" style="left:30%">
-                        <textarea class="luckysheet-protection-rangeItemTextarea" id="protection-allowRangeAdd-hint"  placeHolder="${local_protection.allowRangeAddTitleHintTitle}"></textarea>
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-7x" style="left:30%">
+                        <textarea class="tibetsheets-protection-rangeItemTextarea" id="protection-allowRangeAdd-hint"  placeHolder="${local_protection.allowRangeAddTitleHintTitle}"></textarea>
                     </div>
                 </div>
             </div>
         `, 
-        "botton":  `<button id="luckysheet-protection-rangeItem-confirm" class="btn btn-primary">${locale_button.insert}</button>
-                    <button class="btn btn-default luckysheet-model-close-btn">${locale_button.cancel}</button>`, 
+        "botton":  `<button id="tibetsheets-protection-rangeItem-confirm" class="btn btn-primary">${locale_button.insert}</button>
+                    <button class="btn btn-default tibetsheets-model-close-btn">${locale_button.cancel}</button>`, 
         "style": "z-index:100003" 
     }));
 }
@@ -530,65 +530,65 @@ function initialProtectionRIghtBar(file){
         let name = authorityItemArr[i];
 
         authorityItemHtml += `
-            <div class="luckysheet-slider-protection-row" style="height:18px;">
-                <div class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
-                <label for="luckysheet-protection-check-${name}"><input id="luckysheet-protection-check-${name}" name="luckysheet-protection-check-${name}" type="checkbox">${local_protection[name]}</label>
+            <div class="tibetsheets-slider-protection-row" style="height:18px;">
+                <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
+                <label for="tibetsheets-protection-check-${name}"><input id="tibetsheets-protection-check-${name}" name="tibetsheets-protection-check-${name}" type="checkbox">${local_protection[name]}</label>
                 </div>
             </div>
         `;
     }
 
     const protectionModalHtml = `
-    <div id="luckysheet-modal-dialog-slider-protection" class="luckysheet-modal-dialog-slider luckysheet-modal-dialog-slider-pivot" style="display:none;">
-        <div class="luckysheet-modal-dialog-slider-title"> <span>${local_protection.protectiontTitle}</span> <span id="luckysheet-modal-dialog-protection-close" title="${locale_button.close}"><i class="fa fa-times" aria-hidden="true"></i></span> </div>
-        <div class="luckysheet-modal-dialog-slider-content">
-            <div class="luckysheet-slider-protection-config" style="top:10px;height:115px">
-                <div class="luckysheet-slider-protection-row">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
+    <div id="tibetsheets-modal-dialog-slider-protection" class="tibetsheets-modal-dialog-slider tibetsheets-modal-dialog-slider-pivot" style="display:none;">
+        <div class="tibetsheets-modal-dialog-slider-title"> <span>${local_protection.protectiontTitle}</span> <span id="tibetsheets-modal-dialog-protection-close" title="${locale_button.close}"><i class="fa fa-times" aria-hidden="true"></i></span> </div>
+        <div class="tibetsheets-modal-dialog-slider-content">
+            <div class="tibetsheets-slider-protection-config" style="top:10px;height:115px">
+                <div class="tibetsheets-slider-protection-row">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
                     <label for="protection-swichProtectionState"><input id="protection-swichProtectionState" name="protection-swichProtectionState" type="checkbox">${local_protection.swichProtectionTip}</label>
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row" style="height:23px;">
-                    <div class="luckysheet-slider-protection-column" style="width:98%;">
-                        <input class="luckysheet-protection-input" id="protection-password"  placeHolder="${local_protection.enterPassword}">
+                <div class="tibetsheets-slider-protection-row" style="height:23px;">
+                    <div class="tibetsheets-slider-protection-column" style="width:98%;">
+                        <input class="tibetsheets-protection-input" id="protection-password"  placeHolder="${local_protection.enterPassword}">
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row" style="height:47px;margin-top:4px;">
-                    <div class="luckysheet-slider-protection-column" style="width:98%;">
-                        <textarea class="luckysheet-protection-textarea" id="protection-hint"  placeHolder="${local_protection.enterHint}"></textarea>
+                <div class="tibetsheets-slider-protection-row" style="height:47px;margin-top:4px;">
+                    <div class="tibetsheets-slider-protection-column" style="width:98%;">
+                        <textarea class="tibetsheets-protection-textarea" id="protection-hint"  placeHolder="${local_protection.enterHint}"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="luckysheet-slider-protection-config" style="top:130px;height:290px;border-top:1px solid #c5c5c5">
-                <div class="luckysheet-slider-protection-row" style="height:20px;">
+            <div class="tibetsheets-slider-protection-config" style="top:130px;height:290px;border-top:1px solid #c5c5c5">
+                <div class="tibetsheets-slider-protection-row" style="height:20px;">
                     ${local_protection.authorityTitle}
                 </div>
                 ${authorityItemHtml}
             </div>
-            <div class="luckysheet-slider-protection-config" style="top:440px;bottom:45px;border-top:1px solid #c5c5c5">
-                <div class="luckysheet-slider-protection-row" style="height:25px;">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-7x" style="left:0px;line-height: 25px;">
+            <div class="tibetsheets-slider-protection-config" style="top:440px;bottom:45px;border-top:1px solid #c5c5c5">
+                <div class="tibetsheets-slider-protection-row" style="height:25px;">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-7x" style="left:0px;line-height: 25px;">
                         ${local_protection.allowRangeTitle}
                     </div>
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-3x" style="left:70%;">
-                        <div class="luckysheet-slider-protection-ok luckysheet-slider-protection-addRange" id="luckysheet-slider-protection-addRange">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-3x" style="left:70%;">
+                        <div class="tibetsheets-slider-protection-ok tibetsheets-slider-protection-addRange" id="tibetsheets-slider-protection-addRange">
                             ${local_protection.allowRangeAdd}
                         </div>
                     </div>
                 </div>
 
-                <div id="luckysheet-protection-rangeItem-container" class="luckysheet-slider-protection-row" style="top:25px;bottom:0px;position:absolute">
+                <div id="tibetsheets-protection-rangeItem-container" class="tibetsheets-slider-protection-row" style="top:25px;bottom:0px;position:absolute">
                    
                 </div>
             </div>
-            <div class="luckysheet-slider-protection-config" style="bottom:0px;height:45px">
-                <div class="luckysheet-slider-protection-column luckysheet-protection-column-5x" style="left:0px;">
-                    <div class="luckysheet-slider-protection-ok" id="luckysheet-slider-protection-ok">
+            <div class="tibetsheets-slider-protection-config" style="bottom:0px;height:45px">
+                <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-5x" style="left:0px;">
+                    <div class="tibetsheets-slider-protection-ok" id="tibetsheets-slider-protection-ok">
                         ${locale_button.confirm}
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-column luckysheet-protection-column-5x" style="left:50%;">
-                    <div class="luckysheet-slider-protection-cancel" id="luckysheet-slider-protection-cancel">
+                <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-5x" style="left:50%;">
+                    <div class="tibetsheets-slider-protection-cancel" id="tibetsheets-slider-protection-cancel">
                         ${locale_button.cancel}
                     </div>
                 </div>
@@ -602,23 +602,23 @@ function initialProtectionRIghtBar(file){
 
     //Password input initial for sheet Protection
     $("body").first().append(replaceHtml(modelHTML, { 
-        "id": "luckysheet-protection-sheet-validation", 
-        "addclass": "luckysheet-protection-sheet-validation", 
+        "id": "tibetsheets-protection-sheet-validation", 
+        "addclass": "tibetsheets-protection-sheet-validation", 
         "title": local_protection.validationTitle, 
         "content": `
-            <div class="luckysheet-slider-protection-row">
-                <div class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
+            <div class="tibetsheets-slider-protection-row">
+                <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
                     ${local_protection.validationTips}
                 </div>
             </div>
-            <div class="luckysheet-slider-protection-row" style="margin-top:20px">
-                <div class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
-                    <input type="password" class="luckysheet-protection-rangeItemiInput" placeHolder="${local_protection.validationInputHint}">
+            <div class="tibetsheets-slider-protection-row" style="margin-top:20px">
+                <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
+                    <input type="password" class="tibetsheets-protection-rangeItemiInput" placeHolder="${local_protection.validationInputHint}">
                 </div>
             </div>
         `, 
-        "botton":  `<button id="luckysheet-protection-sheet-validation-confirm" class="btn btn-primary">${locale_button.confirm}</button>
-                    <button class="btn btn-default luckysheet-model-close-btn">${locale_button.cancel}</button>`, 
+        "botton":  `<button id="tibetsheets-protection-sheet-validation-confirm" class="btn btn-primary">${locale_button.confirm}</button>
+                    <button class="btn btn-default tibetsheets-model-close-btn">${locale_button.cancel}</button>`, 
         "style": "z-index:100003" 
     }));
 
@@ -631,7 +631,7 @@ function restoreProtectionConfig(aut){
     }
     for(let i=0;i<authorityItemArr.length;i++){
         let name = authorityItemArr[i];
-        let checkId = "luckysheet-protection-check-" + name;
+        let checkId = "tibetsheets-protection-check-" + name;
         let authorityValue = aut[name];
         if(authorityValue==null){
             authorityValue = 0;
@@ -670,7 +670,7 @@ function restoreProtectionConfig(aut){
 
 
     rangeItemListCache = [];
-    $("#luckysheet-protection-rangeItem-container").empty();
+    $("#tibetsheets-protection-rangeItem-container").empty();
     let allowRangeList = aut.allowRangeList;
     if(allowRangeList!=null && allowRangeList.length>0){
         for(let i=0;i<allowRangeList.length;i++){
@@ -696,8 +696,8 @@ export function openProtectionModal(file){
         let aut = file.config.authority;
         if(firstInputSheetProtectionPassword && aut.sheet==1 && aut.password!=null && aut.password.length>0){
             validationAuthority = aut;
-            $("#luckysheet-protection-sheet-validation input").val("");
-            openSelfModel("luckysheet-protection-sheet-validation");
+            $("#tibetsheets-protection-sheet-validation input").val("");
+            openSelfModel("tibetsheets-protection-sheet-validation");
             return;
         }
         else{//retore protection config
@@ -705,19 +705,19 @@ export function openProtectionModal(file){
         }
     }
     else{//protection initial config
-        $("#luckysheet-protection-check-selectLockedCells").prop('checked',true);
-        $("#luckysheet-protection-check-selectunLockedCells").prop('checked',true);
+        $("#tibetsheets-protection-check-selectLockedCells").prop('checked',true);
+        $("#tibetsheets-protection-check-selectunLockedCells").prop('checked',true);
     }
 
-    $("#luckysheet-modal-dialog-slider-protection").show();
-    luckysheetsizeauto();
+    $("#tibetsheets-modal-dialog-slider-protection").show();
+    tibetsheetssizeauto();
 
 }
 
 export function closeProtectionModal(){
-    $("#luckysheet-protection-rangeItem-dialog").hide();
-    $("#luckysheet-modal-dialog-slider-protection").hide();
-    luckysheetsizeauto();
+    $("#tibetsheets-protection-rangeItem-dialog").hide();
+    $("#tibetsheets-modal-dialog-slider-protection").hide();
+    tibetsheetssizeauto();
 }
 
 
@@ -751,7 +751,7 @@ function checkProtectionLockedSqref(r, c, aut, local_protection, isOpenAlert=tru
                 if(password!=null && password.length>0  && !(sqref in inputRangeProtectionPassword)){
                     if(isOpenAlert){
                         openRangePasswordModal(ra);
-                        $("#luckysheet-selection-copy .luckysheet-selection-copy").hide();
+                        $("#tibetsheets-selection-copy .tibetsheets-selection-copy").hide();
                     }
                     return false;
                 }
@@ -773,7 +773,7 @@ function checkProtectionLockedSqref(r, c, aut, local_protection, isOpenAlert=tru
             ht = local_protection.defaultSheetHintText;
         }
         tooltip.info("", ht);
-        $("#luckysheet-selection-copy .luckysheet-selection-copy").hide();
+        $("#tibetsheets-selection-copy .tibetsheets-selection-copy").hide();
     }
     
     return isPass;
@@ -788,23 +788,23 @@ function openRangePasswordModal(rangeAut) {
     if(!initialRangePasswordHtml){
         //Password input initial for range
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-protection-range-validation", 
-            "addclass": "luckysheet-protection-sheet-validation", 
+            "id": "tibetsheets-protection-range-validation", 
+            "addclass": "tibetsheets-protection-sheet-validation", 
             "title": local_protection.validationTitle, 
             "content": `
-                <div class="luckysheet-slider-protection-row">
-                    <div id="luckysheet-protection-range-validation-hint" class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
+                <div class="tibetsheets-slider-protection-row">
+                    <div id="tibetsheets-protection-range-validation-hint" class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
                         
                     </div>
                 </div>
-                <div class="luckysheet-slider-protection-row" style="margin-top:20px">
-                    <div class="luckysheet-slider-protection-column luckysheet-protection-column-10x">
-                        <input type="password" class="luckysheet-protection-rangeItemiInput" placeHolder="${local_protection.validationInputHint}">
+                <div class="tibetsheets-slider-protection-row" style="margin-top:20px">
+                    <div class="tibetsheets-slider-protection-column tibetsheets-protection-column-10x">
+                        <input type="password" class="tibetsheets-protection-rangeItemiInput" placeHolder="${local_protection.validationInputHint}">
                     </div>
                 </div>
             `, 
-            "botton":  `<button id="luckysheet-protection-range-validation-confirm" class="btn btn-primary">${locale_button.confirm}</button>
-                        <button class="btn btn-default luckysheet-model-close-btn">${locale_button.cancel}</button>`, 
+            "botton":  `<button id="tibetsheets-protection-range-validation-confirm" class="btn btn-primary">${locale_button.confirm}</button>
+                        <button class="btn btn-default tibetsheets-model-close-btn">${locale_button.cancel}</button>`, 
             "style": "z-index:100003" 
         }));
     }
@@ -813,20 +813,20 @@ function openRangePasswordModal(rangeAut) {
 
 
     
-    openSelfModel("luckysheet-protection-range-validation");
+    openSelfModel("tibetsheets-protection-range-validation");
 
-    let $hint = $("#luckysheet-protection-range-validation-hint");
+    let $hint = $("#tibetsheets-protection-range-validation-hint");
     if(rangeAut.hintText != null && rangeAut.hintText.length>0){
         $hint.html(rangeAut.hintText);
     }
     else{
         $hint.html(local_protection.defaultRangeHintText);
     }
-    let $rangeV = $("#luckysheet-protection-range-validation");
+    let $rangeV = $("#tibetsheets-protection-range-validation");
     let $input = $rangeV.find("input");
     $input.val("");
 
-    $("#luckysheet-protection-range-validation-confirm").off("click").on("click", function(){
+    $("#tibetsheets-protection-range-validation-confirm").off("click").on("click", function(){
         let password = $input.val();
 
         if(password==null || password.length==0){
@@ -848,7 +848,7 @@ function openRangePasswordModal(rangeAut) {
         if(password==rangeAut.password){
             inputRangeProtectionPassword[rangeAut.sqref] = 1;
             $rangeV.hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
             alert(local_protection.checkPasswordSucceedalert);
         }
         else{

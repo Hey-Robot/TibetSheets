@@ -185,7 +185,7 @@ function sortSelection(isAsc) {
     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "sort")){
         return;
     }
-    if(Store.luckysheet_select_save.length > 1){
+    if(Store.tibetsheets_select_save.length > 1){
         if(isEditMode()){
             alert("不能对多重选择区域执行此操作，请选择单个区域，然后再试");
         }
@@ -202,10 +202,10 @@ function sortSelection(isAsc) {
 
     let d = editor.deepCopyFlowData(Store.flowdata);
 
-    let r1 = Store.luckysheet_select_save[0].row[0], 
-        r2 = Store.luckysheet_select_save[0].row[1];
-    let c1 = Store.luckysheet_select_save[0].column[0], 
-        c2 = Store.luckysheet_select_save[0].column[1];
+    let r1 = Store.tibetsheets_select_save[0].row[0], 
+        r2 = Store.tibetsheets_select_save[0].row[1];
+    let c1 = Store.tibetsheets_select_save[0].column[0], 
+        c2 = Store.tibetsheets_select_save[0].column[1];
 
     let str, edr;
 

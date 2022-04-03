@@ -1,5 +1,5 @@
 import './utils/math'
-import { luckysheet } from './core'
+import { tibetsheets } from './core'
 import __firefox from './utils/polyfill'
 // Prevent gulp warning: 'Use of eval is strongly discouraged, as it poses security risks and may cause issues with minification'
 // window.evall = window.eval;
@@ -8,7 +8,7 @@ if(window.addEventListener && (navigator.userAgent.indexOf("Firefox") > 0)){
     __firefox();
 }
 
-// export default luckysheet;
+// export default tibetsheets;
 
 // use esbuild,bundle iife format
-module.exports =  luckysheet
+module.exports =  tibetsheets

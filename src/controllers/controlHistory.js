@@ -2,7 +2,7 @@ import sheetmanage from './sheetmanage';
 import server from './server';
 import pivotTable from './pivotTable';
 import conditionformat from './conditionformat';
-import luckysheetPostil from './postil';
+import tibetsheetsPostil from './postil';
 import imageCtrl from './imageCtrl';
 import dataVerificationCtrl from './dataVerificationCtrl';
 import hyperlinkCtrl from './hyperlinkCtrl';
@@ -19,7 +19,7 @@ import {
     jfrefreshgrid_adRC,
     jfrefreshgrid_deleteCell,
     jfrefreshgrid_pastcut,
-    luckysheetrefreshgrid 
+    tibetsheetsrefreshgrid 
 } from '../global/refresh';
 import { getSheetIndex } from '../methods/get';
 import Store from '../store';
@@ -128,7 +128,7 @@ const controlHistory = {
         }
         else if (ctr.type == "resize") {
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
                 server.saveParam("cg", ctr.sheetIndex, ctr.config["rowlen"], { "k": "rowlen" });
@@ -138,7 +138,7 @@ const controlHistory = {
             }
 
             let images = $.extend(true, {}, ctr.images);
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].images = images;
             server.saveParam("all", ctr.sheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -210,7 +210,7 @@ const controlHistory = {
         else if (ctr.type == "showHidRows") { // 隐藏、显示行 撤销操作
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
         
             server.saveParam("cg", ctr.sheetIndex, ctr.config["rowhidden"], { "k": "rowhidden" });
         
@@ -220,7 +220,7 @@ const controlHistory = {
         else if (ctr.type == "showHidCols") { // 隐藏、显示列 撤销操作
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = ctr.config;
         
             server.saveParam("cg", ctr.sheetIndex, ctr.config["colhidden"], { "k": "colhidden" });
         
@@ -234,7 +234,7 @@ const controlHistory = {
         else if (ctr.type == "datachangeAll_filter_clear") {
             createFilterOptions(ctr.filter_save);
 
-            $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").each(function(i){
+            $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").each(function(i){
                 let $top = $(this);
                 let item = ctr.optiongroups[i];
                 labelFilterOptionState($top, item.optionstate, item.rowhidden, item.caljs, false, item.st_r, item.ed_r, item.cindex, item.st_c, item.ed_c);
@@ -244,7 +244,7 @@ const controlHistory = {
 
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             if(Store.config["rowhidden"] == null){
                 Store.config["rowhidden"] = {};
@@ -255,10 +255,10 @@ const controlHistory = {
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
 
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         }
         else if (ctr.type == "datachangeAll_filter") {
-            let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
+            let $top = $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(ctr["optionsindex"]);
             let st_r = $top.data("str"), 
                 ed_r = $top.data("edr"), 
                 cindex = $top.data("cindex"), 
@@ -269,7 +269,7 @@ const controlHistory = {
 
             //config
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             if(Store.config["rowhidden"] == null){
                 Store.config["rowhidden"] = {};
@@ -280,17 +280,17 @@ const controlHistory = {
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
             
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         }
         else if (ctr.type == "filtershow") {
-            $('#luckysheet-filter-selected-sheet' + ctr.sheetIndex + ', #luckysheet-filter-options-sheet' + ctr.sheetIndex).remove();
+            $('#tibetsheets-filter-selected-sheet' + ctr.sheetIndex + ', #tibetsheets-filter-options-sheet' + ctr.sheetIndex).remove();
             
             if(server.allowUpdate){
                 server.saveParam("all", ctr.sheetIndex, null, { "k": "filter_select" });
             }
         }
         else if(ctr.type == "pivotTable_change"){
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTable;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTable;
 
             pivotTable.getCellData(ctr.sheetIndex);
             pivotTable.initialPivotManage(true);
@@ -300,8 +300,8 @@ const controlHistory = {
         else if (ctr.type == "addSheet") {
             sheetmanage.deleteSheet(ctr.index);
             sheetmanage.changeSheetExec(ctr.currentSheetIndex);
-            $("#luckysheet-input-box").removeAttr("style");
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            $("#tibetsheets-input-box").removeAttr("style");
+            $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "copySheet") {
             sheetmanage.deleteSheet(ctr.index);
@@ -310,32 +310,32 @@ const controlHistory = {
         else if (ctr.type == "deleteSheet") {
             let isDupName = false;
 
-            for(let i = 0; i < Store.luckysheetfile.length; i++){
-                if(Store.luckysheetfile[i].name == ctr.name){
+            for(let i = 0; i < Store.tibetsheetsfile.length; i++){
+                if(Store.tibetsheetsfile[i].name == ctr.name){
                     isDupName = true;
                 }
             }
 
             if(!isDupName){
                 sheetmanage.createSheetbydata(ctr, "isrenew");
-                $("#luckysheet-input-box").removeAttr("style");
-                $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+                $("#tibetsheets-input-box").removeAttr("style");
+                $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
             }
         }
         else if (ctr.type == "sheetName") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.oldtxt;
-            $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.oldtxt);
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].name = ctr.oldtxt;
+            $("#tibetsheets-sheets-item" + ctr.sheetIndex).find(".tibetsheets-sheets-item-name").html(ctr.oldtxt);
 
             server.saveParam("all", ctr.sheetIndex, ctr.oldtxt, { "k": "name" });
         }
         else if (ctr.type == "sheetColor") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.oldcolor;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].color = ctr.oldcolor;
             
-            let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
-            luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
+            let tibetsheetscurrentSheetitem = $("#tibetsheets-sheets-item" + ctr.sheetIndex);
+            tibetsheetscurrentSheetitem.find(".tibetsheets-sheets-item-color").remove();
 
             if(ctr.oldcolor != null){
-                luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.oldcolor + ';"></div>');
+                tibetsheetscurrentSheetitem.append('<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.oldcolor + ';"></div>');
             }
 
             server.saveParam("all", ctr.sheetIndex, ctr.oldcolor, { "k": "color" });
@@ -362,10 +362,10 @@ const controlHistory = {
             for(let i = 0; i < historyRules.length; i++){
                 //条件规则
                 let sheetIndex = historyRules[i]["sheetIndex"];
-                Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = historyRules[i]["luckysheet_conditionformat_save"];
+                Store.tibetsheetsfile[getSheetIndex(sheetIndex)]["tibetsheets_conditionformat_save"] = historyRules[i]["tibetsheets_conditionformat_save"];
             
                 if(server.allowUpdate){
-                    server.saveParam("all", sheetIndex, historyRules[i]["luckysheet_conditionformat_save"], { "k": "luckysheet_conditionformat_save" });
+                    server.saveParam("all", sheetIndex, historyRules[i]["tibetsheets_conditionformat_save"], { "k": "tibetsheets_conditionformat_save" });
                 }
             }
 
@@ -377,10 +377,10 @@ const controlHistory = {
 
             let index = getSheetIndex(ctr["sheetIndex"]);
 
-            Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = $.extend(true, [], historyRules);
+            Store.tibetsheetsfile[index]["tibetsheets_alternateformat_save"] = $.extend(true, [], historyRules);
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         }
         else if (ctr.type == "borderChange"){
@@ -392,24 +392,24 @@ const controlHistory = {
             }
 
             Store.config = ctr.config;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         }
         else if (ctr.type == "postil"){
-            luckysheetPostil.ref(ctr.data, ctr.rc);
+            tibetsheetsPostil.ref(ctr.data, ctr.rc);
 
             for(let i = 0; i < ctr.rc.length; i++){
                 let r = ctr.rc[i].split("_")[0];
                 let c = ctr.rc[i].split("_")[1];
 
                 if(ctr.data[r][c] != null && ctr.data[r][c].ps != null){
-                    luckysheetPostil.buildPs(r, c, ctr.data[r][c].ps);
+                    tibetsheetsPostil.buildPs(r, c, ctr.data[r][c].ps);
                 }
                 else{
-                    luckysheetPostil.buildPs(r, c, null);
+                    tibetsheetsPostil.buildPs(r, c, null);
                 }
             }
         }
@@ -427,7 +427,7 @@ const controlHistory = {
         
         cleargridelement(e);
         if (ctr.range) {
-            Store.luckysheet_select_save = ctr.range;
+            Store.tibetsheets_select_save = ctr.range;
             selectHightlightShow();
         }
         Store.clearjfundo = true;
@@ -476,7 +476,7 @@ const controlHistory = {
         }
         else if (ctr.type == "resize") {
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             if(ctr.ctrlType == "resizeR"){
                 server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["rowlen"], { "k": "rowlen" });
@@ -486,7 +486,7 @@ const controlHistory = {
             }
 
             let images = $.extend(true, {}, ctr.curImages);
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].images = images;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].images = images;
             server.saveParam("all", ctr.sheetIndex, images, { "k": "images" });
             imageCtrl.images = images;
             imageCtrl.allImagesShow();
@@ -549,7 +549,7 @@ const controlHistory = {
         else if (ctr.type == "showHidRows") { // 隐藏、显示行 重做操作
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
         
             server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["rowhidden"], { "k": "rowhidden" });
         
@@ -559,7 +559,7 @@ const controlHistory = {
         else if (ctr.type == "showHidCols") { // 隐藏、显示列 重做操作
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = ctr.curconfig;
         
             server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["colhidden"], { "k": "colhidden" });
         
@@ -575,7 +575,7 @@ const controlHistory = {
             
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             server.saveParam("cg", Store.currentSheetIndex, {}, { "k": "rowhidden" });
 
@@ -583,14 +583,14 @@ const controlHistory = {
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
             
 
-            $("#luckysheet-filter-menu .luckysheet-filter-selected-input").hide().find("input").val();
-            $("#luckysheet-filter-selected span").data("type", "0").data("type", null).text("无");
+            $("#tibetsheets-filter-menu .tibetsheets-filter-selected-input").hide().find("input").val();
+            $("#tibetsheets-filter-selected span").data("type", "0").data("type", null).text("无");
 
-            $('#luckysheet-filter-selected-sheet' + Store.currentSheetIndex + ', #luckysheet-filter-options-sheet' + Store.currentSheetIndex).remove();
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            $('#tibetsheets-filter-selected-sheet' + Store.currentSheetIndex + ', #tibetsheets-filter-options-sheet' + Store.currentSheetIndex).remove();
+            $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         }
         else if (ctr.type == "datachangeAll_filter") {
-            let $top = $("#luckysheet-filter-options-sheet" + Store.currentSheetIndex + " .luckysheet-filter-options").eq(ctr["optionsindex"]);
+            let $top = $("#tibetsheets-filter-options-sheet" + Store.currentSheetIndex + " .tibetsheets-filter-options").eq(ctr["optionsindex"]);
             let st_r = $top.data("str"), 
                 ed_r = $top.data("edr"), 
                 cindex = $top.data("cindex"), 
@@ -601,32 +601,32 @@ const controlHistory = {
 
             //config
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
             server.saveParam("cg", Store.currentSheetIndex, Store.config["rowhidden"], { "k": "rowhidden" });
 
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
 
-            $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+            $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
         }
         else if (ctr.type == "filtershow") {
-            Store.luckysheet_select_save = [ctr.filter_save];
+            Store.tibetsheets_select_save = [ctr.filter_save];
             Store.filterchage = false;
             createFilter();
             Store.filterchage = true;
             server.saveParam("all", ctr.sheetIndex, ctr.filter_save, { "k": "filter_select" });
         }
         else if (ctr.type == "pivotTable_change") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTablecur;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].pivotTable = ctr.pivotTablecur;
             pivotTable.getCellData(ctr.sheetIndex);
             pivotTable.initialPivotManage(true);
             pivotTable.refreshPivotTable();
         }
         else if (ctr.type == "addSheet") {
             sheetmanage.createSheetbydata(ctr.sheetconfig);
-            $("#luckysheet-input-box").removeAttr("style");
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            $("#tibetsheets-input-box").removeAttr("style");
+            $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "copySheet") {
             sheetmanage.copySheet(ctr.copyindex);
@@ -635,29 +635,29 @@ const controlHistory = {
             sheetmanage.deleteSheet(ctr.index);
 
             if (ctr.order == 0) {
-                sheetmanage.changeSheetExec(Store.luckysheetfile[0].index);
+                sheetmanage.changeSheetExec(Store.tibetsheetsfile[0].index);
             }
             else {
-                sheetmanage.changeSheetExec(Store.luckysheetfile[ctr.order - 1].index);
+                sheetmanage.changeSheetExec(Store.tibetsheetsfile[ctr.order - 1].index);
             }
             
-            $("#luckysheet-input-box").removeAttr("style");
-            $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+            $("#tibetsheets-input-box").removeAttr("style");
+            $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
         }
         else if (ctr.type == "sheetName") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].name = ctr.txt;
-            $("#luckysheet-sheets-item" + ctr.sheetIndex).find(".luckysheet-sheets-item-name").html(ctr.txt);
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].name = ctr.txt;
+            $("#tibetsheets-sheets-item" + ctr.sheetIndex).find(".tibetsheets-sheets-item-name").html(ctr.txt);
             
             server.saveParam("all", ctr.sheetIndex, ctr.txt, { "k": "name" });
         }
         else if (ctr.type == "sheetColor") {
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].color = ctr.color;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].color = ctr.color;
 
-            let luckysheetcurrentSheetitem = $("#luckysheet-sheets-item" + ctr.sheetIndex);
-            luckysheetcurrentSheetitem.find(".luckysheet-sheets-item-color").remove();
+            let tibetsheetscurrentSheetitem = $("#tibetsheets-sheets-item" + ctr.sheetIndex);
+            tibetsheetscurrentSheetitem.find(".tibetsheets-sheets-item-color").remove();
             
             if(ctr.color != null){
-                luckysheetcurrentSheetitem.append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.color + ';"></div>');
+                tibetsheetscurrentSheetitem.append('<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + ctr.color + ';"></div>');
             }
             
             server.saveParam("all", ctr.sheetIndex, ctr.color, { "k": "color" });
@@ -684,10 +684,10 @@ const controlHistory = {
             for(let i = 0; i < currentRules.length; i++){
                 //条件规则
                 let sheetIndex = currentRules[i]["sheetIndex"];
-                Store.luckysheetfile[getSheetIndex(sheetIndex)]["luckysheet_conditionformat_save"] = currentRules[i]["luckysheet_conditionformat_save"];
+                Store.tibetsheetsfile[getSheetIndex(sheetIndex)]["tibetsheets_conditionformat_save"] = currentRules[i]["tibetsheets_conditionformat_save"];
                 
                 if(server.allowUpdate){
-                    server.saveParam("all", sheetIndex, currentRules[i]["luckysheet_conditionformat_save"], { "k": "luckysheet_conditionformat_save" });
+                    server.saveParam("all", sheetIndex, currentRules[i]["tibetsheets_conditionformat_save"], { "k": "tibetsheets_conditionformat_save" });
                 }
             }
 
@@ -699,34 +699,34 @@ const controlHistory = {
 
             let index = getSheetIndex(ctr["sheetIndex"]);
 
-            Store.luckysheetfile[index]["luckysheet_alternateformat_save"] = $.extend(true, [], currentRules);
+            Store.tibetsheetsfile[index]["tibetsheets_alternateformat_save"] = $.extend(true, [], currentRules);
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         }
         else if (ctr.type == "borderChange"){
             server.saveParam("cg", ctr.sheetIndex, ctr.curconfig["borderInfo"], { "k": "borderInfo" });
 
             Store.config = ctr.curconfig;
-            Store.luckysheetfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(ctr.sheetIndex)].config = Store.config;
 
             setTimeout(function () {
-                luckysheetrefreshgrid();
+                tibetsheetsrefreshgrid();
             }, 1);
         }
         else if (ctr.type == "postil"){
-            luckysheetPostil.ref(ctr.curdata, ctr.rc);
+            tibetsheetsPostil.ref(ctr.curdata, ctr.rc);
 
             for(let i = 0; i < ctr.rc.length; i++){
                 let r = ctr.rc[i].split("_")[0];
                 let c = ctr.rc[i].split("_")[1];
 
                 if(ctr.curdata[r][c] != null && ctr.curdata[r][c].ps != null){
-                    luckysheetPostil.buildPs(r, c, ctr.curdata[r][c].ps);
+                    tibetsheetsPostil.buildPs(r, c, ctr.curdata[r][c].ps);
                 }
                 else{
-                    luckysheetPostil.buildPs(r, c, null);
+                    tibetsheetsPostil.buildPs(r, c, null);
                 }
             }
         }
@@ -743,7 +743,7 @@ const controlHistory = {
         }
 
         if (ctr.range) {
-            Store.luckysheet_select_save = ctr.range;
+            Store.tibetsheets_select_save = ctr.range;
             selectHightlightShow();
         }
         Store.clearjfundo = true;

@@ -1,6 +1,6 @@
 # Community case
 
-We collected a lot of case feedback from the community, and also discovered Luckysheet usage scenarios that we did not expect before.
+We collected a lot of case feedback from the community, and also discovered Tibetsheets usage scenarios that we did not expect before.
 
 It is our responsibility to actively listen to the voice of the community, and to continuously update and iterate with your support and feedback.
 

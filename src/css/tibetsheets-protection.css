@@ -1,0 +1,255 @@
+
+#tibetsheets-modal-dialog-slider-protection .tibetsheets-modal-dialog-slider-content{
+    background: #fff;
+}
+
+.tibetsheets-slider-protection-config{
+    position: absolute;
+    width: 100%;
+}
+
+.tibetsheets-slider-protection-row{
+    position: relative;
+    width: 98%;
+    height: 35px;
+    left: 1%;
+}
+
+.tibetsheets-slider-protection-column{
+    position: absolute;
+    height: 100%;
+}
+
+
+.tibetsheets-slider-protection-config input, .tibetsheets-slider-protection-config textarea, .tibetsheets-protection-rangeItem-dialog input, .tibetsheets-protection-rangeItem-dialog textarea, .tibetsheets-protection-sheet-validation input{
+    border: 1px solid #d4d4d4;
+    outline: none;
+}
+
+.tibetsheets-slider-protection-config input:focus, .tibetsheets-slider-protection-config textarea:focus, .tibetsheets-protection-rangeItem-dialog input:focus, .tibetsheets-protection-rangeItem-dialog textarea:focus,.tibetsheets-protection-sheet-validation input:focus{
+    border: 1px solid #0389FB;
+    outline: none;
+}
+
+.tibetsheets-protection-input{
+    width: 100%;
+    height: 19px;
+    position: relative;
+}
+
+.tibetsheets-protection-textarea{
+    width: 100%;
+    height: 47px;
+    position: relative;
+    resize:none;
+}
+
+.tibetsheets-protection-column-2x{
+    width: 20%;
+}
+
+.tibetsheets-protection-column-3x{
+    width: 30%;
+}
+
+.tibetsheets-protection-column-4x{
+    width: 40%;
+}
+
+.tibetsheets-protection-column-5x{
+    width: 50%;
+}
+
+.tibetsheets-protection-column-6x{
+    width: 60%;
+}
+
+.tibetsheets-protection-column-7x{
+    width: 70%;
+}
+
+.tibetsheets-protection-column-8x{
+    width: 80%;
+}
+
+.tibetsheets-protection-column-9x{
+    width: 90%;
+}
+
+.tibetsheets-protection-column-10x{
+    width: 100%;
+}
+
+.tibetsheets-protection-column-left{
+    text-align: left;
+}
+
+.tibetsheets-protection-column-center{
+    text-align: center;
+}
+
+.tibetsheets-protection-column-right{
+    text-align: right;
+}
+
+.tibetsheets-slider-protection-ok{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #0188fb;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tibetsheets-slider-protection-ok:hover{
+    background: #0181EE;
+}
+
+.tibetsheets-slider-protection-ok:active{
+    background: #0074da;
+}
+
+.tibetsheets-slider-protection-cancel{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e6e6e6;
+    color: #353535;
+    text-align: center;
+    line-height: 45px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tibetsheets-slider-protection-cancel:hover{
+    background: #d6d6d6;
+}
+
+.tibetsheets-slider-protection-cancel:active{
+    background: #c7c7c7;
+}
+
+.tibetsheets-slider-protection-addRange{
+    line-height: 23px;
+    font-size: 12px;
+    top: 2px;
+    height: 23px;
+}
+
+
+.tibetsheets-protection-rangeItem{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.tibetsheets-protection-rangeItem:hover{
+    background: #D5D5D5;
+}
+
+.tibetsheets-protection-rangeItem > div{
+    position: absolute;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-del{
+    left: 5px;
+    top:5px;
+    height: 20px;
+    width: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-name{
+    left: 30px;
+    width: 80px;
+    text-align: left;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-range{
+    left: 110px;
+    width: 120px;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-update{
+    left: 230px;
+    width: 30px;
+    font-size: 14px;
+    top: 5px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-del:hover, .tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-update:hover{
+    background: #0181EE;
+    color: #fff;
+}
+
+.tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-del:active, .tibetsheets-protection-rangeItem .tibetsheets-protection-rangeItem-update:active{
+    background: #0074da;
+    color: #fff;
+}
+
+
+.tibetsheets-protection-rangeItem-content{
+    position: relative;
+    width: 350px;
+    height: 270px;
+}
+
+
+#tibetsheets-protection-rangeItem-dialog .tibetsheets-slider-protection-column .range {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #d4d4d4;
+}
+
+#tibetsheets-protection-rangeItem-dialog .tibetsheets-slider-protection-column .range input {
+    width: calc(100% - 30px);
+    height: 30px;
+    padding: 0 10px;
+    float: left;
+    border: none;
+    outline-style: none;
+    box-sizing: border-box;
+}
+
+#tibetsheets-protection-rangeItem-dialog .tibetsheets-slider-protection-column .range i.fa-table {
+    float: right;
+    margin-top: 9px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: #6598F3;
+}
+
+.tibetsheets-protection-rangeItemTextarea{
+    width: 100%;
+    height: 120px;
+    position: relative;
+    resize:none;
+}
+
+.tibetsheets-protection-rangeItemiInput{
+    width: 100%;
+    height: 23px;
+    position: relative;
+}
+
+
+.tibetsheets-protection-sheet-validation{
+    width: 390px;
+    height: 180px;
+    display: none;
+}

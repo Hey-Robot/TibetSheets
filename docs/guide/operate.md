@@ -1,7 +1,7 @@
 # Table Operation
-`luckysheet` stores all operations in the history to `undo` and `redo`. If `allowupdate` is set to true and `updateURL` is available in initial, operations will be updated on the backend in real-time via webSocket. And every one can edit same sheet on the same time.
+`tibetsheets` stores all operations in the history to `undo` and `redo`. If `allowupdate` is set to true and `updateURL` is available in initial, operations will be updated on the backend in real-time via webSocket. And every one can edit same sheet on the same time.
 
->Source code [`src/controllers/server.js`] (https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/server.js) The module shows us the function of background saving.
+>Source code [`src/controllers/server.js`] (https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/server.js) The module shows us the function of background saving.
 
 In general, shared editing(or collaborative editing) is controled by the account system created by developers to control permissions.
 
@@ -38,7 +38,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
 
-    The cell update is mainly to update the `luckysheetfile[i].celldata` parameter, which is an array:
+    The cell update is mainly to update the `tibetsheetsfile[i].celldata` parameter, which is an array:
     ```json
     [
         {r:0, c:1, v: "value1"},
@@ -46,9 +46,9 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
         {r:10, c:11, v:{f:"=sum", v:"100"}}
     ]
     ```
-    Store the values in all the cells in the sheet, Luckysheet will create a new table data according to the number of rows and columns in `luckysheetfile[i].row` and `luckysheetfile[i].column` when it is created, and then use `data[ r][c]=v` to fill the table data, empty data cells are represented by null.
+    Store the values in all the cells in the sheet, Tibetsheets will create a new table data according to the number of rows and columns in `tibetsheetsfile[i].row` and `tibetsheetsfile[i].column` when it is created, and then use `data[ r][c]=v` to fill the table data, empty data cells are represented by null.
 
-    When saving the data posted by the frontend, the backend needs to convert the parameters to the format of `{r:0, c:1:v:100}` first, and then update the field of `luckysheetfile[i].celldata`, if the cell exists the cell is updated, if not, it is added, and if the cell exists but `v` is null, the cell is deleted.
+    When saving the data posted by the frontend, the backend needs to convert the parameters to the format of `{r:0, c:1:v:100}` first, and then update the field of `tibetsheetsfile[i].celldata`, if the cell exists the cell is updated, if not, it is added, and if the cell exists but `v` is null, the cell is deleted.
 
 - **Frontend view**：
 
@@ -80,19 +80,19 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
 
-    Update `luckysheetfile[i].config.[k][v.key] = v.value`, if `k` does not exist in `config`, then create a new `k` attribute and set it to empty, If there is no `v.key` in `k`, create a new `v.key` and update `v.value`.
+    Update `tibetsheetsfile[i].config.[k][v.key] = v.value`, if `k` does not exist in `config`, then create a new `k` attribute and set it to empty, If there is no `v.key` in `k`, create a new `v.key` and update `v.value`.
 
     1. Examples of modifying row height:
        - Enter: `{"t":"cg","i":3,"v":{"3":10, "5":70, "10":100},"k":" rowlen"}`
-       - Update: `luckysheetfile[3].config.["rowlen"]["3"] = 10`
+       - Update: `tibetsheetsfile[3].config.["rowlen"]["3"] = 10`
 
     2. Examples of modifying column width:
        - Enter: `{"t":"cg","i":1,"v":{"20":74, "15":170, "6":40},"k":" columnlen"}`
-       - Update: `luckysheetfile[1].config.["columnlen"]["20"] = 74`
+       - Update: `tibetsheetsfile[1].config.["columnlen"]["20"] = 74`
         
     3. Examples of merged cells:
        - Enter: `{"t":"cg","i":1,"v":{"5_10":{row:[1,3], column:[3,5]},"k":" merge "}`
-       - Update: `luckysheetfile[1].config.["merge"]["5_10"] = {row:[1,3], column:[3,5]}`
+       - Update: `tibetsheetsfile[1].config.["merge"]["5_10"] = {row:[1,3], column:[3,5]}`
  
 ## General save
 
@@ -123,28 +123,28 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
 
-    `luckysheetfile[3].[k]= v`
-    If `s` is `true`, it is `luckysheetfile[3].[k]= JSON.stringify(v)`
+    `tibetsheetsfile[3].[k]= v`
+    If `s` is `true`, it is `tibetsheetsfile[3].[k]= JSON.stringify(v)`
 
     1. Pivot table:
        - Enter: `{"t":"all","i":1,"v":{………},"k":"pivotTable", "s": false}`
-       - Update: `luckysheetfile[1].["pivotTable"] = {………}`
+       - Update: `tibetsheetsfile[1].["pivotTable"] = {………}`
 
     2. Freeze rows and columns:
        - Enter: `{"t":"all","i":3,"v":{………},"k":"freezen", "s": false}`
-       - Update: `luckysheetfile[3].["freezen"] = {………}`
+       - Update: `tibetsheetsfile[3].["freezen"] = {………}`
 
     3. Filter range:
        - Enter: `{"t":"all","i":3,"v":{………},"k":"filter_select", "s": true }`
-       - Update: `luckysheetfile[3].["filter_select"] = JSON.stringify ({………})`
+       - Update: `tibetsheetsfile[3].["filter_select"] = JSON.stringify ({………})`
         
     4. Sheet name:
        - Enter: `{"t":"all","i":1,"v":"doc","k":"name", "s": false}`
-       - Update: `luckysheetfile[1].["name"] = "doc"`
+       - Update: `tibetsheetsfile[1].["name"] = "doc"`
 
     5. Sheet color:
        - Enter:  `{"t":"all","i":2,"v":"#FFF000","k":"color", "s": false}`
-       - Update: `luckysheetfile[2].["color"] = "#FFF000"`
+       - Update: `tibetsheetsfile[2].["color"] = "#FFF000"`
 
 ## Function chain operation
 
@@ -182,9 +182,9 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 - **Backend update**：
 
     calcChain is an array
-    - If the value of `op` is `add` then add to the end `luckysheetfile[i].calcChain.push (v)`， 
-    - If the value of `op` is `update` then update  `luckysheetfile[i].calcChain[pos]= v`，
-    - If the value of `op` is `del` then delete `luckysheetfile[i].calcChain.splice(pos, 1)`。
+    - If the value of `op` is `add` then add to the end `tibetsheetsfile[i].calcChain.push (v)`， 
+    - If the value of `op` is `update` then update  `tibetsheetsfile[i].calcChain[pos]= v`，
+    - If the value of `op` is `del` then delete `tibetsheetsfile[i].calcChain.splice(pos, 1)`。
 
 - **Frontend view**：
 
@@ -243,7 +243,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
   
     If the value of `rc` is `'r'` then delete the row, if the value of `rc` is `'c'` then delete the column, eg `rc='r'`, `index=4`, `len= 5`, means to delete the next 5 lines (4, 5, 6, 7, 8) from the 4th line.
 
-     Mainly operate on the cells in `luckysheetfile[i].celldata`, delete the qualified cells described in the parameters and update the row and column values of other cells. Taking the above as an example, first find the `r` in the cell Delete all the cells with values from 4 to 8, and then subtract the value of 5 from the original cell number 9 and later, and finally subtract 5 from `luckysheetfile[i].row`.
+     Mainly operate on the cells in `tibetsheetsfile[i].celldata`, delete the qualified cells described in the parameters and update the row and column values of other cells. Taking the above as an example, first find the `r` in the cell Delete all the cells with values from 4 to 8, and then subtract the value of 5 from the original cell number 9 and later, and finally subtract 5 from `tibetsheetsfile[i].row`.
      If the `v` value is `"#__qkdelete#"` (without quotes), then this is the cell to be deleted.
 
 - **Front view**：
@@ -306,7 +306,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
     
     If the value of `rc` is `r`, add a new row. If the value of `rc` is `c`, add a new column. For example, `rc=r, index=4, len=5` then it means increase 5 lines from line 4. If `data` is empty, add an empty line. If `data` is not empty, use the array in `data` to add a new line.
 
-    Mainly operate on the cells in `luckysheetfile[i].celldata`. Taking the above as an example, first add 5 to `luckysheetfile[i].row`, and then add `r` greater than 4 to the entire cell`r `Value +5, if `data` is empty, add an empty line to end, if `data` is not empty, convert the two-dimensional array `data` to `{r:0,c:0,v:100}` Format and added to `celldata`, the pseudo code for conversion is as follows:
+    Mainly operate on the cells in `tibetsheetsfile[i].celldata`. Taking the above as an example, first add 5 to `tibetsheetsfile[i].row`, and then add `r` greater than 4 to the entire cell`r `Value +5, if `data` is empty, add an empty line to end, if `data` is not empty, convert the two-dimensional array `data` to `{r:0,c:0,v:100}` Format and added to `celldata`, the pseudo code for conversion is as follows:
 
     ```javascript
     var ret = [];
@@ -352,7 +352,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
   
-   Update `luckysheetfile[i].filter = {pos: v }`, the value of `v` is a string in JSON format. `filter` is a key-value pair, `key` is the index value (in characters) of the option position, and `v` is a json string parameter. `filter` represents a set of filter conditions.
+   Update `tibetsheetsfile[i].filter = {pos: v }`, the value of `v` is a string in JSON format. `filter` is a key-value pair, `key` is the index value (in characters) of the option position, and `v` is a json string parameter. `filter` represents a set of filter conditions.
 
 ### Clear filter
 
@@ -368,7 +368,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
   
-    Clear `luckysheetfile[i]. filter = null` ， `luckysheetfile[i]. filter_select = null`。
+    Clear `tibetsheetsfile[i]. filter = null` ， `tibetsheetsfile[i]. filter_select = null`。
 
 ### Restore filter
 
@@ -387,7 +387,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
 
 - **Backend update**：
   
-    Clear `luckysheetfile[i]. filter = v.filter`， `luckysheetfile[i]. filter_select = v. filter_select`。
+    Clear `tibetsheetsfile[i]. filter = v.filter`， `tibetsheetsfile[i]. filter_select = v. filter_select`。
 
 ## Sheet operation
 
@@ -597,9 +597,9 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
   
     For the page where the `index` of the sheet is equal to the `key`, set its `order` attribute to the `value`. Examples:
 
-    `luckysheetfile[key1].order = value1`
-    `luckysheetfile[key2].order = value2`
-    `luckysheetfile[key3].order = value3`
+    `tibetsheetsfile[key1].order = value1`
+    `tibetsheetsfile[key2].order = value2`
+    `tibetsheetsfile[key3].order = value3`
 
 ### switch to the specified sheet
 
@@ -624,7 +624,7 @@ Pay attention, `i` in the object is the `index` of the sheet rather than `order`
   
     setting the `status` = `1`, when the `index` of a sheet is eaqul to `v`：
 
-    `luckysheetfile[v].status = 1`
+    `tibetsheetsfile[v].status = 1`
 
 ## Sheet attributes (hide or show)
 
@@ -754,10 +754,10 @@ There are four types of chart operations: add new chart -"add", move chart posit
 
 - **Backend update**：
   
-    update the chart settings in the current sheet,if`luckysheetfile[i].chart` is null，the array should be `[]` on initial.
+    update the chart settings in the current sheet,if`tibetsheetsfile[i].chart` is null，the array should be `[]` on initial.
 
     ```json
-    luckysheetfile[0].chart.push(v)
+    tibetsheetsfile[0].chart.push(v)
     ```
 
 ### move chart position
@@ -791,8 +791,8 @@ There are four types of chart operations: add new chart -"add", move chart posit
     update the chart settings in the current sheet
 
     ```js
-    luckysheetfile[0].chart[v.chart_id].left = v.left;
-    luckysheetfile[0].chart[v.chart_id].top = v.top;
+    tibetsheetsfile[0].chart[v.chart_id].left = v.left;
+    tibetsheetsfile[0].chart[v.chart_id].top = v.top;
     ```
 
 ### zoom chart
@@ -828,10 +828,10 @@ There are four types of chart operations: add new chart -"add", move chart posit
     update the chart settings in the current sheet
 
     ```js
-    luckysheetfile[0].chart[v.chart_id].left = v.left;
-    luckysheetfile[0].chart[v.chart_id].top = v.top;
-    luckysheetfile[0].chart[v.chart_id].width = v.width;
-    luckysheetfile[0].chart[v.chart_id].height = v.height;
+    tibetsheetsfile[0].chart[v.chart_id].left = v.left;
+    tibetsheetsfile[0].chart[v.chart_id].top = v.top;
+    tibetsheetsfile[0].chart[v.chart_id].width = v.width;
+    tibetsheetsfile[0].chart[v.chart_id].height = v.height;
     ```
 
 ### change the configuration of charts
@@ -884,7 +884,7 @@ There are four types of chart operations: add new chart -"add", move chart posit
     update the chart settings in the current sheet
 
     ```js
-    luckysheetfile[0].chart[v.chart_id] = v;
+    tibetsheetsfile[0].chart[v.chart_id] = v;
     ```
 
 ## Backend return format

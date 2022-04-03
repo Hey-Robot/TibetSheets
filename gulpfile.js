@@ -36,7 +36,7 @@ const pkg = require('./package.json');
 const banner = `/*! @preserve
  * ${pkg.name}
  * version: ${pkg.version}
- * https://github.com/mengshukeji/Luckysheet
+ * https://github.com/mengshukeji/Tibetsheets
  */`;
 
 // uglify js Compression configuration https://github.com/mishoo/UglifyJS#minify-options
@@ -111,7 +111,7 @@ const paths = {
     //plugins concat
     concatPluginsCss: 'pluginsCss.css',
     concatPlugins: 'plugins.css',
-    concatCss: 'luckysheet.css',
+    concatCss: 'tibetsheets.css',
     concatPluginsJs: 'plugin.js',
 
     //plugins dest
@@ -130,8 +130,8 @@ function clean() {
 }
 
 // proxy middleware
-const apiProxy = createProxyMiddleware('/luckysheet/', {
-    target: 'http://luckysheet.lashuju.com/', // set your server address
+const apiProxy = createProxyMiddleware('/tibetsheets/', {
+    target: 'http://tibetsheets.lashuju.com/', // set your server address
     changeOrigin: true, // for vhosted sites
     ws: true, // proxy websockets
 });
@@ -194,9 +194,9 @@ async function core_rollup() {
     });
 
     bundle.write({
-        file: 'dist/luckysheet.umd.js',
+        file: 'dist/tibetsheets.umd.js',
         format: 'umd',
-        name: 'luckysheet',
+        name: 'tibetsheets',
         sourcemap: true,
         inlineDynamicImports:true,
         banner: banner
@@ -204,9 +204,9 @@ async function core_rollup() {
 
     if(production){
         bundle.write({
-            file: 'dist/luckysheet.esm.js',
+            file: 'dist/tibetsheets.esm.js',
             format: 'esm',
-            name: 'luckysheet',
+            name: 'tibetsheets',
             sourcemap: true,
             inlineDynamicImports:true,
             banner: banner
@@ -219,14 +219,14 @@ async function core() {
 
     await require('esbuild').buildSync({
         format: 'iife',
-        globalName: 'luckysheet',    
+        globalName: 'tibetsheets',    
         entryPoints: ['src/index.js'],
         bundle: true,
         minify: production,
         banner: { js: banner },
         target: ['es2015'],
         sourcemap: true,
-        outfile: 'dist/luckysheet.umd.js',
+        outfile: 'dist/tibetsheets.umd.js',
         logLevel: 'error',
       })
 }
@@ -294,6 +294,12 @@ function copyStaticCssImages(){
     return src(paths.staticCssImages)
         .pipe(dest(paths.destStaticCssImages));
 }
+
+console.log("");
+console.log("###############");
+console.log("# Free Tibet! #");
+console.log("###############");
+console.log("");
 
 const dev = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages, core), watcher, serve);
 const build = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages, core));

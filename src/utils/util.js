@@ -1,4 +1,4 @@
-import { columeHeader_word, columeHeader_word_index, luckysheetdefaultFont } from '../controllers/constant';
+import { columeHeader_word, columeHeader_word_index, tibetsheetsdefaultFont } from '../controllers/constant';
 import menuButton from '../controllers/menuButton';
 import { isdatatype, isdatatypemulti } from '../global/datecontroll';
 import { hasChinaword,isRealNum } from '../global/validate';
@@ -50,7 +50,7 @@ function common_extend(jsonbject1, jsonbject2) {
 };
 
 // 替换temp中的${xxx}为指定内容 ,temp:字符串，这里指html代码，dataarry：一个对象{"xxx":"替换的内容"}
-// 例：luckysheet.replaceHtml("${image}",{"image":"abc","jskdjslf":"abc"})   ==>  abc
+// 例：tibetsheets.replaceHtml("${image}",{"image":"abc","jskdjslf":"abc"})   ==>  abc
 function replaceHtml(temp, dataarry) {
     return temp.replace(/\$\{([\w]+)\}/g, function (s1, s2) { let s = dataarry[s2]; if (typeof (s) != "undefined") { return s; } else { return s1; } });
 };
@@ -382,7 +382,7 @@ function ArrayUnique(dataArr) {
 }
 
 //获取字体配置
-function luckysheetfontformat(format) {
+function tibetsheetsfontformat(format) {
     let fontarray = locale().fontarray;
     if (getObjType(format) == "object") {
         let font = "";
@@ -450,7 +450,7 @@ function luckysheetfontformat(format) {
         return font;
     }
     else {
-        return luckysheetdefaultFont();
+        return tibetsheetsdefaultFont();
     }
 }
 
@@ -476,20 +476,20 @@ function showrightclickmenu($menu, x, y) {
 }
 
 //单元格编辑聚焦
-function luckysheetactiveCell() {
+function tibetsheetsactiveCell() {
     if (!!Store.fullscreenmode) {
         setTimeout(function () {
-            // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem
-            const input = document.getElementById('luckysheet-rich-text-editor');
+            // need preventScroll:true,fix Tibetsheets has been set top, and clicking the cell will trigger the scrolling problem
+            const input = document.getElementById('tibetsheets-rich-text-editor');
             input.focus({preventScroll:true});
-            $("#luckysheet-rich-text-editor").select();
-            // $("#luckysheet-rich-text-editor").focus().select();
+            $("#tibetsheets-rich-text-editor").select();
+            // $("#tibetsheets-rich-text-editor").focus().select();
         }, 50);
     }
 }
 
 //单元格编辑聚焦
-function luckysheetContainerFocus() {
+function tibetsheetsContainerFocus() {
     
     // $("#" + Store.container).focus({ 
     //     preventScroll: true 
@@ -498,7 +498,7 @@ function luckysheetContainerFocus() {
     // fix jquery error: Uncaught TypeError: ((n.event.special[g.origType] || {}).handle || g.handler).apply is not a function
     // $("#" + Store.container).attr("tabindex", 0).focus();
 
-    // need preventScroll:true,fix Luckysheet has been set top, and clicking the cell will trigger the scrolling problem
+    // need preventScroll:true,fix Tibetsheets has been set top, and clicking the cell will trigger the scrolling problem
     document.getElementById(Store.container).focus({preventScroll:true});
 }
 
@@ -779,7 +779,7 @@ function transformRangeToAbsolute(txt1){
 
 function openSelfModel(id, isshowMask=true){
     let $t = $("#"+id)
-            .find(".luckysheet-modal-dialog-content")
+            .find(".tibetsheets-modal-dialog-content")
             .css("min-width", 300)
             .end(), 
         myh = $t.outerHeight(), 
@@ -792,7 +792,7 @@ function openSelfModel(id, isshowMask=true){
     }).show();
 
     if(isshowMask){
-        $("#luckysheet-modal-dialog-mask").show();
+        $("#tibetsheets-modal-dialog-mask").show();
     }
 }
 
@@ -903,9 +903,9 @@ export {
     createABCdim,
     getByteLen,
     ArrayUnique,
-    luckysheetfontformat,
+    tibetsheetsfontformat,
     showrightclickmenu,
-    luckysheetactiveCell,
+    tibetsheetsactiveCell,
     numFormat,
     numfloatlen,
     mouseclickposition,
@@ -913,7 +913,7 @@ export {
     seriesLoadScripts,
     parallelLoadScripts,
     loadLinks,
-    luckysheetContainerFocus,
+    tibetsheetsContainerFocus,
     transformRangeToAbsolute,
     openSelfModel,
     createProxy,

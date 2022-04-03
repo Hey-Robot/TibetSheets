@@ -10,7 +10,7 @@
     background-color: transparent;
 }
 
-.luckysheet-noselected-text {
+.tibetsheets-noselected-text {
     -moz-user-select: -moz-test;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -22,7 +22,7 @@
   cursor: move;
 }
 
-.luckysheet {
+.tibetsheets {
     position: absolute;
     /*width: 100%;
     height: 100%;*/
@@ -32,12 +32,12 @@
     background: #fff;
 }
 
-.luckysheet * {
+.tibetsheets * {
     box-sizing: initial;
     outline: none;
 }
 
-.luckysheetLoaderGif {
+.tibetsheetsLoaderGif {
     /*换用GIF loading*/
     width: 8em;
     height: 8em;
@@ -49,13 +49,13 @@
     -o-transform: translate(-50%, -100%);
     transform: translate(-50%, -100%);
 
-    background-image: url(https://heyrobotassets.s3.us-west-1.amazonaws.com/luckysheet/dist/css/loading.gif);
+    background-image: url(https://heyrobotassets.s3.us-west-1.amazonaws.com/tibetsheets/dist/css/loading.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
 }
 
-.luckysheet-loading-mask{
+.tibetsheets-loading-mask{
     position:absolute;
     z-index:1000000000;
     margin: 0;
@@ -68,7 +68,7 @@
     background:#fff;
 }
 
-.luckysheet-loading-content{
+.tibetsheets-loading-content{
     position:relative;
     top: 50%;
     transform: translateY(-50%);
@@ -78,17 +78,17 @@
     text-align:center;
 }
 
-.luckysheet-loading-image{
+.tibetsheets-loading-image{
     width: 8em;
     height: 8em;
     margin: 0 auto;
 }
 
-.luckysheet-loading-text{
+.tibetsheets-loading-text{
     margin-top: 1em;
 }
 
-.luckysheet-loading-image .image-type{
+.tibetsheets-loading-image .image-type{
     width:100%;
     height:100%;
     background-repeat: no-repeat;
@@ -96,18 +96,18 @@
     background-size: 100% 100%;
 }
 
-.luckysheet-loading-image .path-type{
+.tibetsheets-loading-image .path-type{
     width:100%;
     height:100%;
 }
 
-.luckysheet-work-area {
+.tibetsheets-work-area {
     height: 90px;
     width: 100%;
     position: relative;
 }
 
-.luckysheet_info_detail {
+.tibetsheets_info_detail {
     position: relative;
     left: 0px;
     top: 0px;
@@ -122,11 +122,11 @@
     border-bottom: 1px solid #d4d4d4;
 }
 
-.luckysheet_info_detail .sheet-name {
+.tibetsheets_info_detail .sheet-name {
     margin: auto;
 }
 
-.luckysheet_info_detail div.luckysheet_info_detail_back {
+.tibetsheets_info_detail div.tibetsheets_info_detail_back {
     font-size: 14px;
     padding: 0 8px;
     margin-right: 18px;
@@ -134,12 +134,12 @@
     cursor: pointer;
 }
 
-.luckysheet_info_detail div.luckysheet_info_detail_back:hover {
+.tibetsheets_info_detail div.tibetsheets_info_detail_back:hover {
     background: #eee;
 }
 
 
-.luckysheet_info_detail .luckysheet_info_detail_input {
+.tibetsheets_info_detail .tibetsheets_info_detail_input {
     border: 1px solid transparent;
     border-radius: 3px !important;
     color: #000000;
@@ -152,11 +152,11 @@
     visibility: hidden;
 }
 
-.luckysheet_info_detail .luckysheet_info_detail_input:hover {
+.tibetsheets_info_detail .tibetsheets_info_detail_input:hover {
     border: 1px solid #e5e5e5;
 }
 
-.luckysheet_info_detail .luckysheet_info_detail_input:focus {
+.tibetsheets_info_detail .tibetsheets_info_detail_input:focus {
     -webkit-appearance: none;
     -moz-appearance: none;
     border: 1px solid #0188fb !important;
@@ -167,40 +167,42 @@
     outline: none;
 }
 
-.luckysheet_info_detail_update {
+.tibetsheets_info_detail_update {
     color: #cbcbcb;
     font-size: 12px;
     margin-left: 15px;
 }
 
-.luckysheet_info_detail_user {
+.tibetsheets_info_detail_user {
 	/* right: 20px; */
 	font-size: 12px;
 	cursor: pointer;
 	margin-left: 10px;
 	/* position: absolute; */
 }
-#luckysheet_info_detail_user_img {
+#tibetsheets_info_detail_user_img {
     vertical-align: middle;
     height: 20px;
     line-height: 20px;
     border-radius: 50%;
     object-fit: cover;
 }
-.luckysheet_info_detail_save {
+.tibetsheets_info_detail_save {
     color: #828282;
     font-size: 12px;
     margin:0 5px;
 }
 
-.luckysheet-share-logo {
+.tibetsheets-share-logo {
     height: 32px;
     width: 152px;
     z-index: 1;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAAAgCAYAAADuW7E5AAAN7ElEQVR4Xu2be5BU1Z3Hv7/Tj2EYkEA0Uj4QTBRBZgofYFAWHzGlVLlqNGg0u6vZVKBqLVmZ7kGcvnf6dt/bDMx0D4RNYiRGd92EcmFZDRrAWl/J6ho3JJAZhELBRQTj+lgfMEhP973frdMzPdMzdM8rTFadOX/N3Ps7557zO5/zO7/f75yWKittYZBFKfXvO+oCLw6y+ki1YaABGQFsGMzy/+MQOwEj5CR4nDCgvijZRshOhczeZmv0wQHVHREeFhroAszDZMA7dyCjpuANgbwF4S9arPJfD6TuiOzw0MCfFbAqi2fQS98AJZeB0DCXtcTKKoeHqofnKIsCRsgUQIJ9qUSAoxQcE3iNLbHytaXkq2xORTa73IN3owCqQO7NlljZpL6+M/L+s6uBEoCpqRD0CRiINoAZAImd8VH/cJwaLPormVkJcDEA//FqkmdbYsGvfXbVN9LzvjQwZICdb3GCQmY9yJIAUZDYaZUZfXVy5P1nVwNDAthki6PGsk07/bN6U40ncskrVvC/+qM+a3lyukecSRfv2XXh3/WnzlDJRJzGaqGcAXCzY9Y8PVTf6a3dT0Mf+jPuIQGsMpr+OYDb++jAtpZYWa8AFtaPOMkHhFgIyFbHDM3vz+CGSsawk9sAXCSCiG2Elw/Vd3pr99PQh8L+WZalsr6x1wLeMceseTb/7oQDNsNK3yTExr6ULvSubo6XP9OXXP79CGDdNfVpA8xwkr8CMU9ElthGaPXQAKadeq9tJwRT+wDn8ZZY2Tf6C5eWGwHsUw6YndoFcNqQAlYVS99GD+t6BUewu/WT1jmvr5zw0VACVpdIft2lTBCqZsdcsrvwW7Wx5HzxyUleFtvrrdCr+XcdZv46gHNFUEHyIEU9lzBCvymsX8p6GPbqqRR3ppbV3/UHfYczmcxl+n9/ZtQvY7G7jnTf9ptmA5wixGHHDG3W75bV14/3Z4PfAvhlQEfy6k1AbXLMe/aU6kPGl7k/4AbvIL1zKXJQebLFrgtt76nfJU1N5RWt3jVCXECRLwLc58tmN8Ziyw4Umwsz3nQ+hfNEMJ1EK4AX/O7hzZZleQU7y1xAThcyBeB0QB6hYLPQ+x/HrHn+hG6RM6LpJwS4rhQ4BA9Q8LVXrFF7BwLXYCxYb1uIUWS11SZWn6o890mAFxfp2/o9zS/fvmHDBle/K9a25TTNztLbCmA8RLb6s4dvTgcnVPjctjd1QlkUvmdHwg/2gETDfQ4g9ztm6O8Mu0n7MBsAjOnRBw+g7Zg1nRcTuvogD5G8pn1yO4ogA6pFjln9cP6RYa+aRvE2Czm5e9s8pqAWx83QTwqfm05qJckwuuctIcDLPhfXWVb4PS1vOslNJP6yp85E8IxthK8+cYDtLvtR5fTMBwDHFoNHhC8CZTc1W/LOQOH6cwBm2KktAK8F+L6IzxLxXnOJWQLUgiinwEwYYacYYBEnOVeIXwI4CZQNPvfjv4rFYm0dstqi36ZXv2OG/6LTWrYD+bL+31O+i4KZj3ZkfWP0pI0H8KTn8cdK+TJCzqfC32s5Qr6aMKpzUXcesJy1FDwl4P0UNZ4eNYRnAXjP7449y7IWHV24cGHg1Enn7iAxHcDvhCpJ4cci+LpH3i26CWJ2PjqPOMlvC/EzgG2AagTkBVGcCJc1lFwbmxwzfEMOsETqTpDTSH4X0FYRz4pgG8m9jlnzE5kZbzfhrscLSDf3t1DNJTC6bxCoV7Q2lwkqbFGU13rWIfG+gAlXyn64KyY5pQ+mDNQHG4gFq0ukrvQ8PqvVLMo3x669Jzfx7RPZFAK8JIB9jhn+Sk/AfORvMpBNAlRQ8GAge2RR4RZyX7zhcp+o5wlQ4J3jmEv3ta/81PfJXAJ6u2OGL4w2NEx00+qPOZCE1yeMmifyfTCdpnrS06cr6xwztKmwDyT2v3vq2HPXLlqkE96IOKlLhXox63bcWQnj3m2GnbwbwBqA72Zbs1NXrLjvg662U40dlioHzd1r1pSN+zD9OkROI2Em6toXlS7RaMNE16+01R3jKe/i5ZGlv+/SUwkfLC8ww8pcIXRzpo6Q68HilqgEHAlRvj+A3q/a68MTyA5R8uiRo/61r6+UAflbxb4xpIDZKcsDowB2OGb4gsLva7+l/BP3HP0smGndqeHphBd42gMuE6AcQMoxw3pLOa4YduMuQKYJEbfrwtH169f7mve8eQjgqRTclTDCP8pBF0++0m4h5CiFjwqxxT/G97S1ZMmHPRst2CLX2EYoZ+F0WbBggW9q1SXHtNtHjzclojWPmfHU4xTeoLct0tctrSLizSD5fQKZV5snlU+feajS9dyc/yaUOyiqxy0ZrxHghRREE0Y43m/AqqyjZxBydq4CcR4pZSVgOu6xUurFTCDwx0DWvdQVvq2O+ne1rJDOVdLfdnqTG0rADDv1c4A6b/dvjhm+ua/+Fm5PeVkRNNhG+N7igCU1AKsp2J+IhM42nFXXAN4WDVImkDlt5bJluQUYcVJnAvypEFfr+e1oKwvgeaVkeTwSeq5rQttzcYAYjhlKFH7XsJMayHEU+VbCCP1LxEnuFuK8vsblC/jPymbdOUI+2pcsgIcdM/y3/QasHw12F1lA3/nnp6co+E7LBvyv8QjafP7M2VkVOLQnJm8NuL0+KgwlYJF48gERncTlVses6TOJWwCYJyKPkbw5t70K/saOhH7WcygdkeFBgKMB35WAqyfmrwXyiG2G7ugpH3GaTqfHa5R4VwKY3+HbuErktrgR0kFA0UCjAL5ugBl2UvttOqn9a0A9WUrVvmz2nzNKLlJKcjIiyiSRLiavhK/HjVBnvrNY4JRrY0AgWPRXeW0LPMHtArk879CL8n3TzXoHlGL+2GcvBY9lmF29J1ZxQmAbBGB6tV8BoNExw0vz47Ss5MlZH3RkNyqfs4k4qbCQjQIcrJw6afItt9ySixZ1MePJWRT5Jwg+eeeUMV/Vvk4BYKscM1xtOKkHkXNyeYziuzzviBfqNuKkHhbyTh0EQKghHiNU8+y66v/Qcpa1arKrvLkUHnHM8ONd/X1gdMZ/+EkhrhTgJdsMXzoIwB7RQJN4KlEXvrawXzXRhonlAf8cjx797pFNWd/oKYDKRfkUmXN8iqbxCiW+8Rnl7amvDe86YRZsRiz7DXHd+mJJVM9Tc7PK/99BtB3qDqy0ClnfHA8u1zv6gGDuITwIwB4C8B0Ar/jdIxdblnXMsix/1jdWR0e3tq/Q9qyzYTdqB1oraxSAascMr2qfdEtl/WPXgbxVRH5hG6Ebi03umjVryt75KP0CIDrF8RZFzU4Y1d10YcYbL6FIYT5tj2OGO7ctM95USfGa24Mmd4Zj3tuZuzMSqR/A410AfuuY4dkDByylc3s6aPCE6iq7rjrnK3fo4wkdPVPwXMIIX0VSTCelg5xZItiiModvzEfE5vKmyz3Xe0YAn0vvivq6pbl2cv1xkttBzATEcsxQLP+8TwvWcXD901JnizmHPh08WftcldG0jiJzkVa3Iuqxw/Dfvt8S7XwOqnQB1nv1AmiuAiR/FPUGgJdJVInk+qfNfkVh1tmwU3GAZi5gJ7VV2QfBLBAzALQK1Ry7rrql1ORGV6ye5GbcbQBPEeC3PveL8yzrO93Ga9iN2wFpT8SK1NhGSEennXNh2I3PIbcz4H8BPKWTm0pkKsG5ud1GieFE2v2t3qPk7j6Yljfjjf9KkZu1M68EWz3gfQDzhNB+9xG/4mVWpEYDjlqr4ULlUy/puEZEdNT4n3pcJHS+zV9sazec5D+CuAMiLgi9uBocM/TDXgHLXblhm04e9nIoLb9viQUv0h2bYaUbhKgpgcC6lljZtwdFV7ejov4BpqUiTnKZkLH85UkB3iZkEYAVxY41DDv1PYANAL7QNe3YIUrdY9e2r/reJtewG68mZKte4R0phW7j7UoXoM3v8kzLqumWE7xv+ZpTfG5mNcFb29voLB8A8mO/e9jIp0AGCtjChQ8EvnTmxxGILNV5vYK2nxfKPXZd6A+Fmq2NNsxUfqUTw7m57Sg6d5ZQmcOr81Yt/0L7jUI+BFCnuiryFwFKA6bPFZHZ2tt9rtxKVGppczTQqP+eGm09LYjAqwArimMgi1piwZI3XwcLX2/1lq5cOTaQCUzTMu8eqNi+dm17vqiXIobdOJkipwcCwf3WvYv1avyTtvcCMHPbtpAb7bqab5bqg2Wt+kJbAJN9bmYchW9/aVz5/sWLFxd1tgeqM50i2bX3wDlu1jc+6//k1fraWm3JShbLapoAP8/L0ve+3/1wn2VZOqrtdykJWGW0LQWwureWdBL1aDr45cI8V1VdOkJBZ3KuR/23ZUzwK801os+1hlVpt07pA4CMAtR8x6zWO8PnvhQFTN+hZ7ZtZ/FrzgU6Iatb4qNyDnFXoVRa2Y2gV/S2BEW+u9MK6pU8rErESRpC2AAP+N3WKYXZ/s+zIooDFs1sJLybehu4PlvMsuyqYsc/fQQGm1piZblzrOFSdLTmqjG7qY9fhPX5M83hMP7jANM/LfPY9kaPX//0sFF4QyE4u6+D68pom05e6pB1YmcDgkMtVtkZw0G5I2MskmitrDt2F0R+UFI5gt0eeH1/r9xUNbLCa83cKuQNkFxEcnILgqNhSeedopGJ+Pxq4DgLVmml14G56yXFyuOtx1rvHOhlwW4NWVQjcH1+geo5suMBi6Y7DlG7iW4TessGcod++KhwZKS9+uo9X1ZG0zpbPQ6Q1yh8iZBN/f1p2YiqRzTQUwP/ByH3mYpBTz2UAAAAAElFTkSuQmCC");
+    background-image: url("https://user-images.githubusercontent.com/9451001/161445678-a8b9ce29-7ee7-49c3-b4fc-fc66975cf3ef.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.luckysheet-wa-editor {
+.tibetsheets-wa-editor {
     height: 32px;
     /* background: #f7f7f7; */
     background: #fafafc;
@@ -214,7 +216,7 @@
 }
 
 /* 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar {
+.tibetsheets-wa-editor>div.tibetsheetsfulltoolbar {
     display: inline-block;
     height: 34px;
     padding: 0px 5px;
@@ -227,13 +229,13 @@
     vertical-align: middle;
 }
 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar:hover {
+.tibetsheets-wa-editor>div.tibetsheetsfulltoolbar:hover {
     background: #0188fb;
     color: #FAFAFA;
     cursor: pointer;
 }
 
-.luckysheet-wa-editor>div.luckysheetfulltoolbar:active {
+.tibetsheets-wa-editor>div.tibetsheetsfulltoolbar:active {
     background: #FB4747;
     color: #FFFFFF;
     -webkit-box-shadow: inset 0 0 2px #727272;
@@ -244,7 +246,7 @@
 
 /*toolbar菜单start*/
 
-.luckysheet-toolbar-left-theme {
+.tibetsheets-toolbar-left-theme {
     width: 15px;
     /* background: #0188fb;  */ /* 工具栏左边的蓝色背景 */
     position: absolute;
@@ -253,14 +255,14 @@
     bottom: 1px;
 }
 
-.luckysheet-inline-block {
+.tibetsheets-inline-block {
     position: relative;
     display: -moz-inline-box;
     display: inline-block;
 }
 
 /*分隔符*/
-.luckysheet-toolbar-separator {
+.tibetsheets-toolbar-separator {
     line-height: normal;
     list-style: none;
     outline: none;
@@ -277,7 +279,7 @@
 }
 
 /*combo*/
-.luckysheet-toolbar-combo-button {
+.tibetsheets-toolbar-combo-button {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -303,7 +305,7 @@
     margin: 0 1px;
 }
 
-.luckysheet-toolbar-combo-button:hover {
+.tibetsheets-toolbar-combo-button:hover {
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
@@ -327,11 +329,11 @@
     cursor: pointer;
 }
 
-.luckysheet-toolbar-combo-button:hover .luckysheet-toolbar-combo-button-input {
+.tibetsheets-toolbar-combo-button:hover .tibetsheets-toolbar-combo-button-input {
     border-right-color: rgba(0, 0, 0, 0.12);
 }
 
-.luckysheet-toolbar-combo-button-open {
+.tibetsheets-toolbar-combo-button-open {
     color: #222;
     border-width: 1px;
     border-color: transparent !important;
@@ -341,36 +343,36 @@
 }
 
 
-.luckysheet-toolbar-combo-button-open .luckysheet-toolbar-combo-button-input {
+.tibetsheets-toolbar-combo-button-open .tibetsheets-toolbar-combo-button-input {
     background: transparent;
     border-right: 1px solid transparent !important;
 }
 
 
-.luckysheet-toolbar-combo-button-outer-box,
-.luckysheet-toolbar-combo-button-inner-box {
+.tibetsheets-toolbar-combo-button-outer-box,
+.tibetsheets-toolbar-combo-button-inner-box {
     border: 0;
     vertical-align: top;
     margin: 0;
     padding: 0;
 }
 
-/* .luckysheet-toolbar-combo-button-inner-box {
+/* .tibetsheets-toolbar-combo-button-inner-box {
     padding: 0 2px;
     margin: 0 1px;
 } */
 
-.luckysheet-toolbar-zoom-combobox .luckysheet-toolbar-combo-button-caption {
+.tibetsheets-toolbar-zoom-combobox .tibetsheets-toolbar-combo-button-caption {
     /* width: 48px !important; */
     width: 36px !important;
 }
 
-.luckysheet-toolbar-combo-button-caption {
+.tibetsheets-toolbar-combo-button-caption {
     padding: 0;
     margin: 0 0 0 -3px;
 }
 
-.luckysheet-toolbar-combo-button-input {
+.tibetsheets-toolbar-combo-button-input {
     background: transparent;
     border: 1px solid transparent !important;
     color: #333;
@@ -384,14 +386,14 @@
     width: 22px;
 }
 
-.luckysheet-toolbar-combo-button-input:focus {
+.tibetsheets-toolbar-combo-button-input:focus {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     background: #fff;
     outline: none;
     border: 1px solid #0188fb !important;
 }
 
-.luckysheet-toolbar-textinput {
+.tibetsheets-toolbar-textinput {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
@@ -403,7 +405,7 @@
     padding: 1px 0px 1px 8px;
 }
 
-.luckysheet-toolbar-combo-button-dropdown {
+.tibetsheets-toolbar-combo-button-dropdown {
     /* background: url(arrow-down.png) center no-repeat; */
     float: right;
     margin: 9px 0 0 0px;
@@ -418,18 +420,18 @@
 }
 
 /*menubar*/
-.luckysheet-toolbar-color-menu-button .luckysheet-toolbar-menu-button-caption {
+.tibetsheets-toolbar-color-menu-button .tibetsheets-toolbar-menu-button-caption {
     top: -2px;
 }
 
-.luckysheet-color-menu-button-indicator {
+.tibetsheets-color-menu-button-indicator {
     position: relative;
     /* border-bottom: 4px solid #f0f0f0; */
     height: 20px;
     /* border-bottom-color: transparent; */
 }
 
-.luckysheet-color-menu-button-indicator .text-color-bar{
+.tibetsheets-color-menu-button-indicator .text-color-bar{
     position: absolute;
     bottom: 0px;
     background-color: #0081f9;
@@ -438,23 +440,23 @@
     left: 30%;
 }
 
-.luckysheet-toolbar-button-inner-box .luckysheet-icon,
-.luckysheet-toolbar-menu-button-caption .luckysheet-icon,
-.luckysheet-toolbar-menu-button-caption .luckysheet-color-menu-button-indicator .luckysheet-icon {
+.tibetsheets-toolbar-button-inner-box .tibetsheets-icon,
+.tibetsheets-toolbar-menu-button-caption .tibetsheets-icon,
+.tibetsheets-toolbar-menu-button-caption .tibetsheets-color-menu-button-indicator .tibetsheets-icon {
     margin-top: 0px;
 }
 
 /*menubutton*/
-.luckysheet-toolbar-menu-button-caption {
+.tibetsheets-toolbar-menu-button-caption {
     padding: 0;
     margin: 0;
 }
 
-.luckysheet-toolbar-menu-button-inner-box {
+.tibetsheets-toolbar-menu-button-inner-box {
     margin: 0px 2px;
 }
 
-.luckysheet-toolbar-menu-button-dropdown {
+.tibetsheets-toolbar-menu-button-dropdown {
     /* background: url(arrow-down.png) center no-repeat; */
     float: right;
     margin: 10px 2px 0 3px;
@@ -470,38 +472,38 @@
     margin-top: 10px;
 }
 
-.luckysheet-toolbar-button-split-right .luckysheet-toolbar-menu-button-dropdown {
+.tibetsheets-toolbar-button-split-right .tibetsheets-toolbar-menu-button-dropdown {
     padding: 0px 3px;
 }
 
-/* .luckysheet-toolbar-select {
+/* .tibetsheets-toolbar-select {
     margin-left: 1px;
 } */
 
 /*split*/
-.luckysheet-toolbar-button-split-left,
-.luckysheet-toolbar-button-split-left * {
+.tibetsheets-toolbar-button-split-left,
+.tibetsheets-toolbar-button-split-left * {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     margin-right: 0;
 }
 
-.luckysheet-toolbar-button-split-right,
-.luckysheet-toolbar-button-split-right * {
+.tibetsheets-toolbar-button-split-right,
+.tibetsheets-toolbar-button-split-right * {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     min-width: 5px !important;
     margin-left: 0;
 }
 
-#luckysheet-icon-merge-menu {
+#tibetsheets-icon-merge-menu {
     margin-right: 1px;
 }
 
 
 /*button*/
-.luckysheet-toolbar-button,
-.luckysheet-toolbar-menu-button {
+.tibetsheets-toolbar-button,
+.tibetsheets-toolbar-menu-button {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -526,9 +528,9 @@
     color: #333;
 }
 
-.luckysheet-toolbar-button:hover,
-.luckysheet-toolbar-menu-button:hover,
-.luckysheet-toolbar-button-hover {
+.tibetsheets-toolbar-button:hover,
+.tibetsheets-toolbar-menu-button:hover,
+.tibetsheets-toolbar-button-hover {
     border: 1px solid transparent;
     background-color: rgba(0, 0, 0, 0.06);
     background-image: none;
@@ -536,11 +538,11 @@
     cursor: pointer;
 }
 
-.luckysheet-toolbar-button-split-right.luckysheet-toolbar-menu-button:hover {
+.tibetsheets-toolbar-button-split-right.tibetsheets-toolbar-menu-button:hover {
     border-left-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-.luckysheet-toolbar-button-split-right-hover {
+.tibetsheets-toolbar-button-split-right-hover {
     border-width: 1px;
     border-color: transparent !important;
     background-color: rgba(0, 0, 0, 0.06);
@@ -549,8 +551,8 @@
     border-left-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-.luckysheet-toolbar-button:active,
-.luckysheet-toolbar-menu-button:active {
+.tibetsheets-toolbar-button:active,
+.tibetsheets-toolbar-menu-button:active {
     border: 1px solid transparent;
     background-color: rgba(0, 0, 0, 0.12);
     background-image: none;
@@ -558,16 +560,16 @@
     cursor: pointer;
 }
 
-.luckysheet-toolbar-button-outer-box,
-.luckysheet-toolbar-menu-button-outer-box {
+.tibetsheets-toolbar-button-outer-box,
+.tibetsheets-toolbar-menu-button-outer-box {
     border: 0;
     vertical-align: top;
     margin: 0;
     padding: 0;
 }
 
-.luckysheet-toolbar-button-inner-box,
-.luckysheet-toolbar-menu-button-inner-box {
+.tibetsheets-toolbar-button-inner-box,
+.tibetsheets-toolbar-menu-button-inner-box {
     padding: 0 2px;
     padding: 0;
     text-align: center;
@@ -575,7 +577,7 @@
     min-width: 26px;
 }
 
-.luckysheet-icon {
+.tibetsheets-icon {
     direction: ltr;
     /* text-align: left; */
     text-align: center;
@@ -590,7 +592,7 @@
     /* opacity: .54; */
 }
 
-#luckysheet-icon-fmt-other .luckysheet-toolbar-menu-button-caption {
+#tibetsheets-icon-fmt-other .tibetsheets-toolbar-menu-button-caption {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -599,7 +601,7 @@
     text-align: center;
 }
 
-#luckysheet-icon-font-family .luckysheet-toolbar-menu-button-caption {
+#tibetsheets-icon-font-family .tibetsheets-toolbar-menu-button-caption {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -609,228 +611,228 @@
     text-align: center;
 }
 
-/* .luckysheet-icon-bold {
+/* .tibetsheets-icon-bold {
     left: -18px;
     top: -186px;
 }
 
-.luckysheet-icon-italic {
+.tibetsheets-icon-italic {
     left: -36px;
     top: -1606px;
 }
 
-.luckysheet-icon-strikethrough {
+.tibetsheets-icon-strikethrough {
     left: -54px;
     top: -442px;
 }
 
-.luckysheet-icon-text-color {
+.tibetsheets-icon-text-color {
     left: -72px;
     top: -1850px;
 }
 
-.luckysheet-icon-cell-color {
+.tibetsheets-icon-cell-color {
     left: 0;
     top: -406px;
 }
 
-.luckysheet-icon-border-all {
+.tibetsheets-icon-border-all {
     left: -54px;
     top: -1552px;
 }
 
-.luckysheet-icon-merge {
+.tibetsheets-icon-merge {
     left: -54px;
     top: -1534px;
 }
 
 
-.luckysheet-icon-align-left {
+.tibetsheets-icon-align-left {
     left: -18px;
     top: -1426px;
 }
 
-.luckysheet-icon-align-center {
+.tibetsheets-icon-align-center {
     left: -18px;
     top: -334px;
 }
 
-.luckysheet-icon-align-right {
+.tibetsheets-icon-align-right {
     left: -36px;
     top: -1588px;
 }
 
 
-.luckysheet-icon-valign-middle {
+.tibetsheets-icon-valign-middle {
     left: -72px;
     top: -1390px;
 }
 
-.luckysheet-icon-valign-top {
+.tibetsheets-icon-valign-top {
     left: -72px;
     top: -442px;
 }
 
-.luckysheet-icon-valign-bottom {
+.tibetsheets-icon-valign-bottom {
     left: 0;
     top: -316px;
 }
 
-.luckysheet-icon-textwrap-wrap {
+.tibetsheets-icon-textwrap-wrap {
     left: -36px;
     top: -316px;
 }
 
-.luckysheet-icon-textwrap-overflow {
+.tibetsheets-icon-textwrap-overflow {
     left: -58px;
     top: -1116px;
 }
 
-.luckysheet-icon-textwrap-clip {
+.tibetsheets-icon-textwrap-clip {
     left: -54px;
     top: -1444px;
 }
 
-.luckysheet-icon-rotation-none {
+.tibetsheets-icon-rotation-none {
     left: -36px;
     top: -586px;
 }
 
-.luckysheet-icon-rotation-angleup {
+.tibetsheets-icon-rotation-angleup {
     left: -72px;
     top: -1134px;
 }
 
-.luckysheet-icon-rotation-angledown {
+.tibetsheets-icon-rotation-angledown {
     left: -36px;
     top: -186px;
 }
 
-.luckysheet-icon-rotation-vertical {
+.tibetsheets-icon-rotation-vertical {
     left: -36px;
     top: -1282px;
 }
 
-.luckysheet-icon-rotation-rotation-up {
+.tibetsheets-icon-rotation-rotation-up {
     left: 0;
     top: -1318px;
 }
 
-.luckysheet-icon-rotation-rotation-down {
+.tibetsheets-icon-rotation-rotation-down {
     left: -36px;
     top: -1336px;
 }
 
-.luckysheet-icon-function {
+.tibetsheets-icon-function {
     left: -18px;
     top: -460px;
 }
 
 
 
-.luckysheet-material-icon .luckysheet-icon-border-all {
+.tibetsheets-material-icon .tibetsheets-icon-border-all {
     left: -54px;
     top: -1552px;
 }
 
-.luckysheet-icon-border-inside {
+.tibetsheets-icon-border-inside {
     left: -36px;
     top: -806px;
 }
 
-.luckysheet-icon-border-horizontal {
+.tibetsheets-icon-border-horizontal {
     left: -58px;
     top: -168px;
 }
 
-.luckysheet-icon-border-vertical {
+.tibetsheets-icon-border-vertical {
     left: 0;
     top: -878px;
 }
 
-.luckysheet-icon-border-outside {
+.tibetsheets-icon-border-outside {
     left: -54px;
     top: -1246px;
 }
 
-.luckysheet-icon-border-left {
+.tibetsheets-icon-border-left {
     left: -54px;
     top: 0;
 }
 
-.luckysheet-icon-border-top {
+.tibetsheets-icon-border-top {
     left: -36px;
     top: -752px;
 }
 
-.luckysheet-icon-border-right {
+.tibetsheets-icon-border-right {
     left: -18px;
     top: -406px;
 }
 
-.luckysheet-icon-border-bottom {
+.tibetsheets-icon-border-bottom {
     left: -72px;
     top: -586px;
 }
 
 
-.luckysheet-icon-border-none {
+.tibetsheets-icon-border-none {
     left: -18px;
     top: -1072px;
 }
 
 
-.luckysheet-icon-line-color {
+.tibetsheets-icon-line-color {
     left: -36px;
     top: -622px;
 }
 
-.luckysheet-icon-line-type {
+.tibetsheets-icon-line-type {
     left: 0;
     top: -126px;
 } */
 
 
-#luckysheet-icon-function .luckysheet-toolbar-menu-button-caption {
+#tibetsheets-icon-function .tibetsheets-toolbar-menu-button-caption {
     margin-right: 5px;
     margin-left: -5px;
 }
 
-#luckysheet-icon-function .luckysheet-icon {
+#tibetsheets-icon-function .tibetsheets-icon {
     margin-right: 0px;
 }
 
-/* .luckysheet-icon-autofilter {
+/* .tibetsheets-icon-autofilter {
     left: -36px;
     top: -406px;
 } */
 
-#luckysheet-icon-pivotTable .luckysheet-toolbar-menu-button-caption {
+#tibetsheets-icon-pivotTable .tibetsheets-toolbar-menu-button-caption {
     color: #0188fb;
 }
 
-#luckysheet-icon-chart .luckysheet-toolbar-menu-button-caption {
+#tibetsheets-icon-chart .tibetsheets-toolbar-menu-button-caption {
     color: #0188fb;
 }
 
-.luckysheet-rightgclick-menu-sub .sp-container {
+.tibetsheets-rightgclick-menu-sub .sp-container {
     background-color: #ffffff;
     border: solid 1px #ffffff;
 }
 
-#luckysheet-icon-text-color-menu-menuButton .sp-palette-container,
-#luckysheet-icon-cell-color-menu-menuButton .sp-palette-container {
+#tibetsheets-icon-text-color-menu-menuButton .sp-palette-container,
+#tibetsheets-icon-cell-color-menu-menuButton .sp-palette-container {
     margin-bottom: -300px;
 }
 
-#luckysheet-icon-text-color-menu-menuButton .sp-palette,
-#luckysheet-icon-cell-color-menu-menuButton .sp-palette {
+#tibetsheets-icon-text-color-menu-menuButton .sp-palette,
+#tibetsheets-icon-cell-color-menu-menuButton .sp-palette {
     margin-top: -10px;
 }
 
 /*toolbar菜单end*/
 
-.luckysheet-wa-calculate {
+.tibetsheets-wa-calculate {
     height: 28px;
     /*padding: 10px 8px;*/
     background: #fff;
@@ -842,13 +844,13 @@
 
 
 
-.luckysheet-wa-calculate-help {
+.tibetsheets-wa-calculate-help {
     height: 100%;
     width: 99px;
     border-right: 1px solid #d4d4d4;
 }
 
-.luckysheet-wa-calculate-help-box {
+.tibetsheets-wa-calculate-help-box {
     height: 100%;
     width: 85px;
     position: absolute;
@@ -856,7 +858,7 @@
     left: 0px;
 }
 
-#luckysheet-helpbox {
+#tibetsheets-helpbox {
     left: 0;
     position: absolute;
     right: 0;
@@ -871,7 +873,7 @@
     padding: 2px 5px;
 }
 
-.luckysheet-helpbox-cell-input {
+.tibetsheets-helpbox-cell-input {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -889,7 +891,7 @@
 }
 
 
-.luckysheet-wa-calculate-help-tool {
+.tibetsheets-wa-calculate-help-tool {
     position: absolute;
     left: 85px;
     text-align: center;
@@ -898,21 +900,21 @@
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
 }
-.luckysheet-wa-calculate-help-tool .fa-caret-down {
+.tibetsheets-wa-calculate-help-tool .fa-caret-down {
     position: absolute;
     top: 50%;
     left: 3px;
     transform: translateY(-50%);
 }
 
-.luckysheet-wa-calculate-help-tool:hover {
+.tibetsheets-wa-calculate-help-tool:hover {
     background: #EFEFEF;
     cursor: pointer;
     border-left: 1px solid #E5E5E5;
     border-right: 1px solid #E5E5E5;
 }
 
-.luckysheet-wa-calculate-size {
+.tibetsheets-wa-calculate-size {
     position: absolute;
     height: 3px;
     width: 100%;
@@ -921,24 +923,24 @@
     z-index: 1000;
 }
 
-.luckysheet-wa-calculate-size:hover {
+.tibetsheets-wa-calculate-size:hover {
     background: #5e5e5e;
     cursor: ns-resize;
 }
 
 
-#luckysheet-wa-functionbox-cancel {
+#tibetsheets-wa-functionbox-cancel {
     left: 104px;
     /* font-size: 18px; */
 }
 
-#luckysheet-wa-functionbox-confirm {
+#tibetsheets-wa-functionbox-confirm {
     left: 130px;
     /* font-size: 18px; */
 }
 
 
-.luckysheet-wa-functionbox {
+.tibetsheets-wa-functionbox {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -948,34 +950,34 @@
     color: #d6d6d6;
 }
 
-.luckysheet-wa-functionbox span {
+.tibetsheets-wa-functionbox span {
     vertical-align: middle;
     width: 30px;
     height: 30px;
 }
 
-.luckysheet-wa-functionbox i {
+.tibetsheets-wa-functionbox i {
     font-size: 24px;
 }
 
 
-.luckysheet-wa-calculate-active {
+.tibetsheets-wa-calculate-active {
     color: #585858;
     cursor: pointer;
 }
 
-.luckysheet-wa-calculate-active:hover {
+.tibetsheets-wa-calculate-active:hover {
     color: #0188fb;
 }
 
-.luckysheet-grid-container {
+.tibetsheets-grid-container {
     width: 100%;
     position: absolute;
     top: 90px;
     bottom: 0px;
 }
 
-.luckysheet-stat-area {
+.tibetsheets-stat-area {
     position: absolute;
     height: 23px;
     bottom: 0px;
@@ -983,7 +985,7 @@
     width: 100%;
 }
 
-.luckysheet-sta-c {
+.tibetsheets-sta-c {
     height: 22px;
     background-color: #fff;
     border-top: 1px solid #e1e1e1;
@@ -994,7 +996,7 @@
     user-select: none;
 }
 
-.luckysheet-stat-area:hover .luckysheet-sta-c {
+.tibetsheets-stat-area:hover .tibetsheets-sta-c {
     -moz-user-select: -moz-all;
     -khtml-user-select: initial;
     -webkit-user-select: initial;
@@ -1002,7 +1004,7 @@
     user-select: initial;
 }
 
-.luckysheet-sta-c .luckysheet-sta-content {
+.tibetsheets-sta-c .tibetsheets-sta-content {
     /* position: absolute; */
     /* left: 0px; */
     /* right: 358px; */
@@ -1013,11 +1015,11 @@
     overflow: hidden;
 }
 
-.luckysheet-sta-c .luckysheet-sta-content span {
+.tibetsheets-sta-c .tibetsheets-sta-content span {
     margin-right: 10px;
 }
 
-.luckysheet-grid-window {
+.tibetsheets-grid-window {
     position: absolute;
     top: 0px;
     bottom: 23px;
@@ -1027,7 +1029,7 @@
     background: #00ffff;
 }
 
-.luckysheet-sheet-area {
+.tibetsheets-sheet-area {
     width: 100%;
     box-sizing: border-box;
     position: absolute;
@@ -1047,16 +1049,16 @@
     align-items: center;
     justify-content: space-between;
 }
-#luckysheet-sheet-content {
+#tibetsheets-sheet-content {
     width: 0;
     flex: 3;
     display: flex;
     align-items: center;
 }
-#luckysheet-sheet-content .lucky-button-custom {
+#tibetsheets-sheet-content .lucky-button-custom {
 }
 
-#luckysheet-bottom-pager {
+#tibetsheets-bottom-pager {
     width: 0;
     background-color: #fafafc;
     z-index: 1;
@@ -1065,8 +1067,8 @@
     white-space: nowrap;
 }
 
-.luckysheet-sheet-area>div,
-.luckysheet-sheet-area .luckysheet-sheets-item {
+.tibetsheets-sheet-area>div,
+.tibetsheets-sheet-area .tibetsheets-sheets-item {
     display: inline-block;
     /* margin-right: 6px;
     margin-top: 1px;
@@ -1074,24 +1076,24 @@
     /* padding: 6px 10px; */
 }
 
-/* .luckysheet-sheet-area .luckysheet-sheets-add {
+/* .tibetsheets-sheet-area .tibetsheets-sheets-add {
     margin-left: 47px;
 } */
 
-/* div.luckysheet-sheets-add,
-div.luckysheet-sheets-m,
-div.luckysheet-sheets-scroll {
+/* div.tibetsheets-sheets-add,
+div.tibetsheets-sheets-m,
+div.tibetsheets-sheets-scroll {
     background: #F6F6F6;
     border: 1px solid #F6F6F6;
     color: #4E4E4E;
 } */
 
-div.luckysheet-sheets-scroll {
+div.tibetsheets-sheets-scroll {
     display: none;
 }
 
-div.luckysheet-sheets-add:hover,
-div.luckysheet-sheets-m:hover {
+div.tibetsheets-sheets-add:hover,
+div.tibetsheets-sheets-m:hover {
     color: #2A2A2A;
 }
 
@@ -1136,7 +1138,7 @@ div.luckysheet-sheets-m:hover {
     filter: alpha(opacity=40);
 }
 
-.luckysheet-sheet-area div.luckysheet-sheet-container {
+.tibetsheets-sheet-area div.tibetsheets-sheet-container {
     padding: 0px 0px;
     margin-left: 0px;
     position: relative;
@@ -1145,7 +1147,7 @@ div.luckysheet-sheets-m:hover {
     display: inline-block;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheet-container div.luckysheet-sheet-container-c {
+.tibetsheets-sheet-area div.tibetsheets-sheet-container div.tibetsheets-sheet-container-c {
     padding: 0px 0px;
     margin-left: 0px;
     overflow: hidden;
@@ -1156,15 +1158,15 @@ div.luckysheet-sheets-m:hover {
     display: inline-block;
 }
 
-.luckysheet-sheet-container-menu-hide .luckysheet-sheets-item{
+.tibetsheets-sheet-container-menu-hide .tibetsheets-sheets-item{
     padding-right: 5px !important;
 }
 
-.luckysheet-sheet-container-menu-hide .luckysheet-sheets-item-menu{
+.tibetsheets-sheet-container-menu-hide .tibetsheets-sheets-item-menu{
     display: none !important;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item {
     padding: 2px 6px;
     height: 29px;
     line-height: 29px;
@@ -1197,16 +1199,16 @@ div.luckysheet-sheets-m:hover {
     height: 100%; */
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item:last-child{
+.tibetsheets-sheet-area div.tibetsheets-sheets-item:last-child{
     margin-right: 1px;
 }
-.luckysheet-sheet-area div.luckysheet-sheets-item:hover {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item:hover {
     background-color: #EFEFEF;
     /* border-color: #a5a5a5; */
     color: #490500;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item .luckysheet-sheets-item-menu {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item .tibetsheets-sheets-item-menu {
     margin-left: 2px;
     display: inline-block;
     top: -2px;
@@ -1219,16 +1221,16 @@ div.luckysheet-sheets-m:hover {
     text-align: center;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item .luckysheet-sheets-item-menu:hover {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item .tibetsheets-sheets-item-menu:hover {
     color: #2A2A2A;
     cursor: pointer;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item .luckysheet-sheets-item-name {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item .tibetsheets-sheets-item-name {
     padding: 0px 3px;
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item .luckysheet-sheets-item-name[contenteditable="true"] {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item .tibetsheets-sheets-item-name[contenteditable="true"] {
     border: 1px solid #d9d9d9;
     display: inline-block;
     height: 18px;
@@ -1242,7 +1244,7 @@ div.luckysheet-sheets-m:hover {
     -webkit-user-select: text !important
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item .luckysheet-sheets-item-name[contenteditable="true"]:focus {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item .tibetsheets-sheets-item-name[contenteditable="true"]:focus {
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -1250,7 +1252,7 @@ div.luckysheet-sheets-m:hover {
     outline: none
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item-active {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item-active {
     /* padding: 2px 8px; */
     height: 29px;
     line-height: 29px;
@@ -1265,13 +1267,13 @@ div.luckysheet-sheets-m:hover {
     /* padding-right: 20px; */
 }
 
-.luckysheet-sheet-area div.luckysheet-sheets-item-active:hover {
+.tibetsheets-sheet-area div.tibetsheets-sheets-item-active:hover {
     background-color: #ececec;
     /* border-color: #aaa; */
     color: #222;
 }
 
-.luckysheet-grid-window-1 {
+.tibetsheets-grid-window-1 {
     position: absolute;
     top: 0;
     right: 0;
@@ -1287,7 +1289,7 @@ div.luckysheet-sheets-m:hover {
     user-select: none;
 }
 
-.luckysheetTableContent {
+.tibetsheetsTableContent {
     position: absolute;
     z-index: 2;
     left: 0px;
@@ -1302,7 +1304,7 @@ div.luckysheet-sheets-m:hover {
     user-select: none;
 }
 
-.luckysheet-grid-window-2 {
+.tibetsheets-grid-window-2 {
     /*background-color: #fff !important;*/
     height: 100%;
     width: 100%;
@@ -1311,12 +1313,12 @@ div.luckysheet-sheets-m:hover {
     display: table;
 }
 
-.luckysheet-paneswrapper {
+.tibetsheets-paneswrapper {
     overflow: hidden;
     height: 1px;
 }
 
-.luckysheet-left-top {
+.tibetsheets-left-top {
     width: 44.5px;
     height: 18.5px;
     border: solid 0 #dfdfdf;
@@ -1328,7 +1330,7 @@ div.luckysheet-sheets-m:hover {
     cursor: pointer;
 }
 
-.luckysheet-cols-h-c {
+.tibetsheets-cols-h-c {
     color: #5e5e5e;
     overflow: hidden;
     padding: 0;
@@ -1341,7 +1343,7 @@ div.luckysheet-sheets-m:hover {
     background: #f3f3f2;
 }
 
-.luckysheet-rows-h {
+.tibetsheets-rows-h {
     position: relative;
     outline-style: none;
     color: #5e5e5e;
@@ -1355,7 +1357,7 @@ div.luckysheet-sheets-m:hover {
     background: #f3f3f2;
 }
 
-.luckysheet-cols-menu-btn {
+.tibetsheets-cols-menu-btn {
     color: #5e5e5e;
     cursor: pointer;
     position: absolute;
@@ -1372,12 +1374,12 @@ div.luckysheet-sheets-m:hover {
     /*transition: all 0.1s;*/
 }
 
-.luckysheet-cols-menu-btn:hover {
+.tibetsheets-cols-menu-btn:hover {
     opacity: 1;
 }
 
 
-.luckysheet-cols-h-hover {
+.tibetsheets-cols-h-hover {
     color: #5e5e5e;
     cursor: default;
     position: absolute;
@@ -1391,7 +1393,7 @@ div.luckysheet-sheets-m:hover {
     background-color: rgba(194, 194, 194, 0.4);
 }
 
-.luckysheet-cols-h-selected {
+.tibetsheets-cols-h-selected {
     color: #5e5e5e;
     cursor: default;
     position: absolute;
@@ -1407,7 +1409,7 @@ div.luckysheet-sheets-m:hover {
              width: 863px;*/
 }
 
-.luckysheet-cols-h-cells {
+.tibetsheets-cols-h-cells {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -1416,14 +1418,14 @@ div.luckysheet-sheets-m:hover {
     /*width: 4721px;*/
 }
 
-.luckysheet-cols-h-cells-c {
+.tibetsheets-cols-h-cells-c {
     color: #5e5e5e;
     cursor: default;
     width: 5000000px;
     height: inherit;
 }
 
-.luckysheet-cols-h-cells-clip {
+.tibetsheets-cols-h-cells-clip {
     color: #5e5e5e;
     cursor: default;
     margin: 0;
@@ -1440,7 +1442,7 @@ div.luckysheet-sheets-m:hover {
     top: -1px;
 }
 
-.luckysheet-cols-h-cell-nosel {
+.tibetsheets-cols-h-cell-nosel {
     position: absolute;
     cursor: pointer;
     border: 0 solid;
@@ -1452,7 +1454,7 @@ div.luckysheet-sheets-m:hover {
     height: inherit;
 }
 
-.luckysheet-cols-h-cell-sel {
+.tibetsheets-cols-h-cell-sel {
     direction: ltr;
     height: inherit;
     position: absolute;
@@ -1468,7 +1470,7 @@ div.luckysheet-sheets-m:hover {
     border-right-width: 1px;
 }
 
-.luckysheet-col-flow-h {
+.tibetsheets-col-flow-h {
     float: left;
     direction: ltr;
     position: relative;
@@ -1479,7 +1481,7 @@ div.luckysheet-sheets-m:hover {
     overflow: hidden;
 }
 
-.luckysheet-col-flow-h-sheet {
+.tibetsheets-col-flow-h-sheet {
     width: inherit;
     height: inherit;
     position: relative;
@@ -1487,14 +1489,14 @@ div.luckysheet-sheets-m:hover {
     direction: ltr;
 }
 
-body:not(.ewa-ipad) .luckysheet-cols-h-cell-nosel:hover,
-body:not(.ewa-ipad) .luckysheet-cols-h-cell-sel:hover,
-body:not(.ewa-ipad) .luckysheet-rows-h-cell-nosel:hover,
-body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
+body:not(.ewa-ipad) .tibetsheets-cols-h-cell-nosel:hover,
+body:not(.ewa-ipad) .tibetsheets-cols-h-cell-sel:hover,
+body:not(.ewa-ipad) .tibetsheets-rows-h-cell-nosel:hover,
+body:not(.ewa-ipad) .tibetsheets-rows-h-cell-sel:hover {
     background-color: #FCC3C3;
 }
 
-.luckysheet-cols-h-cell-txt {
+.tibetsheets-cols-h-cell-txt {
     cursor: pointer;
     height: inherit;
     position: relative;
@@ -1505,7 +1507,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     padding-top: 2px;
 }
 
-.luckysheet-rows-h {
+.tibetsheets-rows-h {
     position: relative;
     outline-style: none;
     color: #5e5e5e;
@@ -1517,7 +1519,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     width: 45px;
 }
 
-.luckysheet-rows-h-hover {
+.tibetsheets-rows-h-hover {
     position: absolute;
     z-index: 11;
     border: 0 none;
@@ -1529,7 +1531,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     background-color: rgba(194, 194, 194, 0.4);
 }
 
-.luckysheet-rows-h-selected {
+.tibetsheets-rows-h-selected {
     position: absolute;
     z-index: 10;
     border-right: 1px solid #0188fb;
@@ -1543,7 +1545,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
              height: 145px;*/
 }
 
-.luckysheet-rows-h-cells {
+.tibetsheets-rows-h-cells {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -1551,7 +1553,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     width: 100%;
 }
 
-.luckysheet-rows-h-cells-c {
+.tibetsheets-rows-h-cells-c {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -1561,7 +1563,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     width: 100%;
 }
 
-.luckysheet-rows-h-cells-clip {
+.tibetsheets-rows-h-cells-clip {
     cursor: default;
     color: #5e5e5e;
     direction: ltr;
@@ -1573,7 +1575,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     height: inherit;
 }
 
-.luckysheet-rows-h-cell-nosel {
+.tibetsheets-rows-h-cell-nosel {
     direction: ltr;
     width: 100%;
     position: absolute;
@@ -1584,7 +1586,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     touch-action: manipulation;
 }
 
-.luckysheet-rows-h-cell-sel {
+.tibetsheets-rows-h-cell-sel {
     direction: ltr;
     width: 100%;
     position: absolute;
@@ -1598,7 +1600,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     touch-action: manipulation;
 }
 
-.luckysheet-rows-h-cell-txt {
+.tibetsheets-rows-h-cell-txt {
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -1609,7 +1611,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     font-size: 14px;
 }
 
-.luckysheet-cell-loading {
+.tibetsheets-cell-loading {
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.3);
@@ -1622,7 +1624,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     display: none;
 }
 
-.luckysheet-cell-loading-inner {
+.tibetsheets-cell-loading-inner {
     position: relative;
     top: 40%;
     width: 100%;
@@ -1630,11 +1632,11 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     text-align: center;
 }
 
-.luckysheet-cell-loading-inner span {
+.tibetsheets-cell-loading-inner span {
     margin-left: 10px;
 }
 
-.luckysheet-cell-main {
+.tibetsheets-cell-main {
     /*border: solid 1px #BEC1C4;*/
     background-color: white;
     width: 15px;
@@ -1648,8 +1650,8 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     cursor: default;
 }
 
-.luckysheet-scrollbars,
-.luckysheet-menu {
+.tibetsheets-scrollbars,
+.tibetsheets-menu {
     scrollbar-base-color: #FFFFFF;
     scrollbar-track-color: #E7E7E7;
     scrollbar-darkshadow-color: #FFFFFF;
@@ -1661,47 +1663,47 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     overflow: auto;
 }
 
-.luckysheet-scrollbar-ltr {
+.tibetsheets-scrollbar-ltr {
     position: absolute;
     overflow: hidden;
     z-index: 1003;
 }
 
-.luckysheet-scrollbar-ltr div {
+.tibetsheets-scrollbar-ltr div {
     height: 1px;
     width: 1px;
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button {
     height: 0;
     width: 0
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:start {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:start {
     display: none
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:end {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:end {
     display: block
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button {
     border: 1px solid #d9d9d9
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal {
     border-width: 1px 0 0 0
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical {
     border-width: 0 0 0 1px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical {
     border-width: 0 1px 0 0
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment {
     background: no-repeat url("waffle_sprite.png") -663px -13px;
     width: 15px;
     padding-left: 1px;
@@ -1713,15 +1715,15 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     border-bottom: 1px solid #d9d9d9;
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:hover {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:hover {
     background: no-repeat url("waffle_sprite.png") -395px -62px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:active {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:increment:active {
     background: no-repeat url("waffle_sprite.png") -679px -13px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:decrement {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:decrement {
     border-left: 1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
     background: no-repeat url("waffle_sprite.png") -283px -62px;
@@ -1729,30 +1731,30 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     border-bottom: 1px solid #d9d9d9;
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:hover {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:hover {
     background: no-repeat url("waffle_sprite.png") -145px -70px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:horizontal:active {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:horizontal:active {
     background: no-repeat url("waffle_sprite.png") -552px 0
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment {
     padding-top: 1px;
     background: no-repeat url("waffle_sprite.png") -531px -24px;
     border-left: 1px solid #d9d9d9;
     height: 15px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:hover {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:hover {
     background: no-repeat url("waffle_sprite.png") -570px -42px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:active {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:increment:active {
     background: no-repeat url("waffle_sprite.png") -83px -46px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement {
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
     border-left: 1px solid #d9d9d9;
@@ -1760,21 +1762,21 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     height: 17px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:hover {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:hover {
     background: no-repeat url("waffle_sprite.png") -180px -58px
 }
 
-.luckysheet-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:active {
+.tibetsheets-scrollbar-ltr::-webkit-scrollbar-button:vertical:decrement:active {
     background: no-repeat url("waffle_sprite.png") -776px -28px
 }
 
-.luckysheet-scrollbar-x {
+.tibetsheets-scrollbar-x {
     bottom: 0px;
     left: 44px;
     overflow-x: scroll;
 }
 
-.luckysheet-scrollbar-y {
+.tibetsheets-scrollbar-y {
     right: 0px;
     top: 0px;
     overflow-y: scroll;
@@ -1782,7 +1784,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
 }
 
 
-.luckysheet-cell-flow {
+.tibetsheets-cell-flow {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -1792,7 +1794,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*background: #fff;*/
 }
 
-.luckysheet-cell-flow-clip {
+.tibetsheets-cell-flow-clip {
     border-collapse: collapse;
     cursor: default;
     width: 5000000px;
@@ -1800,7 +1802,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     overflow: hidden;
 }
 
-.luckysheet-cell-flow-col {
+.tibetsheets-cell-flow-col {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -1811,7 +1813,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     direction: ltr;
 }
 
-.luckysheet-cell-sheettable {
+.tibetsheets-cell-sheettable {
     position: relative;
     /*background-color: #fff;*/
     text-align: left;
@@ -1820,7 +1822,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     text-decoration: none;
 }
 
-.luckysheet-bottom-controll-row {
+.tibetsheets-bottom-controll-row {
     position: absolute;
     height: 30px;
     /*width: 400px;*/
@@ -1830,25 +1832,25 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     z-index: 1000;
 }
 
-#luckysheet-bottom-add-row {
+#tibetsheets-bottom-add-row {
     padding: 5px 20px;
     margin-right: 5px;
     margin-top: -2px;
 }
 
-#luckysheet-bottom-add-row-input {
+#tibetsheets-bottom-add-row-input {
     width: 40px;
     min-width: 40px;
 }
 
-#luckysheet-bottom-return-top {
+#tibetsheets-bottom-return-top {
     padding: 5px 6px;
     margin-left: 10px;
     margin-top: -2px;
 }
 
 
-.luckysheet-cell-flow-column {
+.tibetsheets-cell-flow-column {
     position: absolute;
     height: inherit;
     width: inherit;
@@ -1858,13 +1860,13 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     touch-action: manipulation;
 }
 
-.luckysheet-cell-flow-column-line {
+.tibetsheets-cell-flow-column-line {
     position: absolute;
     border-right: 1px solid #d4d4d4;
     height: inherit;
 }
 
-.luckysheet-cell-flow-row {
+.tibetsheets-cell-flow-row {
     text-align: left;
     position: absolute;
     height: inherit;
@@ -1875,13 +1877,13 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     touch-action: manipulation;
 }
 
-.luckysheet-cell-flow-row-line {
+.tibetsheets-cell-flow-row-line {
     position: absolute;
     border-bottom: 1px solid #d4d4d4;
     width: inherit;
 }
 
-.luckysheet-cell-selected-focus {
+.tibetsheets-cell-selected-focus {
     position: absolute;
     pointer-events: none;
     z-index: 14;
@@ -1892,7 +1894,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*transition: all 0.1s;*/
 }
 
-.luckysheet-selection-copy {
+.tibetsheets-selection-copy {
     position: absolute;
     pointer-events: none;
     z-index: 18;
@@ -1901,13 +1903,13 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     display: none;
 }
 
-.luckysheet-selection-copy .luckysheet-copy {
+.tibetsheets-selection-copy .tibetsheets-copy {
     position: absolute;
     z-index: 18;
     background-color: transparent;
 }
 
-.luckysheet-selection-copy-top {
+.tibetsheets-selection-copy-top {
     left: 0;
     right: 0;
     height: 2px;
@@ -1916,7 +1918,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     background-image: url("EwaAntH.gif");
 }
 
-.luckysheet-selection-copy-right {
+.tibetsheets-selection-copy-right {
     top: 0;
     bottom: 0;
     width: 2px;
@@ -1924,7 +1926,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     background-image: url("EwaAntV.gif");
 }
 
-.luckysheet-selection-copy-bottom {
+.tibetsheets-selection-copy-bottom {
     left: 0;
     right: 0;
     height: 2px;
@@ -1932,7 +1934,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     background-image: url("EwaAntH.gif");
 }
 
-.luckysheet-selection-copy-left {
+.tibetsheets-selection-copy-left {
     top: 0;
     bottom: 0;
     width: 2px;
@@ -1941,7 +1943,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     background-image: url("EwaAntV.gif");
 }
 
-.luckysheet-selection-copy-hc {
+.tibetsheets-selection-copy-hc {
     position: absolute;
     top: 0;
     right: 0;
@@ -1951,7 +1953,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     z-index: 8;
 }
 
-.luckysheet-selection-highlight {
+.tibetsheets-selection-highlight {
     position: absolute;
     /*pointer-events: none;*/
     z-index: 14;
@@ -1960,7 +1962,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     display: none;
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-copy {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-copy {
     background-image: none;
     background: #0188fb;
     position: absolute;
@@ -1970,62 +1972,62 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*border: 1px solid #fff;*/
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-top {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-top {
     top: -2px;
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-right {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-right {
     right: -2px;
     border-left: 2px solid #fff;
     border-right: 2px solid #fff;
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-bottom {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-bottom {
     bottom: -2px;
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-left {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-left {
     left: -2px;
     border-left: 2px solid #fff;
     border-right: 2px solid #fff;
 }
 
-.luckysheet-formula-functionrange-highlight .luckysheet-selection-copy-hc {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-selection-copy-hc {
     border: 2px solid #5e5e5e;
     opacity: 0.03;
     z-index: initial;
 }
 
-.luckysheet-selection-highlight-topleft {
+.tibetsheets-selection-highlight-topleft {
     left: -3px;
     top: -3px;
     cursor: se-resize;
 }
 
-.luckysheet-selection-highlight-topright {
+.tibetsheets-selection-highlight-topright {
     right: -3px;
     top: -3px;
     cursor: ne-resize;
 }
 
-.luckysheet-selection-highlight-bottomleft {
+.tibetsheets-selection-highlight-bottomleft {
     left: -3px;
     bottom: -3px;
     cursor: ne-resize;
 }
 
-.luckysheet-selection-highlight-bottomright {
+.tibetsheets-selection-highlight-bottomright {
     right: -3px;
     bottom: -3px;
     cursor: se-resize;
 }
 
 
-.luckysheet-formula-functionrange-highlight .luckysheet-highlight {
+.tibetsheets-formula-functionrange-highlight .tibetsheets-highlight {
     position: absolute;
     z-index: 19;
     border: 1px solid #fff;
@@ -2034,7 +2036,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     height: 6px;
 }
 
-.luckysheet-cell-selected-extend {
+.tibetsheets-cell-selected-extend {
     position: absolute;
     pointer-events: none;
     z-index: 16;
@@ -2044,7 +2046,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*transition: all 0.1s;*/
 }
 
-.luckysheet-cell-selected-move {
+.tibetsheets-cell-selected-move {
     position: absolute;
     pointer-events: none;
     z-index: 16;
@@ -2054,7 +2056,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*transition: all 0.1s;*/
 }
 
-.luckysheet-cell-selected {
+.tibetsheets-cell-selected {
     position: absolute;
     pointer-events: none;
     z-index: 15;
@@ -2065,7 +2067,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     /*transition: all 0.1s;*/
 }
 
-.luckysheet-cs-inner-border {
+.tibetsheets-cs-inner-border {
     pointer-events: none;
     border: 1px solid #fff;
     position: absolute;
@@ -2075,7 +2077,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     right: 0;
 }
 
-.luckysheet-cs-fillhandle {
+.tibetsheets-cs-fillhandle {
     position: absolute;
     width: 6px;
     height: 6px;
@@ -2088,7 +2090,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     right: -5px;
 }
 
-.luckysheet-cs-draghandle {
+.tibetsheets-cs-draghandle {
     position: absolute;
     cursor: move;
     background-color: #fff;
@@ -2098,35 +2100,35 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     border: 2px solid #fff;
 }
 
-.luckysheet-cs-draghandle-top {
+.tibetsheets-cs-draghandle-top {
     top: -4px;
     left: -2px;
     right: -2px;
     height: 2px;
 }
 
-.luckysheet-cs-draghandle-bottom {
+.tibetsheets-cs-draghandle-bottom {
     right: 0;
     left: -2px;
     bottom: -4px;
     height: 2px;
 }
 
-.luckysheet-cs-draghandle-left {
+.tibetsheets-cs-draghandle-left {
     top: 0;
     left: -4px;
     bottom: 0;
     width: 2px;
 }
 
-.luckysheet-cs-draghandle-right {
+.tibetsheets-cs-draghandle-right {
     top: 0;
     right: -4px;
     bottom: 0;
     width: 2px;
 }
 
-.luckysheet-cs-touchhandle {
+.tibetsheets-cs-touchhandle {
     display: none;
     position: absolute;
     width: 16px;
@@ -2137,7 +2139,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     touch-action: auto;
 }
 
-.luckysheet-cs-touchhandle:before {
+.tibetsheets-cs-touchhandle:before {
     content: '';
     display: block;
     width: 16px;
@@ -2148,27 +2150,27 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     border-radius: 50%;
 }
 
-.luckysheet-cs-touchhandle-lt {
+.tibetsheets-cs-touchhandle-lt {
     left: -13px;
     top: -13px;
 }
 
-.luckysheet-cs-touchhandle-lb {
+.tibetsheets-cs-touchhandle-lb {
     left: -13px;
     bottom: -13px;
 }
 
-.luckysheet-cs-touchhandle-rt {
+.tibetsheets-cs-touchhandle-rt {
     right: -13px;
     top: -13px;
 }
 
-.luckysheet-cs-touchhandle-rb {
+.tibetsheets-cs-touchhandle-rb {
     right: -13px;
     bottom: -13px;
 }
 
-.luckysheet-cs-touchhandle .luckysheet-cs-touchhandle-btn {
+.tibetsheets-cs-touchhandle .tibetsheets-cs-touchhandle-btn {
     position: absolute;
     width: 10px;
     height: 10px;
@@ -2181,7 +2183,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     z-index: 11;
 }
 
-#luckysheet-dynamicArray-hightShow {
+#tibetsheets-dynamicArray-hightShow {
     position: absolute;
     pointer-events: none;
     z-index: 15;
@@ -2190,29 +2192,29 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     display: none;
 }
 
-.luckysheet-scrollbars::-webkit-scrollbar-track {
+.tibetsheets-scrollbars::-webkit-scrollbar-track {
     background-color: #FFFFFF;
     border: 1px solid #d9d9d9;
 }
 
-.luckysheet-scrollbar-x::-webkit-scrollbar-track {
+.tibetsheets-scrollbar-x::-webkit-scrollbar-track {
     border-left: 1px solid #d9d9d9;
     border-right: none;
 }
 
-.luckysheet-scrollbar-y::-webkit-scrollbar-track {
+.tibetsheets-scrollbar-y::-webkit-scrollbar-track {
     border-top: none;
     border-bottom: none;
 }
 
-.luckysheet-scrollbars::-webkit-scrollbar {
+.tibetsheets-scrollbars::-webkit-scrollbar {
     width: 12px;
     height: 12px;
     background-color: #FFFFFF;
     /*border:0 none;*/
 }
 
-.luckysheet-scrollbars::-webkit-scrollbar-thumb {
+.tibetsheets-scrollbars::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, .2);
     background-clip: padding-box;
     border: solid transparent;
@@ -2221,27 +2223,27 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .1), inset 0 -1px 0 rgba(0, 0, 0, .07);
 }
 
-.luckysheet-scrollbars::-webkit-scrollbar-thumb:hover {
+.tibetsheets-scrollbars::-webkit-scrollbar-thumb:hover {
     background-color: #969696;
     border: 1px solid #A0A0A0;
     border-radius: 12px;
 }
 
-.luckysheet-grdusedrange {
+.tibetsheets-grdusedrange {
     position: absolute;
     visibility: hidden;
     width: 1px;
     height: 1px;
 }
 
-.luckysheet-grdblkflowpush {
+.tibetsheets-grdblkflowpush {
     margin: 0;
     padding: 0;
     border: none 0;
     width: 1px;
 }
 
-.luckysheet-grdblkpush {
+.tibetsheets-grdblkpush {
     margin: 0;
     padding: 0;
     border: none 0;
@@ -2250,7 +2252,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     direction: ltr;
 }
 
-.luckysheet-cell-flow-data {
+.tibetsheets-cell-flow-data {
     position: absolute;
     height: inherit;
     width: inherit;
@@ -2259,17 +2261,17 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     z-index: 1;
 }
 
-.luckysheet-cell-flow-data-row {
+.tibetsheets-cell-flow-data-row {
     position: absolute;
     width: inherit;
 }
 
-.luckysheet-cell-flow-data-cell {
+.tibetsheets-cell-flow-data-cell {
     position: absolute;
     height: inherit;
 }
 
-.luckysheet-cell-flow-data-value {
+.tibetsheets-cell-flow-data-value {
     position: absolute !important;
     bottom: 0;
     letter-spacing: -.02em;
@@ -2278,24 +2280,24 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     overflow: hidden;
 }
 
-.luckysheet canvas {
+.tibetsheets canvas {
     position: absolute;
 }
 
-.luckysheetcolumeHeader {
+.tibetsheetscolumeHeader {
     margin-left: -1px;
 }
 
-.luckysheetrowHeader {
+.tibetsheetsrowHeader {
     margin-top: 1px;
 }
 
-.luckysheetsheettable {
+.tibetsheetssheettable {
     margin-left: -1px;
     margin-top: -1px;
 }
 
-.luckysheet-cols-menu {
+.tibetsheets-cols-menu {
     max-height: 100%;
     overflow-y: auto;
     -webkit-border-radius: 0;
@@ -2323,7 +2325,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     display: none;
 }
 
-.luckysheet-cols-menu .luckysheet-cols-menuitem {
+.tibetsheets-cols-menu .tibetsheets-cols-menuitem {
     position: relative;
     color: #333;
     cursor: pointer;
@@ -2339,12 +2341,12 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
 }
 
 /* 右击菜单项目 hover背景色 */
-.luckysheet-cols-menu .luckysheet-cols-menuitem:hover,
-.luckysheet-cols-menu .luckysheet-cols-menuitem-hover {
+.tibetsheets-cols-menu .tibetsheets-cols-menuitem:hover,
+.tibetsheets-cols-menu .tibetsheets-cols-menuitem-hover {
     background: #EFEFEF;
 }
 
-.luckysheet-cols-menu .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+.tibetsheets-cols-menu .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     position: relative;
     color: #333;
     cursor: pointer;
@@ -2355,7 +2357,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     user-select: none;
 }
 
-.luckysheet-rightgclick-menu .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+.tibetsheets-rightgclick-menu .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     position: relative;
     color: #333;
     cursor: pointer;
@@ -2366,26 +2368,26 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     user-select: none;
 }
 
-#luckysheet-cols-menu .luckysheet-cols-menuitem,
-.luckysheet-filter-menu .luckysheet-cols-menuitem,
-#luckysheet-pivotTable-config-option .luckysheet-cols-menuitem {
+#tibetsheets-cols-menu .tibetsheets-cols-menuitem,
+.tibetsheets-filter-menu .tibetsheets-cols-menuitem,
+#tibetsheets-pivotTable-config-option .tibetsheets-cols-menuitem {
     padding-right: 10px;
     padding-left: 12px;
 }
 
-#luckysheet-pivotTable-config-option-sumtype .luckysheet-cols-menuitem {
+#tibetsheets-pivotTable-config-option-sumtype .tibetsheets-cols-menuitem {
     padding-right: 15px;
     padding-left: 12px;
     padding-top: 1px;
     padding-bottom: 1px;
 }
 
-#luckysheet-cols-menu .luckysheet-cols-menuitem-content,
-.luckysheet-filter-menu .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+#tibetsheets-cols-menu .tibetsheets-cols-menuitem-content,
+.tibetsheets-filter-menu .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     padding-right: 10px;
     padding-left: 12px;
 }
-#luckysheet-sheet-list .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+#tibetsheets-sheet-list .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     padding-right: 0px;
     max-width: 430px;
     min-width: 100px;
@@ -2393,32 +2395,32 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.luckysheet-filter-menu div.luckysheet-cols-menuitem {
+.tibetsheets-filter-menu div.tibetsheets-cols-menuitem {
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
-.luckysheet-filter-submenu div.luckysheet-cols-menuitem {
+.tibetsheets-filter-submenu div.tibetsheets-cols-menuitem {
     padding-top: 1px;
     padding-bottom: 1px;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem {
     padding-top: 2px;
     padding-bottom: 0px;
     cursor: default;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem-content,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem-content {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem-content,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem-content {
     padding-top: 2px;
     padding-bottom: 0px;
     cursor: default;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem-content input,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem-content input {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem-content input,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem-content input {
     height: 24px;
     width: 191px;
     padding-right: 25px;
@@ -2432,8 +2434,8 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
 }
 
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem-content input:focus,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem-content input:focus {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem-content input:focus,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem-content input:focus {
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -2441,50 +2443,50 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     outline: none;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem-content .luckysheet-filter-byvalue-input-icon,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem-content .luckysheet-pivotTableFilter-byvalue-input-icon {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem-content .tibetsheets-filter-byvalue-input-icon,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem-content .tibetsheets-pivotTableFilter-byvalue-input-icon {
     position: absolute;
     right: 17px;
     top: 7px;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-byvalue .luckysheet-cols-menuitem:hover,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-byvalue .luckysheet-cols-menuitem:hover {
+.tibetsheets-filter-menu .tibetsheets-filter-byvalue .tibetsheets-cols-menuitem:hover,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-byvalue .tibetsheets-cols-menuitem:hover {
     background: #fff;
 }
 
-.luckysheet-filter-menu .luckysheet-cols-menuitem:last-child:hover {
+.tibetsheets-filter-menu .tibetsheets-cols-menuitem:last-child:hover {
     background: #fff;
 }
 
-.luckysheet-filter-menu .luckysheet-cols-menuitem:last-child,
-.luckysheet-filter-menu .luckysheet-cols-menuitem:last-child .luckysheet-cols-menuitem-content {
+.tibetsheets-filter-menu .tibetsheets-cols-menuitem:last-child,
+.tibetsheets-filter-menu .tibetsheets-cols-menuitem:last-child .tibetsheets-cols-menuitem-content {
     cursor: default;
 }
 
-#luckysheet-filter-byvalue-select,
-#luckysheet-pivotTableFilter-byvalue-select {
+#tibetsheets-filter-byvalue-select,
+#tibetsheets-pivotTableFilter-byvalue-select {
     min-height: 100px;
     width: 200px;
 }
 
-.luckysheet-filter-menu .luckysheet-mousedown-filter-byvalue-btn span,
-.luckysheet-filter-menu .luckysheet-mousedown-pivotTableFilter-byvalue-btn span {
+.tibetsheets-filter-menu .tibetsheets-mousedown-filter-byvalue-btn span,
+.tibetsheets-filter-menu .tibetsheets-mousedown-pivotTableFilter-byvalue-btn span {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
 }
 
-.luckysheet-filter-menu .luckysheet-mousedown-filter-byvalue-btn div,
-.luckysheet-filter-menu .luckysheet-mousedown-pivotTableFilter-byvalue-btn div {
+.tibetsheets-filter-menu .tibetsheets-mousedown-filter-byvalue-btn div,
+.tibetsheets-filter-menu .tibetsheets-mousedown-pivotTableFilter-byvalue-btn div {
     position: absolute;
     right: 14px;
     top: 0px;
     font-size: 18px;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-bycondition .luckysheet-filter-selected-input,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-bycondition .luckysheet-pivotTableFilter-selected-input {
+.tibetsheets-filter-menu .tibetsheets-filter-bycondition .tibetsheets-filter-selected-input,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-bycondition .tibetsheets-pivotTableFilter-selected-input {
     padding-left: 8px;
     padding-right: 8px;
     margin-top: 3px;
@@ -2492,8 +2494,8 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
 }
 
 
-.luckysheet-filter-menu .luckysheet-filter-bycondition .luckysheet-filter-selected-input input,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-bycondition .luckysheet-pivotTableFilter-selected-input input {
+.tibetsheets-filter-menu .tibetsheets-filter-bycondition .tibetsheets-filter-selected-input input,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-bycondition .tibetsheets-pivotTableFilter-selected-input input {
     height: 24px;
     width: 100%;
     padding-right: 3px;
@@ -2508,8 +2510,8 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
 }
 
 
-.luckysheet-filter-menu .luckysheet-filter-bycondition .luckysheet-filter-selected-input2 input,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-bycondition .luckysheet-pivotTableFilter-selected-input2 input {
+.tibetsheets-filter-menu .tibetsheets-filter-bycondition .tibetsheets-filter-selected-input2 input,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-bycondition .tibetsheets-pivotTableFilter-selected-input2 input {
     height: 24px;
     width: 92px;
     padding-right: 3px;
@@ -2523,19 +2525,19 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     font-size: 13px;
 }
 
-.luckysheet-filter-menu .luckysheet-filter-bycondition .luckysheet-filter-selected-input2 span,
-.luckysheet-filter-menu .luckysheet-pivotTableFilter-bycondition .luckysheet-pivotTableFilter-selected-input2 span {
+.tibetsheets-filter-menu .tibetsheets-filter-bycondition .tibetsheets-filter-selected-input2 span,
+.tibetsheets-filter-menu .tibetsheets-pivotTableFilter-bycondition .tibetsheets-pivotTableFilter-selected-input2 span {
     margin-left: 2px;
     margin-right: 5px;
 }
 
-.luckysheet-menuseparator {
+.tibetsheets-menuseparator {
     border-top: 1px solid #ebebeb;
     margin-top: 6px;
     margin-bottom: 6px;
 }
 
-.luckysheet-submenu-arrow {
+.tibetsheets-submenu-arrow {
     -webkit-transition: all 0.218s;
     -moz-transition: all 0.218s;
     -o-transition: all 0.218s;
@@ -2555,76 +2557,76 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     line-height: 100%;
 }
 
-#luckysheet-pivotTable-config-option-sumtype .luckysheet-submenu-arrow {
+#tibetsheets-pivotTable-config-option-sumtype .tibetsheets-submenu-arrow {
     right: -5px;
     font-size: 16px;
     padding-top: 0px;
     color: blue;
 }
 
-#luckysheet-filter-byvalue-select table,
-#luckysheet-pivotTableFilter-byvalue-select table {
+#tibetsheets-filter-byvalue-select table,
+#tibetsheets-pivotTableFilter-byvalue-select table {
     table-layout: fixed;
 }
 
-#luckysheet-filter-byvalue-select tr td,
-#luckysheet-pivotTableFilter-byvalue-select tr td {
+#tibetsheets-filter-byvalue-select tr td,
+#tibetsheets-pivotTableFilter-byvalue-select tr td {
     padding: 2px 3px;
 }
 
-#luckysheet-filter-byvalue-select tr:hover td,
-#luckysheet-pivotTableFilter-byvalue-select tr:hover td {
+#tibetsheets-filter-byvalue-select tr:hover td,
+#tibetsheets-pivotTableFilter-byvalue-select tr:hover td {
     background: #E1E1E1;
 }
 
 /*筛选改 -- pan*/
-.luckysheet-cols-menu .cf:before,
-.luckysheet-cols-menu .cf:after {
+.tibetsheets-cols-menu .cf:before,
+.tibetsheets-cols-menu .cf:after {
     content: "";
     display: table;
 }
 
-.luckysheet-cols-menu .cf:after {
+.tibetsheets-cols-menu .cf:after {
     clear: both;
 }
 
-#luckysheet-filter-byvalue-select .yearBox .monthList,
-#luckysheet-pivotTableFilter-byvalue-select .yearBox .monthList {
+#tibetsheets-filter-byvalue-select .yearBox .monthList,
+#tibetsheets-pivotTableFilter-byvalue-select .yearBox .monthList {
     padding-left: 20px;
 }
 
-#luckysheet-filter-byvalue-select .yearBox .dayList,
-#luckysheet-pivotTableFilter-byvalue-select .yearBox .dayList {
+#tibetsheets-filter-byvalue-select .yearBox .dayList,
+#tibetsheets-pivotTableFilter-byvalue-select .yearBox .dayList {
     padding-left: 20px;
 }
 
-#luckysheet-filter-byvalue-select .yearBox .fa-caret-right,
-#luckysheet-pivotTableFilter-byvalue-select .yearBox .fa-caret-right {
+#tibetsheets-filter-byvalue-select .yearBox .fa-caret-right,
+#tibetsheets-pivotTableFilter-byvalue-select .yearBox .fa-caret-right {
     padding: 0 2px;
     float: left;
     margin-top: 3px;
     cursor: pointer;
 }
 
-#luckysheet-filter-byvalue-select .count,
-#luckysheet-pivotTableFilter-byvalue-select .count {
+#tibetsheets-filter-byvalue-select .count,
+#tibetsheets-pivotTableFilter-byvalue-select .count {
     color: gray;
     margin-left: 5px;
 }
 
-#luckysheet-filter-byvalue-select input[type="checkbox"],
-#luckysheet-pivotTableFilter-byvalue-select input[type="checkbox"] {
+#tibetsheets-filter-byvalue-select input[type="checkbox"],
+#tibetsheets-pivotTableFilter-byvalue-select input[type="checkbox"] {
     width: auto;
     height: auto;
     float: left;
 }
 
 /*颜色筛选 -- pan*/
-#luckysheet-filter-orderby-color-submenu {
+#tibetsheets-filter-orderby-color-submenu {
     font-size: 12px;
 }
 
-#luckysheet-filter-orderby-color-submenu .title {
+#tibetsheets-filter-orderby-color-submenu .title {
     padding: 10px;
     font-weight: 600;
     color: #333;
@@ -2632,30 +2634,30 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     text-align: center;
 }
 
-#luckysheet-filter-orderby-color-submenu .item {
+#tibetsheets-filter-orderby-color-submenu .item {
     padding: 5px 40px 5px 20px;
     cursor: pointer;
     position: relative;
 }
 
-#luckysheet-filter-orderby-color-submenu .item:hover {
+#tibetsheets-filter-orderby-color-submenu .item:hover {
     background-color: #d3d3d3;
 }
 
-#luckysheet-filter-orderby-color-submenu .item label {
+#tibetsheets-filter-orderby-color-submenu .item label {
     display: block;
     width: 70px;
     height: 20px;
     border: 1px solid #d1d1d1;
 }
 
-#luckysheet-filter-orderby-color-submenu .item input[type="checkbox"] {
+#tibetsheets-filter-orderby-color-submenu .item input[type="checkbox"] {
     position: absolute;
     right: 10px;
     top: 6px;
 }
 
-#luckysheet-copy-content {
+#tibetsheets-copy-content {
     position: fixed;
     height: 0px;
     width: 0px;
@@ -2665,7 +2667,7 @@ body:not(.ewa-ipad) .luckysheet-rows-h-cell-sel:hover {
     padding-left: 999999px;
 }
 
-/* #luckysheet-copy-btn {
+/* #tibetsheets-copy-btn {
     position: absolute;
     visibility: hidden;
 } */
@@ -2966,15 +2968,15 @@ fieldset[disabled] .btn-danger.focus {
     background-color: #fff;
 }
 
-.luckysheet-cols-change-size,
-.luckysheet-rows-change-size,
-.luckysheet-change-size-line {
+.tibetsheets-cols-change-size,
+.tibetsheets-rows-change-size,
+.tibetsheets-change-size-line {
     /*display: none;*/
     position: absolute;
     z-index: 12;
 }
 
-.luckysheet-cols-change-size {
+.tibetsheets-cols-change-size {
     width: 5px;
     height: 100%;
     background: #0188fb;
@@ -2982,7 +2984,7 @@ fieldset[disabled] .btn-danger.focus {
     opacity: 0;
 }
 
-.luckysheet-rows-change-size {
+.tibetsheets-rows-change-size {
     width: 100%;
     height: 5px;
     background: #0188fb;
@@ -2990,14 +2992,14 @@ fieldset[disabled] .btn-danger.focus {
     opacity: 0;
 }
 
-.luckysheet-change-size-line {
+.tibetsheets-change-size-line {
     border-color: #0188fb;
     border-style: solid;
     z-index: 15;
     display: none;
 }
 
-.luckysheet-count-show {
+.tibetsheets-count-show {
     position: absolute;
     z-index: 15;
     background: rgba(76, 76, 76, 0.8);
@@ -3009,11 +3011,11 @@ fieldset[disabled] .btn-danger.focus {
     white-space: nowrap;
 }
 
-.luckysheet-row-count-show {
+.tibetsheets-row-count-show {
     text-align: center;
 }
 
-.luckysheet-row-count-show div {
+.tibetsheets-row-count-show div {
     /*-webkit-writing-mode: vertical-rl;*/
     writing-mode: vertical-rl;
     /*-ms-writing-mode: tb-rl;*/
@@ -3023,25 +3025,25 @@ fieldset[disabled] .btn-danger.focus {
     /* IE 写法 */
 }
 
-.luckysheet-row-count-show div:last-child {
+.tibetsheets-row-count-show div:last-child {
     writing-mode: initial;
 }
 
-#luckysheet-sheet-list {
+#tibetsheets-sheet-list {
     max-height: 60%;
     overflow: auto;
 }
 
-#luckysheet-sheet-list .luckysheet-cols-menuitem {
+#tibetsheets-sheet-list .tibetsheets-cols-menuitem {
     padding-left: 0px;
     padding-right: 10px;
 }
 
-#luckysheet-sheet-list .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+#tibetsheets-sheet-list .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     padding-left: 5px;
 }
 /* 
-#luckysheet-sheet-list .luckysheet-cols-menuitem .luckysheet-cols-menuitem-content {
+#tibetsheets-sheet-list .tibetsheets-cols-menuitem .tibetsheets-cols-menuitem-content {
     max-width: 420px;
     min-width: 190px;
     overflow: hidden;
@@ -3050,13 +3052,13 @@ fieldset[disabled] .btn-danger.focus {
 } */
 
 
-#luckysheet-sheet-list .icon {
+#tibetsheets-sheet-list .icon {
     width: 15px;
     margin-left: 4px;
     display: inline-block;
 }
 
-.luckysheet-input-box {
+.tibetsheets-input-box {
     position: absolute;
     font: normal normal 400 13px arial, sans, sans-serif;
     text-align: left;
@@ -3079,7 +3081,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-.luckysheet-cell-input {
+.tibetsheets-cell-input {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -3091,7 +3093,7 @@ fieldset[disabled] .btn-danger.focus {
     /*    background-color: white;*/
 }
 
-#luckysheet-rich-text-editor {
+#tibetsheets-rich-text-editor {
     -webkit-user-modify: read-write;
     /*    background-color: rgb(255, 255, 255); 
     font-size: 13px; 
@@ -3101,7 +3103,7 @@ fieldset[disabled] .btn-danger.focus {
     font-style: normal;*/
 }
 
-.luckysheet-input-box-index {
+.tibetsheets-input-box-index {
     display: none;
     position: absolute;
     /*top: -20px;
@@ -3117,7 +3119,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-.luckysheet-modal-dialog {
+.tibetsheets-modal-dialog {
     -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
     box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
@@ -3132,7 +3134,7 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 100002;
 }
 
-.luckysheet-modal-dialog-mask {
+.tibetsheets-modal-dialog-mask {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -3146,7 +3148,7 @@ fieldset[disabled] .btn-danger.focus {
 
 
 
-.luckysheet-modal-dialog-title {
+.tibetsheets-modal-dialog-title {
     background-color: #fff;
     color: #000;
     cursor: default;
@@ -3156,7 +3158,7 @@ fieldset[disabled] .btn-danger.focus {
     margin: 0 0 16px;
 }
 
-.luckysheet-modal-dialog-title-close {
+.tibetsheets-modal-dialog-title-close {
     height: 11px;
     opacity: 0.7;
     padding: 17px;
@@ -3168,46 +3170,46 @@ fieldset[disabled] .btn-danger.focus {
     outline: 0;
 }
 
-.luckysheet-modal-dialog-chart {
+.tibetsheets-modal-dialog-chart {
     padding: 20px 10px;
     webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
 
-/*         .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title{
+/*         .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title{
              line-height:0px;
              margin: 0px;
              font-size: 12px;
          }
 
-        .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title-close,.luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title-max,.luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title-min,.luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title-restore, .luckysheet-modal-dialog-chart .luckysheet-modal-dialog-title-update {
+        .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title-close,.tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title-max,.tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title-min,.tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title-restore, .tibetsheets-modal-dialog-chart .tibetsheets-modal-dialog-title-update {
              height: 5px;
              opacity: 0.7;
              padding: 12px;
          }
 
-         .luckysheet-modal-dialog-title-update {
+         .tibetsheets-modal-dialog-title-update {
              right: 105px;
              color:#0188fb;
              font-size:14px;
              padding-top: 9px;
          }
 
-         .luckysheet-modal-dialog-title-min {
+         .tibetsheets-modal-dialog-title-min {
              right: 70px;
              padding-top: 9px;
          }
 
-         .luckysheet-modal-dialog-title-max, .luckysheet-modal-dialog-title-restore {
+         .tibetsheets-modal-dialog-title-max, .tibetsheets-modal-dialog-title-restore {
              right: 35px;
          }
 
-         .luckysheet-modal-dialog-title-restore{
+         .tibetsheets-modal-dialog-title-restore{
              display: none;
          }*/
 
-.luckysheet-modal-dialog-resize {
+.tibetsheets-modal-dialog-resize {
     position: absolute;
     border: 2px solid #0188fb;
     margin: 0px;
@@ -3219,7 +3221,7 @@ fieldset[disabled] .btn-danger.focus {
     pointer-events: none;
 }
 
-.luckysheet-modal-dialog-resize-item {
+.tibetsheets-modal-dialog-resize-item {
     position: absolute;
     height: 6px;
     width: 6px;
@@ -3229,60 +3231,60 @@ fieldset[disabled] .btn-danger.focus {
     border-radius: 6px;
 }
 
-.luckysheet-modal-dialog-resize-item-lt {
+.tibetsheets-modal-dialog-resize-item-lt {
     left: -6px;
     top: -6px;
     cursor: se-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-mt {
+.tibetsheets-modal-dialog-resize-item-mt {
     left: 50%;
     top: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rt {
+.tibetsheets-modal-dialog-resize-item-rt {
     right: -6px;
     top: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-lm {
+.tibetsheets-modal-dialog-resize-item-lm {
     top: 50%;
     left: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rm {
+.tibetsheets-modal-dialog-resize-item-rm {
     top: 50%;
     right: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-lb {
+.tibetsheets-modal-dialog-resize-item-lb {
     left: -6px;
     bottom: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-mb {
+.tibetsheets-modal-dialog-resize-item-mb {
     left: 50%;
     bottom: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rb {
+.tibetsheets-modal-dialog-resize-item-rb {
     right: -6px;
     bottom: -6px;
     cursor: se-resize;
 }
 
 
-.luckysheet-modal-dialog-controll {
+.tibetsheets-modal-dialog-controll {
     position: absolute;
     margin: 0px;
     padding: 0px;
@@ -3292,7 +3294,7 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-modal-controll-btn {
+.tibetsheets-modal-controll-btn {
     height: 13px;
     /* opacity: 0.7; */
     padding: 8px;
@@ -3313,22 +3315,22 @@ fieldset[disabled] .btn-danger.focus {
     -o-transition: all 0.2s;
 }
 
-.luckysheet-modal-controll-btn:hover {
+.tibetsheets-modal-controll-btn:hover {
     border: 1px solid #A1A1A1;
     color: #0188fb;
 }
 
-.luckysheet-modal-controll-btn:active {
+.tibetsheets-modal-controll-btn:active {
     border: 1px solid #BBBBBB;
     background: #EFEFEF;
     color: #0188fb;
 }
 
-.luckysheet-modal-controll-del {
+.tibetsheets-modal-controll-del {
     font-size: 16px;
 }
 
-.luckysheet-modal-controll-max-close {
+.tibetsheets-modal-controll-max-close {
     font-size: 22px;
     width: 42px;
     height: 42px;
@@ -3346,83 +3348,83 @@ fieldset[disabled] .btn-danger.focus {
     text-align: center;
 }
 
-.luckysheet-modal-controll-max-close:hover {
+.tibetsheets-modal-controll-max-close:hover {
     background: #0188fb;
     cursor: pointer;
 }
 
-.luckysheet-sort-item-close {
+.tibetsheets-sort-item-close {
     margin-right: 3px;
     font-size: 14px;
     color: #BBBBBB;
     cursor: pointer;
 }
 
-.luckysheet-sort-item-close:hover {
+.tibetsheets-sort-item-close:hover {
     color: #494949;
 }
 
-.luckysheet-modal-dialog-title-close:hover {
+.tibetsheets-modal-dialog-title-close:hover {
     color: #5e5e5e;
     cursor: pointer;
 }
 
-.luckysheet-modal-dialog-content {
+.tibetsheets-modal-dialog-content {
     background-color: #fff;
     line-height: 1.4em;
     word-wrap: break-word;
 }
 
-.luckysheet-modal-dialog-buttons {
+.tibetsheets-modal-dialog-buttons {
     margin-top: 10px;
 }
 
-.luckysheet-modal-dialog-buttons button {
+.tibetsheets-modal-dialog-buttons button {
     margin-right: 10px;
 }
 
-.luckysheet-modal-dialog-title-text span {
+.tibetsheets-modal-dialog-title-text span {
     font-family: Arial;
 }
 
-.luckysheet-sort-modal {
+.tibetsheets-sort-modal {
     font-size: 12px;
 }
 
-.luckysheet-sort-modal label input,
-.luckysheet-sort-modal label span {
+.tibetsheets-sort-modal label input,
+.tibetsheets-sort-modal label span {
     vertical-align: middle;
 }
 
-.luckysheet-sort-modal>div,
-.luckysheet-sort-modal table {
+.tibetsheets-sort-modal>div,
+.tibetsheets-sort-modal table {
     margin-bottom: 10px;
 }
 
-.luckysheet-sort-modal table tr {
+.tibetsheets-sort-modal table tr {
     margin-bottom: 10px;
 }
 
-.luckysheet-sort-modal table tr td {
+.tibetsheets-sort-modal table tr td {
     padding: 5px;
     white-space: nowrap;
     border-top: 1px solid #ffc6c6;
 }
 
-.luckysheet-sort-modal table tr td>div:first-child {
+.tibetsheets-sort-modal table tr td>div:first-child {
     margin-bottom: 8px;
 }
 
-.luckysheet-sort-modal table tr td select {
+.tibetsheets-sort-modal table tr td select {
     max-width: 180px;
     min-width: 50px;
 }
 
-.luckysheet-sort-modal table tr:first-child td {
+.tibetsheets-sort-modal table tr:first-child td {
     border-top: none;
 }
 
-.luckysheet-filter-options {
+.tibetsheets-filter-options {
     color: #897BFF;
     cursor: pointer;
     position: absolute;
@@ -3439,20 +3441,20 @@ fieldset[disabled] .btn-danger.focus {
     /* transition: all 0.1s; */
 }
 
-.luckysheet-filter-options:hover {
+.tibetsheets-filter-options:hover {
     color: #fff;
     border: 1px solid #fff;
     background: #897BFF;
 }
 
-.luckysheet-filter-options-active {
+.tibetsheets-filter-options-active {
     color: #fff;
     border: 1px solid #897BFF;
     background: #897BFF;
 }
 
 
-.luckysheet-flat-menu-button {
+.tibetsheets-flat-menu-button {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -3479,7 +3481,7 @@ fieldset[disabled] .btn-danger.focus {
     padding-left: 15px;
 }
 
-.luckysheet-flat-menu-button:hover {
+.tibetsheets-flat-menu-button:hover {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -3493,7 +3495,7 @@ fieldset[disabled] .btn-danger.focus {
     color: #000;
 }
 
-.luckysheet-flat-menu-button div {
+.tibetsheets-flat-menu-button div {
     display: inline-block;
     vertical-align: middle;
     position: absolute;
@@ -3503,39 +3505,39 @@ fieldset[disabled] .btn-danger.focus {
 
 /*图表生成CSS*/
 
-.luckysheet-data-visualization {
+.tibetsheets-data-visualization {
     width: 60%;
     min-width: 860px;
 }
 
-.luckysheet-data-visualization-selection,
-.luckysheet-data-pivotTable-selection {
+.tibetsheets-data-visualization-selection,
+.tibetsheets-data-pivotTable-selection {
     width: 30%;
     min-width: 200px;
     display: none;
 }
 
-.luckysheet-data-visualization-chart {
+.tibetsheets-data-visualization-chart {
     width: 50%;
     /*min-width: 860px;*/
     height: 50%;
 }
 
-.luckysheet-data-visualization-chart .luckysheet-modal-dialog-content {
+.tibetsheets-data-visualization-chart .tibetsheets-modal-dialog-content {
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.luckysheet-datavisual-modal {
+.tibetsheets-datavisual-modal {
     font-size: 12px;
     /*height: 450px;*/
     height: 100%;
     width: 100%;
 }
 
-/*, .luckysheet-datavisual-right*/
-.luckysheet-datavisual-left {
+/*, .tibetsheets-datavisual-right*/
+.tibetsheets-datavisual-left {
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -3543,16 +3545,16 @@ fieldset[disabled] .btn-danger.focus {
     overflow: hidden;
 }
 
-.luckysheet-datavisual-left {}
+.tibetsheets-datavisual-left {}
 
-.luckysheet-datavisual-tabs {
+.tibetsheets-datavisual-tabs {
     border-bottom: 1px solid #DEDEDE;
     width: 80%;
     height: 26px;
     padding-left: 20px;
 }
 
-.luckysheet-datavisual-tabs .luckysheet-datavisual-tab {
+.tibetsheets-datavisual-tabs .tibetsheets-datavisual-tab {
     padding: 0px 5px;
     text-align: center;
     display: inline-block;
@@ -3565,11 +3567,11 @@ fieldset[disabled] .btn-danger.focus {
     color: #777;
 }
 
-.luckysheet-datavisual-tabs .luckysheet-datavisual-tab:hover {
+.tibetsheets-datavisual-tabs .tibetsheets-datavisual-tab:hover {
     color: #000;
 }
 
-.luckysheet-datavisual-tabs .luckysheet-datavisual-tab-active {
+.tibetsheets-datavisual-tabs .tibetsheets-datavisual-tab-active {
     border: 1px solid #DEDEDE;
     border-bottom: none;
     cursor: default;
@@ -3577,7 +3579,7 @@ fieldset[disabled] .btn-danger.focus {
     color: #000;
 }
 
-.luckysheet-datavisual-tab-content {
+.tibetsheets-datavisual-tab-content {
     position: absolute;
     top: 28px;
     bottom: 0px;
@@ -3587,19 +3589,19 @@ fieldset[disabled] .btn-danger.focus {
 
 
 
-.luckysheet-datavisual-quick {}
+.tibetsheets-datavisual-quick {}
 
-.luckysheet-datavisual-quick-menu {
+.tibetsheets-datavisual-quick-menu {
     width: 90px;
     overflow: auto;
     margin-top: 5px;
 }
 
-.luckysheet-datavisual-quick-menu::-webkit-scrollbar {
+.tibetsheets-datavisual-quick-menu::-webkit-scrollbar {
     display: none;
 }
 
-.luckysheet-datavisual-quick-menu>div {
+.tibetsheets-datavisual-quick-menu>div {
     text-align: left;
     padding: 4px 4px;
     border-right: 3px solid #fff;
@@ -3610,33 +3612,33 @@ fieldset[disabled] .btn-danger.focus {
     /*margin: 4px 0px;*/
 }
 
-.luckysheet-datavisual-quick-menu>div:hover {
+.tibetsheets-datavisual-quick-menu>div:hover {
     color: #000;
 }
 
-.luckysheet-datavisual-quick-menu>div i {
+.tibetsheets-datavisual-quick-menu>div i {
     width: 15px;
 }
 
-.luckysheet-datavisual-quick-menu>div:hover i {
+.tibetsheets-datavisual-quick-menu>div:hover i {
     color: #FF7E7E;
 }
 
-.luckysheet-datavisual-quick-menu>div.luckysheet-datavisual-quick-menu-active {
+.tibetsheets-datavisual-quick-menu>div.tibetsheets-datavisual-quick-menu-active {
     border-right: 3px solid #FF7E7E;
     color: #000;
     font-weight: bold;
 }
 
-.luckysheet-datavisual-quick-menu>div.luckysheet-datavisual-quick-menu-active:hover i {
+.tibetsheets-datavisual-quick-menu>div.tibetsheets-datavisual-quick-menu-active:hover i {
     color: #000;
 }
 
-.luckysheet-datavisual-quick-range {
+.tibetsheets-datavisual-quick-range {
     padding: 5px 0px;
 }
 
-.luckysheet-datavisual-range-container {
+.tibetsheets-datavisual-range-container {
     background: #fff;
     border: 1px solid #d9d9d9;
     border-top: 1px solid #c0c0c0;
@@ -3646,14 +3648,14 @@ fieldset[disabled] .btn-danger.focus {
     display: inline-block;
 }
 
-.luckysheet-datavisual-range-container-focus {
+.tibetsheets-datavisual-range-container-focus {
     border: 1px solid #4d90fe;
     box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.3);
     outline: none;
 }
 
-.luckysheet-datavisual-range-input,
-.luckysheet-datavisual-range-input:focus {
+.tibetsheets-datavisual-range-input,
+.tibetsheets-datavisual-range-input:focus {
     background: transparent !important;
     border: none !important;
     box-sizing: border-box;
@@ -3667,33 +3669,33 @@ fieldset[disabled] .btn-danger.focus {
     width: 100%;
 }
 
-.luckysheet-datavisual-range-button-container {
+.tibetsheets-datavisual-range-button-container {
     overflow: hidden;
     padding: 0 0 0 8px;
     text-align: right;
     width: 21px;
 }
 
-.luckysheet-datavisual-range-button-container div {
+.tibetsheets-datavisual-range-button-container div {
     padding: 2px 10px 0px 10px;
     font-size: 18px;
     cursor: pointer;
     color: #6598F3;
 }
 
-.luckysheet-datavisual-range-button-container div:hover {
+.tibetsheets-datavisual-range-button-container div:hover {
     color: #FF7E7E;
 }
 
-.luckysheet-datavisual-range-config {
+.tibetsheets-datavisual-range-config {
     /*display: inline-block;*/
 }
 
-.luckysheet-datavisual-quick-m {
+.tibetsheets-datavisual-quick-m {
     margin-top: 5px;
 }
 
-.luckysheet-datavisual-quick-list {
+.tibetsheets-datavisual-quick-list {
     left: 90px;
     right: 0px;
     bottom: 0px;
@@ -3704,17 +3706,17 @@ fieldset[disabled] .btn-danger.focus {
     padding: 5px 3px 35px 3px;
 }
 
-.luckysheet-datavisual-quick-list-title {
+.tibetsheets-datavisual-quick-list-title {
     padding: 4px 6px;
     background: #e5e5e5;
     margin-top: 10px;
 }
 
-.luckysheet-datavisual-quick-list-ul {
+.tibetsheets-datavisual-quick-list-ul {
     overflow: hidden;
 }
 
-.luckysheet-datavisual-quick-list-item {
+.tibetsheets-datavisual-quick-list-item {
     display: inline-block;
     margin: 5px 8px;
     border: 1px solid #DADADA;
@@ -3722,27 +3724,27 @@ fieldset[disabled] .btn-danger.focus {
     height: 80px;
 }
 
-.luckysheet-datavisual-quick-list-item:hover {
+.tibetsheets-datavisual-quick-list-item:hover {
     border: 1px solid #FF7E7E;
     box-shadow: 0px 0px 20px #FF7E7E;
 }
 
-.luckysheet-datavisual-quick-list-item img {
+.tibetsheets-datavisual-quick-list-item img {
     display: inline-block;
     width: 100px;
     height: 80px;
 }
 
-.luckysheet-datavisual-quick-list-item-active {
+.tibetsheets-datavisual-quick-list-item-active {
     border: 1px solid #6598F3;
     box-shadow: 0px 0px 20px #6598F3;
 }
 
-/*.luckysheet-datavisual-right {
+/*.tibetsheets-datavisual-right {
     background: #fff;
 }
 
-.luckysheet-datavisual-right-chart {
+.tibetsheets-datavisual-right-chart {
     width: 100%;
     height: 90%;
     top: 5%;
@@ -3841,7 +3843,7 @@ fieldset[disabled] .btn-danger.focus {
 
 
 /*图表详细设置*/
-.luckysheet-datavisual-config {
+.tibetsheets-datavisual-config {
     position: relative;
     width: 100%;
     height: 97%;
@@ -3849,11 +3851,11 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-datavisual-config input {
+.tibetsheets-datavisual-config input {
     outline: none;
 }
 
-.luckysheet-datavisual-config .luckysheet-datavisual-accordion-title {
+.tibetsheets-datavisual-config .tibetsheets-datavisual-accordion-title {
     position: relative;
     width: 97%;
     height: 33px;
@@ -3866,12 +3868,12 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-.luckysheet-datavisual-config .luckysheet-datavisual-accordion-title:hover {
+.tibetsheets-datavisual-config .tibetsheets-datavisual-accordion-title:hover {
     background: #EFEFEF;
     border: 1px solid #E0E0E0;
 }
 
-.luckysheet-datavisual-config .luckysheet-datavisual-accordion-content {
+.tibetsheets-datavisual-config .tibetsheets-datavisual-accordion-content {
     position: relative;
     width: 97%;
     border: 1px solid #E5E5E5;
@@ -3881,8 +3883,8 @@ fieldset[disabled] .btn-danger.focus {
     padding-bottom: 20px;
 }
 
-.luckysheet-datavisual-config-input,
-.luckysheet-datavisual-config-input-no {
+.tibetsheets-datavisual-config-input,
+.tibetsheets-datavisual-config-input-no {
     background: #fff;
     border: 1px solid #d9d9d9;
     border-top: 1px solid #c0c0c0;
@@ -3894,14 +3896,14 @@ fieldset[disabled] .btn-danger.focus {
     padding: 3px;
 }
 
-.luckysheet-datavisual-config-input:focus,
-.luckysheet-datavisual-config-input-no:focus {
+.tibetsheets-datavisual-config-input:focus,
+.tibetsheets-datavisual-config-input-no:focus {
     border: 1px solid #4d90fe;
     box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.3);
     outline: none;
 }
 
-.luckysheet-datavisual-content-row {
+.tibetsheets-datavisual-content-row {
     margin-left: 15px;
     margin-bottom: 5px;
     margin-top: 15px;
@@ -3909,28 +3911,28 @@ fieldset[disabled] .btn-danger.focus {
     line-height: 30px;
 }
 
-.luckysheet-datavisual-content-column {
+.tibetsheets-datavisual-content-column {
     display: inline-block;
     position: relative;
 }
 
-.luckysheet-datavisual-content-column-title {
+.tibetsheets-datavisual-content-column-title {
     text-align: left;
     font-size: 14px;
 }
 
-.luckysheet-datavisual-content-column-right {
+.tibetsheets-datavisual-content-column-right {
     text-align: right;
 }
 
-.luckysheet-datavisual-content-rowsplit {
+.tibetsheets-datavisual-content-rowsplit {
     height: 5px;
     border-top: 1px solid #E5E5E5;
     width: 100%;
     margin-top: 25px;
 }
 
-.luckysheet-datavisual-content-rowsplit-sub {
+.tibetsheets-datavisual-content-rowsplit-sub {
     height: 2px;
     border-top: 1px dashed #E5E5E5;
     width: 90%;
@@ -3949,13 +3951,13 @@ fieldset[disabled] .btn-danger.focus {
     box-shadow: none;
 }
 
-.luckysheet-datavisual-config-slider,
-.luckysheet-datavisual-config-slider-range {
+.tibetsheets-datavisual-config-slider,
+.tibetsheets-datavisual-config-slider-range {
     width: 70%;
     display: inline-block;
 }
 
-.luckysheet-datavisual-config-slider-range .luckysheet-slider-handle {
+.tibetsheets-datavisual-config-slider-range .tibetsheets-slider-handle {
     width: 45px;
     height: 26px;
     top: 50%;
@@ -3964,7 +3966,7 @@ fieldset[disabled] .btn-danger.focus {
     line-height: 26px;
 }
 
-.luckysheet-datavisual-content-row-subtitle {
+.tibetsheets-datavisual-content-row-subtitle {
     display: none;
 }
 
@@ -3974,25 +3976,25 @@ fieldset[disabled] .btn-danger.focus {
     width: 48%;
 }
 
-.luckysheet-datavisual-content-column-italic {
+.tibetsheets-datavisual-content-column-italic {
     font-style: italic;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.luckysheetChartAxisShow {
+.tibetsheetsChartAxisShow {
     display: none;
 }
 
-.luckysheet-datavisual-chart-axistitle-show {
+.tibetsheets-datavisual-chart-axistitle-show {
     display: none;
 }
 
-.luckysheetChartseriesShow {
+.tibetsheetsChartseriesShow {
     display: none;
 }
 
-#luckysheetswichxy-button,
+#tibetsheetsswichxy-button,
 #piecutselect-button {
     width: 70%;
 }
@@ -4008,11 +4010,11 @@ fieldset[disabled] .btn-danger.focus {
     background-image: none;
 }
 
-#luckysheetswichseries-menu .ui-state-active,
+#tibetsheetsswichseries-menu .ui-state-active,
 #pie0cutselect-menu .ui-state-active,
 #pie1cutselect-menu .ui-state-active,
 #pie2cutselect-menu .ui-state-active,
-#luckysheetscatterselectshow-menu .ui-state-active {
+#tibetsheetsscatterselectshow-menu .ui-state-active {
     border: 1px solid #F5F5F5;
     background: #F5F5F5;
     color: #333;
@@ -4022,9 +4024,9 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 100003;
 }
 
-.luckysheet-datavisual-skin {}
+.tibetsheets-datavisual-skin {}
 
-.luckysheet-datavisual-skin-menu {
+.tibetsheets-datavisual-skin-menu {
     top: 5px;
     position: absolute;
     left: 0px;
@@ -4032,12 +4034,12 @@ fieldset[disabled] .btn-danger.focus {
     height: 30px;
 }
 
-#luckysheet-chart-theme-content {
+#tibetsheets-chart-theme-content {
     height: 21px;
     width: 120px;
 }
 
-.luckysheet-datavisual-skin-c {
+.tibetsheets-datavisual-skin-c {
     position: absolute;
     left: 0px;
     top: 38px;
@@ -4047,7 +4049,7 @@ fieldset[disabled] .btn-danger.focus {
     overflow: auto;
 }
 
-.luckysheet-datavisual-skin-c .luckysheet-datavisual-skin-item {
+.tibetsheets-datavisual-skin-c .tibetsheets-datavisual-skin-item {
     display: inline-block;
     width: 46%;
     height: 152px;
@@ -4059,7 +4061,7 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-.luckysheet-datavisual-skin-c .luckysheet-datavisual-skin-item-more {
+.tibetsheets-datavisual-skin-c .tibetsheets-datavisual-skin-item-more {
     display: inline-block;
     width: 94%;
     height: 32px;
@@ -4071,19 +4073,19 @@ fieldset[disabled] .btn-danger.focus {
     text-align: center;
 }
 
-.luckysheet-datavisual-skin-item .luckysheet-datavisual-skin-canvas,
-.luckysheet-datavisual-skin-item .luckysheet-datavisual-skin-cover {
+.tibetsheets-datavisual-skin-item .tibetsheets-datavisual-skin-canvas,
+.tibetsheets-datavisual-skin-item .tibetsheets-datavisual-skin-cover {
     position: absolute;
     width: 100%;
     height: 100%;
     bottom: 0;
 }
 
-.luckysheet-datavisual-skin-item .luckysheet-datavisual-skin-canvas {
+.tibetsheets-datavisual-skin-item .tibetsheets-datavisual-skin-canvas {
     /*z-index: 1;*/
 }
 
-.luckysheet-datavisual-skin-item .luckysheet-datavisual-skin-cover {
+.tibetsheets-datavisual-skin-item .tibetsheets-datavisual-skin-cover {
     background-color: rgba(0, 0, 0, 0.4);
     color: #FFFFFF;
     font-size: 14px;
@@ -4095,12 +4097,12 @@ fieldset[disabled] .btn-danger.focus {
     -o-transition: opacity 0.15s ease;
 }
 
-.luckysheet-datavisual-skin-item:hover .luckysheet-datavisual-skin-cover {
+.tibetsheets-datavisual-skin-item:hover .tibetsheets-datavisual-skin-cover {
     opacity: 1;
     z-index: 2;
 }
 
-.luckysheet-datavisual-skin-cover .luckysheet-datavisual-skin-cover-txt {
+.tibetsheets-datavisual-skin-cover .tibetsheets-datavisual-skin-cover-txt {
     position: absolute;
     width: 80%;
     height: 80%;
@@ -4112,7 +4114,7 @@ fieldset[disabled] .btn-danger.focus {
 
 
 /*图表点设置*/
-.luckysheet-chart-point-config {
+.tibetsheets-chart-point-config {
     position: relative;
     width: 100%;
     height: 100%;
@@ -4120,7 +4122,7 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 12px;
 }
 
-.luckysheet-chart-point-config-set {
+.tibetsheets-chart-point-config-set {
     position: absolute;
     width: 60%;
     height: 100%;
@@ -4129,7 +4131,7 @@ fieldset[disabled] .btn-danger.focus {
     /*background:#ff0000;*/
 }
 
-.luckysheet-chart-point-config-left {
+.tibetsheets-chart-point-config-left {
     position: absolute;
     height: 100%;
     width: 50%;
@@ -4137,14 +4139,14 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-chart-point-config-left-top {
+.tibetsheets-chart-point-config-left-top {
     position: absolute;
     top: 0px;
     height: 120px;
     width: 100%;
 }
 
-.luckysheet-chart-point-searchcondition {
+.tibetsheets-chart-point-searchcondition {
     position: absolute;
     top: 10px;
     bottom: 10px;
@@ -4152,7 +4154,7 @@ fieldset[disabled] .btn-danger.focus {
     right: 10px;
 }
 
-.luckysheet-chart-point-config-left-mid {
+.tibetsheets-chart-point-config-left-mid {
     position: absolute;
     top: 120px;
     height: 25px;
@@ -4162,14 +4164,14 @@ fieldset[disabled] .btn-danger.focus {
     line-height: 35px;
 }
 
-.luckysheet-chart-point-config-left-mid span {
+.tibetsheets-chart-point-config-left-mid span {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
     font-size: 12px
 }
 
-.luckysheet-chart-point-config-left-bottom {
+.tibetsheets-chart-point-config-left-bottom {
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -4177,7 +4179,7 @@ fieldset[disabled] .btn-danger.focus {
     width: 100%;
 }
 
-.luckysheet-chart-point-searchitem-c {
+.tibetsheets-chart-point-searchitem-c {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -4186,7 +4188,7 @@ fieldset[disabled] .btn-danger.focus {
     cursor: default;
 }
 
-.luckysheet-chart-point-searchitem {
+.tibetsheets-chart-point-searchitem {
     display: inline-block;
     margin-left: 5px;
     margin-top: 5px;
@@ -4200,7 +4202,7 @@ fieldset[disabled] .btn-danger.focus {
     position: relative;
 }
 
-.luckysheet-chart-point-searchitem-selected {
+.tibetsheets-chart-point-searchitem-selected {
     position: absolute;
     color: #616161;
     left: -6px;
@@ -4210,15 +4212,15 @@ fieldset[disabled] .btn-danger.focus {
     font-weight: normal;
 }
 
-.luckysheet-chart-point-searchitem-active {
+.tibetsheets-chart-point-searchitem-active {
     box-shadow: 0px 0px 4px #656565;
 }
 
-.luckysheet-chart-point-searchitem-active .luckysheet-chart-point-searchitem-selected {
+.tibetsheets-chart-point-searchitem-active .tibetsheets-chart-point-searchitem-selected {
     display: block;
 }
 
-.luckysheet-chart-point-searchitem-name {
+.tibetsheets-chart-point-searchitem-name {
     font-size: 12px;
     cursor: default;
     white-space: nowrap;
@@ -4226,7 +4228,7 @@ fieldset[disabled] .btn-danger.focus {
     text-overflow: ellipsis;
 }
 
-.luckysheet-chart-point-searchitem-dim {
+.tibetsheets-chart-point-searchitem-dim {
     font-size: 12px;
     opacity: 0.7;
     /*color: #C1C1C1;*/
@@ -4236,13 +4238,13 @@ fieldset[disabled] .btn-danger.focus {
     text-overflow: ellipsis;
 }
 
-#luckysheet-chart-point-selectedhelp {
+#tibetsheets-chart-point-selectedhelp {
     pointer-events: none;
     position: absolute;
     border: 1px dotted #535353;
 }
 
-.luckysheet-chart-point-config-right {
+.tibetsheets-chart-point-config-right {
     position: absolute;
     height: 100%;
     width: 50%;
@@ -4250,7 +4252,7 @@ fieldset[disabled] .btn-danger.focus {
     right: 0px;
 }
 
-.luckysheet-chart-point-itemconfig {
+.tibetsheets-chart-point-itemconfig {
     position: absolute;
     top: 10px;
     bottom: 10px;
@@ -4259,7 +4261,7 @@ fieldset[disabled] .btn-danger.focus {
     overflow: auto;
 }
 
-.luckysheet-chart-point-config-chart {
+.tibetsheets-chart-point-config-chart {
     position: absolute;
     width: 40%;
     height: 100%;
@@ -4267,7 +4269,7 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-chart-point-config-chart-c {
+.tibetsheets-chart-point-config-chart-c {
     width: 100%;
     height: 80%;
     top: 10%;
@@ -4275,59 +4277,59 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 @media (max-width: 776px) {
-    .luckysheet-chart-point-config-set {
+    .tibetsheets-chart-point-config-set {
         width: 90%;
     }
 
-    .luckysheet-chart-point-config-chart {
+    .tibetsheets-chart-point-config-chart {
         width: 10%;
     }
 }
 
 @media (min-width: 768px) {
-    .luckysheet-chart-point-config-set {
+    .tibetsheets-chart-point-config-set {
         width: 80%;
     }
 
-    .luckysheet-chart-point-config-chart {
+    .tibetsheets-chart-point-config-chart {
         width: 20%;
     }
 }
 
 
 @media (min-width: 1024px) {
-    .luckysheet-chart-point-config-set {
+    .tibetsheets-chart-point-config-set {
         width: 70%;
     }
 
-    .luckysheet-chart-point-config-chart {
+    .tibetsheets-chart-point-config-chart {
         width: 30%;
     }
 }
 
 @media (min-width: 1280px) {
-    .luckysheet-chart-point-config-set {
+    .tibetsheets-chart-point-config-set {
         width: 60%;
     }
 
-    .luckysheet-chart-point-config-chart {
+    .tibetsheets-chart-point-config-chart {
         width: 40%;
     }
 }
 
 @media (min-width: 1680px) {
-    .luckysheet-chart-point-config-set {
+    .tibetsheets-chart-point-config-set {
         width: 50%;
     }
 
-    .luckysheet-chart-point-config-chart {
+    .tibetsheets-chart-point-config-chart {
         width: 50%;
     }
 }
 
 
 /*边栏通用样式*/
-.luckysheet-modal-dialog-slider {
+.tibetsheets-modal-dialog-slider {
     top: 1px;
     bottom: 1px;
     position: absolute;
@@ -4346,7 +4348,7 @@ fieldset[disabled] .btn-danger.focus {
     /*display: none;*/
 }
 
-.luckysheet-modal-dialog-slider .luckysheet-modal-dialog-slider-title {
+.tibetsheets-modal-dialog-slider .tibetsheets-modal-dialog-slider-title {
     background: #333;
     color: #fff;
     height: 39px;
@@ -4358,19 +4360,19 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 13px;
 }
 
-.luckysheet-modal-dialog-slider .luckysheet-modal-dialog-slider-title>span:first-child {
+.tibetsheets-modal-dialog-slider .tibetsheets-modal-dialog-slider-title>span:first-child {
     margin-left: 5px;
     font-weight: bold;
 }
 
-.luckysheet-modal-dialog-slider .luckysheet-modal-dialog-slider-title>span:last-child {
+.tibetsheets-modal-dialog-slider .tibetsheets-modal-dialog-slider-title>span:last-child {
     position: relative;
     float: right;
     margin-right: 20px;
     cursor: pointer;
 }
 
-.luckysheet-modal-dialog-slider-content {
+.tibetsheets-modal-dialog-slider-content {
     background: #EFEFEF;
     margin-top: 39px;
     width: 100%;
@@ -4380,7 +4382,7 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 12px;
 }
 
-.luckysheet-modal-dialog-slider-range {
+.tibetsheets-modal-dialog-slider-range {
     background: #E1E1DE;
     color: #1B1B19;
     height: 40px;
@@ -4388,7 +4390,7 @@ fieldset[disabled] .btn-danger.focus {
     line-height: 40px;
 }
 
-.luckysheet-modal-dialog-slider-range>div:first-child {
+.tibetsheets-modal-dialog-slider-range>div:first-child {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4399,13 +4401,13 @@ fieldset[disabled] .btn-danger.focus {
     white-space: nowrap;
 }
 
-.luckysheet-modal-dialog-slider-range>div:last-child {
+.tibetsheets-modal-dialog-slider-range>div:last-child {
     color: blue;
     cursor: pointer;
     float: left;
 }
 
-.luckysheet-modal-dialog-slider-list {
+.tibetsheets-modal-dialog-slider-list {
     width: 250px;
     height: 320px;
     overflow-y: scroll;
@@ -4416,13 +4418,13 @@ fieldset[disabled] .btn-danger.focus {
     background: #fff;
 }
 
-.luckysheet-modal-dialog-slider-list-title {
+.tibetsheets-modal-dialog-slider-list-title {
     height: 20px;
     line-height: 25px;
     padding: 0px 5px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-modal-dialog-slider-list-item {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-modal-dialog-slider-list-item {
     padding: 0px 4px;
     position: relative;
     width: 228px;
@@ -4431,12 +4433,12 @@ fieldset[disabled] .btn-danger.focus {
     border: 1px solid #fff;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-modal-dialog-slider-list-item:hover {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-modal-dialog-slider-list-item:hover {
     background: #FFF6CB;
     border: 1px solid #FFE463;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-name {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-name {
     cursor: pointer;
     height: 25px;
     line-height: 25px;
@@ -4450,7 +4452,7 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-selected {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-selected {
     width: 20px;
     cursor: pointer;
     text-align: center;
@@ -4460,12 +4462,12 @@ fieldset[disabled] .btn-danger.focus {
     height: 25px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-selected i {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-selected i {
     margin-top: 4px;
     font-size: 16px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-selected div {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-selected div {
     border: 1px solid #9C9C9C;
     top: 4px;
     left: 1px;
@@ -4480,11 +4482,11 @@ fieldset[disabled] .btn-danger.focus {
     /* For Latest Opera */
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-selected div:hover {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-selected div:hover {
     border: 1px solid #5E5E5E;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filtered {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filtered {
     width: 20px;
     cursor: pointer;
     text-align: center;
@@ -4495,16 +4497,16 @@ fieldset[disabled] .btn-danger.focus {
     display: none;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filtered i {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filtered i {
     margin-top: 2px;
     font-size: 16px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filtered:hover i {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filtered:hover i {
     color: #FB8686;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filtered i.fa-times {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filtered i.fa-times {
     right: 0px;
     bottom: 3px;
     color: red;
@@ -4512,7 +4514,7 @@ fieldset[disabled] .btn-danger.focus {
     position: absolute;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filter {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filter {
     width: 20px;
     cursor: pointer;
     text-align: center;
@@ -4522,16 +4524,16 @@ fieldset[disabled] .btn-danger.focus {
     height: 25px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filter i {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filter i {
     margin-top: 2px;
     font-size: 16px;
 }
 
-.luckysheet-modal-dialog-slider-list .luckysheet-slider-list-item-filter:hover i {
+.tibetsheets-modal-dialog-slider-list .tibetsheets-slider-list-item-filter:hover i {
     color: #FB8686;
 }
 
-.luckysheet-modal-dialog-slider-config-c {
+.tibetsheets-modal-dialog-slider-config-c {
     width: 100%;
     position: absolute;
     margin-top: 390px;
@@ -4539,13 +4541,13 @@ fieldset[disabled] .btn-danger.focus {
     bottom: 3px;
 }
 
-.luckysheet-modal-dialog-slider-config {
+.tibetsheets-modal-dialog-slider-config {
     height: 50%;
     width: 50%;
     position: absolute;
 }
 
-.luckysheet-modal-dialog-slider-config>div:first-child {
+.tibetsheets-modal-dialog-slider-config>div:first-child {
     color: #1B1B19;
     font-size: 13px;
     height: 20px;
@@ -4553,13 +4555,13 @@ fieldset[disabled] .btn-danger.focus {
     padding-left: 5px;
 }
 
-.luckysheet-modal-dialog-slider-config>div:first-child span {
+.tibetsheets-modal-dialog-slider-config>div:first-child span {
     font-weight: bold;
     font-weight: bold;
     overflow: hidden;
 }
 
-.luckysheet-modal-dialog-slider-config .luckysheet-modal-dialog-slider-config-list {
+.tibetsheets-modal-dialog-slider-config .tibetsheets-modal-dialog-slider-config-list {
     position: absolute;
     margin-top: 22px;
     margin-left: 5px;
@@ -4573,7 +4575,7 @@ fieldset[disabled] .btn-danger.focus {
     background: #fff;
 }
 
-.luckysheet-modal-dialog-slider-config-list .luckysheet-modal-dialog-slider-config-item {
+.tibetsheets-modal-dialog-slider-config-list .tibetsheets-modal-dialog-slider-config-item {
     position: relative;
     height: 19px;
     line-height: 19px;
@@ -4583,12 +4585,12 @@ fieldset[disabled] .btn-danger.focus {
     margin: 2px;
 }
 
-.luckysheet-modal-dialog-slider-config-list .luckysheet-modal-dialog-slider-config-item:hover {
+.tibetsheets-modal-dialog-slider-config-list .tibetsheets-modal-dialog-slider-config-item:hover {
     border: 1px solid #0188fb;
     background: #5f9afc;
 }
 
-.luckysheet-modal-dialog-slider-config-item-txt {
+.tibetsheets-modal-dialog-slider-config-item-txt {
     position: absolute;
     height: 100%;
     left: 5px;
@@ -4599,7 +4601,7 @@ fieldset[disabled] .btn-danger.focus {
     cursor: move;
 }
 
-.luckysheet-modal-dialog-slider-config-item-icon {
+.tibetsheets-modal-dialog-slider-config-item-icon {
     position: absolute;
     height: 100%;
     width: 15px;
@@ -4609,32 +4611,32 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 14px;
 }
 
-.luckysheet-modal-dialog-slider-config-item-icon:hover {
+.tibetsheets-modal-dialog-slider-config-item-icon:hover {
     color: #FA7272;
 }
 
 
-.luckysheet-modal-dialog-config-filter {
+.tibetsheets-modal-dialog-config-filter {
     top: 0;
     left: 0;
 }
 
-.luckysheet-modal-dialog-config-column {
+.tibetsheets-modal-dialog-config-column {
     top: 0;
     left: 50%;
 }
 
-.luckysheet-modal-dialog-config-row {
+.tibetsheets-modal-dialog-config-row {
     top: 50%;
     left: 0;
 }
 
-.luckysheet-modal-dialog-config-value {
+.tibetsheets-modal-dialog-config-value {
     top: 50%;
     left: 50%;
 }
 
-#luckysheet-modal-dialog-slider-pivot-move {
+#tibetsheets-modal-dialog-slider-pivot-move {
     position: absolute;
     max-width: 100px;
     overflow: hidden;
@@ -4651,19 +4653,19 @@ fieldset[disabled] .btn-danger.focus {
     user-select: none;
 }
 
-.luckysheet-modal-dialog-slider-chart {
+.tibetsheets-modal-dialog-slider-chart {
     width: 445px;
 }
 
-.luckysheet-modal-dialog-slider-chart .luckysheet-modal-dialog-slider-title {
+.tibetsheets-modal-dialog-slider-chart .tibetsheets-modal-dialog-slider-title {
     background: #b94045;
 }
 
-.luckysheet-modal-dialog-slider-chart .luckysheet-modal-dialog-slider-content {
+.tibetsheets-modal-dialog-slider-chart .tibetsheets-modal-dialog-slider-content {
     background: #fff;
 }
 
-#luckysheet-dialog-pivotTable-clearitem {
+#tibetsheets-dialog-pivotTable-clearitem {
     color: blue;
     cursor: pointer;
     float: right;
@@ -4672,29 +4674,29 @@ fieldset[disabled] .btn-danger.focus {
 
 
 /*冻结窗口样式*/
-.luckysheet-freezebar-handle,
-.luckysheet-freezebar-drop {
+.tibetsheets-freezebar-handle,
+.tibetsheets-freezebar-drop {
     position: absolute;
     z-index: 999;
 }
 
-.luckysheet-freezebar-vertical-handle {
+.tibetsheets-freezebar-vertical-handle {
     width: 4px;
     display: none;
-    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_luckysheet-freezebar_vertical.png) no-repeat;*/
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_tibetsheets-freezebar_vertical.png) no-repeat;*/
 }
 
-.luckysheet-freezebar-vertical-drop {
-    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_luckysheet-freezebar_active_vertical.png) no-repeat;*/
+.tibetsheets-freezebar-vertical-drop {
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_tibetsheets-freezebar_active_vertical.png) no-repeat;*/
     width: 4px;
 }
 
-.luckysheet-freezebar-active .luckysheet-freezebar-vertical-handle {
+.tibetsheets-freezebar-active .tibetsheets-freezebar-vertical-handle {
     display: block;
     z-index: 1003;
 }
 
-.luckysheet-freezebar-vertical-handle-bar {
+.tibetsheets-freezebar-vertical-handle-bar {
     width: 2px;
     background: #dbe5f7;
     border-color: #a5c6fe;
@@ -4707,7 +4709,7 @@ fieldset[disabled] .btn-danger.focus {
     bottom: 0px;
 }
 
-.luckysheet-freezebar-vertical-handle-title {
+.tibetsheets-freezebar-vertical-handle-title {
     width: 4px;
     background: #9dbefb;
     opacity: 0.80;
@@ -4716,13 +4718,13 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-freezebar-handle-bar,
-.luckysheet-freezebar-drop-bar {
+.tibetsheets-freezebar-handle-bar,
+.tibetsheets-freezebar-drop-bar {
     position: absolute;
     z-index: 7;
 }
 
-.luckysheet-freezebar-vertical-drop-bar {
+.tibetsheets-freezebar-vertical-drop-bar {
     width: 2px;
     background: rgba(0, 0, 0, 0.45);
     border-width: 2px 1px 2px 2px;
@@ -4731,7 +4733,7 @@ fieldset[disabled] .btn-danger.focus {
     bottom: 0px;
 }
 
-.luckysheet-freezebar-vertical-drop-title {
+.tibetsheets-freezebar-vertical-drop-title {
     width: 2px;
     background: #bcbdbc;
     /*            opacity: 0.80;
@@ -4741,36 +4743,36 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-.luckysheet-freezebar-hover .luckysheet-freezebar-vertical-drop-bar,
-.luckysheet-freezebar-active .luckysheet-freezebar-vertical-drop-bar {
+.tibetsheets-freezebar-hover .tibetsheets-freezebar-vertical-drop-bar,
+.tibetsheets-freezebar-active .tibetsheets-freezebar-vertical-drop-bar {
     background: #C1C1C1;
     width: 4px;
 }
 
-.luckysheet-freezebar-hover .luckysheet-freezebar-vertical-drop-title,
-.luckysheet-freezebar-active .luckysheet-freezebar-vertical-drop-title {
+.tibetsheets-freezebar-hover .tibetsheets-freezebar-vertical-drop-title,
+.tibetsheets-freezebar-active .tibetsheets-freezebar-vertical-drop-title {
     background: #5D88DB;
     width: 4px;
 }
 
 
-.luckysheet-freezebar-horizontal-handle {
+.tibetsheets-freezebar-horizontal-handle {
     height: 4px;
     display: none;
-    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_luckysheet-freezebar_horizontal.png) no-repeat;*/
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/ritz_tibetsheets-freezebar_horizontal.png) no-repeat;*/
 }
 
-.luckysheet-freezebar-horizontal-drop {
-    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_luckysheet-freezebar_active_horizontal.png) no-repeat;*/
+.tibetsheets-freezebar-horizontal-drop {
+    /*background: url(//ssl.gstatic.com/docs/spreadsheets/jfk_tibetsheets-freezebar_active_horizontal.png) no-repeat;*/
     height: 4px;
 }
 
-.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-handle {
+.tibetsheets-freezebar-active .tibetsheets-freezebar-horizontal-handle {
     display: block;
     z-index: 1003;
 }
 
-.luckysheet-freezebar-horizontal-handle-bar {
+.tibetsheets-freezebar-horizontal-handle-bar {
     height: 2px;
     background: #dbe5f7;
     border-color: #a5c6fe;
@@ -4783,7 +4785,7 @@ fieldset[disabled] .btn-danger.focus {
     right: 0px;
 }
 
-.luckysheet-freezebar-horizontal-handle-title {
+.tibetsheets-freezebar-horizontal-handle-title {
     height: 4px;
     background: #9dbefb;
     opacity: 0.80;
@@ -4792,7 +4794,7 @@ fieldset[disabled] .btn-danger.focus {
     left: 0px;
 }
 
-.luckysheet-freezebar-horizontal-drop-bar {
+.tibetsheets-freezebar-horizontal-drop-bar {
     height: 2px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.45);
@@ -4803,7 +4805,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-.luckysheet-freezebar-horizontal-drop-title {
+.tibetsheets-freezebar-horizontal-drop-title {
     height: 2px;
     background: #bcbdbc;
     /*            opacity: 0.80;
@@ -4812,14 +4814,14 @@ fieldset[disabled] .btn-danger.focus {
     left: 0px;
 }
 
-.luckysheet-freezebar-hover .luckysheet-freezebar-horizontal-drop-bar,
-.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-drop-bar {
+.tibetsheets-freezebar-hover .tibetsheets-freezebar-horizontal-drop-bar,
+.tibetsheets-freezebar-active .tibetsheets-freezebar-horizontal-drop-bar {
     background: #C1C1C1;
     height: 4px;
 }
 
-.luckysheet-freezebar-hover .luckysheet-freezebar-horizontal-drop-title,
-.luckysheet-freezebar-active .luckysheet-freezebar-horizontal-drop-title {
+.tibetsheets-freezebar-hover .tibetsheets-freezebar-horizontal-drop-title,
+.tibetsheets-freezebar-active .tibetsheets-freezebar-horizontal-drop-title {
     background: #5D88DB;
     height: 4px;
 }
@@ -4827,7 +4829,7 @@ fieldset[disabled] .btn-danger.focus {
 
 
 /*函数样式*/
-#luckysheet-functionbox-container {
+#tibetsheets-functionbox-container {
     height: 100%;
     padding-left: 10px;
     overflow: hidden;
@@ -4840,7 +4842,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-#luckysheet-functionbox-container>div {
+#tibetsheets-functionbox-container>div {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -4848,7 +4850,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 
-#luckysheet-functionbox {
+#tibetsheets-functionbox {
     bottom: 6px;
     left: 0;
     position: absolute;
@@ -4865,13 +4867,13 @@ fieldset[disabled] .btn-danger.focus {
 
 
 
-#luckysheet-functionbox .luckysheet-functionbox-cell-input {
+#tibetsheets-functionbox .tibetsheets-functionbox-cell-input {
     word-wrap: break-word;
     -webkit-nbsp-mode: space;
     -webkit-line-break: after-white-space;
 }
 
-.luckysheet-functionbox-cell-input {
+.tibetsheets-functionbox-cell-input {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -4883,15 +4885,15 @@ fieldset[disabled] .btn-danger.focus {
     background-color: white;
 }
 
-.luckysheet-formula-text-color {
+.tibetsheets-formula-text-color {
     color: black;
 }
 
-.luckysheet-formula-text-string {
+.tibetsheets-formula-text-string {
     color: forestgreen;
 }
 
-.luckysheet-formula-search-c {
+.tibetsheets-formula-search-c {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -4905,34 +4907,34 @@ fieldset[disabled] .btn-danger.focus {
     display: none;
 }
 
-.luckysheet-formula-search-c .luckysheet-formula-search-item {
+.tibetsheets-formula-search-c .tibetsheets-formula-search-item {
     background: #fff;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-.luckysheet-formula-search-c .luckysheet-formula-search-item .luckysheet-formula-search-detail {
+.tibetsheets-formula-search-c .tibetsheets-formula-search-item .tibetsheets-formula-search-detail {
     display: none;
     color: #444;
 }
 
-.luckysheet-formula-search-c .luckysheet-formula-search-item .luckysheet-formula-search-func {
+.tibetsheets-formula-search-c .tibetsheets-formula-search-item .tibetsheets-formula-search-func {
     color: #222;
     font-size: 14px;
 }
 
-.luckysheet-formula-search-c .luckysheet-formula-search-item-active {
+.tibetsheets-formula-search-c .tibetsheets-formula-search-item-active {
     display: block;
     border-top: 1px solid #EBEBEB;
     border-bottom: 1px solid #EBEBEB;
     background: #F5F5F5;
 }
 
-.luckysheet-formula-search-c .luckysheet-formula-search-item-active .luckysheet-formula-search-detail {
+.tibetsheets-formula-search-c .tibetsheets-formula-search-item-active .tibetsheets-formula-search-detail {
     display: block;
 }
 
-.luckysheet-formula-help-c {
+.tibetsheets-formula-help-c {
     display: none;
     position: absolute;
     left: 20%;
@@ -4946,16 +4948,16 @@ fieldset[disabled] .btn-danger.focus {
     width: 300px;
 }
 
-.luckysheet-formula-help-c .luckysheet-formula-help-content {
+.tibetsheets-formula-help-c .tibetsheets-formula-help-content {
     max-height: 300px;
     overflow-y: scroll;
 }
 
-.luckysheet-formula-help-content-example {
+.tibetsheets-formula-help-content-example {
     margin-top: 5px;
 }
 
-.luckysheet-formula-help-title {
+.tibetsheets-formula-help-title {
     display: block;
     border-top: 1px solid #EBEBEB;
     border-bottom: 1px solid #EBEBEB;
@@ -4964,39 +4966,39 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 14px;
 }
 
-.luckysheet-formula-help-title-formula {
+.tibetsheets-formula-help-title-formula {
     width: 250px;
     word-break: break-word;
 }
 
-.luckysheet-arguments-help-section {
+.tibetsheets-arguments-help-section {
     margin-top: 5px;
     margin-bottom: 5px;
     color: #222;
 }
 
-.luckysheet-arguments-help-section-title {
+.tibetsheets-arguments-help-section-title {
     padding: 1px 10px;
     color: #666;
 }
 
-.luckysheet-arguments-help-parameter-content {
+.tibetsheets-arguments-help-parameter-content {
     padding: 1px 10px;
     display: inline-block;
     word-wrap: break-word;
 }
 
-.luckysheet-arguments-help-formula {
+.tibetsheets-arguments-help-formula {
     padding: 1px 10px;
     font-size: 14px;
 }
 
-.luckysheet-arguments-help-parameter-active {
+.tibetsheets-arguments-help-parameter-active {
     background-color: #fff9b2;
 }
 
 
-.luckysheet-formula-help-collapse {
+.tibetsheets-formula-help-collapse {
     position: absolute;
     top: 0px;
     right: 25px;
@@ -5005,7 +5007,7 @@ fieldset[disabled] .btn-danger.focus {
     color: #bbb;
 }
 
-.luckysheet-formula-help-close {
+.tibetsheets-formula-help-close {
     position: absolute;
     top: 0px;
     right: 5px;
@@ -5014,13 +5016,13 @@ fieldset[disabled] .btn-danger.focus {
     color: #bbb;
 }
 
-.luckysheet-formula-help-close:hover,
-.luckysheet-formula-help-collapse:hover {
+.tibetsheets-formula-help-close:hover,
+.tibetsheets-formula-help-collapse:hover {
     color: #555;
 }
 
 
-.luckysheetLoader {
+.tibetsheetsLoader {
     font-size: 20px;
     width: 1em;
     height: 1em;
@@ -5032,7 +5034,7 @@ fieldset[disabled] .btn-danger.focus {
     animation: load-effect 1s infinite linear;
 }
 
-/*.luckysheetLoaderGif>img{
+/*.tibetsheetsLoaderGif>img{
     width:100%;
     height:100%;
 }*/
@@ -5162,7 +5164,7 @@ fieldset[disabled] .btn-danger.focus {
     }
 }
 
-.luckysheetpopover {
+.tibetsheetspopover {
     position: absolute;
     /*    left: 50%; 
     top:20px; */
@@ -5177,9 +5179,9 @@ fieldset[disabled] .btn-danger.focus {
     display: none;
 }
 
-.luckysheetpopover .luckysheetpopover-content {}
+.tibetsheetspopover .tibetsheetspopover-content {}
 
-.luckysheetpopover .luckysheetpopover-btn {
+.tibetsheetspopover .tibetsheetspopover-btn {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -5191,12 +5193,12 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 14px;
 }
 
-.luckysheetpopover .luckysheetpopover-btn:hover {
+.tibetsheetspopover .tibetsheetspopover-btn:hover {
     border: 1px solid #FEA2A2;
     color: #FEA2A2;
 }
 
-.luckysheetPaintCursor {
+.tibetsheetsPaintCursor {
     cursor: url(paint_24px.ico), auto;
 }
 
@@ -5228,12 +5230,12 @@ fieldset[disabled] .btn-danger.focus {
          }*/
 
 /*查找替换弹出框样式*/
-#luckysheet-search-replace .tabBox {
+#tibetsheets-search-replace .tabBox {
     margin-top: 20px;
     font-size: 0;
 }
 
-#luckysheet-search-replace .tabBox span {
+#tibetsheets-search-replace .tabBox span {
     display: inline-block;
     text-align: center;
     width: 100px;
@@ -5242,54 +5244,54 @@ fieldset[disabled] .btn-danger.focus {
     line-height: 2;
 }
 
-#luckysheet-search-replace .tabBox span.on {
+#tibetsheets-search-replace .tabBox span.on {
     background-color: #8C89FE;
     border-color: #726EFE;
     color: #fff;
 }
 
-#luckysheet-search-replace .ctBox {
+#tibetsheets-search-replace .ctBox {
     padding: 5px 10px;
     border: solid 1px #d4d4d4;
     font-size: 14px;
 }
 
-#luckysheet-search-replace .inputBox {
+#tibetsheets-search-replace .inputBox {
     height: 90px;
     position: relative;
 }
 
-#luckysheet-search-replace .inputBox .textboxs {
+#tibetsheets-search-replace .inputBox .textboxs {
     height: 30px;
     line-height: 30px;
 }
 
-#luckysheet-search-replace .inputBox .checkboxs {
+#tibetsheets-search-replace .inputBox .checkboxs {
     height: 90px;
     position: absolute;
     right: 0;
     top: 0;
 }
 
-#luckysheet-search-replace .inputBox .checkboxs div {
+#tibetsheets-search-replace .inputBox .checkboxs div {
     height: 30px;
     line-height: 30px;
 }
 
-#luckysheet-search-replace .inputBox .checkboxs input[type="checkbox"] {
+#tibetsheets-search-replace .inputBox .checkboxs input[type="checkbox"] {
     float: left;
     margin-top: 9px;
 }
 
-#luckysheet-search-replace .btnBox {
+#tibetsheets-search-replace .btnBox {
     margin-top: 10px;
 }
 
-#luckysheet-search-replace .btnBox button {
+#tibetsheets-search-replace .btnBox button {
     margin: 0 2.5px;
 }
 
-#luckysheet-search-replace #searchAllbox {
+#tibetsheets-search-replace #searchAllbox {
     height: 210px;
     border: 1px solid #d4d4d4;
     margin-top: 10px;
@@ -5297,7 +5299,7 @@ fieldset[disabled] .btn-danger.focus {
     position: relative;
 }
 
-#luckysheet-search-replace #searchAllbox .boxTitle {
+#tibetsheets-search-replace #searchAllbox .boxTitle {
     width: 100%;
     height: 30px;
     line-height: 29px;
@@ -5310,24 +5312,24 @@ fieldset[disabled] .btn-danger.focus {
     top: 0;
 }
 
-#luckysheet-search-replace #searchAllbox .boxTitle span {
+#tibetsheets-search-replace #searchAllbox .boxTitle span {
     display: inline-block;
     text-align: center;
 }
 
-#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(1) {
+#tibetsheets-search-replace #searchAllbox .boxTitle span:nth-of-type(1) {
     width: 25%;
 }
 
-#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(2) {
+#tibetsheets-search-replace #searchAllbox .boxTitle span:nth-of-type(2) {
     width: 25%;
 }
 
-#luckysheet-search-replace #searchAllbox .boxTitle span:nth-of-type(3) {
+#tibetsheets-search-replace #searchAllbox .boxTitle span:nth-of-type(3) {
     width: 50%;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem {
     height: 30px;
     line-height: 29px;
     border-bottom: 1px solid #d4d4d4;
@@ -5335,32 +5337,32 @@ fieldset[disabled] .btn-danger.focus {
     box-sizing: border-box;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem.on {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem.on {
     background-color: #8C89FE;
     color: #fff;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem span {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem span {
     display: block;
     text-align: center;
     float: left;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(1) {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(1) {
     width: 25%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(2) {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(2) {
     width: 25%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-#luckysheet-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(3) {
+#tibetsheets-search-replace #searchAllbox .boxMain .boxItem span:nth-of-type(3) {
     width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -5368,20 +5370,20 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*函数公式查找样式*/
-#luckysheet-search-formula {
+#tibetsheets-search-formula {
     font-size: 12px;
 }
 
-#luckysheet-search-formula .inpbox {
+#tibetsheets-search-formula .inpbox {
     margin-bottom: 5px;
 }
 
-#luckysheet-search-formula .inpbox label {
+#tibetsheets-search-formula .inpbox label {
     display: block;
     margin-bottom: 5px;
 }
 
-#luckysheet-search-formula .inpbox input {
+#tibetsheets-search-formula .inpbox input {
     width: 100%;
     height: 24px;
     line-height: 24px;
@@ -5391,11 +5393,11 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 12px;
 }
 
-#luckysheet-search-formula .selbox {
+#tibetsheets-search-formula .selbox {
     margin-bottom: 5px;
 }
 
-#luckysheet-search-formula .selbox select {
+#tibetsheets-search-formula .selbox select {
     width: 50%;
     height: 24px;
     line-height: 24px;
@@ -5404,7 +5406,7 @@ fieldset[disabled] .btn-danger.focus {
     font-size: 12px;
 }
 
-#luckysheet-search-formula .listbox label {
+#tibetsheets-search-formula .listbox label {
     display: block;
     margin-bottom: 5px;
 }
@@ -5434,28 +5436,28 @@ fieldset[disabled] .btn-danger.focus {
     display: block;
 }
 
-#luckysheet-search-formula-parm {
+#tibetsheets-search-formula-parm {
     width: 502px;
     font-size: 12px;
 }
 
-#luckysheet-search-formula-parm .parmListBox {
+#tibetsheets-search-formula-parm .parmListBox {
     width: 500px;
     padding: 5px 0;
     border: 1px solid #d4d4d4;
 }
 
-#luckysheet-search-formula-parm .parmBox {
+#tibetsheets-search-formula-parm .parmBox {
     height: 30px;
     line-height: 30px;
     margin-bottom: 5px;
 }
 
-#luckysheet-search-formula-parm .parmBox:last-child {
+#tibetsheets-search-formula-parm .parmBox:last-child {
     margin-bottom: 0;
 }
 
-#luckysheet-search-formula-parm .parmBox .name {
+#tibetsheets-search-formula-parm .parmBox .name {
     width: 90px;
     height: 30px;
     padding: 0 5px;
@@ -5466,14 +5468,14 @@ fieldset[disabled] .btn-danger.focus {
     white-space: nowrap;
 }
 
-#luckysheet-search-formula-parm .parmBox .txt {
+#tibetsheets-search-formula-parm .parmBox .txt {
     width: 198px;
     height: 28px;
     border: 1px solid #d4d4d4;
     float: left;
 }
 
-#luckysheet-search-formula-parm .parmBox .txt input {
+#tibetsheets-search-formula-parm .parmBox .txt input {
     width: 150px;
     height: 28px;
     padding: 0 10px;
@@ -5482,22 +5484,22 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-search-formula-parm .parmBox .txt i {
+#tibetsheets-search-formula-parm .parmBox .txt i {
     float: right;
     margin-top: 8px;
     margin-right: 5px;
 }
 
-#luckysheet-search-formula-parm .fa-table {
+#tibetsheets-search-formula-parm .fa-table {
     cursor: pointer;
     color: #6598F3;
 }
 
-#luckysheet-search-formula-parm .fa-table:hover {
+#tibetsheets-search-formula-parm .fa-table:hover {
     color: #FF7E7E;
 }
 
-#luckysheet-search-formula-parm .parmBox .val {
+#tibetsheets-search-formula-parm .parmBox .val {
     width: 190px;
     height: 30px;
     line-height: 30px;
@@ -5508,21 +5510,21 @@ fieldset[disabled] .btn-danger.focus {
     white-space: nowrap;
 }
 
-#luckysheet-search-formula-parm .formulaDetails {
+#tibetsheets-search-formula-parm .formulaDetails {
     padding: 5px;
 }
 
-#luckysheet-search-formula-parm .parmDetailsBox {
+#tibetsheets-search-formula-parm .parmDetailsBox {
     max-height: 100px;
     padding: 5px 0 5px 20px;
     overflow-y: scroll;
 }
 
-#luckysheet-search-formula-parm .parmDetailsBox span {
+#tibetsheets-search-formula-parm .parmDetailsBox span {
     display: inline-block;
 }
 
-#luckysheet-search-formula-parm .result {
+#tibetsheets-search-formula-parm .result {
     padding: 5px;
     border-top: 1px solid #d4d4d4;
 }
@@ -5550,30 +5552,30 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*条件格式单元格选择框*/
-#luckysheet-singleRange-dialog input,
-#luckysheet-multiRange-dialog input {
+#tibetsheets-singleRange-dialog input,
+#tibetsheets-multiRange-dialog input {
     border: 1px solid #d4d4d4;
     padding: 0 10px;
     height: 30px;
 }
 
 /*条件格式弹出框*/
-#luckysheet-conditionformat-dialog {
+#tibetsheets-conditionformat-dialog {
     font-size: 12px;
 }
 
-#luckysheet-conditionformat-dialog .box .boxTitleOne {
+#tibetsheets-conditionformat-dialog .box .boxTitleOne {
     margin: 5px 0;
     font-weight: 600;
 }
 
-#luckysheet-conditionformat-dialog .box .inpbox {
+#tibetsheets-conditionformat-dialog .box .inpbox {
     width: 198px;
     height: 28px;
     border: 1px solid #d4d4d4;
 }
 
-#luckysheet-conditionformat-dialog .box .inpbox input {
+#tibetsheets-conditionformat-dialog .box .inpbox input {
     width: 150px;
     height: 28px;
     padding: 0 10px;
@@ -5582,14 +5584,14 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-conditionformat-dialog .box .inpbox2 {
+#tibetsheets-conditionformat-dialog .box .inpbox2 {
     float: left;
     width: 108px;
     height: 28px;
     border: 1px solid #d4d4d4;
 }
 
-#luckysheet-conditionformat-dialog .box .inpbox2 input {
+#tibetsheets-conditionformat-dialog .box .inpbox2 input {
     width: 60px;
     height: 28px;
     padding: 0 10px;
@@ -5598,22 +5600,22 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-conditionformat-dialog .box i.fa-table {
+#tibetsheets-conditionformat-dialog .box i.fa-table {
     float: right;
     margin-top: 8px;
     margin-right: 5px;
 }
 
-#luckysheet-conditionformat-dialog .box .fa-table {
+#tibetsheets-conditionformat-dialog .box .fa-table {
     cursor: pointer;
     color: #6598F3;
 }
 
-#luckysheet-conditionformat-dialog .box .fa-table:hover {
+#tibetsheets-conditionformat-dialog .box .fa-table:hover {
     color: #FF7E7E;
 }
 
-#luckysheet-conditionformat-dialog .box #daterange-btn {
+#tibetsheets-conditionformat-dialog .box #daterange-btn {
     width: 188px;
     height: 28px;
     padding: 0 5px;
@@ -5622,96 +5624,96 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-conditionformat-dialog .box .selectbox {
+#tibetsheets-conditionformat-dialog .box .selectbox {
     width: 150px;
     height: 30px;
 }
 
-#luckysheet-icon-dataBar-menuButton .bgImgBox {
+#tibetsheets-icon-dataBar-menuButton .bgImgBox {
     width: 28px;
     height: 26px;
     background: url(../plugins/images/CFdataBar.png)no-repeat;
 }
 
-#luckysheet-icon-colorGradation-menuButton .bgImgBox {
+#tibetsheets-icon-colorGradation-menuButton .bgImgBox {
     width: 28px;
     height: 26px;
     background: url(../plugins/images/CFcolorGradation.png)no-repeat;
 }
 
 /*条件格式规则管理器*/
-#luckysheet-administerRule-dialog {
+#tibetsheets-administerRule-dialog {
     font-size: 12px;
 }
 
-#luckysheet-administerRule-dialog .chooseSheet {
+#tibetsheets-administerRule-dialog .chooseSheet {
     height: 24px;
     line-height: 24px;
     margin-bottom: 5px;
 }
 
-#luckysheet-administerRule-dialog .chooseSheet select {
+#tibetsheets-administerRule-dialog .chooseSheet select {
     height: 24px;
     padding: 0 5px;
     box-sizing: border-box;
     font-size: 12px;
 }
 
-#luckysheet-administerRule-dialog .ruleBox {
+#tibetsheets-administerRule-dialog .ruleBox {
     border: 1px solid #d4d4d4;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleBtn {
+#tibetsheets-administerRule-dialog .ruleBox .ruleBtn {
     padding: 2.5px 5px;
     border-bottom: 1px solid #d4d4d4;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleBtn button {
+#tibetsheets-administerRule-dialog .ruleBox .ruleBtn button {
     margin-right: 10px;
     font-size: 12px;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listTitle {
     height: 30px;
     padding: 0 10px;
     border-bottom: 1px solid #d4d4d4;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listTitle span {
     display: block;
     height: 100%;
     line-height: 29px;
     float: left;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(1) {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(1) {
     width: 30%;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(2) {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(2) {
     width: 20%;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(3) {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listTitle span:nth-of-type(3) {
     width: 45%;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox {
     height: 150px;
     overflow-y: scroll;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item {
     height: 24px;
     padding: 2.5px 10px;
     border-bottom: 1px solid #d4d4d4;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item.on {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item.on {
     background-color: #8C89FE;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleName {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleName {
     width: 30%;
     height: 100%;
     line-height: 24px;
@@ -5723,11 +5725,11 @@ fieldset[disabled] .btn-danger.focus {
     box-sizing: border-box;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item.on .ruleName {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item.on .ruleName {
     color: #fff;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .format {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .format {
     width: 20%;
     height: 100%;
     line-height: 24px;
@@ -5735,7 +5737,7 @@ fieldset[disabled] .btn-danger.focus {
     position: relative;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .format .colorbox {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .format .colorbox {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -5744,7 +5746,7 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange {
     width: 45%;
     height: 100%;
     border: 1px solid #d4d4d4;
@@ -5754,7 +5756,7 @@ fieldset[disabled] .btn-danger.focus {
     background-color: #fff;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange input {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange input {
     width: 130px;
     height: 22px;
     padding: 0 5px;
@@ -5763,7 +5765,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table {
     float: right;
     cursor: pointer;
     color: #6598F3;
@@ -5771,57 +5773,57 @@ fieldset[disabled] .btn-danger.focus {
     margin-right: 5px;
 }
 
-#luckysheet-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table:hover {
+#tibetsheets-administerRule-dialog .ruleBox .ruleList .listBox .item .ruleRange i.fa-table:hover {
     color: #FF7E7E;
 }
 
 /*新建、编辑条件格式规则*/
-.luckysheet-newEditorRule-dialog {
+.tibetsheets-newEditorRule-dialog {
     font-size: 12px;
 }
 
-.luckysheet-newEditorRule-dialog .boxTitle {
+.tibetsheets-newEditorRule-dialog .boxTitle {
     margin-bottom: 5px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleTypeBox {
+.tibetsheets-newEditorRule-dialog .ruleTypeBox {
     border: 1px solid #d4d4d4;
     margin-bottom: 10px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem {
+.tibetsheets-newEditorRule-dialog .ruleTypeBox .ruleTypeItem {
     padding: 3px 5px;
     cursor: pointer;
 }
 
-.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem.on {
+.tibetsheets-newEditorRule-dialog .ruleTypeBox .ruleTypeItem.on {
     background-color: #7C79FE;
     color: #fff;
 }
 
-.luckysheet-newEditorRule-dialog .ruleTypeBox .ruleTypeItem .icon {
+.tibetsheets-newEditorRule-dialog .ruleTypeBox .ruleTypeItem .icon {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox {
     border: 1px solid #d4d4d4;
     padding: 10px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox .title {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox .title {
     display: block;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox select {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox select {
     height: 30px;
     font-size: 12px;
     float: left;
     margin-right: 5px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox .inpbox {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox .inpbox {
     width: 100px;
     height: 30px;
     border: 1px solid #d4d4d4;
@@ -5830,7 +5832,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox .inpbox input {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox .inpbox input {
     width: 70px;
     height: 100%;
     border: none;
@@ -5838,7 +5840,7 @@ fieldset[disabled] .btn-danger.focus {
     padding: 0 5px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox .txt {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox .txt {
     display: block;
     height: 100%;
     line-height: 30px;
@@ -5846,33 +5848,33 @@ fieldset[disabled] .btn-danger.focus {
     margin: 0 5px;
 }
 
-.luckysheet-newEditorRule-dialog .ruleExplainBox #isPercent {
+.tibetsheets-newEditorRule-dialog .ruleExplainBox #isPercent {
     float: left;
     margin: 9px 0 8px 10px;
 }
 
-.luckysheet-newEditorRule-dialog i.fa-table {
+.tibetsheets-newEditorRule-dialog i.fa-table {
     float: right;
     margin-top: 8px;
     margin-right: 5px;
 }
 
-.luckysheet-newEditorRule-dialog .fa-table {
+.tibetsheets-newEditorRule-dialog .fa-table {
     cursor: pointer;
     color: #6598F3;
 }
 
-.luckysheet-newEditorRule-dialog .fa-table:hover {
+.tibetsheets-newEditorRule-dialog .fa-table:hover {
     color: #FF7E7E;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox {
+.tibetsheets-newEditorRule-dialog .iconsBox {
     height: 30px;
     margin-bottom: 5px;
     position: relative;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox label {
+.tibetsheets-newEditorRule-dialog .iconsBox label {
     display: block;
     width: 80px;
     height: 30px;
@@ -5880,7 +5882,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox .showbox {
+.tibetsheets-newEditorRule-dialog .iconsBox .showbox {
     width: 150px;
     height: 20px;
     padding: 4px 4px 4px 10px;
@@ -5890,7 +5892,7 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox .showbox .model {
+.tibetsheets-newEditorRule-dialog .iconsBox .showbox .model {
     width: 125px;
     height: 20px;
     background: url(../plugins/images/CFicons.png)no-repeat;
@@ -5898,7 +5900,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox ul {
+.tibetsheets-newEditorRule-dialog .iconsBox ul {
     display: none;
     width: 164px;
     max-height: 150px;
@@ -5913,17 +5915,17 @@ fieldset[disabled] .btn-danger.focus {
     padding: 0;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox ul li {
+.tibetsheets-newEditorRule-dialog .iconsBox ul li {
     padding: 5px 10px;
     background-color: #fff;
     cursor: pointer;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox ul li:hover {
+.tibetsheets-newEditorRule-dialog .iconsBox ul li:hover {
     background-color: #dfdfdf;
 }
 
-.luckysheet-newEditorRule-dialog .iconsBox ul li div {
+.tibetsheets-newEditorRule-dialog .iconsBox ul li div {
     width: 125px;
     height: 20px;
     background: url(../plugins/images/CFicons.png)no-repeat;
@@ -5931,35 +5933,35 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*条件格式 图标集弹框*/
-#luckysheet-CFicons-dialog .box {
+#tibetsheets-CFicons-dialog .box {
     padding: 10px;
     border: 1px solid #dfdfdf;
     font-size: 14px;
 }
 
-#luckysheet-CFicons-dialog .box .title {
+#tibetsheets-CFicons-dialog .box .title {
     height: 20px;
     line-height: 20px;
     padding: 0 10px;
     background-color: #ebebeb;
 }
 
-#luckysheet-CFicons-dialog .box .list {
+#tibetsheets-CFicons-dialog .box .list {
     width: 300px;
     padding: 5px 0;
 }
 
-#luckysheet-CFicons-dialog .box .list .left {
+#tibetsheets-CFicons-dialog .box .list .left {
     width: 50%;
     float: left;
 }
 
-#luckysheet-CFicons-dialog .box .list .right {
+#tibetsheets-CFicons-dialog .box .list .right {
     width: 50%;
     float: right;
 }
 
-#luckysheet-CFicons-dialog .box .list .item {
+#tibetsheets-CFicons-dialog .box .list .item {
     width: 125px;
     height: 20px;
     padding: 2.5px 10px;
@@ -5967,11 +5969,11 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-CFicons-dialog .box .list .item:hover {
+#tibetsheets-CFicons-dialog .box .list .item:hover {
     background-color: #dfdfdf;
 }
 
-#luckysheet-CFicons-dialog .box .list .item div {
+#tibetsheets-CFicons-dialog .box .list .item div {
     width: 125px;
     height: 20px;
     background: url(../plugins/images/CFicons.png)no-repeat;
@@ -5979,29 +5981,29 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*交替颜色*/
-#luckysheet-modal-dialog-slider-alternateformat {
+#tibetsheets-modal-dialog-slider-alternateformat {
     width: 280px;
     font-size: 12px;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .luckysheet-modal-dialog-slider-content {
+#tibetsheets-modal-dialog-slider-alternateformat .tibetsheets-modal-dialog-slider-content {
     background-color: #fff;
     overflow-y: scroll;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .textTitle {
+#tibetsheets-modal-dialog-slider-alternateformat .textTitle {
     padding: 5px 10px;
     font-weight: 600;
 }
 
-#luckysheet-alternateformat-range {
+#tibetsheets-alternateformat-range {
     width: 198px;
     height: 28px;
     border: 1px solid #d4d4d4;
     margin-left: 10px;
 }
 
-#luckysheet-alternateformat-range input {
+#tibetsheets-alternateformat-range input {
     width: 150px;
     height: 28px;
     padding: 0 10px;
@@ -6010,7 +6012,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-alternateformat-range .fa-table {
+#tibetsheets-alternateformat-range .fa-table {
     float: right;
     margin-top: 8px;
     margin-right: 5px;
@@ -6018,43 +6020,43 @@ fieldset[disabled] .btn-danger.focus {
     color: #6598F3;
 }
 
-#luckysheet-alternateformat-range .fa-table:hover {
+#tibetsheets-alternateformat-range .fa-table:hover {
     color: #FF7E7E;
 }
 
-#luckysheet-alternateformat-checkbox {
+#tibetsheets-alternateformat-checkbox {
     padding: 5px 10px;
     border-top: 1px solid #d4d4d4;
     border-bottom: 1px solid #d4d4d4;
     margin: 10px 0;
 }
 
-#luckysheet-alternateformat-checkbox div {
+#tibetsheets-alternateformat-checkbox div {
     height: 20px;
     line-height: 20px;
 }
 
-#luckysheet-alternateformat-checkbox div:first-child {
+#tibetsheets-alternateformat-checkbox div:first-child {
     margin-bottom: 5px;
 }
 
-#luckysheet-alternateformat-checkbox input[type="checkbox"] {
+#tibetsheets-alternateformat-checkbox input[type="checkbox"] {
     float: left;
     cursor: pointer;
     margin-top: 4px;
 }
 
-#luckysheet-alternateformat-modelList {
+#tibetsheets-alternateformat-modelList {
     padding: 0 10px;
     margin-bottom: 10px;
 }
 
-#luckysheet-alternateformat-modelCustom {
+#tibetsheets-alternateformat-modelCustom {
     padding: 0 10px;
     margin-bottom: 10px;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .modelbox {
+#tibetsheets-modal-dialog-slider-alternateformat .modelbox {
     display: inline-block;
     width: 36px;
     padding: 2px;
@@ -6065,17 +6067,17 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .modelbox.on {
+#tibetsheets-modal-dialog-slider-alternateformat .modelbox.on {
     border-color: #726EFE;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .modelbox .box {
+#tibetsheets-modal-dialog-slider-alternateformat .modelbox .box {
     width: 100%;
     border: 1px solid #d4d4d4;
     box-sizing: border-box;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .modelbox .box span {
+#tibetsheets-modal-dialog-slider-alternateformat .modelbox .box span {
     display: block;
     width: 100%;
     height: 10px;
@@ -6085,21 +6087,21 @@ fieldset[disabled] .btn-danger.focus {
     box-sizing: border-box;
 }
 
-#luckysheet-modal-dialog-slider-alternateformat .modelbox .box span:last-child {
+#tibetsheets-modal-dialog-slider-alternateformat .modelbox .box span:last-child {
     line-height: 10px;
     border-bottom: none;
 }
 
-#luckysheet-alternateformat-modelToning {
+#tibetsheets-alternateformat-modelToning {
     padding: 10px;
 }
 
-#luckysheet-alternateformat-modelToning .toningbox {
+#tibetsheets-alternateformat-modelToning .toningbox {
     height: 25px;
     margin-bottom: 5px;
 }
 
-#luckysheet-alternateformat-modelToning .toningbox .toningShow {
+#tibetsheets-alternateformat-modelToning .toningbox .toningShow {
     width: 150px;
     height: 100%;
     line-height: 23px;
@@ -6109,24 +6111,24 @@ fieldset[disabled] .btn-danger.focus {
     margin-right: 10px;
 }
 
-#luckysheet-alternateformat-modelToning .toningbox .luckysheet-color-menu-button-indicator {
+#tibetsheets-alternateformat-modelToning .toningbox .tibetsheets-color-menu-button-indicator {
     width: 20px;
     float: left;
     user-select: none;
     cursor: pointer;
 }
 
-#luckysheet-alternateformat-modelToning .toningbox .luckysheet-color-menu-button-indicator .luckysheet-icon {
+#tibetsheets-alternateformat-modelToning .toningbox .tibetsheets-color-menu-button-indicator .tibetsheets-icon {
     user-select: none;
     margin-bottom: -6px;
 }
 
-#luckysheet-alternateformat-colorSelect-dialog .currenColor {
+#tibetsheets-alternateformat-colorSelect-dialog .currenColor {
     font-size: 12px;
     margin-bottom: 5px;
 }
 
-#luckysheet-alternateformat-colorSelect-dialog .currenColor span {
+#tibetsheets-alternateformat-colorSelect-dialog .currenColor span {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -6136,23 +6138,23 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-alternateformat-rangeDialog input {
+#tibetsheets-alternateformat-rangeDialog input {
     border: 1px solid #d4d4d4;
     padding: 0 10px;
     height: 30px;
 }
 
 /*if公式生成器*/
-#luckysheet-ifFormulaGenerator-dialog {
+#tibetsheets-ifFormulaGenerator-dialog {
     font-size: 12px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox {
     height: 30px;
     margin-bottom: 10px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox label {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox label {
     display: block;
     width: 100px;
     height: 100%;
@@ -6162,7 +6164,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox {
     width: 150px;
     height: 100%;
     padding: 0 10px;
@@ -6171,7 +6173,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox input {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox input {
     width: 100px;
     height: 100%;
     padding: 0;
@@ -6181,7 +6183,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table {
     font-size: 14px;
     color: #6598F3;
     float: right;
@@ -6190,19 +6192,19 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table:hover {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox .inpBox i.fa-table:hover {
     color: #FF7E7E;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifAttr .attrBox span.text {
+#tibetsheets-ifFormulaGenerator-dialog .ifAttr .attrBox span.text {
     height: 100%;
     line-height: 30px;
     padding: 0 5px;
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #smallRange,
-#luckysheet-ifFormulaGenerator-dialog #largeRange {
+#tibetsheets-ifFormulaGenerator-dialog #smallRange,
+#tibetsheets-ifFormulaGenerator-dialog #largeRange {
     width: 100px;
     height: 100%;
     padding: 0 10px;
@@ -6211,23 +6213,23 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #rangeAssess {
+#tibetsheets-ifFormulaGenerator-dialog #rangeAssess {
     height: 100%;
     line-height: 30px;
     float: left;
     margin-left: 20px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #rangeAssess i.fa-table {
+#tibetsheets-ifFormulaGenerator-dialog #rangeAssess i.fa-table {
     color: #6598F3;
     cursor: pointer;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #rangeAssess i.fa-table:hover {
+#tibetsheets-ifFormulaGenerator-dialog #rangeAssess i.fa-table:hover {
     color: #FF7E7E;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #DivisionMethod {
+#tibetsheets-ifFormulaGenerator-dialog #DivisionMethod {
     width: 100px;
     height: 100%;
     border: 1px solid #d4d4d4;
@@ -6235,7 +6237,7 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #DivisionMethodVal {
+#tibetsheets-ifFormulaGenerator-dialog #DivisionMethodVal {
     width: 120px;
     height: 100%;
     border: 1px solid #d4d4d4;
@@ -6245,7 +6247,7 @@ fieldset[disabled] .btn-danger.focus {
     margin-left: 10px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog #createBtn {
+#tibetsheets-ifFormulaGenerator-dialog #createBtn {
     width: 100px;
     height: 100%;
     line-height: 30px;
@@ -6258,19 +6260,19 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList {
+#tibetsheets-ifFormulaGenerator-dialog .ifList {
     border-top: 1px solid #d4d4d4;
     height: 180px;
     padding: 10px;
     overflow-y: scroll;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item {
     height: 30px;
     margin-bottom: 10px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item input {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item input {
     width: 80px;
     height: 100%;
     border: 1px solid #d4d4d4;
@@ -6280,11 +6282,11 @@ fieldset[disabled] .btn-danger.focus {
     float: left;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item input.markText {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item input.markText {
     width: 140px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item select {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item select {
     width: 50px;
     height: 100%;
     padding: 0 5px;
@@ -6294,14 +6296,14 @@ fieldset[disabled] .btn-danger.focus {
     margin: 0 10px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item span {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item span {
     height: 100%;
     line-height: 30px;
     float: left;
     margin: 0 10px;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item i.fa-remove {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item i.fa-remove {
     font-size: 16px;
     float: left;
     margin-left: 15px;
@@ -6310,12 +6312,12 @@ fieldset[disabled] .btn-danger.focus {
     cursor: pointer;
 }
 
-#luckysheet-ifFormulaGenerator-dialog .ifList .item i.fa-remove:hover {
+#tibetsheets-ifFormulaGenerator-dialog .ifList .item i.fa-remove:hover {
     color: #333;
 }
 
-#luckysheet-ifFormulaGenerator-singleRange-dialog input,
-#luckysheet-ifFormulaGenerator-multiRange-dialog input {
+#tibetsheets-ifFormulaGenerator-singleRange-dialog input,
+#tibetsheets-ifFormulaGenerator-multiRange-dialog input {
     border: 1px solid #d4d4d4;
     padding: 0 10px;
     height: 30px;
@@ -6327,7 +6329,7 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*下拉图标*/
-#luckysheet-dropCell-icon #icon_dropCell {
+#tibetsheets-dropCell-icon #icon_dropCell {
     width: 25px;
     height: 15px;
     background-image: url(../plugins/images/icon_dropCell.png);
@@ -6337,135 +6339,135 @@ fieldset[disabled] .btn-danger.focus {
 }
 
 /*定位*/
-#luckysheet-locationCell-dialog .listbox {
+#tibetsheets-locationCell-dialog .listbox {
     border: 1px solid #dfdfdf;
     padding: 10px;
     font-size: 14px;
     color: #000;
 }
 
-#luckysheet-locationCell-dialog .listbox .listItem {
+#tibetsheets-locationCell-dialog .listbox .listItem {
     padding: 5px 0;
 }
 
-#luckysheet-locationCell-dialog .listbox .listItem input[type="radio"] {
+#tibetsheets-locationCell-dialog .listbox .listItem input[type="radio"] {
     float: left;
     margin-top: 5px;
 }
 
-#luckysheet-locationCell-dialog .listbox .listItem .subbox {
+#tibetsheets-locationCell-dialog .listbox .listItem .subbox {
     height: 30px;
     padding: 0 10px;
 }
 
-#luckysheet-locationCell-dialog .listbox .listItem .subbox .subItem {
+#tibetsheets-locationCell-dialog .listbox .listItem .subbox .subItem {
     float: left;
     margin-right: 5px;
 }
 
 /*更多格式*/
-#luckysheet-moreFormat-dialog {
+#tibetsheets-moreFormat-dialog {
     font-size: 14px;
     color: #000;
 }
 
-#luckysheet-moreFormat-dialog .decimal {
+#tibetsheets-moreFormat-dialog .decimal {
     margin-bottom: 5px;
     height: 30px;
     line-height: 30px;
 }
 
-#luckysheet-moreFormat-dialog .decimal input {
+#tibetsheets-moreFormat-dialog .decimal input {
     width: 80px;
     height: 24px;
     padding: 0 5px;
 }
 
-#luckysheet-moreFormat-dialog .listbox {
+#tibetsheets-moreFormat-dialog .listbox {
     border: 1px solid #666;
     height: 240px;
     overflow-y: auto;
 }
 
-#luckysheet-moreFormat-dialog .listbox .listItem {
+#tibetsheets-moreFormat-dialog .listbox .listItem {
     height: 30px;
     padding: 0 20px 0 10px;
     border-bottom: 1px solid #dfdfdf;
 }
 
-#luckysheet-moreFormat-dialog .listbox .listItem.on {
+#tibetsheets-moreFormat-dialog .listbox .listItem.on {
     background-color: #7C79FE;
     color: #fff;
 }
 
-#luckysheet-moreFormat-dialog .listbox .listItem .name {
+#tibetsheets-moreFormat-dialog .listbox .listItem .name {
     line-height: 29px;
     float: left;
 }
 
-#luckysheet-moreFormat-dialog .listbox .listItem .value {
+#tibetsheets-moreFormat-dialog .listbox .listItem .value {
     line-height: 30px;
     float: right;
     color: gray;
 }
 
-#luckysheet-moreFormat-dialog .listbox .listItem.on .value {
+#tibetsheets-moreFormat-dialog .listbox .listItem.on .value {
     color: #fff;
 }
 
 /*分列*/
-#luckysheet-splitColumn-dialog {
+#tibetsheets-splitColumn-dialog {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-#luckysheet-splitColumn-dialog .box {
+#tibetsheets-splitColumn-dialog .box {
     font-size: 14px;
 
 }
 
-#luckysheet-splitColumn-dialog .box .boxTitle {
+#tibetsheets-splitColumn-dialog .box .boxTitle {
     padding: 5px;
 }
 
-#luckysheet-splitColumn-dialog .box .boxMain {
+#tibetsheets-splitColumn-dialog .box .boxMain {
     padding: 5px;
     border: 1px solid #dfdfdf;
 }
 
-#luckysheet-splitColumn-dialog .box input[type="checkbox"] {
+#tibetsheets-splitColumn-dialog .box input[type="checkbox"] {
     float: left;
     margin-top: 5px;
 }
 
-#luckysheet-splitColumn-dialog .box .boxMain input[type="text"] {
+#tibetsheets-splitColumn-dialog .box .boxMain input[type="text"] {
     margin-left: 5px;
     width: 50px;
     padding: 0 5px;
 }
 
-#luckysheet-splitColumn-dialog .box #splitColumnData {
+#tibetsheets-splitColumn-dialog .box #splitColumnData {
     height: 100px;
     overflow-y: auto;
 }
 
-#luckysheet-splitColumn-dialog .box #splitColumnData table {
+#tibetsheets-splitColumn-dialog .box #splitColumnData table {
     border-collapse: collapse;
 }
 
-#luckysheet-splitColumn-dialog .box #splitColumnData td {
+#tibetsheets-splitColumn-dialog .box #splitColumnData td {
     border: 1px solid #333;
 }
 
 /*图表设置最下方下拉框优化*/
-.luckysheet-datavisual-config .luckysheet-datavisual-accordion-content:last-child {
+.tibetsheets-datavisual-config .tibetsheets-datavisual-accordion-content:last-child {
     padding-bottom: 100px;
 }
 
 /*批注聚焦框 移动 改变大小*/
-.luckysheet-postil-dialog-move {
+.tibetsheets-postil-dialog-move {
     position: absolute;
     margin: 0px;
     padding: 0px;
@@ -6476,14 +6478,14 @@ fieldset[disabled] .btn-danger.focus {
     pointer-events: none;
 }
 
-.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item {
+.tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item {
     /*background: #000;*/
     position: absolute;
     pointer-events: all;
     cursor: move;
 }
 
-.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-t {
+.tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item-t {
     width: 100%;
     height: 3px;
     border-bottom: 1px solid #000;
@@ -6491,7 +6493,7 @@ fieldset[disabled] .btn-danger.focus {
     top: -4px;
 }
 
-.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-r {
+.tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item-r {
     width: 3px;
     height: 100%;
     border-left: 1px solid #000;
@@ -6499,7 +6501,7 @@ fieldset[disabled] .btn-danger.focus {
     top: 0;
 }
 
-.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-b {
+.tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item-b {
     width: 100%;
     height: 3px;
     border-top: 1px solid #000;
@@ -6507,7 +6509,7 @@ fieldset[disabled] .btn-danger.focus {
     bottom: -4px;
 }
 
-.luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item-l {
+.tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item-l {
     width: 3px;
     height: 100%;
     border-right: 1px solid #000;
@@ -6515,11 +6517,11 @@ fieldset[disabled] .btn-danger.focus {
     top: 0;
 }
 
-.luckysheet-postil-show-active .luckysheet-postil-dialog-move .luckysheet-postil-dialog-move-item {
+.tibetsheets-postil-show-active .tibetsheets-postil-dialog-move .tibetsheets-postil-dialog-move-item {
     border-color: #0188fb;
 }
 
-.luckysheet-postil-dialog-resize {
+.tibetsheets-postil-dialog-resize {
     position: absolute;
     margin: 0px;
     padding: 0px;
@@ -6530,7 +6532,7 @@ fieldset[disabled] .btn-danger.focus {
     pointer-events: none;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item {
     position: absolute;
     height: 6px;
     width: 6px;
@@ -6538,70 +6540,70 @@ fieldset[disabled] .btn-danger.focus {
     pointer-events: all;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lt {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-lt {
     left: -6px;
     top: -6px;
     cursor: se-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-mt {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-mt {
     left: 50%;
     top: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lm {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-lm {
     top: 50%;
     left: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rm {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-rm {
     top: 50%;
     right: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rt {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-rt {
     right: -6px;
     top: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-lb {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-lb {
     left: -6px;
     bottom: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-mb {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-mb {
     left: 50%;
     bottom: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-postil-dialog-resize .luckysheet-postil-dialog-resize-item-rb {
+.tibetsheets-postil-dialog-resize .tibetsheets-postil-dialog-resize-item-rb {
     right: -6px;
     bottom: -6px;
     cursor: se-resize;
 }
 
 /*图表设置最下方下拉框优化*/
-.luckysheet-datavisual-config .luckysheet-datavisual-accordion-content:last-child {
+.tibetsheets-datavisual-config .tibetsheets-datavisual-accordion-content:last-child {
     padding-bottom: 100px;
 }
 
 /*图表样式新增样式: 设置界面overflow滚动*/
-.luckysheet-datavisual-left .el-tabs__content {
+.tibetsheets-datavisual-left .el-tabs__content {
     overflow: auto;
 }
 
 
-/* .luckysheet-modal-dialog {
+/* .tibetsheets-modal-dialog {
     -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
     box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
@@ -6616,7 +6618,7 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 100002;
 }
 
-.luckysheet-modal-dialog-mask {
+.tibetsheets-modal-dialog-mask {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -6630,7 +6632,7 @@ fieldset[disabled] .btn-danger.focus {
 
 
 
-.luckysheet-modal-dialog-title {
+.tibetsheets-modal-dialog-title {
     background-color: #fff;
     color: #000;
     cursor: default;
@@ -6640,7 +6642,7 @@ fieldset[disabled] .btn-danger.focus {
     margin: 0 0 16px;
 }
 
-.luckysheet-modal-dialog-title-close {
+.tibetsheets-modal-dialog-title-close {
     height: 11px;
     opacity: 0.7;
     padding: 17px;
@@ -6652,14 +6654,14 @@ fieldset[disabled] .btn-danger.focus {
     outline: 0;
 }
 
-.luckysheet-modal-dialog-chart {
+.tibetsheets-modal-dialog-chart {
     padding: 20px 10px;
     webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
 
-.luckysheet-modal-dialog-resize {
+.tibetsheets-modal-dialog-resize {
     position: absolute;
     border: 2px solid #85c0fc;
     margin: 0px;
@@ -6671,7 +6673,7 @@ fieldset[disabled] .btn-danger.focus {
     pointer-events: none;
 }
 
-.luckysheet-modal-dialog-resize-item {
+.tibetsheets-modal-dialog-resize-item {
     position: absolute;
     height: 6px;
     width: 6px;
@@ -6681,60 +6683,60 @@ fieldset[disabled] .btn-danger.focus {
     border-radius: 6px;
 }
 
-.luckysheet-modal-dialog-resize-item-lt {
+.tibetsheets-modal-dialog-resize-item-lt {
     left: -6px;
     top: -6px;
     cursor: se-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-mt {
+.tibetsheets-modal-dialog-resize-item-mt {
     left: 50%;
     top: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rt {
+.tibetsheets-modal-dialog-resize-item-rt {
     right: -6px;
     top: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-lm {
+.tibetsheets-modal-dialog-resize-item-lm {
     top: 50%;
     left: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rm {
+.tibetsheets-modal-dialog-resize-item-rm {
     top: 50%;
     right: -6px;
     margin-top: -4px;
     cursor: w-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-lb {
+.tibetsheets-modal-dialog-resize-item-lb {
     left: -6px;
     bottom: -6px;
     cursor: ne-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-mb {
+.tibetsheets-modal-dialog-resize-item-mb {
     left: 50%;
     bottom: -6px;
     margin-left: -4px;
     cursor: s-resize;
 }
 
-.luckysheet-modal-dialog-resize-item-rb {
+.tibetsheets-modal-dialog-resize-item-rb {
     right: -6px;
     bottom: -6px;
     cursor: se-resize;
 }
 
 
-.luckysheet-modal-dialog-controll {
+.tibetsheets-modal-dialog-controll {
     position: absolute;
     margin: 0px;
     padding: 0px;
@@ -6743,7 +6745,7 @@ fieldset[disabled] .btn-danger.focus {
     top: 0px;
 }
 
-.luckysheet-modal-controll-btn {
+.tibetsheets-modal-controll-btn {
     height: 13px;
     padding: 8px;
     width: 13px;
@@ -6760,22 +6762,22 @@ fieldset[disabled] .btn-danger.focus {
     -o-transition: all 0.2s;
 }
 
-.luckysheet-modal-controll-btn:hover {
+.tibetsheets-modal-controll-btn:hover {
     border: 1px solid #A1A1A1;
     color: #85c0fc;
 }
 
-.luckysheet-modal-controll-btn:active {
+.tibetsheets-modal-controll-btn:active {
     border: 1px solid #BBBBBB;
     background: #EFEFEF;
     color: #85c0fc;
 }
 
-.luckysheet-modal-controll-del {
+.tibetsheets-modal-controll-del {
     font-size: 16px;
 }
 
-.luckysheet-modal-controll-max-close {
+.tibetsheets-modal-controll-max-close {
     font-size: 22px;
     width: 42px;
     height: 42px;
@@ -6793,13 +6795,13 @@ fieldset[disabled] .btn-danger.focus {
     text-align: center;
 }
 
-.luckysheet-modal-controll-max-close:hover {
+.tibetsheets-modal-controll-max-close:hover {
     background: #85c0fc;
     cursor: pointer;
 } */
 
 /* 图片 */
-#luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content{
+#tibetsheets-modal-dialog-activeImage .tibetsheets-modal-dialog-content{
     width: 100%;
     height: 100%;
     position: absolute;
@@ -6812,7 +6814,7 @@ fieldset[disabled] .btn-danger.focus {
     image-rendering: crisp-edges;
 }
 
-#luckysheet-modal-dialog-cropping::before{
+#tibetsheets-modal-dialog-cropping::before{
     content: "";
     outline: 1px solid #fff;
     position: absolute;
@@ -6823,7 +6825,7 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 1;
     pointer-events: none;
 }
-#luckysheet-modal-dialog-cropping::after{
+#tibetsheets-modal-dialog-cropping::after{
     content: "";
     outline: 1px solid #fff;
     position: absolute;
@@ -6834,14 +6836,14 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 1;
     pointer-events: none;
 }
-#luckysheet-modal-dialog-cropping .cropping-mask{
+#tibetsheets-modal-dialog-cropping .cropping-mask{
     filter: brightness(.5);
     position: absolute;
     background-size: 100% 100%;
     left: 0;
     top: 0;
 }
-#luckysheet-modal-dialog-cropping .cropping-content{
+#tibetsheets-modal-dialog-cropping .cropping-content{
     position: absolute;
     overflow: hidden;
     background-position: 0 0;
@@ -6850,7 +6852,7 @@ fieldset[disabled] .btn-danger.focus {
     width: 100%;
     height: 100%;
 }
-#luckysheet-modal-dialog-cropping .luckysheet-modal-dialog-resize{
+#tibetsheets-modal-dialog-cropping .tibetsheets-modal-dialog-resize{
     border: none;
     position: absolute;
     margin: 0px;
@@ -6861,7 +6863,7 @@ fieldset[disabled] .btn-danger.focus {
     right: 0;
     pointer-events: all;
 }
-#luckysheet-modal-dialog-cropping .resize-item{
+#tibetsheets-modal-dialog-cropping .resize-item{
     width: 0;
     height: 0;
     background: none;
@@ -6869,24 +6871,24 @@ fieldset[disabled] .btn-danger.focus {
     position: absolute;
     z-index: 3;
 }
-#luckysheet-modal-dialog-cropping .resize-item::before{
+#tibetsheets-modal-dialog-cropping .resize-item::before{
     content: "";
     display: block;
     position: absolute;
     background: #000;
 }
-#luckysheet-modal-dialog-cropping .resize-item::after{
+#tibetsheets-modal-dialog-cropping .resize-item::after{
     content: "";
     display: block;
     position: absolute;
     background: #000;
 }
-#luckysheet-modal-dialog-cropping .lt{
+#tibetsheets-modal-dialog-cropping .lt{
     left: 0;
     top: 0;
     cursor: nwse-resize;
 }
-#luckysheet-modal-dialog-cropping .lt::before{
+#tibetsheets-modal-dialog-cropping .lt::before{
     width: 18px;
     height: 4px;
     left: 0;
@@ -6894,7 +6896,7 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .lt::after{
+#tibetsheets-modal-dialog-cropping .lt::after{
     width: 4px;
     height: 14px;
     left: 0;
@@ -6902,12 +6904,12 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .mt{
+#tibetsheets-modal-dialog-cropping .mt{
     left: 50%;
     top: 0;
     cursor: ns-resize;
 }
-#luckysheet-modal-dialog-cropping .mt::before{
+#tibetsheets-modal-dialog-cropping .mt::before{
     width: 18px;
     height: 4px;
     left: -11px;
@@ -6916,12 +6918,12 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .rt{
+#tibetsheets-modal-dialog-cropping .rt{
     right: 0;
     top: 0;
     cursor: nesw-resize;
 }
-#luckysheet-modal-dialog-cropping .rt::before{
+#tibetsheets-modal-dialog-cropping .rt::before{
     width: 18px;
     height: 4px;
     right: 0;
@@ -6929,7 +6931,7 @@ fieldset[disabled] .btn-danger.focus {
     border-left: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .rt::after{
+#tibetsheets-modal-dialog-cropping .rt::after{
     width: 4px;
     height: 14px;
     right: 0;
@@ -6937,12 +6939,12 @@ fieldset[disabled] .btn-danger.focus {
     border-left: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .lm{
+#tibetsheets-modal-dialog-cropping .lm{
     left: 0;
     top: 50%;
     cursor: ew-resize;
 }
-#luckysheet-modal-dialog-cropping .lm::before{
+#tibetsheets-modal-dialog-cropping .lm::before{
     width: 4px;
     height: 18px;
     left: 0;
@@ -6951,12 +6953,12 @@ fieldset[disabled] .btn-danger.focus {
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .rm{
+#tibetsheets-modal-dialog-cropping .rm{
     right: 0;
     top: 50%;
     cursor: ew-resize;
 }
-#luckysheet-modal-dialog-cropping .rm::before{
+#tibetsheets-modal-dialog-cropping .rm::before{
     width: 4px;
     height: 18px;
     right: 0;
@@ -6965,12 +6967,12 @@ fieldset[disabled] .btn-danger.focus {
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .lb{
+#tibetsheets-modal-dialog-cropping .lb{
     left: 0;
     bottom: 0;
     cursor: nesw-resize;
 }
-#luckysheet-modal-dialog-cropping .lb::before{
+#tibetsheets-modal-dialog-cropping .lb::before{
     width: 18px;
     height: 4px;
     left: 0;
@@ -6978,7 +6980,7 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-top: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .lb::after{
+#tibetsheets-modal-dialog-cropping .lb::after{
     width: 4px;
     height: 14px;
     left: 0;
@@ -6986,12 +6988,12 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-top: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .rb{
+#tibetsheets-modal-dialog-cropping .rb{
     right: 0;
     bottom: 0;
     cursor: nwse-resize;
 }
-#luckysheet-modal-dialog-cropping .rb::before{
+#tibetsheets-modal-dialog-cropping .rb::before{
     width: 18px;
     height: 4px;
     right: 0;
@@ -6999,7 +7001,7 @@ fieldset[disabled] .btn-danger.focus {
     border-left: 2px solid #fff;
     border-top: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .rb::after{
+#tibetsheets-modal-dialog-cropping .rb::after{
     width: 4px;
     height: 14px;
     right: 0;
@@ -7007,12 +7009,12 @@ fieldset[disabled] .btn-danger.focus {
     border-left: 2px solid #fff;
     border-top: 2px solid #fff;
 }
-#luckysheet-modal-dialog-cropping .mb{
+#tibetsheets-modal-dialog-cropping .mb{
     left: 50%;
     bottom: 0;
     cursor: ns-resize;
 }
-#luckysheet-modal-dialog-cropping .mb::before{
+#tibetsheets-modal-dialog-cropping .mb::before{
     width: 18px;
     height: 4px;
     left: -11px;
@@ -7021,53 +7023,53 @@ fieldset[disabled] .btn-danger.focus {
     border-right: 2px solid #fff;
     border-top: 2px solid #fff;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .luckysheet-modal-dialog-slider-content{
+#tibetsheets-modal-dialog-slider-imageCtrl .tibetsheets-modal-dialog-slider-content{
     background-color: #fff;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box{
     border-bottom: 1px solid #E1E4E8;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .slider-box-title{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .slider-box-title{
     padding: 10px 20px;
     font-weight: 600;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .slider-box-radios{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .slider-box-radios{
     padding: 10px 30px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .radio-item{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .radio-item{
     margin-bottom: 10px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .radio-item:last-child{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .radio-item:last-child{
     margin-bottom: 0;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .radio-item input{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .radio-item input{
     vertical-align: sub;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .slider-box-checkbox{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .slider-box-checkbox{
     padding: 10px 30px;
     border-top: 1px solid #E1E4E8;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .slider-box-checkbox input{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .slider-box-checkbox input{
     vertical-align: middle;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .slider-box-borderConfig{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .slider-box-borderConfig{
     padding: 10px 30px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item{
     margin-bottom: 10px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item:last-child{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item:last-child{
     margin-bottom: 0;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item label{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item label{
     display: inline-block;
     width: 40px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item input{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item input{
     width: 130px;
     padding: 5px;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item .imgItemBorderColor{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item .imgItemBorderColor{
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -7076,16 +7078,16 @@ fieldset[disabled] .btn-danger.focus {
     vertical-align: middle;
     cursor: pointer;
 }
-#luckysheet-modal-dialog-slider-imageCtrl .slider-box .border-item .imgItemBorderColor span{
+#tibetsheets-modal-dialog-slider-imageCtrl .slider-box .border-item .imgItemBorderColor span{
     display: block;
     width: 100%;
     height: 100%;
 }
-#luckysheet-imageCtrl-colorSelect-dialog .currenColor{
+#tibetsheets-imageCtrl-colorSelect-dialog .currenColor{
     font-size: 12px;
     margin-bottom: 5px;
 }
-#luckysheet-imageCtrl-colorSelect-dialog .currenColor span{
+#tibetsheets-imageCtrl-colorSelect-dialog .currenColor span{
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -7094,12 +7096,12 @@ fieldset[disabled] .btn-danger.focus {
     margin-bottom: -5px;
     cursor: pointer;
 }
-#luckysheet-modal-dialog-activeImage, #luckysheet-modal-dialog-cropping{
+#tibetsheets-modal-dialog-activeImage, #tibetsheets-modal-dialog-cropping{
     background: none;
     box-shadow: none;
 }
 
-.luckysheet-modal-dialog-image {
+.tibetsheets-modal-dialog-image {
     border: none;
     box-shadow:none;
     background: none;
@@ -7110,7 +7112,7 @@ fieldset[disabled] .btn-danger.focus {
     image-rendering: crisp-edges;
 }
 
-.luckysheet-modal-dialog-image .luckysheet-modal-dialog-content, #luckysheet-modal-dialog-activeImage .luckysheet-modal-dialog-content{
+.tibetsheets-modal-dialog-image .tibetsheets-modal-dialog-content, #tibetsheets-modal-dialog-activeImage .tibetsheets-modal-dialog-content{
     background: none;
 }
 /* 单元格日期选择 */
@@ -7119,24 +7121,24 @@ fieldset[disabled] .btn-danger.focus {
     display: none;
 }
 /* 插入链接 */
-#luckysheet-insertLink-dialog{
+#tibetsheets-insertLink-dialog{
     user-select: none;
 }
-#luckysheet-insertLink-dialog .box{
+#tibetsheets-insertLink-dialog .box{
     font-size: 12px;
 }
-#luckysheet-insertLink-dialog .box-item{
+#tibetsheets-insertLink-dialog .box-item{
     height: 30px;
     line-height: 30px;
     margin-bottom: 10px;
 }
-#luckysheet-insertLink-dialog .box-item label{
+#tibetsheets-insertLink-dialog .box-item label{
     display: inline-block;
     width: 90px;
     text-align: right;
     margin-right: 10px;
 }
-#luckysheet-insertLink-dialog .box-item input{
+#tibetsheets-insertLink-dialog .box-item input{
     width: 200px;
     height: 30px;
     padding: 0 10px;
@@ -7144,7 +7146,7 @@ fieldset[disabled] .btn-danger.focus {
     outline-style: none;
     box-sizing: border-box;
 }
-#luckysheet-insertLink-dialog .box-item select{
+#tibetsheets-insertLink-dialog .box-item select{
     width: 200px;
     height: 30px;
     padding: 0 5px;
@@ -7153,45 +7155,45 @@ fieldset[disabled] .btn-danger.focus {
     box-sizing: border-box;
 }
 /* 数据验证 */
-#luckysheet-dataVerification-dialog{
+#tibetsheets-dataVerification-dialog{
     user-select: none;
 }
-#luckysheet-dataVerification-dialog .box{
+#tibetsheets-dataVerification-dialog .box{
     font-size: 12px;
 }
-#luckysheet-dataVerification-dialog .box select{
+#tibetsheets-dataVerification-dialog .box select{
     width: 100%;
     height: 30px;
     border-color: #d4d4d4;
     outline-style: none;
 }
-#luckysheet-dataVerification-dialog .box input::-webkit-input-placeholder { 
+#tibetsheets-dataVerification-dialog .box input::-webkit-input-placeholder { 
     color: #d4d4d4; 
 } 
-#luckysheet-dataVerification-dialog .box input:-moz-placeholder { 
+#tibetsheets-dataVerification-dialog .box input:-moz-placeholder { 
     color: #d4d4d4; 
 } 
-#luckysheet-dataVerification-dialog .box input::-moz-placeholder { 
+#tibetsheets-dataVerification-dialog .box input::-moz-placeholder { 
     color: #d4d4d4; 
 } 
-#luckysheet-dataVerification-dialog .box input:-ms-input-placeholder { 
+#tibetsheets-dataVerification-dialog .box input:-ms-input-placeholder { 
     color: #d4d4d4; 
 }
-#luckysheet-dataVerification-dialog .box-item{
+#tibetsheets-dataVerification-dialog .box-item{
     padding: 10px;
     border-bottom: 1px solid #E1E4E8;
 }
-#luckysheet-dataVerification-dialog .box-item .box-item-title{
+#tibetsheets-dataVerification-dialog .box-item .box-item-title{
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 10px;
 }
-#luckysheet-dataVerification-dialog .box-item .range{
+#tibetsheets-dataVerification-dialog .box-item .range{
     width: 100%;
     height: 30px;
     border: 1px solid #d4d4d4;
 }
-#luckysheet-dataVerification-dialog .box-item .range input{
+#tibetsheets-dataVerification-dialog .box-item .range input{
     width: calc(100% - 30px);
     height: 30px;
     padding: 0 10px;
@@ -7200,73 +7202,73 @@ fieldset[disabled] .btn-danger.focus {
     outline-style: none;
     box-sizing: border-box;
 }
-#luckysheet-dataVerification-dialog .box-item .range i.fa-table{
+#tibetsheets-dataVerification-dialog .box-item .range i.fa-table{
     float: right;
     margin-top: 9px;
     margin-right: 5px;
     cursor: pointer;
     color: #6598F3;
 }
-#luckysheet-dataVerification-dialog .box-item .multi {
+#tibetsheets-dataVerification-dialog .box-item .multi {
     margin-top: 10px;
     line-height: 30px;
     font-size: 12px;
 }
-#luckysheet-dataVerification-dialog .box-item .multi input {
+#tibetsheets-dataVerification-dialog .box-item .multi input {
     vertical-align: text-top;
 }
-#luckysheet-dataVerification-dialog .box-item .show-box{
+#tibetsheets-dataVerification-dialog .box-item .show-box{
     margin-top: 10px;
 }
-#luckysheet-dataVerification-dialog .box-item .check-box{
+#tibetsheets-dataVerification-dialog .box-item .check-box{
     height: 30px;
     line-height: 30px;
     margin-bottom: 10px;
 }
-#luckysheet-dataVerification-dialog .box-item .check-box:last-child{
+#tibetsheets-dataVerification-dialog .box-item .check-box:last-child{
     margin-bottom: 0;
 }
-#luckysheet-dataVerification-dialog .box-item .check-box input{
+#tibetsheets-dataVerification-dialog .box-item .check-box input{
     height: 30px;
     padding: 0 10px;
     border: 1px solid #d4d4d4;
     box-sizing: border-box;
 }
-#luckysheet-dataVerification-dialog .box-item .check{
+#tibetsheets-dataVerification-dialog .box-item .check{
     line-height: 30px;
 }
-#luckysheet-dataVerification-dialog .box-item .check input{
+#tibetsheets-dataVerification-dialog .box-item .check input{
     vertical-align: text-top;
 }
-#luckysheet-dataVerification-dialog .box-item .input{
+#tibetsheets-dataVerification-dialog .box-item .input{
     height: 30px;
     line-height: 30px;
     margin-top: 10px;
 }
-#luckysheet-dataVerification-dialog .box-item .input input{
+#tibetsheets-dataVerification-dialog .box-item .input input{
     height: 30px;
     padding: 4px 10px 4px 10px;
     border: 1px solid #d4d4d4;
     box-sizing: border-box;
 }
-#luckysheet-dataVerification-dialog .box-item .input1 input{
+#tibetsheets-dataVerification-dialog .box-item .input1 input{
     width: 150px;
 }
-#luckysheet-dataVerification-dialog .box-item .input2 input{
+#tibetsheets-dataVerification-dialog .box-item .input2 input{
     width: 100%;
 }
-#luckysheet-dataVerification-dialog .box-item .input span{
+#tibetsheets-dataVerification-dialog .box-item .input span{
     display: inline-block;
     width: 30px;
     text-align: center;
 }
-#luckysheet-dataVerification-dialog .data-verification-hint-text{
+#tibetsheets-dataVerification-dialog .data-verification-hint-text{
     width: 100%;
     height: 30px;
     border: 1px solid #d4d4d4;
     margin-top: 10px;
 }
-#luckysheet-dataVerification-dialog .data-verification-hint-text input{
+#tibetsheets-dataVerification-dialog .data-verification-hint-text input{
     display: block;
     width: 100%;
     height: 100%;
@@ -7275,16 +7277,16 @@ fieldset[disabled] .btn-danger.focus {
     outline-style: none;
     box-sizing: border-box;
 }
-#luckysheet-dataVerification-dialog .show-box .show-box-item{
+#tibetsheets-dataVerification-dialog .show-box .show-box-item{
     display: none;
 }
-#luckysheet-dataVerificationRange-dialog input{
+#tibetsheets-dataVerificationRange-dialog input{
     height: 30px;
     padding: 0 10px;
     border: 1px solid #d4d4d4;
     outline-style: none;
 }
-#luckysheet-dataVerification-dropdown-btn{
+#tibetsheets-dataVerification-dropdown-btn{
     display: none;
     width: 20px;
     height: 20px;
@@ -7293,7 +7295,7 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 10;
     overflow: hidden;
 }
-#luckysheet-dataVerification-dropdown-btn::after{
+#tibetsheets-dataVerification-dropdown-btn::after{
     content: '';
     width: 10px;
     height: 10px;
@@ -7304,7 +7306,7 @@ fieldset[disabled] .btn-danger.focus {
     margin-left: -5px;
     margin-top: -5px;
 }
-#luckysheet-dataVerification-dropdown-List{
+#tibetsheets-dataVerification-dropdown-List{
     display: none;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -7313,16 +7315,16 @@ fieldset[disabled] .btn-danger.focus {
     z-index: 10000;
     box-sizing: border-box;
 }
-#luckysheet-dataVerification-dropdown-List .dropdown-List-item{
+#tibetsheets-dataVerification-dropdown-List .dropdown-List-item{
     padding: 5px 10px;
     box-sizing: border-box;
     cursor: pointer;
 }
 
-#luckysheet-dataVerification-dropdown-List .dropdown-List-item.multi {
+#tibetsheets-dataVerification-dropdown-List .dropdown-List-item.multi {
     padding-left: 0;
 }
-#luckysheet-dataVerification-dropdown-List .dropdown-List-item.multi:before{
+#tibetsheets-dataVerification-dropdown-List .dropdown-List-item.multi:before{
     content: "";
     width: 14px;
     font-family: "iconfont" !important;
@@ -7333,13 +7335,13 @@ fieldset[disabled] .btn-danger.focus {
     display: inline-block;
     margin-right: 2px;
 }
-#luckysheet-dataVerification-dropdown-List .dropdown-List-item.multi.checked:before{
+#tibetsheets-dataVerification-dropdown-List .dropdown-List-item.multi.checked:before{
     content: "\e7c8"; 
 }
-#luckysheet-dataVerification-dropdown-List .dropdown-List-item:hover{
+#tibetsheets-dataVerification-dropdown-List .dropdown-List-item:hover{
     background-color: #E1E1E1;
 }
-#luckysheet-dataVerification-showHintBox{
+#tibetsheets-dataVerification-showHintBox{
     display: none;
     padding: 10px;
     background-color: #fff;
@@ -7352,8 +7354,8 @@ fieldset[disabled] .btn-danger.focus {
     white-space: nowrap;
 }
 
-#luckysheet-icon-undo.disabled,
-#luckysheet-icon-redo.disabled {
+#tibetsheets-icon-undo.disabled,
+#tibetsheets-icon-redo.disabled {
     cursor: default;
     opacity: .4;
 }

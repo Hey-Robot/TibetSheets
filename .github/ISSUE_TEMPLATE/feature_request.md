@@ -7,9 +7,9 @@ assignees: ''
 
 ---
 
-<!--- Thank you for your attention and submit the issue, we hope that besides submitting the issue, you can also help us to understand your user case of Luckysheet, please help fill out the following solicitation form -->
+<!--- Thank you for your attention and submit the issue, we hope that besides submitting the issue, you can also help us to understand your user case of Tibetsheets, please help fill out the following solicitation form -->
 
-<!-- Wanted: Who is using Luckysheet https://github.com/mengshukeji/Luckysheet/issues/230 -->
+<!-- Wanted: Who is using Tibetsheets https://github.com/mengshukeji/Tibetsheets/issues/230 -->
 
 <!-- The following is the issues template -->
 

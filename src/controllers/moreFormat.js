@@ -8,7 +8,7 @@ import Store from '../store';
 import locale from '../locale/locale';
 
 //更多格式
-const luckysheetMoreFormat = {
+const tibetsheetsMoreFormat = {
     moneyFmtList: [
         {
             "name": "人民币",
@@ -1058,8 +1058,8 @@ const luckysheetMoreFormat = {
             },
         ]    
 
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-moreFormat-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-moreFormat-dialog").remove();
 
         let title = "", content = '';
 
@@ -1128,46 +1128,46 @@ const luckysheetMoreFormat = {
         }
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-moreFormat-dialog", 
-            "addclass": "luckysheet-moreFormat-dialog", 
+            "id": "tibetsheets-moreFormat-dialog", 
+            "addclass": "tibetsheets-moreFormat-dialog", 
             "title": title, 
             "content": content, 
-            "botton": '<button id="luckysheet-moreFormat-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default luckysheet-model-close-btn">'+ locale_button.cancel +'</button>', 
+            "botton": '<button id="tibetsheets-moreFormat-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default tibetsheets-model-close-btn">'+ locale_button.cancel +'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-moreFormat-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
+        let $t = $("#tibetsheets-moreFormat-dialog").find(".tibetsheets-modal-dialog-content").css("min-width", 400).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-moreFormat-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $("#tibetsheets-moreFormat-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
         
-        $("#luckysheet-moreFormat-dialog .listbox .listItem").eq(0).addClass("on");
+        $("#tibetsheets-moreFormat-dialog .listbox .listItem").eq(0).addClass("on");
     },
     init: function(){
         let _this = this;
 
         //选择格式
-        $(document).on("click", "#luckysheet-moreFormat-dialog .listbox .listItem", function(){
+        $(document).on("click", "#tibetsheets-moreFormat-dialog .listbox .listItem", function(){
             $(this).addClass("on").siblings().removeClass("on");
         });
 
         //确定
-        $(document).off("click.moreFormatConfirm").on("click.moreFormatConfirm", "#luckysheet-moreFormat-dialog #luckysheet-moreFormat-dialog-confirm", function(){
-            $("#luckysheet-moreFormat-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").hide();
+        $(document).off("click.moreFormatConfirm").on("click.moreFormatConfirm", "#tibetsheets-moreFormat-dialog #tibetsheets-moreFormat-dialog-confirm", function(){
+            $("#tibetsheets-moreFormat-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
 
             let d = editor.deepCopyFlowData(Store.flowdata);
 
-            let value = $("#luckysheet-moreFormat-dialog .listbox .listItem.on .value").text();
-            let id = $(this).parents("#luckysheet-moreFormat-dialog").find(".box").attr("id");
+            let value = $("#tibetsheets-moreFormat-dialog .listbox .listItem.on .value").text();
+            let id = $(this).parents("#tibetsheets-moreFormat-dialog").find(".box").attr("id");
 
             if(id == "morecurrency"){ //货币
                 if(value.indexOf("?") != -1){
                     return;
                 }
 
-                let decimal = parseInt($("#luckysheet-moreFormat-dialog .decimal input").val().trim());
+                let decimal = parseInt($("#tibetsheets-moreFormat-dialog .decimal input").val().trim());
 
                 if(decimal.toString() == "NaN" || decimal < 0 || decimal > 9){
                     if(isEditMode()){
@@ -1193,7 +1193,7 @@ const luckysheetMoreFormat = {
                     str = "#";
                 }
 
-                let pos = $("#luckysheet-moreFormat-dialog .listbox .listItem.on input:hidden").val();
+                let pos = $("#tibetsheets-moreFormat-dialog .listbox .listItem.on input:hidden").val();
 
                 if(pos == "before"){
                     str = '"' + value + '" ' + str;
@@ -1214,4 +1214,4 @@ const luckysheetMoreFormat = {
     }
 }
 
-export default luckysheetMoreFormat;
+export default tibetsheetsMoreFormat;

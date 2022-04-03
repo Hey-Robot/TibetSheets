@@ -15,7 +15,7 @@
     // Tencent Forum Link Button
     function supportButton() {
         const text = language() === 'zh' ? '反馈' : 'Forum';
-        const link = language() === 'zh' ? 'https://support.qq.com/product/288322' : 'https://groups.google.com/g/luckysheet';
+        const link = language() === 'zh' ? 'https://support.qq.com/product/288322' : 'https://groups.google.com/g/tibetsheets';
 
         document.querySelector("body").insertAdjacentHTML('beforeend', '<a id="container" href="'+ link +'" target="_blank" style="z-index:2;width:50px;height:50px;line-height:50px;position:fixed;right:40px;bottom:86px;border-radius:50px;cursor:pointer;background:rgb(71,133,249);color:#fff;text-align:center;text-decoration:none;">'+ text +'</a>');
     }
@@ -34,7 +34,7 @@
         return vars;
     }
 
-    window.luckysheetDemoUtil = {
+    window.tibetsheetsDemoUtil = {
         language:language,
         getRequest:getRequest
     }

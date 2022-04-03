@@ -3,7 +3,7 @@ import {
     getObjType,
     chatatABC,
     numFormat,
-    luckysheetContainerFocus,
+    tibetsheetsContainerFocus,
 } from '../utils/util';
 import { hasPartMC, isEditMode } from '../global/validate';
 import { getdatabyselection, getcellvalue } from '../global/getdata';
@@ -17,11 +17,11 @@ export function initialMatrixOperation(){
 
     //右键功能键
     //复制为json格式字符串，首行为标题
-    $("#luckysheet-copy-json-head").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-json-head").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -35,11 +35,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -59,7 +59,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -90,12 +90,12 @@ export function initialMatrixOperation(){
     });
 
     //复制为json格式字符串，无标题，采用ABCD作为标题
-    $("#luckysheet-copy-json-nohead").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-json-nohead").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -109,11 +109,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -133,12 +133,12 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
         }
-        let st = Store.luckysheet_select_save[0]["column"][0];
+        let st = Store.tibetsheets_select_save[0]["column"][0];
         for (let r = 0; r < getdata.length; r++) {
             let obj = {};
             for (let c = 0; c < getdata[0].length; c++) {
@@ -151,11 +151,11 @@ export function initialMatrixOperation(){
     });
 
     //复制为一维数组
-    $("#luckysheet-copy-array1").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-array1").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -169,11 +169,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -193,7 +193,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -208,12 +208,12 @@ export function initialMatrixOperation(){
     });
 
     //复制为二维数组
-    $("#luckysheet-copy-array2").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-array2").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -227,11 +227,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -251,7 +251,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -268,16 +268,16 @@ export function initialMatrixOperation(){
     });
 
     //复制为多维数组
-    $("#luckysheet-copy-arraymore-confirm").click(function (event) {
+    $("#tibetsheets-copy-arraymore-confirm").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
 
-        $("body .luckysheet-cols-menu").hide();
+        $("body .tibetsheets-cols-menu").hide();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -291,11 +291,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -315,7 +315,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -327,11 +327,11 @@ export function initialMatrixOperation(){
             }
         }
 
-        let row = $("#luckysheet-copy-arraymore-row").val(), col = $("#luckysheet-copy-arraymore-col").val();
+        let row = $("#tibetsheets-copy-arraymore-row").val(), col = $("#tibetsheets-copy-arraymore-col").val();
 
         if (row == "" && col == "") {
             selection.copybyformat(event, JSON.stringify(arr));
-            $("body .luckysheet-cols-menu").hide();
+            $("body .tibetsheets-cols-menu").hide();
             return;
         }
 
@@ -382,7 +382,7 @@ export function initialMatrixOperation(){
                 a.push(arr[i++]);
                 if (i >= arrlen) {
                     selection.copybyformat(event, JSON.stringify(ret));
-                    $("body .luckysheet-cols-menu").hide();
+                    $("body .tibetsheets-cols-menu").hide();
                     return;
                 }
             }
@@ -393,11 +393,11 @@ export function initialMatrixOperation(){
     });
 
     //复制为对角线
-    $("#luckysheet-copy-diagonal").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-diagonal").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -411,11 +411,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -435,7 +435,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -453,12 +453,12 @@ export function initialMatrixOperation(){
     });
 
     //复制为反对角线
-    $("#luckysheet-copy-antidiagonal").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-antidiagonal").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -472,11 +472,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -496,7 +496,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -514,17 +514,17 @@ export function initialMatrixOperation(){
     });
 
     //复制为对角偏移n列
-    $("#luckysheet-copy-diagonaloffset").click(function (event) {
+    $("#tibetsheets-copy-diagonaloffset").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
         
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -538,11 +538,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -562,14 +562,14 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
         }
 
         let clen = getdata[0].length, 
-            offset = parseInt($("#luckysheet-copy-diagonaloffset-value").val());
+            offset = parseInt($("#tibetsheets-copy-diagonaloffset-value").val());
 
         if(offset.toString() == "NaN"){
             if(isEditMode()){
@@ -606,12 +606,12 @@ export function initialMatrixOperation(){
     });
 
     //复制为布尔值
-    $("#luckysheet-copy-boolvalue").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-copy-boolvalue").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -625,11 +625,11 @@ export function initialMatrixOperation(){
         if(Store.config["merge"] != null){
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 has_PartMC = hasPartMC(Store.config, r1, r2, c1, c2);
 
@@ -649,7 +649,7 @@ export function initialMatrixOperation(){
             }
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         let arr = [];
         if (getdata.length == 0) {
             return;
@@ -688,11 +688,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 翻转 上下
-    $("#luckysheet-matrix-turn-up").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-turn-up").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -702,7 +702,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -724,11 +724,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 翻转 左右
-    $("#luckysheet-matrix-turn-left").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-turn-left").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -738,7 +738,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -760,11 +760,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 翻转 顺时针
-    $("#luckysheet-matrix-turn-cw").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-turn-cw").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -774,7 +774,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -796,11 +796,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 翻转 逆时针
-    $("#luckysheet-matrix-turn-anticw").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-turn-anticw").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -810,7 +810,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -832,11 +832,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 转置
-    $("#luckysheet-matrix-turn-trans").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-turn-trans").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -846,7 +846,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -881,17 +881,17 @@ export function initialMatrixOperation(){
     }
 
     //矩阵操作选区 矩阵计算
-    $("#luckysheet-matrix-cal-confirm").click(function (event) {
+    $("#tibetsheets-matrix-cal-confirm").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT' || event.target.nodeName === 'SELECT'){
             return;
         }
 
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -901,13 +901,13 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
 
-        let caltype = $("#luckysheet-matrix-cal-type").val(), 
-            calvalue = parseInt($("#luckysheet-matrix-cal-value").val());
+        let caltype = $("#tibetsheets-matrix-cal-type").val(), 
+            calvalue = parseInt($("#tibetsheets-matrix-cal-value").val());
 
         if(calvalue.toString() == "NaN"){
             if(isEditMode()){
@@ -980,11 +980,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 删除两端0值 按行
-    $("#luckysheet-matrix-delezero-row").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-delezero-row").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -994,7 +994,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -1048,11 +1048,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 删除两端0值 按列
-    $("#luckysheet-matrix-delezero-column").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-delezero-column").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1062,7 +1062,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -1129,11 +1129,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 删除重复值 按行
-    $("#luckysheet-matrix-delerpt-row").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-delerpt-row").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1143,7 +1143,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }
@@ -1190,11 +1190,11 @@ export function initialMatrixOperation(){
     });
 
     //矩阵操作选区 删除重复值 按列
-    $("#luckysheet-matrix-delerpt-column").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-matrix-delerpt-column").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1204,7 +1204,7 @@ export function initialMatrixOperation(){
             return;
         }
 
-        let getdata = getdatabyselection(Store.luckysheet_select_save[0]);
+        let getdata = getdatabyselection(Store.tibetsheets_select_save[0]);
         if (getdata.length == 0) {
             return;
         }

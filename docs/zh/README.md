@@ -1,6 +1,6 @@
 ---
 home: true
-heroText: Luckysheet
+heroText: Tibetsheets
 tagline: 配置文档 · API · 教程
 actionText: 快速上手 →
 actionLink: /zh/guide/

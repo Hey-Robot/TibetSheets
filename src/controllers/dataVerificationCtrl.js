@@ -2,7 +2,7 @@ import { replaceHtml } from '../utils/util';
 import formula from '../global/formula';
 import { isRealNum, isRealNull } from '../global/validate';
 import { isdatetime, diff } from '../global/datecontroll';
-import { luckysheetrefreshgrid } from '../global/refresh';
+import { tibetsheetsrefreshgrid } from '../global/refresh';
 import tooltip from '../global/tooltip';
 import { setcellvalue } from '../global/setdata';
 import { getcellvalue } from '../global/getdata';
@@ -84,8 +84,8 @@ const dataVerificationCtrl = {
         const toolbarText = _locale.toolbar;
         const buttonText = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-dataVerification-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-dataVerification-dialog").remove();
 
         let content =  `<div class="box">
                             <div class="box-item" style="border-top:1px solid #E1E4E8;">
@@ -227,23 +227,23 @@ const dataVerificationCtrl = {
                         </div>`;
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-dataVerification-dialog", 
-            "addclass": "luckysheet-dataVerification-dialog", 
+            "id": "tibetsheets-dataVerification-dialog", 
+            "addclass": "tibetsheets-dataVerification-dialog", 
             "title": toolbarText.dataVerification, 
             "content": content, 
-            "botton":  `<button id="luckysheet-dataVerification-dialog-confirm" class="btn btn-primary">${buttonText.confirm}</button>
-                        <button id="luckysheet-dataVerification-dialog-delete" class="btn btn-default">${dvText.deleteVerification}</button>
-                        <button class="btn btn-default luckysheet-model-close-btn">${buttonText.cancel}</button>`, 
+            "botton":  `<button id="tibetsheets-dataVerification-dialog-confirm" class="btn btn-primary">${buttonText.confirm}</button>
+                        <button id="tibetsheets-dataVerification-dialog-delete" class="btn btn-default">${dvText.deleteVerification}</button>
+                        <button class="btn btn-default tibetsheets-model-close-btn">${buttonText.cancel}</button>`, 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-dataVerification-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 350).end(), 
+        let $t = $("#tibetsheets-dataVerification-dialog").find(".tibetsheets-modal-dialog-content").css("min-width", 350).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), 
             winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), 
             scrollTop = $(document).scrollTop();
-        $("#luckysheet-dataVerification-dialog").css({ 
+        $("#tibetsheets-dataVerification-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();
@@ -256,26 +256,26 @@ const dataVerificationCtrl = {
         const dvText = locale().dataVerification; 
 
         //单元格数据验证 类型是 下拉列表
-        $(document).off("click.dropdownBtn").on("click.dropdownBtn", "#luckysheet-dataVerification-dropdown-btn", function(e) {
+        $(document).off("click.dropdownBtn").on("click.dropdownBtn", "#tibetsheets-dataVerification-dropdown-btn", function(e) {
             _this.dropdownListShow();
             e.stopPropagation();
         });
-        $(document).off("click.dropdownListItem").on("click.dropdownListItem", "#luckysheet-dataVerification-dropdown-List .dropdown-List-item", function(e) {
+        $(document).off("click.dropdownListItem").on("click.dropdownListItem", "#tibetsheets-dataVerification-dropdown-List .dropdown-List-item", function(e) {
             var $item = $(this);
             let value = e.target.innerText;
             if ($item.hasClass('multi')) {
                 $item.toggleClass('checked');
-                value = $.map($("#luckysheet-dataVerification-dropdown-List").children().filter('.checked'), function(el) {
+                value = $.map($("#tibetsheets-dataVerification-dropdown-List").children().filter('.checked'), function(el) {
                     return el.innerText;
                 }).join(',');
             } else {
-                $("#luckysheet-dataVerification-dropdown-List").hide();
+                $("#tibetsheets-dataVerification-dropdown-List").hide();
             }
-            let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+            let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
             let rowIndex = last.row_focus;
             let colIndex = last.column_focus;
 
-            $("#luckysheet-rich-text-editor").text(value);
+            $("#tibetsheets-rich-text-editor").text(value);
             formula.updatecell(rowIndex, colIndex);
 
             e.stopPropagation();
@@ -283,7 +283,7 @@ const dataVerificationCtrl = {
 
         //单元格范围
         $(document).off("click.dvRange").on("click.dvRange", "#data-verification-range .fa-table", function(e) {
-            $("#luckysheet-dataVerification-dialog").hide();
+            $("#tibetsheets-dataVerification-dialog").hide();
 
             let dataSource = "0";
             let txt = $(this).siblings("input").val().trim(); 
@@ -329,8 +329,8 @@ const dataVerificationCtrl = {
             
             selectionCopyShow(_this.selectRange);
         }); 
-        $(document).off("click.dvRange2").on("click.dvRange2", "#luckysheet-dataVerification-dialog .show-box-item-dropdown .range .fa-table", function(e) {
-            $("#luckysheet-dataVerification-dialog").hide();
+        $(document).off("click.dvRange2").on("click.dvRange2", "#tibetsheets-dataVerification-dialog .show-box-item-dropdown .range .fa-table", function(e) {
+            $("#tibetsheets-dataVerification-dialog").hide();
 
             let dataSource = "1";
             let txt = $(this).siblings("input").val().trim(); 
@@ -376,9 +376,9 @@ const dataVerificationCtrl = {
             
             selectionCopyShow(_this.selectRange);
         });
-        $(document).off("click.dvRangeConfirm").on("click.dvRangeConfirm", "#luckysheet-dataVerificationRange-dialog-confirm", function(e) {
+        $(document).off("click.dvRangeConfirm").on("click.dvRangeConfirm", "#tibetsheets-dataVerificationRange-dialog-confirm", function(e) {
             let dataSource = $(this).attr("data-source");
-            let txt = $(this).parents("#luckysheet-dataVerificationRange-dialog").find("input").val();
+            let txt = $(this).parents("#tibetsheets-dataVerificationRange-dialog").find("input").val();
 
             if(_this.getRangeByTxt(txt).length > 1){
                 tooltip.info('<i class="fa fa-exclamation-triangle"></i>', '不能对多重选择区域执行此操作，请选择单个区域，然后再试');
@@ -386,15 +386,15 @@ const dataVerificationCtrl = {
             }
 
             if(dataSource == '0'){
-                $("#luckysheet-dataVerification-dialog #data-verification-range input").val(txt);
+                $("#tibetsheets-dataVerification-dialog #data-verification-range input").val(txt);
             }
             else if(dataSource == '1'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-dropdown .range input").val(txt);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-dropdown .range input").val(txt);
             }
             
-            $("#luckysheet-dataVerificationRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-dataVerification-dialog").show();
+            $("#tibetsheets-dataVerificationRange-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").show();
+            $("#tibetsheets-dataVerification-dialog").show();
 
             if(formula.rangetosheet != null && formula.rangetosheet != Store.currentSheetIndex){
                 sheetmanage.changeSheetExec(formula.rangetosheet);
@@ -404,10 +404,10 @@ const dataVerificationCtrl = {
             let range = [];
             selectionCopyShow(range);
         });
-        $(document).off("click.dvRangeClose").on("click.dvRangeClose", "#luckysheet-dataVerificationRange-dialog-close", function(e) {
-            $("#luckysheet-dataVerificationRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-dataVerification-dialog").show();
+        $(document).off("click.dvRangeClose").on("click.dvRangeClose", "#tibetsheets-dataVerificationRange-dialog-close", function(e) {
+            $("#tibetsheets-dataVerificationRange-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").show();
+            $("#tibetsheets-dataVerification-dialog").show();
 
             if(formula.rangetosheet != null && formula.rangetosheet != Store.currentSheetIndex){
                 sheetmanage.changeSheetExec(formula.rangetosheet);
@@ -417,10 +417,10 @@ const dataVerificationCtrl = {
             let range = [];
             selectionCopyShow(range);
         });
-        $(document).on("click", "#luckysheet-dataVerificationRange-dialog .luckysheet-modal-dialog-title-close", function(e) {
-            $("#luckysheet-dataVerificationRange-dialog").hide();
-            $("#luckysheet-modal-dialog-mask").show();
-            $("#luckysheet-dataVerification-dialog").show();
+        $(document).on("click", "#tibetsheets-dataVerificationRange-dialog .tibetsheets-modal-dialog-title-close", function(e) {
+            $("#tibetsheets-dataVerificationRange-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").show();
+            $("#tibetsheets-dataVerification-dialog").show();
 
             if(formula.rangetosheet != null && formula.rangetosheet != Store.currentSheetIndex){
                 sheetmanage.changeSheetExec(formula.rangetosheet);
@@ -433,13 +433,13 @@ const dataVerificationCtrl = {
 
         //验证条件 下拉框
         $(document).off("change.typeSelect").on("change.typeSelect", "#data-verification-type-select", function(e) {
-            $("#luckysheet-dataVerification-dialog .show-box .show-box-item").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box .show-box-item").hide();
 
             let value = this.value;
             let item = _this.curItem;
 
             if(value == 'dropdown'){
-                $("#luckysheet-dataVerification-dialog .show-box .show-box-item-dropdown").show();
+                $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-dropdown").show();
 
                 let value1 = "";
 
@@ -447,12 +447,12 @@ const dataVerificationCtrl = {
                     value1 = item.value1;
                 }
 
-                $("#luckysheet-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val(value1);
                 
-                $('#luckysheet-dataVerification-dialog #data-verification-multi').prop('checked', item.type2 ? true : false);
+                $('#tibetsheets-dataVerification-dialog #data-verification-multi').prop('checked', item.type2 ? true : false);
             }
             else if(value == 'checkbox'){
-                $("#luckysheet-dataVerification-dialog .show-box .show-box-item-checkbox").show();
+                $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-checkbox").show();
 
                 let value1 = "";
                 let value2 = "";
@@ -462,12 +462,12 @@ const dataVerificationCtrl = {
                     value2 = item.value2;
                 }
 
-                $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val(value1);
-                $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val(value2);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val(value2);
             }
             else if(value == 'number' || value == 'number_integer' || value == 'number_decimal'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-number").show();
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .input").hide();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .input").hide();
 
                 let type2 = "bw";
                 let value1 = "";
@@ -479,20 +479,20 @@ const dataVerificationCtrl = {
                     value2 = item.value2;
                 }
 
-                $("#luckysheet-dataVerification-dialog #data-verification-number-select").val(type2);
+                $("#tibetsheets-dataVerification-dialog #data-verification-number-select").val(type2);
             
                 if(type2 == 'bw' || type2 == 'nb'){
-                    $("#luckysheet-dataVerification-dialog .show-box-item-number .input1").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-number .input1").show();
                 }
                 else{
-                    $("#luckysheet-dataVerification-dialog .show-box-item-number .input2").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-number .input2").show();
                 }
 
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .data-verification-value1").val(value1);
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .data-verification-value2").val(value2);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .data-verification-value2").val(value2);
             }
             else if(value == 'text_content'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-text").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-text").show();
 
                 let type2 = "include";
                 let value1 = "";
@@ -502,12 +502,12 @@ const dataVerificationCtrl = {
                     value1 = item.value1;
                 }
                 
-                $("#luckysheet-dataVerification-dialog #data-verification-text-select").val(type2);
-                $("#luckysheet-dataVerification-dialog .show-box-item-text .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog #data-verification-text-select").val(type2);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-text .data-verification-value1").val(value1);
             }
             else if(value == 'text_length'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength").show();
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input").hide();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input").hide();
 
                 let type2 = "bw";
                 let value1 = "";
@@ -519,21 +519,21 @@ const dataVerificationCtrl = {
                     value2 = item.value2;
                 }
 
-                $("#luckysheet-dataVerification-dialog #data-verification-textLength-select").val(type2);
+                $("#tibetsheets-dataVerification-dialog #data-verification-textLength-select").val(type2);
             
                 if(type2 == 'bw' || type2 == 'nb'){
-                    $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input1").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input1").show();
                 }
                 else{
-                    $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input2").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input2").show();
                 }
 
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .data-verification-value1").val(value1);
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .data-verification-value2").val(value2);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .data-verification-value2").val(value2);
             }
             else if(value == 'date'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-date").show();
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .input").hide();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .input").hide();
 
                 let type2 = "bw";
                 let value1 = "";
@@ -545,20 +545,20 @@ const dataVerificationCtrl = {
                     value2 = item.value2;
                 }
 
-                $("#luckysheet-dataVerification-dialog #data-verification-date-select").val(type2);
+                $("#tibetsheets-dataVerification-dialog #data-verification-date-select").val(type2);
 
                 if(type2 == 'bw' || type2 == 'nb'){
-                    $("#luckysheet-dataVerification-dialog .show-box-item-date .input1").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-date .input1").show();
                 }
                 else{
-                    $("#luckysheet-dataVerification-dialog .show-box-item-date .input2").show();
+                    $("#tibetsheets-dataVerification-dialog .show-box-item-date .input2").show();
                 }
 
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .data-verification-value1").val(value1);
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .data-verification-value2").val(value2);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .data-verification-value1").val(value1);
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .data-verification-value2").val(value2);
             }
             else if(value == 'validity'){
-                $("#luckysheet-dataVerification-dialog .show-box .show-box-item-validity").show();
+                $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-validity").show();
 
                 let type2 = "card";
 
@@ -566,62 +566,62 @@ const dataVerificationCtrl = {
                     type2 = item.type2;
                 }
 
-                $("#luckysheet-dataVerification-dialog #data-verification-validity-select").val(type2);
+                $("#tibetsheets-dataVerification-dialog #data-verification-validity-select").val(type2);
             }
         });
 
         $(document).off("change.numberSelect").on("change.numberSelect", "#data-verification-number-select", function(e) {
-            $("#luckysheet-dataVerification-dialog .show-box-item-number .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-number .input").hide();
 
             let value = this.value;
 
             if(value == 'bw' || value == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .input2").show();
             }
         });
         // 文本长度选择变化
         $(document).off("change.textLengthSelect").on("change.textLengthSelect", "#data-verification-textLength-select", function(e) {
-            $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input").hide();
 
             let value = this.value;
 
             if(value == 'bw' || value == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input2").show();
             }
         });
 
         $(document).off("change.dateSelect").on("change.dateSelect", "#data-verification-date-select", function(e) {
-            $("#luckysheet-dataVerification-dialog .show-box-item-date .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-date .input").hide();
 
             let value = this.value;
 
             if(value == 'bw' || value == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .input2").show();
             }
         });
 
         //选中单元格时显示提示语
         $(document).off("change.hintShow").on("change.hintShow", "#data-verification-hint-show", function(e) {
             if(this.checked){
-                $("#luckysheet-dataVerification-dialog .data-verification-hint-text").show();
+                $("#tibetsheets-dataVerification-dialog .data-verification-hint-text").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .data-verification-hint-text").hide();
+                $("#tibetsheets-dataVerification-dialog .data-verification-hint-text").hide();
             }
         });
 
         //确认按钮
-        $(document).off("click.dvSaveConfirm").on("click.dvSaveConfirm", "#luckysheet-dataVerification-dialog-confirm", function(e) {
-            let rangeTxt = $("#luckysheet-dataVerification-dialog #data-verification-range input").val().trim();
+        $(document).off("click.dvSaveConfirm").on("click.dvSaveConfirm", "#tibetsheets-dataVerification-dialog-confirm", function(e) {
+            let rangeTxt = $("#tibetsheets-dataVerification-dialog #data-verification-range input").val().trim();
             let range = _this.getRangeByTxt(rangeTxt);
 
             if(range.length == 0){
@@ -651,21 +651,21 @@ const dataVerificationCtrl = {
                 edc = d[0].length - 1;
             }
 
-            let type = $("#luckysheet-dataVerification-dialog #data-verification-type-select").val();
+            let type = $("#tibetsheets-dataVerification-dialog #data-verification-type-select").val();
             let type2 = null, value1 = "", value2 = "";
 
             if(type == 'dropdown'){
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val().trim();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val().trim();
             
                 if(value1.length == 0){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo1);
                     return;
                 }
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-multi").is(':checked');
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-multi").is(':checked');
             }
             else if(type == 'checkbox'){
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val().trim();
-                value2 = $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val().trim();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val().trim();
+                value2 = $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val().trim();
             
                 if(value1.length == 0 || value2.length == 0){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo2);
@@ -673,8 +673,8 @@ const dataVerificationCtrl = {
                 }
             }
             else if(type == 'number' || type == 'number_integer' || type == 'number_decimal'){
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-number-select").val();
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-number .input:visible .data-verification-value1").val().trim();
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-number-select").val();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-number .input:visible .data-verification-value1").val().trim();
                 
                 if(!isRealNum(value1)){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
@@ -682,7 +682,7 @@ const dataVerificationCtrl = {
                 }
 
                 if(type2 == 'bw' || type2 == 'nb'){
-                    value2 = $("#luckysheet-dataVerification-dialog .show-box-item-number .input:visible .data-verification-value2").val().trim();
+                    value2 = $("#tibetsheets-dataVerification-dialog .show-box-item-number .input:visible .data-verification-value2").val().trim();
                 
                     if(!isRealNum(value2)){
                         tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
@@ -696,8 +696,8 @@ const dataVerificationCtrl = {
                 }
             }
             else if(type == 'text_content'){
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-text-select").val();
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-text .data-verification-value1").val().trim();
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-text-select").val();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-text .data-verification-value1").val().trim();
             
                 if(value1.length == 0){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo5);
@@ -705,8 +705,8 @@ const dataVerificationCtrl = {
                 }
             }
             else if(type == 'text_length'){
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-textLength-select").val();
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input:visible .data-verification-value1").val().trim();
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-textLength-select").val();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input:visible .data-verification-value1").val().trim();
                 
                 if(!isRealNum(value1)){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
@@ -719,7 +719,7 @@ const dataVerificationCtrl = {
                 }
 
                 if(type2 == 'bw' || type2 == 'nb'){
-                    value2 = $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input:visible .data-verification-value2").val().trim();
+                    value2 = $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input:visible .data-verification-value2").val().trim();
                 
                     if(!isRealNum(value2)){
                         tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo3);
@@ -737,8 +737,8 @@ const dataVerificationCtrl = {
                 }
             }
             else if(type == 'date'){
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-date-select").val();
-                value1 = $("#luckysheet-dataVerification-dialog .show-box-item-date .input:visible .data-verification-value1").val().trim();
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-date-select").val();
+                value1 = $("#tibetsheets-dataVerification-dialog .show-box-item-date .input:visible .data-verification-value1").val().trim();
                 
                 if(!isdatetime(value1)){
                     tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo6);
@@ -746,7 +746,7 @@ const dataVerificationCtrl = {
                 }
 
                 if(type2 == 'bw' || type2 == 'nb'){
-                    value2 = $("#luckysheet-dataVerification-dialog .show-box-item-date .input:visible .data-verification-value2").val().trim();
+                    value2 = $("#tibetsheets-dataVerification-dialog .show-box-item-date .input:visible .data-verification-value2").val().trim();
                 
                     if(!isdatetime(value2)){
                         tooltip.info('<i class="fa fa-exclamation-triangle"></i>', dvText.tooltipInfo6);
@@ -760,16 +760,16 @@ const dataVerificationCtrl = {
                 }
             }
             else if(type == 'validity'){
-                type2 = $("#luckysheet-dataVerification-dialog #data-verification-validity-select").val();
+                type2 = $("#tibetsheets-dataVerification-dialog #data-verification-validity-select").val();
             }
 
-            let remote = $("#luckysheet-dataVerification-dialog #data-verification-remote").is(":checked");
-            let prohibitInput = $("#luckysheet-dataVerification-dialog #data-verification-prohibitInput").is(":checked");
-            let hintShow = $("#luckysheet-dataVerification-dialog #data-verification-hint-show").is(":checked");
+            let remote = $("#tibetsheets-dataVerification-dialog #data-verification-remote").is(":checked");
+            let prohibitInput = $("#tibetsheets-dataVerification-dialog #data-verification-prohibitInput").is(":checked");
+            let hintShow = $("#tibetsheets-dataVerification-dialog #data-verification-hint-show").is(":checked");
             let hintText = "";
 
             if(hintShow){
-                hintText = $("#luckysheet-dataVerification-dialog .data-verification-hint-text input").val().trim();
+                hintText = $("#tibetsheets-dataVerification-dialog .data-verification-hint-text input").val().trim();
             }
 
             let item = {
@@ -804,13 +804,13 @@ const dataVerificationCtrl = {
                 _this.ref(historyDataVerification, currentDataVerification, Store.currentSheetIndex);
             }
             
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-dataVerification-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-dataVerification-dialog").hide();
         });
 
         //删除验证按钮
-        $(document).off("click.delete").on("click.delete", "#luckysheet-dataVerification-dialog-delete", function(e) {
-            let rangeTxt = $("#luckysheet-dataVerification-dialog #data-verification-range input").val().trim();
+        $(document).off("click.delete").on("click.delete", "#tibetsheets-dataVerification-dialog-delete", function(e) {
+            let rangeTxt = $("#tibetsheets-dataVerification-dialog #data-verification-range input").val().trim();
             let range = _this.getRangeByTxt(rangeTxt);
 
             if(range.length == 0){
@@ -834,16 +834,16 @@ const dataVerificationCtrl = {
 
             _this.ref(historyDataVerification, currentDataVerification, Store.currentSheetIndex);
             
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-dataVerification-dialog").hide();
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-dataVerification-dialog").hide();
         });
 
         //info提示弹框 关闭
-        $(document).on("click", "#luckysheet-info .luckysheet-modal-dialog-title-close, #luckysheet-info .luckysheet-model-close-btn", function(e) {
-            $(this).parents("#luckysheet-info").hide();
+        $(document).on("click", "#tibetsheets-info .tibetsheets-modal-dialog-title-close, #tibetsheets-info .tibetsheets-model-close-btn", function(e) {
+            $(this).parents("#tibetsheets-info").hide();
 
-            if($("#luckysheet-dataVerification-dialog").is(":visible")){
-                $("#luckysheet-modal-dialog-mask").show();
+            if($("#tibetsheets-dataVerification-dialog").is(":visible")){
+                $("#tibetsheets-modal-dialog-mask").show();
             }
             e.stopPropagation();
         });
@@ -852,9 +852,9 @@ const dataVerificationCtrl = {
         let _this = this;
 
         //单元格范围
-        let range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let rangeTxt = getRangetxt(Store.currentSheetIndex, range, Store.currentSheetIndex);
-        $("#luckysheet-dataVerification-dialog #data-verification-range input").val(rangeTxt);
+        $("#tibetsheets-dataVerification-dialog #data-verification-range input").val(rangeTxt);
 
         //focus单元格
         let rowIndex = range.row_focus || range.row[0];
@@ -869,91 +869,91 @@ const dataVerificationCtrl = {
         _this.curItem = item;
         
         //验证条件
-        $("#luckysheet-dataVerification-dialog #data-verification-type-select").val(item.type);
-        $("#luckysheet-dataVerification-dialog .show-box .show-box-item").hide();
+        $("#tibetsheets-dataVerification-dialog #data-verification-type-select").val(item.type);
+        $("#tibetsheets-dataVerification-dialog .show-box .show-box-item").hide();
 
         if(item.type == 'dropdown'){
-            $("#luckysheet-dataVerification-dialog .show-box .show-box-item-dropdown").show();
-            $("#luckysheet-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val(item.value1);
-            $('#luckysheet-dataVerification-dialog #data-verification-multi').prop('checked', item.type2 ? true : false);
+            $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-dropdown").show();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-dropdown .data-verification-value1").val(item.value1);
+            $('#tibetsheets-dataVerification-dialog #data-verification-multi').prop('checked', item.type2 ? true : false);
         }
         else if(item.type == 'checkbox'){
-            $("#luckysheet-dataVerification-dialog .show-box .show-box-item-checkbox").show();
-            $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val(item.value1);
-            $("#luckysheet-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val(item.value2);
+            $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-checkbox").show();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value1").val(item.value1);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-checkbox .data-verification-value2").val(item.value2);
         }
         else if(item.type == 'number' || item.type == 'number_integer' || item.type == 'number_decimal'){
-            $("#luckysheet-dataVerification-dialog .show-box-item-number").show();
-            $("#luckysheet-dataVerification-dialog #data-verification-number-select").val(item.type2);
-            $("#luckysheet-dataVerification-dialog .show-box-item-number .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-number").show();
+            $("#tibetsheets-dataVerification-dialog #data-verification-number-select").val(item.type2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-number .input").hide();
             
             if(item.type2 == 'bw' || item.type2 == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-number .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-number .input2").show();
             }
 
-            $("#luckysheet-dataVerification-dialog .show-box-item-number .data-verification-value1").val(item.value1);
-            $("#luckysheet-dataVerification-dialog .show-box-item-number .data-verification-value2").val(item.value2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-number .data-verification-value1").val(item.value1);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-number .data-verification-value2").val(item.value2);
         }
         else if(item.type == 'text_content'){
-            $("#luckysheet-dataVerification-dialog .show-box-item-text").show();
-            $("#luckysheet-dataVerification-dialog #data-verification-text-select").val(item.type2);
-            $("#luckysheet-dataVerification-dialog .show-box-item-text .data-verification-value1").val(item.value1);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-text").show();
+            $("#tibetsheets-dataVerification-dialog #data-verification-text-select").val(item.type2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-text .data-verification-value1").val(item.value1);
         }
         else if(item.type == 'text_length'){
-            $("#luckysheet-dataVerification-dialog .show-box-item-textLength").show();
-            $("#luckysheet-dataVerification-dialog #data-verification-textLength-select").val(item.type2);
-            $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-textLength").show();
+            $("#tibetsheets-dataVerification-dialog #data-verification-textLength-select").val(item.type2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input").hide();
 
             if(item.type2 == 'bw' || item.type2 == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-textLength .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .input2").show();
             }
 
-            $("#luckysheet-dataVerification-dialog .show-box-item-textLength .data-verification-value1").val(item.value1);
-            $("#luckysheet-dataVerification-dialog .show-box-item-textLength .data-verification-value2").val(item.value2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .data-verification-value1").val(item.value1);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-textLength .data-verification-value2").val(item.value2);
         }
         else if(item.type == 'date'){
-            $("#luckysheet-dataVerification-dialog .show-box-item-date").show();
-            $("#luckysheet-dataVerification-dialog #data-verification-date-select").val(item.type2);
-            $("#luckysheet-dataVerification-dialog .show-box-item-date .input").hide();
+            $("#tibetsheets-dataVerification-dialog .show-box-item-date").show();
+            $("#tibetsheets-dataVerification-dialog #data-verification-date-select").val(item.type2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-date .input").hide();
 
             if(item.type2 == 'bw' || item.type2 == 'nb'){
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .input1").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .input1").show();
             }
             else{
-                $("#luckysheet-dataVerification-dialog .show-box-item-date .input2").show();
+                $("#tibetsheets-dataVerification-dialog .show-box-item-date .input2").show();
             }
 
-            $("#luckysheet-dataVerification-dialog .show-box-item-date .data-verification-value1").val(item.value1);
-            $("#luckysheet-dataVerification-dialog .show-box-item-date .data-verification-value2").val(item.value2);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-date .data-verification-value1").val(item.value1);
+            $("#tibetsheets-dataVerification-dialog .show-box-item-date .data-verification-value2").val(item.value2);
         }
         else if(item.type == 'validity'){
-            $("#luckysheet-dataVerification-dialog .show-box .show-box-item-validity").show();
-            $("#luckysheet-dataVerification-dialog #data-verification-validity-select").val(item.type2);
+            $("#tibetsheets-dataVerification-dialog .show-box .show-box-item-validity").show();
+            $("#tibetsheets-dataVerification-dialog #data-verification-validity-select").val(item.type2);
         }
 
         //自动远程获取选项
-        $("#luckysheet-dataVerification-dialog #data-verification-remote").prop("checked", item.remote);
+        $("#tibetsheets-dataVerification-dialog #data-verification-remote").prop("checked", item.remote);
 
         //输入数据无效时禁止输入
-        $("#luckysheet-dataVerification-dialog #data-verification-prohibitInput").prop("checked", item.prohibitInput);
+        $("#tibetsheets-dataVerification-dialog #data-verification-prohibitInput").prop("checked", item.prohibitInput);
 
         //选中单元格时显示提示语
-        $("#luckysheet-dataVerification-dialog #data-verification-hint-show").prop("checked", item.hintShow);
+        $("#tibetsheets-dataVerification-dialog #data-verification-hint-show").prop("checked", item.hintShow);
         
         if(item.hintShow){
-            $("#luckysheet-dataVerification-dialog .data-verification-hint-text").show();
+            $("#tibetsheets-dataVerification-dialog .data-verification-hint-text").show();
         }
         else{
-            $("#luckysheet-dataVerification-dialog .data-verification-hint-text").hide();
+            $("#tibetsheets-dataVerification-dialog .data-verification-hint-text").hide();
         }
         
-        $("#luckysheet-dataVerification-dialog .data-verification-hint-text input").val(item.hintText);
+        $("#tibetsheets-dataVerification-dialog .data-verification-hint-text input").val(item.hintText);
     },
     rangeDialog: function(dataSource, txt){
         let _this = this;
@@ -962,27 +962,27 @@ const dataVerificationCtrl = {
         const dvText = _locale.dataVerification;
         const buttonText = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").hide();
-        $("#luckysheet-dataVerificationRange-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").hide();
+        $("#tibetsheets-dataVerificationRange-dialog").remove();
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-dataVerificationRange-dialog", 
-            "addclass": "luckysheet-dataVerificationRange-dialog", 
+            "id": "tibetsheets-dataVerificationRange-dialog", 
+            "addclass": "tibetsheets-dataVerificationRange-dialog", 
             "title": dvText.selectCellRange, 
             "content": `<input readonly="readonly" placeholder="${dvText.selectCellRange2}" value="${txt}"/>`, 
-            "botton":  `<button id="luckysheet-dataVerificationRange-dialog-confirm" class="btn btn-primary" data-source="${dataSource}">${buttonText.confirm}</button>
-                        <button id="luckysheet-dataVerificationRange-dialog-close" class="btn btn-default">${buttonText.close}</button>`, 
+            "botton":  `<button id="tibetsheets-dataVerificationRange-dialog-confirm" class="btn btn-primary" data-source="${dataSource}">${buttonText.confirm}</button>
+                        <button id="tibetsheets-dataVerificationRange-dialog-close" class="btn btn-default">${buttonText.close}</button>`, 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-dataVerificationRange-dialog")
-                .find(".luckysheet-modal-dialog-content")
+        let $t = $("#tibetsheets-dataVerificationRange-dialog")
+                .find(".tibetsheets-modal-dialog-content")
                 .css("min-width", 300)
                 .end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-dataVerificationRange-dialog").css({ 
+        $("#tibetsheets-dataVerificationRange-dialog").css({ 
             "left": (winw + scrollLeft - myw) / 2, 
             "top": (winh + scrollTop - myh) / 3 
         }).show();
@@ -1025,13 +1025,13 @@ const dataVerificationCtrl = {
         return range;
     },
     cellFocus: function(r, c, clickMode){
-        $("#luckysheet-dataVerification-dropdown-btn").hide();
-        $("#luckysheet-dataVerification-showHintBox").hide();
+        $("#tibetsheets-dataVerification-dropdown-btn").hide();
+        $("#tibetsheets-dataVerification-showHintBox").hide();
 
         let _this = this;
 
         if(_this.dataVerification == null || _this.dataVerification[r + '_' + c] == null){
-            $("#luckysheet-dataVerification-dropdown-List").hide();
+            $("#tibetsheets-dataVerification-dropdown-List").hide();
             return;
         }
 
@@ -1059,23 +1059,23 @@ const dataVerificationCtrl = {
 
         //单元格数据验证 类型是 下拉列表
         if(item.type == 'dropdown'){
-            $("#luckysheet-dataVerification-dropdown-btn").show().css({
+            $("#tibetsheets-dataVerification-dropdown-btn").show().css({
                 'max-width': col - col_pre,
                 'max-height': row - row_pre,
                 'left': col - 20,
                 'top': row_pre + (row - row_pre - 20) / 2
             })
 
-            if($("#luckysheet-dataVerification-dropdown-List").is(":visible")){
-                let dataIndex = $("#luckysheet-dataVerification-dropdown-List").prop("data-index");
+            if($("#tibetsheets-dataVerification-dropdown-List").is(":visible")){
+                let dataIndex = $("#tibetsheets-dataVerification-dropdown-List").prop("data-index");
                 
                 if(dataIndex != (r + '_' + c)){
-                    $("#luckysheet-dataVerification-dropdown-List").hide();
+                    $("#tibetsheets-dataVerification-dropdown-List").hide();
                 }
             }
         }
         else{
-            $("#luckysheet-dataVerification-dropdown-List").hide();
+            $("#tibetsheets-dataVerification-dropdown-List").hide();
         }
 
         //提示语
@@ -1091,7 +1091,7 @@ const dataVerificationCtrl = {
 
             hintText += _this.getHintText(item);
 
-            $("#luckysheet-dataVerification-showHintBox").html(hintText).show().css({
+            $("#tibetsheets-dataVerification-showHintBox").html(hintText).show().css({
                 'left': col_pre,
                 'top': row
             });
@@ -1120,7 +1120,7 @@ const dataVerificationCtrl = {
 
             failureText += _this.getFailureText(item);
 
-            $("#luckysheet-dataVerification-showHintBox").html(failureText).show().css({
+            $("#tibetsheets-dataVerification-showHintBox").html(failureText).show().css({
                 'left': col_pre,
                 'top': row
             });
@@ -1482,11 +1482,11 @@ const dataVerificationCtrl = {
         return true;
     },
     dropdownListShow: function(){
-        $("#luckysheet-dataVerification-showHintBox").hide();
+        $("#tibetsheets-dataVerification-showHintBox").hide();
 
         let _this = this;
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let rowIndex = last.row_focus;
         let colIndex = last.column_focus;
 
@@ -1514,15 +1514,15 @@ const dataVerificationCtrl = {
             let valueArr = isRealNull(cellValue) ? [] : cellValue.split(',');
             list.forEach(i => {
                 let checked = valueArr.indexOf(i) !== -1;
-                optionHtml += `<div class="dropdown-List-item  luckysheet-mousedown-cancel multi${checked ? ' checked': ''}">${i}</div>`;
+                optionHtml += `<div class="dropdown-List-item  tibetsheets-mousedown-cancel multi${checked ? ' checked': ''}">${i}</div>`;
             });
         } else {
             list.forEach(i => {
-                optionHtml += `<div class="dropdown-List-item luckysheet-mousedown-cancel">${i}</div>`;
+                optionHtml += `<div class="dropdown-List-item tibetsheets-mousedown-cancel">${i}</div>`;
             });
         }
 
-        $("#luckysheet-dataVerification-dropdown-List")
+        $("#tibetsheets-dataVerification-dropdown-List")
         .html(optionHtml)
         .prop("data-index", rowIndex + '_' + colIndex)
         .show()
@@ -1532,11 +1532,11 @@ const dataVerificationCtrl = {
             'top': row,
         });
 
-        let myh = $("#luckysheet-dataVerification-dropdown-List").outerHeight();
-        let currentWinH = $("#luckysheet-cell-main")[0].scrollHeight;
+        let myh = $("#tibetsheets-dataVerification-dropdown-List").outerHeight();
+        let currentWinH = $("#tibetsheets-cell-main")[0].scrollHeight;
 
         if(row + myh > currentWinH - 42 - 6){
-            $("#luckysheet-dataVerification-dropdown-List").css({
+            $("#tibetsheets-dataVerification-dropdown-List").css({
                 'top': row_pre - myh,
             })
         }
@@ -1546,7 +1546,7 @@ const dataVerificationCtrl = {
 
         if(formula.iscelldata(txt)){
             let range = formula.getcellrange(txt);
-            let d = Store.luckysheetfile[getSheetIndex(range.sheetIndex)].data;
+            let d = Store.tibetsheetsfile[getSheetIndex(range.sheetIndex)].data;
 
             for(let r = range.row[0]; r <= range.row[1]; r++){
                 for(let c = range.column[0]; c <= range.column[1]; c++){
@@ -1626,7 +1626,7 @@ const dataVerificationCtrl = {
         }
         
         _this.dataVerification = currentDataVerification;
-        Store.luckysheetfile[getSheetIndex(sheetIndex)].dataVerification = currentDataVerification;
+        Store.tibetsheetsfile[getSheetIndex(sheetIndex)].dataVerification = currentDataVerification;
 
         //共享编辑模式
         if(server.allowUpdate){ 
@@ -1634,7 +1634,7 @@ const dataVerificationCtrl = {
         }
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     },
     refOfCheckbox: function(historyDataVerification, currentDataVerification, sheetIndex, d, range){
@@ -1655,11 +1655,11 @@ const dataVerificationCtrl = {
         }
 
         _this.dataVerification = currentDataVerification;
-        Store.luckysheetfile[getSheetIndex(sheetIndex)].dataVerification = currentDataVerification;
+        Store.tibetsheetsfile[getSheetIndex(sheetIndex)].dataVerification = currentDataVerification;
 
         Store.flowdata = d;
         editor.webWorkerFlowDataCache(Store.flowdata);//worker存数据
-        Store.luckysheetfile[getSheetIndex(sheetIndex)].data = Store.flowdata;
+        Store.tibetsheetsfile[getSheetIndex(sheetIndex)].data = Store.flowdata;
 
         //共享编辑模式
         if(server.allowUpdate){ 
@@ -1668,7 +1668,7 @@ const dataVerificationCtrl = {
         }
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     },
 }

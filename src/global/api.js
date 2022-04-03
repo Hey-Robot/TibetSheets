@@ -1,6 +1,6 @@
 import Store from "../store";
-import { replaceHtml, getObjType, chatatABC, luckysheetactiveCell } from "../utils/util";
-import { getSheetIndex, getluckysheet_select_save, getluckysheetfile } from "../methods/get";
+import { replaceHtml, getObjType, chatatABC, tibetsheetsactiveCell } from "../utils/util";
+import { getSheetIndex, gettibetsheets_select_save, gettibetsheetsfile } from "../methods/get";
 import locale from "../locale/locale";
 import method from './method';
 import formula from './formula';
@@ -8,31 +8,31 @@ import func_methods from "./func_methods";
 import tooltip from "./tooltip";
 import json from "./json";
 import editor from "./editor";
-import luckysheetformula from './formula';
+import tibetsheetsformula from './formula';
 import cleargridelement from './cleargridelement';
 import { genarate, update } from './format';
 import { setAccuracy,setcellvalue } from "./setdata";
 import { orderbydata } from "./sort";
 import { rowlenByRange } from "./getRowlen";
 import { getdatabyselection, getcellvalue } from "./getdata";
-import { luckysheetrefreshgrid, jfrefreshgrid, jfrefreshgrid_rhcw } from "./refresh";
-import { luckysheetDeleteCell, luckysheetextendtable, luckysheetdeletetable } from "./extend";
+import { tibetsheetsrefreshgrid, jfrefreshgrid, jfrefreshgrid_rhcw } from "./refresh";
+import { tibetsheetsDeleteCell, tibetsheetsextendtable, tibetsheetsdeletetable } from "./extend";
 import { isRealNull, valueIsError, isRealNum, isEditMode, hasPartMC } from "./validate";
 import { isdatetime, diff } from "./datecontroll";
 import { getBorderInfoCompute } from './border';
-import { luckysheetDrawMain } from './draw';
+import { tibetsheetsDrawMain } from './draw';
 import pivotTable from '../controllers/pivotTable';
 import server from "../controllers/server";
 import menuButton from '../controllers/menuButton';
 import selection from "../controllers/selection";
-import luckysheetConfigsetting from "../controllers/luckysheetConfigsetting";
-import luckysheetFreezen from "../controllers/freezen";
-import luckysheetsizeauto from '../controllers/resize';
+import tibetsheetsConfigsetting from "../controllers/tibetsheetsConfigsetting";
+import tibetsheetsFreezen from "../controllers/freezen";
+import tibetsheetssizeauto from '../controllers/resize';
 import sheetmanage from '../controllers/sheetmanage';
 import conditionformat from '../controllers/conditionformat';
-import { luckysheet_searcharray } from "../controllers/sheetSearch";
+import { tibetsheets_searcharray } from "../controllers/sheetSearch";
 import { selectHightlightShow, selectIsOverlap } from '../controllers/select';
-import { sheetHTML, luckysheetdefaultstyle } from '../controllers/constant';
+import { sheetHTML, tibetsheetsdefaultstyle } from '../controllers/constant';
 import { createFilterOptions } from '../controllers/filter';
 import controlHistory from '../controllers/controlHistory';
 import { zoomRefreshView, zoomNumberDomBind } from '../controllers/zoom';
@@ -40,7 +40,7 @@ import dataVerificationCtrl from "../controllers/dataVerificationCtrl";
 import imageCtrl from '../controllers/imageCtrl';
 import dayjs from "dayjs";
 import {getRangetxt } from '../methods/get';
-import {luckysheetupdateCell} from '../controllers/updateCell';
+import {tibetsheetsupdateCell} from '../controllers/updateCell';
 const IDCardReg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
 
 /**
@@ -60,7 +60,7 @@ export function getCellValue(row, column, options = {}) {
         type = 'v',
         order = curSheetOrder
     } = { ...options };
-    let targetSheetData = Store.luckysheetfile[order].data;
+    let targetSheetData = Store.tibetsheetsfile[order].data;
     let cellData = targetSheetData[row][column];
     let return_v;
 
@@ -102,7 +102,7 @@ export function getCellValue(row, column, options = {}) {
  *
  * @param {Number} row 单元格所在行数；从0开始的整数，0表示第一行
  * @param {Number} column 单元格所在列数；从0开始的整数，0表示第一列
- * @param {Object | String | Number} value 要设置的值；可以为字符串或数字，或为符合Luckysheet单元格格式的对象
+ * @param {Object | String | Number} value 要设置的值；可以为字符串或数字，或为符合Tibetsheets单元格格式的对象
  * @param {Object} options 可选参数
  * @param {Number} options.order 工作表索引；默认值为当前工作表索引
  * @param {Boolean} options.isRefresh 是否刷新界面；默认为`true`
@@ -125,7 +125,7 @@ export function setCellValue(row, column, value, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -145,7 +145,7 @@ export function setCellValue(row, column, value, options = {}) {
         data = sheetmanage.buildGridData(file);
     }
 
-    // luckysheetformula.updatecell(row, column, value);
+    // tibetsheetsformula.updatecell(row, column, value);
     let formatList = {
         //ct:1, //celltype,Cell value format: text, time, etc.
         bg: 1,//background,#fff000
@@ -183,7 +183,7 @@ export function setCellValue(row, column, value, options = {}) {
             if(value.ct!=null){
                 curv.ct = value.ct;
             }
-            data = luckysheetformula.updatecell(row, column, curv, false).data;//update formula value
+            data = tibetsheetsformula.updatecell(row, column, curv, false).data;//update formula value
         }
         else{
             if(value.ct!=null){
@@ -217,7 +217,7 @@ export function setCellValue(row, column, value, options = {}) {
     }
     else{
         if(value.toString().substr(0,1)=="=" || value.toString().substr(0,5)=="<span"){
-            data = luckysheetformula.updatecell(row, column, value, false).data;//update formula value or convert inline string html to object
+            data = tibetsheetsformula.updatecell(row, column, value, false).data;//update formula value or convert inline string html to object
         }
         else{
             formula.delFunctionGroup(row, column);
@@ -262,7 +262,7 @@ export function clearCell(row, column, options = {}) {
         success
     } = {...options}
 
-    let targetSheetData = $.extend(true, [], Store.luckysheetfile[order].data);
+    let targetSheetData = $.extend(true, [], Store.tibetsheetsfile[order].data);
     let cell = targetSheetData[row][column];
 
     if(getObjType(cell) == "object"){
@@ -288,7 +288,7 @@ export function clearCell(row, column, options = {}) {
         }])
     }
     else{
-        Store.luckysheetfile[order].data = targetSheetData;
+        Store.tibetsheetsfile[order].data = targetSheetData;
     }
 
     if (success && typeof success === 'function') {
@@ -325,12 +325,12 @@ export function deleteCell(move, row, column, options = {}) {
 
     let sheetIndex;
     if(order){
-        if(Store.luckysheetfile[order]){
-            sheetIndex = Store.luckysheetfile[order].index;
+        if(Store.tibetsheetsfile[order]){
+            sheetIndex = Store.tibetsheetsfile[order].index;
         }
     }
 
-    luckysheetDeleteCell(moveType, row, row, column, column, sheetIndex);
+    tibetsheetsDeleteCell(moveType, row, row, column, column, sheetIndex);
 
     if (success && typeof success === 'function') {
         success()
@@ -342,7 +342,7 @@ export function deleteCell(move, row, column, options = {}) {
  * @param {Number} row 单元格所在行数；从0开始的整数，0表示第一行
  * @param {Number} column 单元格所在列数；从0开始的整数，0表示第一列
  * @param {String} attr
- * @param {Number | String | Object} value 具体的设置值，一个属性会对应多个值，参考 单元格属性表的值示例，特殊情况：如果属性类型attr是单元格格式ct，则设置值value应提供ct.fa，比如设置A1单元格的格式为百分比格式：luckysheet.setCellFormat(0, 0, "ct", "0.00%")
+ * @param {Number | String | Object} value 具体的设置值，一个属性会对应多个值，参考 单元格属性表的值示例，特殊情况：如果属性类型attr是单元格格式ct，则设置值value应提供ct.fa，比如设置A1单元格的格式为百分比格式：tibetsheets.setCellFormat(0, 0, "ct", "0.00%")
  * @param {Object} options 可选参数
  * @param {Number} options.order 工作表索引；默认值为当前工作表索引
  * @param {Function} options.success 操作结束的回调函数, callback参数为改变后的cell对象
@@ -362,7 +362,7 @@ export function setCellFormat(row, column, attr, value, options = {}) {
         success
     } = { ...options };
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -444,7 +444,7 @@ export function find(content, options = {}) {
         order = curSheetOrder,
         type = "m"
     } = { ...options };
-    let targetSheetData = Store.luckysheetfile[order].data;
+    let targetSheetData = Store.tibetsheetsfile[order].data;
 
     let result = [];
     for (let i = 0; i < targetSheetData.length; i++) {
@@ -517,7 +517,7 @@ export function replace(content, replaceContent, options = {}) {
         order = curSheetOrder,
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -537,7 +537,7 @@ export function replace(content, replaceContent, options = {}) {
         jfrefreshgrid(fileData, undefined, undefined, true, false);
     }
 
-    luckysheetrefreshgrid();
+    tibetsheetsrefreshgrid();
 
     if (options.success && typeof options.success === 'function') {
         options.success(matchCells)
@@ -552,29 +552,29 @@ export function replace(content, replaceContent, options = {}) {
  * @param {Function} options.success 操作结束的回调函数
  */
 export function exitEditMode(options = {}){
-    if(parseInt($("#luckysheet-input-box").css("top")) > 0){
+    if(parseInt($("#tibetsheets-input-box").css("top")) > 0){
 
 
-        if ($("#luckysheet-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
-            formula.searchFunctionEnter($("#luckysheet-formula-search-c").find(".luckysheet-formula-search-item-active"));
+        if ($("#tibetsheets-formula-search-c").is(":visible") && formula.searchFunctionCell != null) {
+            formula.searchFunctionEnter($("#tibetsheets-formula-search-c").find(".tibetsheets-formula-search-item-active"));
         }
         else {
-            formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-            Store.luckysheet_select_save = [{
-                "row": [Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[0]],
-                "column": [Store.luckysheetCellUpdate[1], Store.luckysheetCellUpdate[1]],
-                "row_focus": Store.luckysheetCellUpdate[0],
-                "column_focus": Store.luckysheetCellUpdate[1]
+            formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+            Store.tibetsheets_select_save = [{
+                "row": [Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[0]],
+                "column": [Store.tibetsheetsCellUpdate[1], Store.tibetsheetsCellUpdate[1]],
+                "row_focus": Store.tibetsheetsCellUpdate[0],
+                "column_focus": Store.tibetsheetsCellUpdate[1]
             }];
         }
 
         //若有参数弹出框，隐藏
-        if($("#luckysheet-search-formula-parm").is(":visible")){
-            $("#luckysheet-search-formula-parm").hide();
+        if($("#tibetsheets-search-formula-parm").is(":visible")){
+            $("#tibetsheets-search-formula-parm").hide();
         }
         //若有参数选取范围弹出框，隐藏
-        if($("#luckysheet-search-formula-parm-select").is(":visible")){
-            $("#luckysheet-search-formula-parm-select").hide();
+        if($("#tibetsheets-search-formula-parm-select").is(":visible")){
+            $("#tibetsheets-search-formula-parm-select").hide();
         }
 
     }
@@ -591,15 +591,15 @@ export function exitEditMode(options = {}){
  */
 export function enterEditMode(options = {}){
 
-    if($("#luckysheet-conditionformat-dialog").is(":visible")){
+    if($("#tibetsheets-conditionformat-dialog").is(":visible")){
         return;
     }
-    else if ($("#luckysheet-cell-selected").is(":visible")) {
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    else if ($("#tibetsheets-cell-selected").is(":visible")) {
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
         let row_index = last["row_focus"], col_index = last["column_focus"];
 
-        luckysheetupdateCell(row_index, col_index, Store.flowdata);
+        tibetsheetsupdateCell(row_index, col_index, Store.flowdata);
     }
 
     if (options.success && typeof options.success === 'function') {
@@ -615,24 +615,24 @@ export function enterEditMode(options = {}){
  */
 export function frozenFirstRow(order) {
     // store frozen
-    luckysheetFreezen.saveFrozen("freezenRow", order);
+    tibetsheetsFreezen.saveFrozen("freezenRow", order);
 
     // 冻结为当前sheet页
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
         let freezenhorizontaldata, row_st, top;
-        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
             let row_st = 0;
             top = Store.visibledatarow[row_st] - 2 + Store.columnHeaderHeight;
             freezenhorizontaldata = [
                 Store.visibledatarow[row_st],
                 row_st + 1,
                 0,
-                luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
                 top
             ];
         } else {
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
-            row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+            row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
             }
@@ -642,22 +642,22 @@ export function frozenFirstRow(order) {
                 Store.visibledatarow[row_st],
                 row_st + 1,
                 scrollTop,
-                luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
                 top
             ];
         }
 
-        luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+        tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-        if (luckysheetFreezen.freezenverticaldata != null) {
-            luckysheetFreezen.cancelFreezenVertical();
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+        if (tibetsheetsFreezen.freezenverticaldata != null) {
+            tibetsheetsFreezen.cancelFreezenVertical();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
-        luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-        luckysheetFreezen.createAssistCanvas();
-        luckysheetrefreshgrid();
+        tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+        tibetsheetsFreezen.createAssistCanvas();
+        tibetsheetsrefreshgrid();
     }
 }
 
@@ -668,25 +668,25 @@ export function frozenFirstRow(order) {
  */
 export function frozenFirstColumn(order) {
     // store frozen
-    luckysheetFreezen.saveFrozen("freezenColumn", order);
+    tibetsheetsFreezen.saveFrozen("freezenColumn", order);
 
     // 冻结为当前sheet页
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
         let freezenverticaldata, col_st, left;
-        if (luckysheetFreezen.freezenRealFirstRowColumn) {
+        if (tibetsheetsFreezen.freezenRealFirstRowColumn) {
             col_st = 0;
             left = Store.visibledatacolumn[col_st] - 2 + Store.rowHeaderWidth;
             freezenverticaldata = [
                 Store.visibledatacolumn[col_st],
                 col_st + 1,
                 0,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
                 left
             ];
         } else {
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
 
-            col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
@@ -696,22 +696,22 @@ export function frozenFirstColumn(order) {
                 Store.visibledatacolumn[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
                 left
             ];
         }
 
-        luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+        tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-        if (luckysheetFreezen.freezenhorizontaldata != null) {
-            luckysheetFreezen.cancelFreezenHorizontal();
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+            tibetsheetsFreezen.cancelFreezenHorizontal();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
-        luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
-        luckysheetFreezen.createAssistCanvas();
-        luckysheetrefreshgrid();
+        tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
+        tibetsheetsFreezen.createAssistCanvas();
+        tibetsheetsrefreshgrid();
     }
 }
 
@@ -740,11 +740,11 @@ export function frozenRowRange(range, order) {
         }
     }
     // store frozen
-    luckysheetFreezen.saveFrozen("freezenRowRange", order, range);
+    tibetsheetsFreezen.saveFrozen("freezenRowRange", order, range);
 
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+        let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
         let row_focus = range.row_focus;
         if(row_focus > row_st){
@@ -759,20 +759,20 @@ export function frozenRowRange(range, order) {
             Store.visibledatarow[row_st],
             row_st + 1,
             scrollTop,
-            luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
+            tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
             top
         ];
-        luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+        tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-        if (luckysheetFreezen.freezenverticaldata != null) {
-            luckysheetFreezen.cancelFreezenVertical();
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+        if (tibetsheetsFreezen.freezenverticaldata != null) {
+            tibetsheetsFreezen.cancelFreezenVertical();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
-        luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
-        luckysheetFreezen.createAssistCanvas();
-        luckysheetrefreshgrid();
+        tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+        tibetsheetsFreezen.createAssistCanvas();
+        tibetsheetsrefreshgrid();
     }
 
 }
@@ -803,11 +803,11 @@ export function frozenColumnRange(range, order) {
         }
     }
     // store frozen
-    luckysheetFreezen.saveFrozen("freezenColumnRange", order, range);
+    tibetsheetsFreezen.saveFrozen("freezenColumnRange", order, range);
 
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-        let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+        let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
         let column_focus = range.column_focus;
         if(column_focus > col_st){
@@ -822,20 +822,20 @@ export function frozenColumnRange(range, order) {
             Store.visibledatacolumn[col_st],
             col_st + 1,
             scrollLeft,
-            luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+            tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
             left
         ];
-        luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+        tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-        if (luckysheetFreezen.freezenhorizontaldata != null) {
-            luckysheetFreezen.cancelFreezenHorizontal();
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+            tibetsheetsFreezen.cancelFreezenHorizontal();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
 
-        luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
-        luckysheetFreezen.createAssistCanvas();
-        luckysheetrefreshgrid();
+        tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
+        tibetsheetsFreezen.createAssistCanvas();
+        tibetsheetsrefreshgrid();
     }
 }
 
@@ -844,18 +844,18 @@ export function frozenColumnRange(range, order) {
  * @param {Number | String} order
  */
 export function cancelFrozen(order) {
-    luckysheetFreezen.saveFrozen("freezenCancel", order);
+    tibetsheetsFreezen.saveFrozen("freezenCancel", order);
 
     // 取消当前sheet冻结时，刷新canvas
     if (!order || order == getSheetIndex(Store.currentSheetIndex)) {
-        if (luckysheetFreezen.freezenverticaldata != null) {
-            luckysheetFreezen.cancelFreezenVertical();
+        if (tibetsheetsFreezen.freezenverticaldata != null) {
+            tibetsheetsFreezen.cancelFreezenVertical();
         }
-        if (luckysheetFreezen.freezenhorizontaldata != null) {
-            luckysheetFreezen.cancelFreezenHorizontal();
+        if (tibetsheetsFreezen.freezenhorizontaldata != null) {
+            tibetsheetsFreezen.cancelFreezenHorizontal();
         }
-        luckysheetFreezen.createAssistCanvas();
-        luckysheetrefreshgrid();
+        tibetsheetsFreezen.createAssistCanvas();
+        tibetsheetsrefreshgrid();
     }
 }
 
@@ -944,11 +944,11 @@ export function setBothFrozen(isRange, options = {}) {
     // 冻结首行列
     if (!isRange) {
         // store frozen
-        luckysheetFreezen.saveFrozen("freezenRC", order)
+        tibetsheetsFreezen.saveFrozen("freezenRC", order)
 
         if (isCurrentSheet) {
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
             if(row_st == -1){
                 row_st = 0;
             }
@@ -957,15 +957,15 @@ export function setBothFrozen(isRange, options = {}) {
                 Store.visibledatarow[row_st],
                 row_st + 1,
                 scrollTop,
-                luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
                 top
             ];
-            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-            luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+            tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
             if(col_st == -1){
                 col_st = 0;
             }
@@ -974,19 +974,19 @@ export function setBothFrozen(isRange, options = {}) {
                 Store.visibledatacolumn[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
                 left
             ];
-            luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+            tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-            luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
+            tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
 
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
     } else {   // 冻结行列到选区
         // store frozen
-        luckysheetFreezen.saveFrozen("freezenRCRange", order, range)
+        tibetsheetsFreezen.saveFrozen("freezenRCRange", order, range)
 
         let isStringRange = typeof range === 'string' && formula.iscelldata(range);
         if (isCurrentSheet) {
@@ -1007,8 +1007,8 @@ export function setBothFrozen(isRange, options = {}) {
                 }
             }
 
-            let scrollTop = $("#luckysheet-cell-main").scrollTop();
-            let row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+            let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+            let row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
 
             let row_focus = range.row_focus;
 
@@ -1025,15 +1025,15 @@ export function setBothFrozen(isRange, options = {}) {
                 Store.visibledatarow[row_st],
                 row_st + 1,
                 scrollTop,
-                luckysheetFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatarow, row_st + 1),
                 top
             ];
-            luckysheetFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
+            tibetsheetsFreezen.saveFreezen(freezenhorizontaldata, top, null, null);
 
-            luckysheetFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
+            tibetsheetsFreezen.createFreezenHorizontal(freezenhorizontaldata, top);
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-            let col_st = luckysheet_searcharray(Store.visibledatacolumn, scrollLeft);
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+            let col_st = tibetsheets_searcharray(Store.visibledatacolumn, scrollLeft);
 
             let column_focus = range.column_focus;
 
@@ -1050,15 +1050,15 @@ export function setBothFrozen(isRange, options = {}) {
                 Store.visibledatacolumn[col_st],
                 col_st + 1,
                 scrollLeft,
-                luckysheetFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
+                tibetsheetsFreezen.cutVolumn(Store.visibledatacolumn, col_st + 1),
                 left
             ];
-            luckysheetFreezen.saveFreezen(null, null, freezenverticaldata, left);
+            tibetsheetsFreezen.saveFreezen(null, null, freezenverticaldata, left);
 
-            luckysheetFreezen.createFreezenVertical(freezenverticaldata, left);
+            tibetsheetsFreezen.createFreezenVertical(freezenverticaldata, left);
 
-            luckysheetFreezen.createAssistCanvas();
-            luckysheetrefreshgrid();
+            tibetsheetsFreezen.createAssistCanvas();
+            tibetsheetsrefreshgrid();
         }
     }
 }
@@ -1108,12 +1108,12 @@ export function insertRowOrColumn(type, index = 0, options = {}) {
     // 默认在行上方增加行，列左侧增加列
     let sheetIndex;
     if(order){
-        if(Store.luckysheetfile[order]){
-            sheetIndex = Store.luckysheetfile[order].index;
+        if(Store.tibetsheetsfile[order]){
+            sheetIndex = Store.tibetsheetsfile[order].index;
         }
     }
 
-    luckysheetextendtable(type, index, number, "lefttop", sheetIndex);
+    tibetsheetsextendtable(type, index, number, "lefttop", sheetIndex);
 
     if (success && typeof success === 'function') {
         success();
@@ -1164,12 +1164,12 @@ export function insertRowBottomOrColumnRight(type, index = 0, options = {}) {
     // 默认在行上方增加行，列左侧增加列
     let sheetIndex;
     if(order){
-        if(Store.luckysheetfile[order]){
-            sheetIndex = Store.luckysheetfile[order].index;
+        if(Store.tibetsheetsfile[order]){
+            sheetIndex = Store.tibetsheetsfile[order].index;
         }
     }
 
-    luckysheetextendtable(type, index, number, "rightbottom", sheetIndex);
+    tibetsheetsextendtable(type, index, number, "rightbottom", sheetIndex);
 
     if (success && typeof success === 'function') {
         success();
@@ -1242,11 +1242,11 @@ export function deleteRowOrColumn(type, startIndex, endIndex, options = {}) {
 
     let sheetIndex;
     if(order){
-        if(Store.luckysheetfile[order]){
-            sheetIndex = Store.luckysheetfile[order].index;
+        if(Store.tibetsheetsfile[order]){
+            sheetIndex = Store.tibetsheetsfile[order].index;
         }
     }
-    luckysheetdeletetable(type, startIndex, endIndex, sheetIndex);
+    tibetsheetsdeletetable(type, startIndex, endIndex, sheetIndex);
 
     if (success && typeof success === 'function') {
         success()
@@ -1298,7 +1298,7 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let cfgKey = type === 'row' ? 'rowhidden': 'colhidden';
     let cfg = $.extend(true, {}, file.config);
     if(cfg[cfgKey] == null) {
@@ -1321,7 +1321,7 @@ export function hideRowOrColumn(type, startIndex, endIndex, options = {}) {
         Store.jfredo.push(redo);
     }
 
-    Store.luckysheetfile[order].config = cfg;
+    Store.tibetsheetsfile[order].config = cfg;
 
     if (saveParam) {
         server.saveParam("cg", file.index, cfg[cfgKey], { "k": cfgKey });
@@ -1360,7 +1360,7 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let cfgKey = type === 'row' ? 'rowhidden': 'colhidden';
     let cfg = $.extend(true, {}, file.config);
     if(cfg[cfgKey] == null) {
@@ -1384,7 +1384,7 @@ export function showRowOrColumn(type, startIndex, endIndex, options = {}) {
     }
 
     //config
-    Store.luckysheetfile[order].config = Store.config;
+    Store.tibetsheetsfile[order].config = Store.config;
 
     if (saveParam) {
         server.saveParam("cg", file.index, cfg[cfgKey], { "k": cfgKey });
@@ -1467,7 +1467,7 @@ export function setRowHeight(rowInfo, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -1524,7 +1524,7 @@ export function setColumnWidth(columnInfo, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -1581,7 +1581,7 @@ export function getRowHeight(rowInfo, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -1626,7 +1626,7 @@ export function getColumnWidth(columnInfo, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -1673,7 +1673,7 @@ export function getDefaultRowHeight(options = {}) {
     }, 1)
 
     // *返回指定的工作表默认行高，如果未配置就返回全局的默认行高
-    return Store.luckysheetfile[order].defaultRowHeight || Store.defaultrowlen;
+    return Store.tibetsheetsfile[order].defaultRowHeight || Store.defaultrowlen;
 }
 
 
@@ -1696,7 +1696,7 @@ export function getDefaultColWidth(options = {}) {
     }, 1)
 
     // *返回指定的工作表默认列宽，如果未配置就返回全局的默认列宽
-    return Store.luckysheetfile[order].defaultColWidth || Store.defaultcollen;
+    return Store.tibetsheetsfile[order].defaultColWidth || Store.defaultcollen;
 }
 
 
@@ -1706,7 +1706,7 @@ export function getDefaultColWidth(options = {}) {
  * @returns {Array}
  */
 export function getRange() {
-    let rangeArr = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let rangeArr = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
 
     let result = [];
 
@@ -1771,7 +1771,7 @@ export function getRangeValuesWithFlatte(range){
  */
 export function getRangeAxis() {
     let result = [];
-    let rangeArr = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let rangeArr = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
     let sheetIndex = Store.currentSheetIndex;
 
     rangeArr.forEach(ele=>{
@@ -1795,7 +1795,7 @@ export function getRangeValue(options = {}) {
         order = curOrder
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if (!range || typeof range === 'object') {
         return getdatabyselection(range, file.index);
@@ -1817,7 +1817,7 @@ export function getRangeValue(options = {}) {
  */
 export function getRangeHtml(options = {}) {
     let {
-        range = Store.luckysheet_select_save,
+        range = Store.tibetsheets_select_save,
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
@@ -1849,7 +1849,7 @@ export function getRangeHtml(options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -1879,7 +1879,7 @@ export function getRangeHtml(options = {}) {
     }
 
     //多重选区 有条件格式时 提示
-    let cdformat = $.extend(true, [], file.luckysheet_conditionformat_save);
+    let cdformat = $.extend(true, [], file.tibetsheets_conditionformat_save);
     if (range.length > 1 && cdformat.length > 0) {
         let hasCF = false;
         let cf_compute = conditionformat.getComputeMap(file.index);
@@ -2320,7 +2320,7 @@ export function getRangeHtml(options = {}) {
         cpdata += "</tr>";
     }
 
-    cpdata = '<table data-type="luckysheet_copy_action_table">' + colgroup + cpdata + '</table>';
+    cpdata = '<table data-type="tibetsheets_copy_action_table">' + colgroup + cpdata + '</table>';
 
     return cpdata;
 }
@@ -2343,11 +2343,11 @@ export function getRangeArray(dimensional, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
         order = getSheetIndex(Store.currentSheetIndex),
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -2431,13 +2431,13 @@ export function getRangeArray(dimensional, options = {}) {
  * @param {Number} options.order 工作表索引；默认值为当前工作表索引
  */
 export function getRangeJson(isFirstRowTitle, options = {}) {
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.tibetsheets_select_save[0];
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
     let {
         range = curRange,
         order = curSheetOrder
     } = {...options}
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let config = file.config;
 
     if (range && typeof range === 'string' && formula.iscelldata(range)) {
@@ -2526,14 +2526,14 @@ export function getRangeDiagonal(type, options = {}) {
     }
 
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
     let {
         column = 1,
         range = curRange,
         order = curSheetOrder
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let config = file.config;
 
     if (range && typeof range === 'string' && formula.iscelldata(range)) {
@@ -2629,13 +2629,13 @@ export function getRangeDiagonal(type, options = {}) {
  */
 export function getRangeBoolean(options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
     let {
         range = curRange,
         order = curSheetOrder
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let config = file.config;
 
     if (range && typeof range === 'string' && formula.iscelldata(range)) {
@@ -2770,7 +2770,7 @@ export function setRangeShow(range, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -2786,19 +2786,19 @@ export function setRangeShow(range, options = {}) {
         }
     }
 
-    file.luckysheet_select_save = range;
+    file.tibetsheets_select_save = range;
 
     if(file.index == Store.currentSheetIndex){
-        Store.luckysheet_select_save = range;
+        Store.tibetsheets_select_save = range;
         selectHightlightShow();
 
         if(!show){
-            $("#luckysheet-cell-selected-boxs").hide();
-            $("#luckysheet-cell-selected-focus").hide();
-            $("#luckysheet-row-count-show").hide();
-            $("#luckysheet-column-count-show").hide();
-            $("#luckysheet-rows-h-selected").empty();
-            $("#luckysheet-cols-h-selected").empty();
+            $("#tibetsheets-cell-selected-boxs").hide();
+            $("#tibetsheets-cell-selected-focus").hide();
+            $("#tibetsheets-row-count-show").hide();
+            $("#tibetsheets-column-count-show").hide();
+            $("#tibetsheets-rows-h-selected").empty();
+            $("#tibetsheets-cols-h-selected").empty();
         }
     }
 
@@ -2810,7 +2810,7 @@ export function setRangeShow(range, options = {}) {
 
 /**
  * 将一个单元格数组数据赋值到指定的区域，数据格式同getRangeValue方法取到的数据。
- * @param {Array[Array]} data 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Luckysheet格式的对象
+ * @param {Array[Array]} data 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Tibetsheets格式的对象
  * @param {Object} options 可选参数
  * @param {Object | String} options.range 选区范围,支持选区的格式为"A1:B2"、"sheetName!A1:B2"或者{row:[0,1],column:[0,1]}，只能为单个选区；默认为当前选区
  * @param {Boolean} options.isRefresh 是否刷新界面；默认为true
@@ -2819,7 +2819,7 @@ export function setRangeShow(range, options = {}) {
  */
 export function setRangeValue(data, options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let curRange = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
     let {
         range = curRange,
         isRefresh = true,
@@ -2846,7 +2846,7 @@ export function setRangeValue(data, options = {}) {
         return tooltip.info('The data to be set does not match the selection.', '')
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -2873,7 +2873,7 @@ export function setRangeValue(data, options = {}) {
     }
 
     if(isRefresh) {
-        luckysheetrefreshgrid();
+        tibetsheetsrefreshgrid();
     }
 
     if (success && typeof success === 'function') {
@@ -2883,7 +2883,7 @@ export function setRangeValue(data, options = {}) {
 
 /**
  * 设置指定范围的单元格格式，一般用作处理格式，赋值操作推荐使用setRangeValue方法
- * @param {String} attr 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Luckysheet格式的对象
+ * @param {String} attr 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Tibetsheets格式的对象
  * @param {Number | String | Object} value 具体的设置值
  * @param {Object} options 可选参数
  * @param {Object | String} options.range 设置参数的目标选区范围，支持选区的格式为"A1:B2"、"sheetName!A1:B2"或者{row:[0,1],column:[0,1]}，只能为单个选区；默认为当前选区
@@ -2891,7 +2891,7 @@ export function setRangeValue(data, options = {}) {
  */
 export function setSingleRangeFormat(attr, value, options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+    let curRange = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
     let {
         range = curRange,
         order = curSheetOrder,
@@ -2935,7 +2935,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
 
 /**
  * 设置指定范围的单元格格式，一般用作处理格式。支持多选区设置
- * @param {String} attr 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Luckysheet格式的对象
+ * @param {String} attr 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Tibetsheets格式的对象
  * @param {Number | String | Object} value 具体的设置值
  * @param {Object} options 可选参数
  * @param {Array | Object | String} options.range 设置参数的目标选区范围，支持选区的格式为"A1:B2"、"sheetName!A1:B2"或者{row:[0,1],column:[0,1]}，只能为单个选区；默认为当前选区
@@ -2944,7 +2944,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
  */
  export function setRangeFormat(attr, value, options = {}) {
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex);
-    let curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+    let curRange = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
     let {
         range = curRange,
         order = curSheetOrder,
@@ -2977,7 +2977,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     let result = []
 
@@ -2999,7 +2999,7 @@ export function setSingleRangeFormat(attr, value, options = {}) {
         jfrefreshgrid(fileData, undefined, undefined, true, false);
     }
 
-    luckysheetrefreshgrid();
+    tibetsheetsrefreshgrid();
 
     if (success && typeof success === 'function') {
     }
@@ -3021,12 +3021,12 @@ export function setRangeFilter(type, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -3063,16 +3063,16 @@ export function setRangeFilter(type, options = {}) {
         };
     }
     else if(type == 'close'){
-        let luckysheet_filter_save = $.extend(true, {}, file.filter_select);
+        let tibetsheets_filter_save = $.extend(true, {}, file.filter_select);
 
         file.filter_select = null;
 
-        $("#luckysheet-filter-selected-sheet" + file.index).remove();
-        $("#luckysheet-filter-options-sheet" + file.index).remove();
+        $("#tibetsheets-filter-selected-sheet" + file.index).remove();
+        $("#tibetsheets-filter-options-sheet" + file.index).remove();
 
         return {
-            "row": luckysheet_filter_save.row,
-            "column": luckysheet_filter_save.column
+            "row": tibetsheets_filter_save.row,
+            "column": tibetsheets_filter_save.column
         };
     }
 }
@@ -3092,14 +3092,14 @@ export function setRangeMerge(type, options = {}) {
     }
 
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
-        curRange = JSON.parse(JSON.stringify(Store.luckysheet_select_save));
+        curRange = JSON.parse(JSON.stringify(Store.tibetsheets_select_save));
     let {
         range = curRange,
         order = curSheetOrder,
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order],
+    let file = Store.tibetsheetsfile[order],
         cfg = $.extend(true, {}, file.config),
         data = $.extend(true, [], file.data);
 
@@ -3302,7 +3302,7 @@ export function setRangeMerge(type, options = {}) {
  * @param {Object} options.success 操作结束的回调函数
  */
 export function cancelRangeMerge(options = {}) {
-    let curRange = Store.luckysheet_select_save,
+    let curRange = Store.tibetsheets_select_save,
         curSheetOrder = getSheetIndex(Store.currentSheetIndex);
     let {
         range = curRange,
@@ -3310,7 +3310,7 @@ export function cancelRangeMerge(options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order],
+    let file = Store.tibetsheetsfile[order],
         cfg = $.extend(true, {}, file.config),
         data = $.extend(true, [], file.data);
 
@@ -3448,14 +3448,14 @@ export function setRangeSort(type, options = {}) {
     }
 
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
-        curRange = Store.luckysheet_select_save[0];
+        curRange = Store.tibetsheets_select_save[0];
     let {
         range = curRange,
         order = curSheetOrder,
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order],
+    let file = Store.tibetsheetsfile[order],
         cfg = $.extend(true, {}, file.config),
         fileData = $.extend(true, [], file.data);
 
@@ -3542,14 +3542,14 @@ export function setRangeSortMulti(hasTitle, sort, options = {}) {
     }
 
     let curSheetOrder = getSheetIndex(Store.currentSheetIndex),
-        curRange = Store.luckysheet_select_save[0];
+        curRange = Store.tibetsheets_select_save[0];
     let {
         range = curRange,
         order = curSheetOrder,
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order],
+    let file = Store.tibetsheetsfile[order],
         cfg = $.extend(true, {}, file.config),
         fileData = $.extend(true, [], file.data);
 
@@ -3673,14 +3673,14 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
             "textColor": "#000000",
             "cellColor": "#ff0000"
         },
-        cellrange = Store.luckysheet_select_save,
+        cellrange = Store.tibetsheets_select_save,
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
 
     cellrange = JSON.parse(JSON.stringify(cellrange));
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
     let data = file.data;
 
     if(data == null || data.length == 0){
@@ -3894,15 +3894,15 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
     };
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = $.extend(true, [], Store.tibetsheetsfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
-    let ruleArr = file["luckysheet_conditionformat_save"] || [];
+    let ruleArr = file["tibetsheets_conditionformat_save"] || [];
     ruleArr.push(rule);
-    file["luckysheet_conditionformat_save"] = ruleArr;
+    file["tibetsheets_conditionformat_save"] = ruleArr;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = $.extend(true, [], Store.tibetsheetsfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格
@@ -3910,7 +3910,7 @@ export function setRangeConditionalFormatDefault(conditionName, conditionValue, 
 
     //发送给后台
     if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
+        server.saveParam("all", file.index, ruleArr, { "k": "tibetsheets_conditionformat_save" });
     }
 
     if (success && typeof success === 'function') {
@@ -3941,13 +3941,13 @@ export function setRangeConditionalFormat(type, options = {}) {
 
     let {
         format,
-        cellrange = Store.luckysheet_select_save,
+        cellrange = Store.tibetsheets_select_save,
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
 
     cellrange = JSON.parse(JSON.stringify(cellrange));
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info('Incorrect worksheet index', '');
@@ -4165,15 +4165,15 @@ export function setRangeConditionalFormat(type, options = {}) {
     };
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = $.extend(true, [], Store.tibetsheetsfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
-    let ruleArr = file["luckysheet_conditionformat_save"] || [];
+    let ruleArr = file["tibetsheets_conditionformat_save"] || [];
     ruleArr.push(rule);
-    file["luckysheet_conditionformat_save"] = ruleArr;
+    file["tibetsheets_conditionformat_save"] = ruleArr;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = $.extend(true, [], Store.tibetsheetsfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格
@@ -4181,7 +4181,7 @@ export function setRangeConditionalFormat(type, options = {}) {
 
     //发送给后台
     if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
+        server.saveParam("all", file.index, ruleArr, { "k": "tibetsheets_conditionformat_save" });
     }
 
     if (success && typeof success === 'function') {
@@ -4209,13 +4209,13 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info('The order parameter is invalid.', '');
     }
 
-    let cdformat = $.extend(true, [], file.luckysheet_conditionformat_save);
+    let cdformat = $.extend(true, [], file.tibetsheets_conditionformat_save);
 
     if(cdformat.length == 0){
         return tooltip.info('This worksheet has no conditional format to delete', '');
@@ -4227,13 +4227,13 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
     let cdformatItem = cdformat.splice(itemIndex, 1);
 
     //保存之前的规则
-    let fileH = $.extend(true, [], Store.luckysheetfile);
+    let fileH = $.extend(true, [], Store.tibetsheetsfile);
     let historyRules = conditionformat.getHistoryRules(fileH);
 
     //保存当前的规则
-    file["luckysheet_conditionformat_save"] = cdformat;
+    file["tibetsheets_conditionformat_save"] = cdformat;
 
-    let fileC = $.extend(true, [], Store.luckysheetfile);
+    let fileC = $.extend(true, [], Store.tibetsheetsfile);
     let currentRules = conditionformat.getCurrentRules(fileC);
 
     //刷新一次表格
@@ -4241,7 +4241,7 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
 
     //发送给后台
     if(server.allowUpdate){
-        server.saveParam("all", file.index, ruleArr, { "k": "luckysheet_conditionformat_save" });
+        server.saveParam("all", file.index, ruleArr, { "k": "tibetsheets_conditionformat_save" });
     }
 
     setTimeout(() => {
@@ -4263,7 +4263,7 @@ export function deleteRangeConditionalFormat(itemIndex, options = {}) {
  */
 export function clearRange(options = {}) {
     let {
-        range = Store.luckysheet_select_save,
+        range = Store.tibetsheets_select_save,
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
@@ -4295,7 +4295,7 @@ export function clearRange(options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -4388,7 +4388,7 @@ export function deleteRange(move, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
@@ -4409,7 +4409,7 @@ export function deleteRange(move, options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -4421,10 +4421,10 @@ export function deleteRange(move, options = {}) {
         edc = range.column[1];
 
     if(move == 'left'){
-        luckysheetDeleteCell('moveLeft', str, edr, stc, edc, order);
+        tibetsheetsDeleteCell('moveLeft', str, edr, stc, edc, order);
     }
     else if(move == 'up'){
-        luckysheetDeleteCell('moveUp', str, edr, stc, edc, order);
+        tibetsheetsDeleteCell('moveUp', str, edr, stc, edc, order);
     }
 
     if (success && typeof success === 'function') {
@@ -4458,7 +4458,7 @@ export function matrixOperation(type, options = {}) {
         return tooltip.info('The type parameter is invalid.', '')
     }
 
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.tibetsheets_select_save[0];
     let {
         range = curRange,
         success
@@ -4779,7 +4779,7 @@ export function matrixCalculation(type, number, options = {}) {
         return tooltip.info('The number parameter is invalid.', '')
     }
 
-    let curRange = Store.luckysheet_select_save[0];
+    let curRange = Store.tibetsheets_select_save[0];
     let {
         range = curRange,
         success
@@ -4866,7 +4866,7 @@ export function matrixCalculation(type, number, options = {}) {
  * @param {Function} options.success 操作结束的回调函数
  */
 export function setSheetAdd(options = {}) {
-    let lastOrder = Store.luckysheetfile.length - 1;
+    let lastOrder = Store.tibetsheetsfile.length - 1;
     let {
         sheetObject = {},
         order = lastOrder,
@@ -4886,12 +4886,12 @@ export function setSheetAdd(options = {}) {
             item.index = index
         })
     }
-    let sheetname = sheetmanage.generateRandomSheetName(Store.luckysheetfile, false);
+    let sheetname = sheetmanage.generateRandomSheetName(Store.tibetsheetsfile, false);
     if(!!sheetObject.name){
         let sameName = false;
 
-        for(let i = 0; i < Store.luckysheetfile.length; i++){
-            if(Store.luckysheetfile[i].name == sheetObject.name){
+        for(let i = 0; i < Store.tibetsheetsfile.length; i++){
+            if(Store.tibetsheetsfile[i].name == sheetObject.name){
                 sameName = true;
                 break;
             }
@@ -4902,7 +4902,7 @@ export function setSheetAdd(options = {}) {
         }
     }
 
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    $("#tibetsheets-sheet-container-c").append(replaceHtml(sheetHTML, {
         "index": index,
         "active": "",
         "name": sheetname,
@@ -4930,34 +4930,34 @@ export function setSheetAdd(options = {}) {
     sheetconfig.order = order;
 
     if(order <= 0){
-        let beforeIndex = Store.luckysheetfile[0].index;
-        let beforeObj = $("#luckysheet-sheets-item" + beforeIndex);
-        $("#luckysheet-sheets-item" + index).insertBefore(beforeObj);
+        let beforeIndex = Store.tibetsheetsfile[0].index;
+        let beforeObj = $("#tibetsheets-sheets-item" + beforeIndex);
+        $("#tibetsheets-sheets-item" + index).insertBefore(beforeObj);
 
-        Store.luckysheetfile.splice(0, 0, sheetconfig);
+        Store.tibetsheetsfile.splice(0, 0, sheetconfig);
     }
     else{
-        if(order > Store.luckysheetfile.length){
-            order = Store.luckysheetfile.length;
+        if(order > Store.tibetsheetsfile.length){
+            order = Store.tibetsheetsfile.length;
         }
 
-        let afterIndex = Store.luckysheetfile[order - 1].index;
-        let afterObj = $("#luckysheet-sheets-item" + afterIndex);
-        $("#luckysheet-sheets-item" + index).insertAfter(afterObj);
+        let afterIndex = Store.tibetsheetsfile[order - 1].index;
+        let afterObj = $("#tibetsheets-sheets-item" + afterIndex);
+        $("#tibetsheets-sheets-item" + index).insertAfter(afterObj);
 
-        Store.luckysheetfile.splice(order, 0, sheetconfig);
+        Store.tibetsheetsfile.splice(order, 0, sheetconfig);
     }
 
     let orders = {};
 
-    Store.luckysheetfile.forEach((item, i, arr) => {
+    Store.tibetsheetsfile.forEach((item, i, arr) => {
         arr[i].order = i;
         orders[item.index.toString()] = i;
     })
 
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    $("#tibetsheets-sheet-area div.tibetsheets-sheets-item").removeClass("tibetsheets-sheets-item-active");
+    $("#tibetsheets-sheets-item" + index).addClass("tibetsheets-sheets-item-active");
+    $("#tibetsheets-cell-main").append('<div id="tibetsheets-datavisual-selection-set-' + index + '" class="tibetsheets-datavisual-selection-set"></div>');
     cleargridelement(true);
 
     server.saveParam("sha", null, $.extend(true, {}, sheetconfig));
@@ -4993,13 +4993,13 @@ export function setSheetDelete(options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    if(Store.luckysheetfile.length === 1){
+    if(Store.tibetsheetsfile.length === 1){
         return tooltip.info(locale().sheetconfig.noMoreSheet, "");
     }
 
@@ -5029,7 +5029,7 @@ export function setSheetCopy(options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5047,21 +5047,21 @@ export function setSheetCopy(options = {}) {
     let index = sheetmanage.generateRandomSheetIndex();
 
     let copyjson = $.extend(true, {}, file);
-    copyjson.order = Store.luckysheetfile.length;
+    copyjson.order = Store.tibetsheetsfile.length;
     copyjson.index = index;
-    copyjson.name = sheetmanage.generateCopySheetName(Store.luckysheetfile, copyjson.name);
+    copyjson.name = sheetmanage.generateCopySheetName(Store.tibetsheetsfile, copyjson.name);
 
     let colorset = '';
     if(copyjson.color != null){
-        colorset = '<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + copyjson.color + ';"></div>';
+        colorset = '<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + copyjson.color + ';"></div>';
     }
 
-    let afterObj = $("#luckysheet-sheets-item" + copyindex);
+    let afterObj = $("#tibetsheets-sheets-item" + copyindex);
     if(isRealNum(targetOrder)){
-        afterObj = $("#luckysheet-sheets-item" + Store.luckysheetfile[targetOrder - 1].index);
+        afterObj = $("#tibetsheets-sheets-item" + Store.tibetsheetsfile[targetOrder - 1].index);
     }
 
-    $("#luckysheet-sheet-container-c").append(replaceHtml(sheetHTML, {
+    $("#tibetsheets-sheet-container-c").append(replaceHtml(sheetHTML, {
         "index": copyjson.index,
         "active": "",
         "name": copyjson.name,
@@ -5069,12 +5069,12 @@ export function setSheetCopy(options = {}) {
         "style": "",
         "colorset": colorset
     }));
-    $("#luckysheet-sheets-item" + copyjson.index).insertAfter(afterObj);
-    Store.luckysheetfile.splice(targetOrder, 0, copyjson);
+    $("#tibetsheets-sheets-item" + copyjson.index).insertAfter(afterObj);
+    Store.tibetsheetsfile.splice(targetOrder, 0, copyjson);
 
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + index).addClass("luckysheet-sheets-item-active");
-    $("#luckysheet-cell-main").append('<div id="luckysheet-datavisual-selection-set-' + index + '" class="luckysheet-datavisual-selection-set"></div>');
+    $("#tibetsheets-sheet-area div.tibetsheets-sheets-item").removeClass("tibetsheets-sheets-item-active");
+    $("#tibetsheets-sheets-item" + index).addClass("tibetsheets-sheets-item-active");
+    $("#tibetsheets-cell-main").append('<div id="tibetsheets-datavisual-selection-set-' + index + '" class="tibetsheets-datavisual-selection-set"></div>');
     cleargridelement(true);
 
     server.saveParam("shc", index, { "copyindex": copyindex, "name": copyjson.name });
@@ -5121,7 +5121,7 @@ export function setSheetHide(options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5151,7 +5151,7 @@ export function setSheetShow(options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5176,18 +5176,18 @@ export function setSheetShow(options = {}) {
  * @param {Function} options.success 操作结束的回调函数
  */
 export function setSheetActive(order, options = {}) {
-    if(order == null || !isRealNum(order) || Store.luckysheetfile[order] == null){
+    if(order == null || !isRealNum(order) || Store.tibetsheetsfile[order] == null){
         return tooltip.info("The order parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     let {
         success
     } = {...options}
 
-    $("#luckysheet-sheet-area div.luckysheet-sheets-item").removeClass("luckysheet-sheets-item-active");
-    $("#luckysheet-sheets-item" + file.index).addClass("luckysheet-sheets-item-active");
+    $("#tibetsheets-sheet-area div.tibetsheets-sheets-item").removeClass("tibetsheets-sheets-item-active");
+    $("#tibetsheets-sheets-item" + file.index).addClass("tibetsheets-sheets-item-active");
 
     sheetmanage.changeSheet(file.index);
 
@@ -5218,7 +5218,7 @@ export function setSheetName(name, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5227,7 +5227,7 @@ export function setSheetName(name, options = {}) {
     let oldtxt = file.name;
     file.name = name;
 
-    $("#luckysheet-sheets-item" + file.index + " .luckysheet-sheets-item-name").text(name);
+    $("#tibetsheets-sheets-item" + file.index + " .tibetsheets-sheets-item-name").text(name);
 
     server.saveParam("all", file.index, name, { "k": "name" });
 
@@ -5266,7 +5266,7 @@ export function setSheetColor(color, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5275,8 +5275,8 @@ export function setSheetColor(color, options = {}) {
     let oldcolor = file.color;
     file.color = color;
 
-    $("#luckysheet-sheets-item" + file.index).find(".luckysheet-sheets-item-color").remove();
-    $("#luckysheet-sheets-item" + file.index).append('<div class="luckysheet-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
+    $("#tibetsheets-sheets-item" + file.index).find(".tibetsheets-sheets-item-color").remove();
+    $("#tibetsheets-sheets-item" + file.index).append('<div class="tibetsheets-sheets-item-color" style=" position: absolute; width: 100%; height: 3px; bottom: 0px; left: 0px; background-color: ' + color + ';"></div>');
 
     server.saveParam("all", file.index, color, { "k": "color" });
 
@@ -5320,7 +5320,7 @@ export function setSheetMove(type, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("ncorrect worksheet index", "");
@@ -5333,30 +5333,30 @@ export function setSheetMove(type, options = {}) {
             return;
         }
 
-        let prevIndex = Store.luckysheetfile[order - 1].index;
-        $("#luckysheet-sheets-item" + sheetIndex).insertBefore($("#luckysheet-sheets-item" + prevIndex));
+        let prevIndex = Store.tibetsheetsfile[order - 1].index;
+        $("#tibetsheets-sheets-item" + sheetIndex).insertBefore($("#tibetsheets-sheets-item" + prevIndex));
 
-        Store.luckysheetfile.splice(order, 1);
-        Store.luckysheetfile.splice(order - 1, 0, file);
+        Store.tibetsheetsfile.splice(order, 1);
+        Store.tibetsheetsfile.splice(order - 1, 0, file);
     }
     else if(type == 'right'){
-        if(order == Store.luckysheetfile.length - 1){
+        if(order == Store.tibetsheetsfile.length - 1){
             return;
         }
 
-        let nextIndex = Store.luckysheetfile[order + 1].index;
-        $("#luckysheet-sheets-item" + sheetIndex).insertAfter($("#luckysheet-sheets-item" + nextIndex));
+        let nextIndex = Store.tibetsheetsfile[order + 1].index;
+        $("#tibetsheets-sheets-item" + sheetIndex).insertAfter($("#tibetsheets-sheets-item" + nextIndex));
 
-        Store.luckysheetfile.splice(order, 1);
-        Store.luckysheetfile.splice(order + 1, 0, file);
+        Store.tibetsheetsfile.splice(order, 1);
+        Store.tibetsheetsfile.splice(order + 1, 0, file);
     }
     else{
         if(type < 0){
             type = 0;
         }
 
-        if(type > Store.luckysheetfile.length - 1){
-            type = Store.luckysheetfile.length - 1;
+        if(type > Store.tibetsheetsfile.length - 1){
+            type = Store.tibetsheetsfile.length - 1;
         }
 
         if(type == order){
@@ -5364,21 +5364,21 @@ export function setSheetMove(type, options = {}) {
         }
 
         if(type < order){
-            let prevIndex = Store.luckysheetfile[type].index;
-            $("#luckysheet-sheets-item" + sheetIndex).insertBefore($("#luckysheet-sheets-item" + prevIndex));
+            let prevIndex = Store.tibetsheetsfile[type].index;
+            $("#tibetsheets-sheets-item" + sheetIndex).insertBefore($("#tibetsheets-sheets-item" + prevIndex));
         }
         else{
-            let nextIndex = Store.luckysheetfile[type].index;
-            $("#luckysheet-sheets-item" + sheetIndex).insertAfter($("#luckysheet-sheets-item" + nextIndex));
+            let nextIndex = Store.tibetsheetsfile[type].index;
+            $("#tibetsheets-sheets-item" + sheetIndex).insertAfter($("#tibetsheets-sheets-item" + nextIndex));
         }
 
-        Store.luckysheetfile.splice(order, 1);
-        Store.luckysheetfile.splice(type, 0, file);
+        Store.tibetsheetsfile.splice(order, 1);
+        Store.tibetsheetsfile.splice(type, 0, file);
     }
 
     let orders = {};
 
-    Store.luckysheetfile.forEach((item, i, arr) => {
+    Store.tibetsheetsfile.forEach((item, i, arr) => {
         arr[i].order = i;
         orders[item.index.toString()] = i;
     })
@@ -5407,7 +5407,7 @@ export function setSheetOrder(orderList, options = {}) {
         orderListMap[item.index.toString()] = item.order;
     })
 
-    Store.luckysheetfile.sort((x, y) => {
+    Store.tibetsheetsfile.sort((x, y) => {
         let order_x = orderListMap[x.index.toString()];
         let order_y = orderListMap[y.index.toString()];
 
@@ -5427,13 +5427,13 @@ export function setSheetOrder(orderList, options = {}) {
 
     let orders = {};
 
-    Store.luckysheetfile.forEach((item, i, arr) => {
+    Store.tibetsheetsfile.forEach((item, i, arr) => {
         arr[i].order = i;
         orders[item.index.toString()] = i;
 
         if(i > 0){
             let preIndex = arr[i - 1].index;
-            $("#luckysheet-sheets-item" + item.index).insertAfter($("#luckysheet-sheets-item" + preIndex));
+            $("#tibetsheets-sheets-item" + item.index).insertAfter($("#tibetsheets-sheets-item" + preIndex));
         }
     })
 
@@ -5466,7 +5466,7 @@ export function setSheetZoom(zoom, options = {}) {
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5501,7 +5501,7 @@ export function showGridLines(options = {}){
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5513,7 +5513,7 @@ export function showGridLines(options = {}){
         Store.showGridLines = true;
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     }
 
@@ -5539,7 +5539,7 @@ export function hideGridLines(options = {}){
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5551,7 +5551,7 @@ export function hideGridLines(options = {}){
         Store.showGridLines = false;
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     }
 
@@ -5571,7 +5571,7 @@ export function hideGridLines(options = {}){
  * @param {Function} options.success 操作结束的回调函数
  */
 export function refresh(options = {}) {
-    // luckysheetrefreshgrid();
+    // tibetsheetsrefreshgrid();
     jfrefreshgrid();
 
     let {
@@ -5607,7 +5607,7 @@ export function scroll(options = {}){
             return tooltip.info("The scrollLeft parameter is invalid.", "");
         }
 
-        $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+        $("#tibetsheets-scrollbar-x").scrollLeft(scrollLeft);
     }
     else if(targetColumn != null){
         if(!isRealNum(targetColumn)){
@@ -5617,7 +5617,7 @@ export function scroll(options = {}){
         let col = Store.visibledatacolumn[targetColumn],
             col_pre = targetColumn <= 0 ? 0 : Store.visibledatacolumn[targetColumn - 1];
 
-        $("#luckysheet-scrollbar-x").scrollLeft(col_pre);
+        $("#tibetsheets-scrollbar-x").scrollLeft(col_pre);
     }
 
 
@@ -5626,7 +5626,7 @@ export function scroll(options = {}){
             return tooltip.info("The scrollTop parameter is invalid.", "");
         }
 
-        $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
+        $("#tibetsheets-scrollbar-y").scrollTop(scrollTop);
     }
     else if(targetRow != null){
         if(!isRealNum(targetRow)){
@@ -5636,7 +5636,7 @@ export function scroll(options = {}){
         let row = Store.visibledatarow[targetRow],
             row_pre = targetRow <= 0 ? 0 : Store.visibledatarow[targetRow - 1];
 
-        $("#luckysheet-scrollbar-y").scrollTop(row_pre);
+        $("#tibetsheets-scrollbar-y").scrollTop(row_pre);
     }
 
     if (success && typeof success === 'function') {
@@ -5651,7 +5651,7 @@ export function scroll(options = {}){
  * @param {Function} options.success 操作结束的回调函数
  */
 export function resize(options = {}){
-    luckysheetsizeauto();
+    tibetsheetssizeauto();
 
     let {
         success
@@ -5670,7 +5670,7 @@ export function resize(options = {}){
  */
 export function getScreenshot(options = {}) {
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
     } = {...options}
 
     if(getObjType(range) == 'string'){
@@ -5728,7 +5728,7 @@ export function getScreenshot(options = {}) {
         height: Math.ceil(rh_height * Store.devicePixelRatio)
     }).css({ width: ch_width, height: rh_height });
 
-    luckysheetDrawMain(scrollWidth, scrollHeight, ch_width, rh_height, 1, 1, null, null, newCanvas);
+    tibetsheetsDrawMain(scrollWidth, scrollHeight, ch_width, rh_height, 1, 1, null, null, newCanvas);
     let ctx_newCanvas = newCanvas.get(0).getContext("2d");
 
     //补上 左边框和上边框
@@ -5742,7 +5742,7 @@ export function getScreenshot(options = {}) {
         Store.devicePixelRatio * rh_height
     );
     ctx_newCanvas.lineWidth = Store.devicePixelRatio * 2;
-    ctx_newCanvas.strokeStyle = luckysheetdefaultstyle.strokeStyle;
+    ctx_newCanvas.strokeStyle = tibetsheetsdefaultstyle.strokeStyle;
     ctx_newCanvas.stroke();
     ctx_newCanvas.closePath();
 
@@ -5756,7 +5756,7 @@ export function getScreenshot(options = {}) {
         0
     );
     ctx_newCanvas.lineWidth = Store.devicePixelRatio * 2;
-    ctx_newCanvas.strokeStyle = luckysheetdefaultstyle.strokeStyle;
+    ctx_newCanvas.strokeStyle = tibetsheetsdefaultstyle.strokeStyle;
     ctx_newCanvas.stroke();
     ctx_newCanvas.closePath();
 
@@ -5777,7 +5777,7 @@ export function setWorkbookName(name, options = {}) {
         return tooltip.info("The name parameter is invalid.", "");
     }
 
-    $("#luckysheet_info_detail_input").val(name);
+    $("#tibetsheets_info_detail_input").val(name);
 
     let {
         success
@@ -5797,7 +5797,7 @@ export function setWorkbookName(name, options = {}) {
 export function getWorkbookName(options = {}) {
 
     let name = "";
-    let element = $("#luckysheet_info_detail_input");
+    let element = $("#tibetsheets_info_detail_input");
 
     if(element.length == 0){
 
@@ -5831,7 +5831,7 @@ export function undo(options = {}) {
     let ctr = $.extend(true, {}, Store.jfredo[Store.jfredo.length - 1]);
 
     controlHistory.redo(new Event('custom'));
-    luckysheetactiveCell();
+    tibetsheetsactiveCell();
 
     let {
         success
@@ -5856,7 +5856,7 @@ export function redo(options = {}) {
     let ctr = $.extend(true, {}, Store.jfundo[Store.jfundo.length - 1]);
 
     controlHistory.undo(new Event('custom'));
-    luckysheetactiveCell();
+    tibetsheetsactiveCell();
 
     let {
         success
@@ -5876,7 +5876,7 @@ export function redo(options = {}) {
  * 返回所有工作表配置
  */
 export function getAllSheets() {
-    let data = $.extend(true, [], Store.luckysheetfile);
+    let data = $.extend(true, [], Store.tibetsheetsfile);
 
     data.forEach((item, index, arr) => {
         if(item.data != null && item.data.length > 0){
@@ -5911,7 +5911,7 @@ export function getSheet(options = {}){
     if(index != null){
         return sheetmanage.getSheetByIndex(index);
     }else if(order != null){
-        return Store.luckysheetfile[order];
+        return Store.tibetsheetsfile[order];
     }else if(name != null){
         return sheetmanage.getSheetByName(name);
     }
@@ -5930,7 +5930,7 @@ export function getSheetData(options = {}) {
         order = getSheetIndex(Store.currentSheetIndex)
     } = {...options};
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5955,7 +5955,7 @@ export function getConfig(options = {}) {
         order = getSheetIndex(Store.currentSheetIndex)
     } = {...options};
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5982,7 +5982,7 @@ export function setConfig(cfg, options = {}) {
         success
     } = {...options};
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -5998,7 +5998,7 @@ export function setConfig(cfg, options = {}) {
         }
 
         setTimeout(function () {
-            luckysheetrefreshgrid();
+            tibetsheetsrefreshgrid();
         }, 1);
     }
 
@@ -6008,10 +6008,10 @@ export function setConfig(cfg, options = {}) {
 }
 
 /**
- * 返回所有表格数据结构的一维数组luckysheetfile
+ * 返回所有表格数据结构的一维数组tibetsheetsfile
  */
-export function getLuckysheetfile(){
-    return getluckysheetfile();
+export function getTibetsheetsfile(){
+    return gettibetsheetsfile();
 }
 
 
@@ -6168,7 +6168,7 @@ export function setDataVerification(optionItem, options = {}) {
     }
 
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
@@ -6189,7 +6189,7 @@ export function setDataVerification(optionItem, options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -6259,7 +6259,7 @@ export function setDataVerification(optionItem, options = {}) {
  */
 export function deleteDataVerification(options = {}) {
     let {
-        range = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1],
+        range = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1],
         order = getSheetIndex(Store.currentSheetIndex),
         success
     } = {...options}
@@ -6280,7 +6280,7 @@ export function deleteDataVerification(options = {}) {
         return tooltip.info("The range parameter is invalid.", "");
     }
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -6330,14 +6330,14 @@ export function insertImage(src, options = {}){
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
     }
 
     if(file.index == Store.currentSheetIndex){
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
 
         if(rowIndex == null){
             rowIndex = last.row_focus || 0;
@@ -6526,7 +6526,7 @@ export function deleteImage(options = {}){
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -6555,9 +6555,9 @@ export function deleteImage(options = {}){
 
     if(file.index == Store.currentSheetIndex){
         if(imageCtrl.currentImgId != null && (idList == 'all' || idList.includes(imageCtrl.currentImgId))){
-            $("#luckysheet-modal-dialog-activeImage").hide();
-            $("#luckysheet-modal-dialog-cropping").hide();
-            $("#luckysheet-modal-dialog-slider-imageCtrl").hide();
+            $("#tibetsheets-modal-dialog-activeImage").hide();
+            $("#tibetsheets-modal-dialog-cropping").hide();
+            $("#tibetsheets-modal-dialog-slider-imageCtrl").hide();
         }
 
         imageCtrl.images = images;
@@ -6583,7 +6583,7 @@ export function getImageOption(options = {}){
         success
     } = {...options}
 
-    let file = Store.luckysheetfile[order];
+    let file = Store.tibetsheetsfile[order];
 
     if(file == null){
         return tooltip.info("The order parameter is invalid.", "");
@@ -6645,7 +6645,7 @@ export function transToData(celldata, options = {}){
 }
 
 /**
- * 导出的json字符串可以直接当作`luckysheet.create(options)`初始化工作簿时的参数`options`使用
+ * 导出的json字符串可以直接当作`tibetsheets.create(options)`初始化工作簿时的参数`options`使用
  *
  */
 export function toJson(){
@@ -6653,12 +6653,12 @@ export function toJson(){
     const toJsonOptions = Store.toJsonOptions;
 
     // Workbook name
-    toJsonOptions.title = $("#luckysheet_info_detail_input").val();
+    toJsonOptions.title = $("#tibetsheets_info_detail_input").val();
 
     toJsonOptions.data = getAllSheets();
 
     // row and column
-    getluckysheetfile().forEach((file,index)=>{
+    gettibetsheetsfile().forEach((file,index)=>{
 
         if(file.data == undefined){
             return;
@@ -6683,7 +6683,7 @@ export function changLang(lang = 'zh'){
 
     let options = toJson();
     options.lang = lang;
-    luckysheet.create(options);
+    tibetsheets.create(options);
 }
 
 
@@ -6707,8 +6707,8 @@ export function getRangeByTxt(txt){
     // 默认取当前第一个范围
     if(txt == null){
         return {
-            column:Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].column,
-            row:Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1].row
+            column:Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].column,
+            row:Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1].row
         }
     }
 
@@ -6725,7 +6725,7 @@ export function getRangeByTxt(txt){
  * 根据范围数组转换为范围字符串
  * @param {Object | Array} range 范围数组
  */
-export function getTxtByRange(range=Store.luckysheet_select_save){
+export function getTxtByRange(range=Store.tibetsheets_select_save){
 
     // 单个范围
     if(getObjType(range) === 'object'){
@@ -6744,9 +6744,9 @@ export function getTxtByRange(range=Store.luckysheet_select_save){
  */
 export function pagerInit (config) {
     const {prevPage, nextPage, total} = locale().button;
-    $('#luckysheet-bottom-pager').remove()
-    $('#luckysheet-sheet-content').after('<div id="luckysheet-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
-    $("#luckysheet-bottom-pager").sPage({
+    $('#tibetsheets-bottom-pager').remove()
+    $('#tibetsheets-sheet-content').after('<div id="tibetsheets-bottom-pager" style="font-size: 14px; margin-left: 10px; display: inline-block;"></div>')
+    $("#tibetsheets-bottom-pager").sPage({
         page: config.pageIndex, //当前页码，必填
         total: config.total, //数据总条数，必填
         selectOption: config.selectOption, // 选择每页的行数，
@@ -6770,7 +6770,7 @@ export function pagerInit (config) {
  */
 export function refreshFormula (success) {
     formula.execFunctionGroupForce(true);
-    luckysheetrefreshgrid()
+    tibetsheetsrefreshgrid()
     setTimeout(() => {
       if (success && typeof success === 'function') {
           success();
@@ -6787,7 +6787,7 @@ export function refreshFormula (success) {
  */
 export function updataSheet (options = {}) {
     let {data, success} = options
-    let files = Store.luckysheetfile
+    let files = Store.tibetsheetsfile
     for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < files.length; j++) {
             if (files[j].index === data[i].index) {
@@ -6800,24 +6800,24 @@ export function updataSheet (options = {}) {
     file.data = sheetData
 
     if (!!file.isPivotTable) {
-        Store.luckysheetcurrentisPivotTable = true;
+        Store.tibetsheetscurrentisPivotTable = true;
         if (!isPivotInitial) {
             pivotTable.changePivotTable(index);
         }
     }
     else{
-        Store.luckysheetcurrentisPivotTable = false;
-        $("#luckysheet-modal-dialog-slider-pivot").hide();
-        luckysheetsizeauto(false);
+        Store.tibetsheetscurrentisPivotTable = false;
+        $("#tibetsheets-modal-dialog-slider-pivot").hide();
+        tibetsheetssizeauto(false);
     }
     sheetmanage.mergeCalculation(file["index"]);
     sheetmanage.setSheetParam();
     setTimeout(function () {
         sheetmanage.showSheet();
         sheetmanage.restoreCache();
-        formula.execFunctionGroupForce(luckysheetConfigsetting.forceCalculation);
+        formula.execFunctionGroupForce(tibetsheetsConfigsetting.forceCalculation);
         sheetmanage.restoreSheetAll(Store.currentSheetIndex);
-        luckysheetrefreshgrid();
+        tibetsheetsrefreshgrid();
         if (success && typeof success === 'function') {
             success();
         }
@@ -6836,7 +6836,7 @@ export function refreshMenuButtonFocus(data ,r,c , success){
     data = data || Store.flowdata;
     if(r == null && c == null){
         /* 获取选取范围 */
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length -1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length -1];
 
         r = last.row_focus || last.row[0];
         c = last.column_focus || last.column[0];

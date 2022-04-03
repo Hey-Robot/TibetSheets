@@ -71,8 +71,8 @@ const editor = {
 
         let d = _this.deepCopyFlowData(Store.flowdata);//取数据
 
-        // let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
-        let last = range || Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        // let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
+        let last = range || Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let curR = last["row"] == null ? 0 : last["row"][0];
         let curC = last["column"] == null ? 0 : last["column"][0];
         let rlen = dataChe.length, clen = dataChe[0].length;
@@ -95,15 +95,15 @@ const editor = {
         }
 
         if (addr > 0 || addc > 0) {
-            jfrefreshgridall(d[0].length, d.length, d, null, Store.luckysheet_select_save, "datachangeAll");
+            jfrefreshgridall(d[0].length, d.length, d, null, Store.tibetsheets_select_save, "datachangeAll");
         }
         else {
-            jfrefreshrange(d, Store.luckysheet_select_save);
+            jfrefreshrange(d, Store.tibetsheets_select_save);
         }
     },
     clearRangeByindex: function (st_r, ed_r, st_c, ed_c, sheetIndex) {
         let index = getSheetIndex(sheetIndex);
-        let d = $.extend(true, [], Store.luckysheetfile[index]["data"]);
+        let d = $.extend(true, [], Store.tibetsheetsfile[index]["data"]);
         
         for (let r = st_r; r <= ed_r; r++) {
             let x = [].concat(d[r]);
@@ -127,7 +127,7 @@ const editor = {
             }
         }
         else{
-            Store.luckysheetfile[index]["data"] = d;
+            Store.tibetsheetsfile[index]["data"] = d;
         }
     },
     controlHandlerD: function (dataChe) {
@@ -135,7 +135,7 @@ const editor = {
 
         let d = _this.deepCopyFlowData(Store.flowdata);//取数据
 
-        let last = Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1];
+        let last = Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1];
         let r1 = last["row"][0], r2 = last["row"][1];
         let c1 = last["column"][0], c2 = last["column"][1];
         let rlen = dataChe.length, clen = dataChe[0].length;

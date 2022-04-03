@@ -41,24 +41,24 @@ export function updateInlineStringFormat(cell, attr, value, $input){
 
     let cac = range.commonAncestorContainer;
     let $textEditor;
-    if(cac.id=="luckysheet-rich-text-editor"){
+    if(cac.id=="tibetsheets-rich-text-editor"){
         $textEditor = $(cac);
     }
     else{
-        $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+        $textEditor = $(cac).closest("#tibetsheets-rich-text-editor");
     }
-    let $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+    let $functionbox = $(cac).closest("#tibetsheets-functionbox-cell");
 
     if($textEditor.length==0 && $functionbox.length==0 && Store.inlineStringEditRange!=null){
         range = Store.inlineStringEditRange;
         cac = range.commonAncestorContainer;
-        if(cac.id=="luckysheet-rich-text-editor"){
+        if(cac.id=="tibetsheets-rich-text-editor"){
             $textEditor = $(cac);
         }
         else{
-            $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+            $textEditor = $(cac).closest("#tibetsheets-rich-text-editor");
         }
-        $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+        $functionbox = $(cac).closest("#tibetsheets-functionbox-cell");
     }
 
     if(range.collapsed===true){
@@ -89,7 +89,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(left!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest("#tibetsheets-input-box").get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -110,7 +110,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
                 let cssText = getCssText(span.style.cssText, attr, value);
 
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest("#tibetsheets-input-box").get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -122,7 +122,7 @@ export function updateInlineStringFormat(cell, attr, value, $input){
             if(right!=""){
                 let cssText = span.style.cssText;
                 if(inherit){
-                    let box = $(span).closest("#luckysheet-input-box").get(0);
+                    let box = $(span).closest("#tibetsheets-input-box").get(0);
                     if(box!=null){
                         cssText = extendCssText(box.style.cssText, cssText);
                     }
@@ -240,13 +240,13 @@ export function enterKeyControll(cell){
     var range = w.getRangeAt(0);
     let cac = range.commonAncestorContainer;
     let $textEditor;
-    if(cac.id=="luckysheet-rich-text-editor"){
+    if(cac.id=="tibetsheets-rich-text-editor"){
         $textEditor = $(cac);
     }
     else{
-        $textEditor = $(cac).closest("#luckysheet-rich-text-editor");
+        $textEditor = $(cac).closest("#tibetsheets-rich-text-editor");
     }
-    let $functionbox = $(cac).closest("#luckysheet-functionbox-cell");
+    let $functionbox = $(cac).closest("#tibetsheets-functionbox-cell");
 
     // if(range.collapsed===true){
     //     return;
@@ -257,7 +257,7 @@ export function enterKeyControll(cell){
     
     if($textEditor.length>0){
         let startSpan = startContainer.parentNode;
-        if(startContainer.id=="luckysheet-rich-text-editor"){
+        if(startContainer.id=="tibetsheets-rich-text-editor"){
             startSpan = $(startContainer).find("span");
             if(startSpan.length==0){
                 // 在末尾换行操作会导致数据丢失(覆盖)
@@ -312,7 +312,7 @@ export function enterKeyControll(cell){
                 cont = "<span style='"+ cssText +"'>" + sleft + "\n" + sright + "</span>";
             }
             
-            if(startContainer.id=="luckysheet-rich-text-editor"){
+            if(startContainer.id=="tibetsheets-rich-text-editor"){
                 $(startSpan).replaceWith(cont);
                 let textSpan = $textEditor.find("span");
                 spanIndex = textSpan.length-1;

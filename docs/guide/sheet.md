@@ -3,7 +3,7 @@
 ## Initial
 if you want to initial the `options`, you need to arrange every sheet data to `options.data`
 
-> when the initialization is done, you can use [`luckysheet.getAllSheets()`](/zh/guide/api.html#getAllSheets([setting])) to get all working sheet configurations.
+> when the initialization is done, you can use [`tibetsheets.getAllSheets()`](/zh/guide/api.html#getAllSheets([setting])) to get all working sheet configurations.
 
 eg: options.data：
 ```json
@@ -31,15 +31,15 @@ eg: options.data：
         },
         "scrollLeft": 0, //Left and right scroll bar position
         "scrollTop": 315, //Up and down scroll bar position
-        "luckysheet_select_save": [], //selected area
+        "tibetsheets_select_save": [], //selected area
         "calcChain": [],//Formula chain
         "isPivotTable":false,//Whether is pivot table
         "pivotTable":{},//Pivot table settings
         "filter_select": {},//Filter range
         "filter": null,//Filter configuration
-        "luckysheet_alternateformat_save": [], //Alternate colors
-        "luckysheet_alternateformat_save_modelCustom": [], //Customize alternate colors	
-        "luckysheet_conditionformat_save": {},//condition format
+        "tibetsheets_alternateformat_save": [], //Alternate colors
+        "tibetsheets_alternateformat_save_modelCustom": [], //Customize alternate colors	
+        "tibetsheets_conditionformat_save": {},//condition format
         "frozen": {}, //freeze row and column configuration
         "chart": [], //Chart configuration
         "zoomRatio":1, // zoom ratio
@@ -134,9 +134,9 @@ eg: options.data：
 
     `r` represents the row, `c` represents the column, and `v` represents the value of the cell. value could be string, number, or object
 
-    The luckysheet creates a sheet data based on the number of `options.data[i].row` and  `options.data[i].column`, then uses `data[r][c]=v` to fullfill tables. Empty data cells are represented as null.
+    The tibetsheets creates a sheet data based on the number of `options.data[i].row` and  `options.data[i].column`, then uses `data[r][c]=v` to fullfill tables. Empty data cells are represented as null.
 
-    After initializing the table with celldata,the data is converted to the field [data](#data)in the luckyshetfile such as `luckysheetfile[i].data`. `data` stores the following update data and celldata will no longer be used.
+    After initializing the table with celldata,the data is converted to the field [data](#data)in the tibetsheetsfile such as `tibetsheetsfile[i].data`. `data` stores the following update data and celldata will no longer be used.
 
 - example：
     ```js
@@ -409,7 +409,7 @@ eg: options.data：
 - usage： Up and down scroll bar position
 
 ------------
-### luckysheet_select_save
+### tibetsheets_select_save
 - type：Array
 - default：[]
 - usage： The selected area supports multiple selections and is a one-dimensional array containing multiple selection objects. 
@@ -513,7 +513,7 @@ eg: options.data：
 ### filter_select
 - type：Object
 - default：{}
-- usage：Filter range. A selection and a sheet have only one filter range, similar to `luckysheet_select_save`. If you just create a selection to turn on the filter function, you can configure this range. If you need to set further detailed filter conditions, you need to configure the [filter](#filter) property of the same level.
+- usage：Filter range. A selection and a sheet have only one filter range, similar to `tibetsheets_select_save`. If you just create a selection to turn on the filter function, you can configure this range. If you need to set further detailed filter conditions, you need to configure the [filter](#filter) property of the same level.
 - example：
     ```js
     {
@@ -527,7 +527,7 @@ eg: options.data：
 ### filter
 - type：Object
 - default：{}
-- usage：The specific settings of the filter match with the filter range of `filter_select`. When you create a filter area on the first sheet, you can also see the filter configuration information of the first sheet through `luckysheet.getLuckysheetfile()[0].filter`.
+- usage：The specific settings of the filter match with the filter range of `filter_select`. When you create a filter area on the first sheet, you can also see the filter configuration information of the first sheet through `tibetsheets.getTibetsheetsfile()[0].filter`.
 
     The following is a complete filter configuration example
     ```js
@@ -587,7 +587,7 @@ eg: options.data：
     6. `str` is the start row, `edr` is the end row, `stc` is the start column, and `edc` is the end column. The four numbers represent the entire filter range, which should be consistent with the content of `filter_select`.
 
 ------------
-### luckysheet_alternateformat_save
+### tibetsheets_alternateformat_save
 - type：Array
 - default：[]
 - usage： Alternating color configuration
@@ -647,7 +647,7 @@ eg: options.data：
     ```
 
 ------------
-### luckysheet_alternateformat_save_modelCustom
+### tibetsheets_alternateformat_save_modelCustom
 - type：Array
 - default：[]
 - usage：Custom alternate colors, including multiple custom alternate colors configuration
@@ -674,7 +674,7 @@ eg: options.data：
     ```
 
 ------------
-### luckysheet_conditionformat_save
+### tibetsheets_conditionformat_save
 - type：Array
 - default：[]
 - usage： Conditional format configuration information, a one-dimensional array containing multiple conditional format configuration objects,
@@ -778,7 +778,7 @@ eg: options.data：
 
     The new configuration property of sheet, which stores more semantic configuration, is used to initialize and pass to the server.
     
-    Be careful, you can find `freezenhorizontaldata` in the luckysheetfile that used for freezen, however `freezenhorizontaldata` is only for local debugging。
+    Be careful, you can find `freezenhorizontaldata` in the tibetsheetsfile that used for freezen, however `freezenhorizontaldata` is only for local debugging。
 
 - example：
     - Freeze first line
@@ -1328,9 +1328,9 @@ eg: options.data：
 ## debug information
 The parameters required for initialization will be designed as simple as possible, but the parameters stored locally are different.
 
-After initialization, Luckysheet stores more and more local data in luckysheetfile as local parameter. It means that we can realize the usage of Store data center. For example, the format of Freezen's parameters will also change.
+After initialization, Tibetsheets stores more and more local data in tibetsheetsfile as local parameter. It means that we can realize the usage of Store data center. For example, the format of Freezen's parameters will also change.
 
-At this point, the lucky sheet file contains many local parameters that are not initialized and can be used to debug、analysis local status. you can use  `luckysheet.getluckysheetfile()` to get more information：
+At this point, the lucky sheet file contains many local parameters that are not initialized and can be used to debug、analysis local status. you can use  `tibetsheets.gettibetsheetsfile()` to get more information：
 
 ::: details
 ```json
@@ -1356,15 +1356,15 @@ At this point, the lucky sheet file contains many local parameters that are not 
         },
         "scrollLeft": 0, //Left and right scroll bar position
         "scrollTop": 315, //Up and down scroll bar position
-        "luckysheet_select_save": [], //Selected area
+        "tibetsheets_select_save": [], //Selected area
         "calcChain": [],//Formula chain
         "isPivotTable":false,//Whether is pivot table
         "pivotTable":{},//Pivot table settings
         "filter_select": {},//Filter range
         "filter": null,//Filter configuration
-        "luckysheet_alternateformat_save": [], //Alternate colors
-        "luckysheet_alternateformat_save_modelCustom": [], //Customize alternate colors	
-        "luckysheet_conditionformat_save": {},//Condition format
+        "tibetsheets_alternateformat_save": [], //Alternate colors
+        "tibetsheets_alternateformat_save_modelCustom": [], //Customize alternate colors	
+        "tibetsheets_conditionformat_save": {},//Condition format
         "frozen": {}, //Freeze row and column configuration
         "freezen": {}, //Storage freeze row and column rendering data
         "chart": [], //Chart configuration

@@ -2,7 +2,7 @@ import { getObjType } from '../utils/util';
 import { isRealNull, isRealNum, valueIsError } from './validate';
 import { genarate, update } from './format';
 import server from '../controllers/server';
-import luckysheetConfigsetting from '../controllers/luckysheetConfigsetting';
+import tibetsheetsConfigsetting from '../controllers/tibetsheetsConfigsetting';
 import Store from '../store/index'
 
 //Set cell value
@@ -200,10 +200,10 @@ function setcellvalue(r, c, d, v) {
         }
     }
 
-    if(!server.allowUpdate && !luckysheetConfigsetting.pointEdit){
+    if(!server.allowUpdate && !tibetsheetsConfigsetting.pointEdit){
         if(cell.ct != null && /^(w|W)((0?)|(0\.0+))$/.test(cell.ct.fa) == false && cell.ct.t == "n" && cell.v != null && parseInt(cell.v).toString().length > 4){
-            let autoFormatw = luckysheetConfigsetting.autoFormatw.toString().toUpperCase();
-            let accuracy = luckysheetConfigsetting.accuracy;
+            let autoFormatw = tibetsheetsConfigsetting.autoFormatw.toString().toUpperCase();
+            let accuracy = tibetsheetsConfigsetting.accuracy;
 
             let sfmt = setAccuracy(autoFormatw, accuracy);
 

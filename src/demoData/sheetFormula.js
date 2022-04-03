@@ -6577,7 +6577,7 @@
 	}],
 	"ch_width": 1723,
 	"rh_height": 1010,
-	"luckysheet_select_save": [{
+	"tibetsheets_select_save": [{
 		"left": 532,
 		"width": 123,
 		"top": 780,
@@ -6591,7 +6591,7 @@
 		"row_focus": 39,
 		"column_focus": 6
 	}],
-	"luckysheet_selection_range": [],
+	"tibetsheets_selection_range": [],
 	"scrollLeft": 0,
 	"scrollTop": 0,
 	"frozen": {"type":"row"}

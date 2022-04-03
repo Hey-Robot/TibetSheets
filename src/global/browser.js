@@ -112,19 +112,19 @@ const browser = {
             return "-1"; //非IE
         }
     },
-    luckysheetrefreshfixednum:null,
-    luckysheetrefreshfixed:function(){
+    tibetsheetsrefreshfixednum:null,
+    tibetsheetsrefreshfixed:function(){
         var _this = this;
-        if(_this.luckysheetrefreshfixednum==null){
+        if(_this.tibetsheetsrefreshfixednum==null){
             if(_this.BrowserType()=="FF"){
-                _this.luckysheetrefreshfixednum = 5;
+                _this.tibetsheetsrefreshfixednum = 5;
             }
             else{
-                _this.luckysheetrefreshfixednum = 0;
+                _this.tibetsheetsrefreshfixednum = 0;
             }
         }
 
-        return _this.luckysheetrefreshfixednum;
+        return _this.tibetsheetsrefreshfixednum;
     },
     detectOS() {
         var userAgent = navigator.userAgent;

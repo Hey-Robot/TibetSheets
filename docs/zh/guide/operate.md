@@ -2,7 +2,7 @@
 
 每一次操作都会保存历史记录，用于撤销和重做，如果在表格初始化的时候开启了[共享编辑](/zh/guide/config.html#updateurl)功能，则会通过websocket将操作实时更新到后台。
 
-> 源码 [`src/controllers/server.js`](https://github.com/mengshukeji/Luckysheet/blob/master/src/controllers/server.js) 模块实现了后台保存功能
+> 源码 [`src/controllers/server.js`](https://github.com/mengshukeji/Tibetsheets/blob/master/src/controllers/server.js) 模块实现了后台保存功能
 
 通常，共享编辑（或者叫协同编辑）是需要和账户系统配合来控制权限的，开发者可以根据已有功能，配合自己的账户管理功能自行实现权限控制。
 
@@ -42,7 +42,7 @@
 
 - **后台更新**：
 
-    前端维护luckysheetfile[i].data，而单元格更新到后台，继续维护`luckysheetfile[i].celldata` 参数，celldata是一个一维数组：
+    前端维护tibetsheetsfile[i].data，而单元格更新到后台，继续维护`tibetsheetsfile[i].celldata` 参数，celldata是一个一维数组：
     ```json
     [
         {r:0, c:1, v: "值1"},
@@ -50,7 +50,7 @@
         {r:10, c:11, v:{f:"=sum", v:"100"}}
     ]
     ```
-    后台在保存前台推送的数据时，会更新 `luckysheetfile[i].celldata` 字段，如果存在该单元格则更新，如果没有则添加，如果存在该单元格但是`v`为null则删除该单元格。
+    后台在保存前台推送的数据时，会更新 `tibetsheetsfile[i].celldata` 字段，如果存在该单元格则更新，如果没有则添加，如果存在该单元格但是`v`为null则删除该单元格。
   
 
 ### 范围单元格刷新
@@ -87,7 +87,7 @@
 
 - **后台更新**：
 
-    前端维护luckysheetfile[i].data，而单元格更新到后台，继续维护`luckysheetfile[i].celldata` 参数，需要将指定位置`range`的所有单元格数据替换为新的数据
+    前端维护tibetsheetsfile[i].data，而单元格更新到后台，继续维护`tibetsheetsfile[i].celldata` 参数，需要将指定位置`range`的所有单元格数据替换为新的数据
   
 ## config操作
 
@@ -119,7 +119,7 @@
 
 - **后台更新**：
 
-    更新 `luckysheetfile[i].config[k] = v` ，如果`config`中不存在`k`，则新建一个`k`属性并设置为空。
+    更新 `tibetsheetsfile[i].config[k] = v` ，如果`config`中不存在`k`，则新建一个`k`属性并设置为空。
 
     注意一点，修改config中的某个配置时，会把这个配置全部传输到后台，比如修改borderInfo，本来已经有一个含边框的单元格了，再新设置一个单元格边框，这时候会把这两个单元格边框信息都传输到后台，而不做更细颗粒的操作。
 
@@ -133,7 +133,7 @@
                 "k": "rowhidden"
             }
             ```
-       - 后台更新：`luckysheetfile["Sheet_0554kKiKl4M7_1597974810804"].config["rowhidden"] = { "5": 0, "6": 0, "13": 0, "14": 0 }`
+       - 后台更新：`tibetsheetsfile["Sheet_0554kKiKl4M7_1597974810804"].config["rowhidden"] = { "5": 0, "6": 0, "13": 0, "14": 0 }`
     
     2. 修改行高：
        - 发送到后台：
@@ -145,7 +145,7 @@
                 "k": "rowlen"
             }
             ```
-       - 后台更新：`luckysheetfile["Sheet_0554kKiKl4M7_1597974810804"].config["rowlen"] = { "9": 20, "11": 71, "15": 58 }`
+       - 后台更新：`tibetsheetsfile["Sheet_0554kKiKl4M7_1597974810804"].config["rowlen"] = { "9": 20, "11": 71, "15": 58 }`
     
     3. 修改列宽：
        - 发送到后台：
@@ -157,7 +157,7 @@
                 "k": "columnlen"
             }
             ```
-       - 后台更新：`luckysheetfile["Sheet_0554kKiKl4M7_1597974810804"].config["columnlen"] = { "2": 135 }`
+       - 后台更新：`tibetsheetsfile["Sheet_0554kKiKl4M7_1597974810804"].config["columnlen"] = { "2": 135 }`
  
 ## 通用保存
 
@@ -186,7 +186,7 @@
 
 - **后台更新**：
 
-    更新 `luckysheetfile[i][k] = v` ，如果`luckysheetfile[i]`中不存在`k`，则新建一个`k`属性并设置为空。
+    更新 `tibetsheetsfile[i][k] = v` ，如果`tibetsheetsfile[i]`中不存在`k`，则新建一个`k`属性并设置为空。
 
     1. 冻结行列：
        - 发送到后台：
@@ -203,7 +203,7 @@
             ```
        - 后台更新：
             ```js
-            luckysheetfile[0]["frozen"] = {
+            tibetsheetsfile[0]["frozen"] = {
                     "type": "rangeRow",
                     "range": { "row_focus": 1, "column_focus": 1 }
                 }
@@ -219,7 +219,7 @@
                 "k": "name"
             }
             ```
-       - 后台更新：`luckysheetfile[0]["name"] = "Cell22"`
+       - 后台更新：`tibetsheetsfile[0]["name"] = "Cell22"`
     
     3. 修改工作表颜色：
        - 发送到后台：
@@ -231,7 +231,7 @@
                 "k": "color"
             }
             ```
-       - 后台更新：`luckysheetfile[0]["color"] = "#f02323"`
+       - 后台更新：`tibetsheetsfile[0]["color"] = "#f02323"`
     
     4. 合并单元格：
        - 发送到后台：
@@ -250,7 +250,7 @@
             ```
        - 后台更新：
             ```js
-            luckysheetfile["Sheet_aheLt0Waf1lk_1598248231626"]["config"] =  {
+            tibetsheetsfile["Sheet_aheLt0Waf1lk_1598248231626"]["config"] =  {
                 "merge": {
                     "0_0": { "r": 0,  "c": 0, "rs": 2, "cs": 1 }
                 },
@@ -275,7 +275,7 @@
             ```
        - 后台更新：
             ```js
-            luckysheetfile[0]["filter_select"] =  {
+            tibetsheetsfile[0]["filter_select"] =  {
                     "row": [ 16, 21 ],
                     "column": [ 2, 3 ]
                 }
@@ -311,7 +311,7 @@
             ```
        - 后台更新：
             ```js
-            luckysheetfile[0]["filter"] = {
+            tibetsheetsfile[0]["filter"] = {
                     "0": {
                         "caljs": {
                             "value": "textinclude",
@@ -366,12 +366,12 @@
                         "hasRowFooter": true
                     }
                 ],
-                "k": "luckysheet_alternateformat_save"
+                "k": "tibetsheets_alternateformat_save"
             }
             ```
        - 后台更新：
             ```js
-            luckysheetfile["Sheet_4N45tpMd0ni4_1598250591760"]["luckysheet_alternateformat_save"] =   [
+            tibetsheetsfile["Sheet_4N45tpMd0ni4_1598250591760"]["tibetsheets_alternateformat_save"] =   [
                     {
                         "cellrange": {
                             "row": [ 2, 6 ],
@@ -425,12 +425,12 @@
                         "conditionValue": [ "3" ]
                     }
                 ],
-                "k": "luckysheet_conditionformat_save"
+                "k": "tibetsheets_conditionformat_save"
             }
             ```
        - 后台更新：
             ```js
-            luckysheetfile["Sheet_545W7w03kLkC_1598251927583"]["luckysheet_conditionformat_save"] =   [
+            tibetsheetsfile["Sheet_545W7w03kLkC_1598251927583"]["tibetsheets_conditionformat_save"] =   [
                     {
                         "type": "default",
                         "cellrange": [
@@ -473,7 +473,7 @@
             ```
        - 后台更新：
             ```js
-            luckysheetfile["Sheet_r3Cz5bbxipL3_1598252547290"]["pivotTable"] =  {
+            tibetsheetsfile["Sheet_r3Cz5bbxipL3_1598252547290"]["pivotTable"] =  {
                     "pivot_select_save": {
                         "row": [ 0, 2 ],
                         "column": [ 0, 2 ]
@@ -487,7 +487,7 @@
                 }
             ```
 
-            注意，虽然数据透视表的格式是这个，但是当你选择一个范围之后，点击生产数据透视表时，Luckysheet会先执行新建sheet页和切换到该sheet页的操作，才能在新建的sheet页加上数据透视表。
+            注意，虽然数据透视表的格式是这个，但是当你选择一个范围之后，点击生产数据透视表时，Tibetsheets会先执行新建sheet页和切换到该sheet页的操作，才能在新建的sheet页加上数据透视表。
     
     10. 动态数组：
         - 发送到后台：
@@ -517,7 +517,7 @@
             ```
         - 后台更新：
             ```js
-            luckysheetfile["Sheet_r3Cz5bbxipL3_1598252547290"]["dynamicArray"] =   [
+            tibetsheetsfile["Sheet_r3Cz5bbxipL3_1598252547290"]["dynamicArray"] =   [
                     {
                         "r": 4,
                         "c": 5,
@@ -565,7 +565,7 @@
 - **后台更新**：
 
     calcChain为一个数组
-    - 如果`op`的值为`add`则添加到末尾 `luckysheetfile[0].calcChain.push(v)`， 
+    - 如果`op`的值为`add`则添加到末尾 `tibetsheetsfile[0].calcChain.push(v)`， 
     - 如果`op`的值为`update`，格式为：
         ```json
         {
@@ -576,7 +576,7 @@
             "pos": 0
         }
         ```
-        更新 `luckysheetfile[0].calcChain[pos] = v`，
+        更新 `tibetsheetsfile[0].calcChain[pos] = v`，
     - 如果`op`的值为`del`则删除，格式为：
         ```json
         {
@@ -587,7 +587,7 @@
             "pos": 0
         }
         ```
-        `luckysheetfile[0].calcChain.splice(pos, 1)`。
+        `tibetsheetsfile[0].calcChain.splice(pos, 1)`。
 
 ## 行列操作
 
@@ -642,7 +642,7 @@
   
     如果`rc`的值是`'r'`删除行， 如果`rc`的值为`'c'`则删除列， 例如`rc='r'`，`index=4`，`len=5`，则代表从第4行开始删除之后的5行（4、5、6、7、8）。
 
-    主要是对 `luckysheetfile[i].celldata` 中的单元格进行操作，删除参数中所描述符合条件的单元格并且更新其他单元格的行列值，以上述为例，首先查找单元格中`r`值在4到8的所有单元格并删除，然后把本来行号9以后的单元格的`r`值减去5，最后把 `luckysheetfile[i].row` 减去5。
+    主要是对 `tibetsheetsfile[i].celldata` 中的单元格进行操作，删除参数中所描述符合条件的单元格并且更新其他单元格的行列值，以上述为例，首先查找单元格中`r`值在4到8的所有单元格并删除，然后把本来行号9以后的单元格的`r`值减去5，最后把 `tibetsheetsfile[i].row` 减去5。
     如果`v`值为 `"#__qkdelete#"`（不含引号），则此处为需要删除的单元格。
 
 ### 增加行或列
@@ -706,7 +706,7 @@
   
     如果`rc`的值是`r`新增行， 如果`rc`的值为`c`则新增列， 例如`rc=r，index=4，len=5`，则代表从第4行开始增加5行，如果`data`为空则增加空行，如果`data`不为空则用`data`中的数组添加新增的行中。
 
-    主要是对 `luckysheetfile[i].celldata` 中的单元格进行操作，以上述为例，首先 `luckysheetfile[i].row` 加5，然后把`r`大于4的单元格的整体的`r`值+5，如果`data`为空则增加空行则结束，如果`data`不为空则把二维数组`data`转换为 `{r:0,c:0,v:100}` 的格式并添加到`celldata`中，转换的伪代码如下：
+    主要是对 `tibetsheetsfile[i].celldata` 中的单元格进行操作，以上述为例，首先 `tibetsheetsfile[i].row` 加5，然后把`r`大于4的单元格的整体的`r`值+5，如果`data`为空则增加空行则结束，如果`data`不为空则把二维数组`data`转换为 `{r:0,c:0,v:100}` 的格式并添加到`celldata`中，转换的伪代码如下：
 
     ```javascript
     var ret = [];
@@ -737,7 +737,7 @@
 
 - **后台更新**：
   
-    清除 `luckysheetfile[0].filter = null` ， `luckysheetfile[i].filter_select = null`。
+    清除 `tibetsheetsfile[0].filter = null` ， `tibetsheetsfile[i].filter_select = null`。
 
 ### 恢复筛选
 
@@ -756,7 +756,7 @@
 
 - **后台更新**：
   
-    清除 `luckysheetfile[i]. filter = v.filter`， `luckysheetfile[i]. filter_select = v. filter_select`。
+    清除 `tibetsheetsfile[i]. filter = v.filter`， `tibetsheetsfile[i]. filter_select = v. filter_select`。
 
 ## sheet操作
 
@@ -850,7 +850,7 @@
 - **后台更新**：
   
     添加一行（一个文档）到数据库中。
-    `luckysheetfile.push(json)`
+    `tibetsheetsfile.push(json)`
 
 
 ### 复制sheet
@@ -979,9 +979,9 @@
   
     对sheet的`index`等于`key`的页，设置其`order`属性为`value`值。示例：
 
-    `luckysheetfile[key1].order = value1`
-    `luckysheetfile[key2].order = value2`
-    `luckysheetfile[key3].order = value3`
+    `tibetsheetsfile[key1].order = value1`
+    `tibetsheetsfile[key2].order = value2`
+    `tibetsheetsfile[key3].order = value3`
 
 ### 切换到指定sheet
 
@@ -1006,7 +1006,7 @@
   
     对sheet的`index`等于`v`的页，设置其`status`属性为`1`值。示例：
 
-    `luckysheetfile[v].status = 1`
+    `tibetsheetsfile[v].status = 1`
 
 ## sheet属性(隐藏或显示)
 
@@ -1039,9 +1039,9 @@
     
     当隐藏时`status`值为`0`，更新`index`对应`cur`的sheet的`status`状态为`1`
     
-    `luckysheetfile[0].hide = 1`
-    `luckysheetfile[0].status = 0`
-    `luckysheetfile[1].status = 1`
+    `tibetsheetsfile[0].hide = 1`
+    `tibetsheetsfile[0].status = 0`
+    `tibetsheetsfile[1].status = 1`
 
     显示某个sheet页时，json为
     ```json
@@ -1054,9 +1054,9 @@
     ```
     `status`值为`1`，上一个激活sheet的`status`状态为`0`
     
-    `luckysheetfile[6].hide = 0`
-    `luckysheetfile[6].status = 1`
-    `luckysheetfile[old_cur].status = 0`
+    `tibetsheetsfile[6].hide = 0`
+    `tibetsheetsfile[6].status = 1`
+    `tibetsheetsfile[old_cur].status = 0`
 
 ## 表格信息更改
 
@@ -1068,7 +1068,7 @@
     {
         "t": "na",
         "i": null,
-        "v": "Luckysheet Demo1"
+        "v": "Tibetsheets Demo1"
     }
     ```
 
@@ -1081,7 +1081,7 @@
 
 - **后台更新**：
   
-    Luckysheet配置，修改title为`"Luckysheet Demo1"`
+    Tibetsheets配置，修改title为`"Tibetsheets Demo1"`
 
 ## 图表(TODO)
 
@@ -1134,10 +1134,10 @@
 
 - **后台更新**：
   
-    更新对应sheet页中的图表设置，如果`luckysheetfile[i].chart`为null，则初始化为空数组 `[]`
+    更新对应sheet页中的图表设置，如果`tibetsheetsfile[i].chart`为null，则初始化为空数组 `[]`
 
     ```json
-    luckysheetfile[0].chart.push(v)
+    tibetsheetsfile[0].chart.push(v)
     ```
 
 ### 移动图表位置
@@ -1171,8 +1171,8 @@
     更新对应sheet页中的图表设置
 
     ```js
-    luckysheetfile[0].chart[v.chart_id].left = v.left;
-    luckysheetfile[0].chart[v.chart_id].top = v.top;
+    tibetsheetsfile[0].chart[v.chart_id].left = v.left;
+    tibetsheetsfile[0].chart[v.chart_id].top = v.top;
     ```
 
 ### 缩放图表
@@ -1208,10 +1208,10 @@
     更新对应sheet页中的图表设置
 
     ```js
-    luckysheetfile[0].chart[v.chart_id].left = v.left;
-    luckysheetfile[0].chart[v.chart_id].top = v.top;
-    luckysheetfile[0].chart[v.chart_id].width = v.width;
-    luckysheetfile[0].chart[v.chart_id].height = v.height;
+    tibetsheetsfile[0].chart[v.chart_id].left = v.left;
+    tibetsheetsfile[0].chart[v.chart_id].top = v.top;
+    tibetsheetsfile[0].chart[v.chart_id].width = v.width;
+    tibetsheetsfile[0].chart[v.chart_id].height = v.height;
     ```
 
 ### 修改图表配置
@@ -1264,7 +1264,7 @@
     更新对应sheet页中的图表设置
 
     ```js
-    luckysheetfile[0].chart[v.chart_id] = v;
+    tibetsheetsfile[0].chart[v.chart_id] = v;
     ```
 
 ## 后端返回格式

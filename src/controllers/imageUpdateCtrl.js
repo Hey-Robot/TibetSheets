@@ -1,4 +1,4 @@
-// 自定义图片的更新方法例如: customImageUpdate("POST", "http://127.0.0.1:8000/luckysheetimageprocess/", d)
+// 自定义图片的更新方法例如: customImageUpdate("POST", "http://127.0.0.1:8000/tibetsheetsimageprocess/", d)
 function customImageUpdate(method, url, obj) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");

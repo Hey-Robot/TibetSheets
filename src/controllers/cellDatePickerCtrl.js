@@ -75,7 +75,7 @@ const cellDatePickerCtrl = {
             time_24hr = false;
         }
 
-        const fp = flatpickr('#luckysheet-input-box', {
+        const fp = flatpickr('#tibetsheets-input-box', {
             allowInput: false,
             noCalendar,
             enableSeconds,
@@ -99,16 +99,16 @@ const cellDatePickerCtrl = {
             },
             onChange: function (selectedDates, dateStr) {
                 let currentVal = datenum_local(new Date(selectedDates))
-                $("#luckysheet-rich-text-editor").html(dateStr);
+                $("#tibetsheets-rich-text-editor").html(dateStr);
                 setCellValue(r, c, currentVal, { isRefresh: false })
                 setCellFormat(r, c, 'ct', cell.ct)
                 if (!enableTime) {
-                    formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
+                    formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
                 }
             }
         });
 
-        $("#luckysheet-input-box").click();
+        $("#tibetsheets-input-box").click();
     },
 }
 

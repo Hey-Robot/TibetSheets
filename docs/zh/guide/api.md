@@ -1,11 +1,11 @@
 # API
 
-Luckysheet针对常用的数据操作需求，开放了主要功能的API，开发者可以根据需要进行任意对接开发。
+Tibetsheets针对常用的数据操作需求，开放了主要功能的API，开发者可以根据需要进行任意对接开发。
 
 使用注意：
-1. script全局引入时，所有API均挂载到window.luckysheet对象下面，可以在浏览器控制台打印看到；npm引入时，API也全部挂载在luckysheet对象下
+1. script全局引入时，所有API均挂载到window.tibetsheets对象下面，可以在浏览器控制台打印看到；npm引入时，API也全部挂载在tibetsheets对象下
 2. `success`回调函数第一个参数为API方法的返回值
-3. 需要新的API请到github [Issues](https://github.com/mengshukeji/Luckysheet/issues/new/choose)中提交，根据点赞数决定是否开放新API
+3. 需要新的API请到github [Issues](https://github.com/mengshukeji/Tibetsheets/issues/new/choose)中提交，根据点赞数决定是否开放新API
 4. API方法中所需的`order`参数为工作表对象中的`order`的值，而不是`index`
 
 ## 单元格操作
@@ -31,11 +31,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 返回当前工作表第1行第1列单元格的数据的v值
 		
-		`luckysheet.getCellValue(0, 0)`
+		`tibetsheets.getCellValue(0, 0)`
 
 	- 返回指定data数据的第2行第2列单元格的显示值。
 		
-		`luckysheet.getCellValue(1, 1, {type:"m"})`
+		`tibetsheets.getCellValue(1, 1, {type:"m"})`
 
 ------------
 
@@ -46,7 +46,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- {Number} [row]: 单元格所在行数；从0开始的整数，0表示第一行
 	- {Number} [column]: 单元格所在列数；从0开始的整数，0表示第一列
-	- {Object | String | Number} [value]: 要设置的值；可以为字符串或数字，或为符合Luckysheet单元格格式的对象，参考 [单元格属性表](/zh/guide/cell.html)
+	- {Object | String | Number} [value]: 要设置的值；可以为字符串或数字，或为符合Tibetsheets单元格格式的对象，参考 [单元格属性表](/zh/guide/cell.html)
 	- {PlainObject} [setting]: 可选参数
 		+ {Number} [order]: 工作表下标；默认值为当前工作表下标
 		+ {Boolean} [isRefresh]: 是否刷新界面；默认为`true`；用于多个单元格赋值时候控制节流，前面单元格赋值的时候应设置为	`false`，最后一个单元格赋值时设置为`true`。
@@ -56,22 +56,22 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	设置某个单元格的值，也可以设置整个单元格对象，用于同时设置多个单元格属性。
 	
-	如果需要更新公式，也可以在这里赋值，Luckysheet在内部会主动把这个公式做计算并加入到公式链中，最后重刷界面。
+	如果需要更新公式，也可以在这里赋值，Tibetsheets在内部会主动把这个公式做计算并加入到公式链中，最后重刷界面。
 
 - **示例**:
 
 	- 设置当前工作表"A1"单元格的值为"1"
-    	`luckysheet.setCellValue(0, 0, 1);`
+    	`tibetsheets.setCellValue(0, 0, 1);`
 	
 	- 设置当前工作表"B1"单元格的值为公式"=sum(A1)"
-    	`luckysheet.setCellValue(0, 1, "=sum(A1)");`
+    	`tibetsheets.setCellValue(0, 1, "=sum(A1)");`
 	
-	- 设置当前工作表"C1"单元格的值为公式"=sum(A1:B1"，并带有红色背景，单元格对象可以不带`v`和`m`值，Luckysheet会根据公式信息自动计算结果，如果带了未更新或者是非公式结果的`v`和`m`值，Luckysheet也仍然会根据公式实际关联的数据计算出准备的结果。
-    	`luckysheet.setCellValue(0, 2, {f: "=sum(A1:B1)", bg:"#FF0000"})`
+	- 设置当前工作表"C1"单元格的值为公式"=sum(A1:B1"，并带有红色背景，单元格对象可以不带`v`和`m`值，Tibetsheets会根据公式信息自动计算结果，如果带了未更新或者是非公式结果的`v`和`m`值，Tibetsheets也仍然会根据公式实际关联的数据计算出准备的结果。
+    	`tibetsheets.setCellValue(0, 2, {f: "=sum(A1:B1)", bg:"#FF0000"})`
 
 		再次设置"C1"单元格新的公式仍然可以生效
 		
-		`luckysheet.setCellValue(0, 2, {f: "=sum(A1)", bg:"#00FF00"})`
+		`tibetsheets.setCellValue(0, 2, {f: "=sum(A1)", bg:"#00FF00"})`
 
 ------------
 
@@ -93,7 +93,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 清空单元格`B2`内容
-      `luckysheet.clearCell(1,1)`
+      `tibetsheets.clearCell(1,1)`
     
 ------------
 
@@ -121,7 +121,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 删除当前单元格并且在删除后，右侧单元格左移
-      `luckysheet.deleteCell('left')`
+      `tibetsheets.deleteCell('left')`
     
 ------------
 
@@ -135,7 +135,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
     - {String} [attr]: 属性类型，参考 [单元格属性表](/zh/guide/cell.html)的属性值
 	- {String | Number | Object} [value]: 具体的设置值，一个属性会对应多个值，参考 [单元格属性表](/zh/guide/cell.html)的值示例，如果属性类型`attr`是单元格格式`ct`，则设置值`value`应提供ct对象，如：`{fa:"General", t:"g"}`，比如设置A1单元格的格式为百分比格式：
 	  
-  	  `luckysheet.setCellFormat(0, 0, "ct", {fa:"0.00%", t:"n"})`
+  	  `tibetsheets.setCellFormat(0, 0, "ct", {fa:"0.00%", t:"n"})`
 
 	- {PlainObject} [setting]: 可选参数
     	+ {Number} [order]: 工作表下标；默认值为当前工作表下标
@@ -149,7 +149,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
     
   	边框设置时，attr为`"bd"`，value为一个key/value对象，需要同时设置边框类型:`borderType`/边框粗细:`style`/边框颜色:`color`，比如设置A1单元格的边框为所有/红色/细：
 	  
-	`luckysheet.setCellFormat(0, 0, "bd", {borderType: "border-right",style: "1", color: "#ff0000"})`
+	`tibetsheets.setCellFormat(0, 0, "bd", {borderType: "border-right",style: "1", color: "#ff0000"})`
 	
 	完整可选的设置参数如下：
 
@@ -160,11 +160,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 设置当前工作表A1单元格文本加粗
-   		`luckysheet.setCellFormat(0, 0, "bl", 1)`
+   		`tibetsheets.setCellFormat(0, 0, "bl", 1)`
    - 设置第二个工作表的B2单元格背景为红色
-   		`luckysheet.setCellFormat(1, 1, "bg", "#ff0000", {order:1})`
+   		`tibetsheets.setCellFormat(1, 1, "bg", "#ff0000", {order:1})`
    - 设置当前工作表"A1"单元格的值为"abc"
-   		`luckysheet.setCellFormat(0, 0, 'v', 'abc');`
+   		`tibetsheets.setCellFormat(0, 0, 'v', 'abc');`
 
 ------------
 
@@ -188,9 +188,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 当前工作表查找`"value"`字符串
-   		`luckysheet.find("value")`
+   		`tibetsheets.find("value")`
    - 当前工作表查找公式包含`"SUM"`的单元格
-   		`luckysheet.find("SUM",{type:"f"})`
+   		`tibetsheets.find("SUM",{type:"f"})`
 
 ------------
 
@@ -215,7 +215,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 当前工作表查找`"value"`字符串并替换为`"out"`
-   		`luckysheet.replace("value", "out")`
+   		`tibetsheets.replace("value", "out")`
 
 ------------
 
@@ -233,7 +233,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 手动触发退出编辑模式
-   		`luckysheet.exitEditMode()`
+   		`tibetsheets.exitEditMode()`
 
 ------------
 
@@ -264,11 +264,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 冻结首行
 
-		`luckysheet.setHorizontalFrozen(false)`
+		`tibetsheets.setHorizontalFrozen(false)`
 
    - 冻结到`B5`选区
 
-		`luckysheet.setHorizontalFrozen(true, { range: 'B5' })`
+		`tibetsheets.setHorizontalFrozen(true, { range: 'B5' })`
 
 ------------
 
@@ -297,7 +297,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 冻结首列
 
-		`luckysheet.setVerticalFrozen(false)`
+		`tibetsheets.setVerticalFrozen(false)`
 
 ------------
 
@@ -324,10 +324,10 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 	
 	如果想在工作簿初始化后使用此API设置冻结，可以在工作簿创建后的钩子函数中执行，比如：
 	```js
-	luckysheet.create({
+	tibetsheets.create({
     	hook:{
 				workbookCreateAfter:function(){
-					luckysheet.setBothFrozen(false);
+					tibetsheets.setBothFrozen(false);
 				}
 			}
 	});
@@ -338,7 +338,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 冻结行列
 
-		`luckysheet.setBothFrozen(false)`
+		`tibetsheets.setBothFrozen(false)`
 
 ------------
 
@@ -359,7 +359,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 取消冻结
 
-		`luckysheet.cancelFrozen()`
+		`tibetsheets.cancelFrozen()`
 
 ------------
 
@@ -383,7 +383,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 在第2行的位置插入1行空白行
 
-		`luckysheet.insertRow(1)`
+		`tibetsheets.insertRow(1)`
 
 ------------
 
@@ -407,7 +407,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 在第1列的位置插入3行空白行
 
-		`luckysheet.insertColumn(0, { number: 3 })`
+		`tibetsheets.insertColumn(0, { number: 3 })`
 
 ------------
 
@@ -433,7 +433,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 删除2-4行
 
-		`luckysheet.deleteRow(1, 3)`
+		`tibetsheets.deleteRow(1, 3)`
 
 ------------
 
@@ -458,7 +458,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 删除2-4列
 
-		`luckysheet.deleteColumn(1, 3)`
+		`tibetsheets.deleteColumn(1, 3)`
 
 ------------
 
@@ -483,7 +483,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 隐藏2-4行
 
-		`luckysheet.hideRow(1, 3)`
+		`tibetsheets.hideRow(1, 3)`
 
 ------------
 
@@ -508,7 +508,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 隐藏2-4列
 
-		`luckysheet.hideColumn(1, 3)`
+		`tibetsheets.hideColumn(1, 3)`
 
 ------------
 
@@ -531,7 +531,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 显示2-4行
 
-		`luckysheet.showRow(1, 3)`
+		`tibetsheets.showRow(1, 3)`
 
 ------------
 
@@ -554,7 +554,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 显示2-4列
 
-		`luckysheet.showColumn(1, 3)`
+		`tibetsheets.showColumn(1, 3)`
 
 ------------
 
@@ -576,7 +576,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 设置第一行高度为50px，第二行高度为60px
 
-		`luckysheet.setRowHeight({0：50，1：60})`
+		`tibetsheets.setRowHeight({0：50，1：60})`
 
 ------------
 
@@ -598,7 +598,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 设置第一列宽度为50px，第二列宽度为60px
 
-		`luckysheet.setColumnWidth({0：50，1：60})`
+		`tibetsheets.setColumnWidth({0：50，1：60})`
 
 ------------
 
@@ -620,7 +620,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 第一行高度为50px，第二行高度为60px，获取这些值
 
-		`luckysheet.getRowHeight([0,1])`
+		`tibetsheets.getRowHeight([0,1])`
 		返回得到
 		`{0：50，1：60}`
 
@@ -644,7 +644,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 第一列宽度为50px，第二列宽度为60px，获取这些值
 
-		`luckysheet.getColumnWidth([0,1])`
+		`tibetsheets.getColumnWidth([0,1])`
 		返回得到
 		`{0：50，1：60}`
 
@@ -666,7 +666,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 返回工作表的默认行高
 
-		`luckysheet.getDefaultRowHeight()`
+		`tibetsheets.getDefaultRowHeight()`
 		返回得到
 		`19`
 
@@ -688,7 +688,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 返回工作表的默认列宽
 
-		`luckysheet.getDefaultColWidth()`
+		`tibetsheets.getDefaultColWidth()`
 		返回得到
 		`73`
 
@@ -706,7 +706,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"和"B4:C5"，执行
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		则返回结果为：
 		```json
@@ -728,7 +728,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 在表格中选择指定的区域，然后执行
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		则返回结果为：
 		```json
@@ -742,7 +742,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 在表格中选择上面的区域，然后执行
 		
-		`luckysheet.getRangeWithFlatten()`
+		`tibetsheets.getRangeWithFlatten()`
 		
 		则返回结果为：
 		```json
@@ -767,7 +767,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 在表格中选择指定的区域，然后执行
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		则返回结果为：
 		```json
@@ -781,7 +781,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 在表格中选择上面的区域，然后执行
 		
-		`luckysheet.getRangeValuesWithFlatte()`
+		`tibetsheets.getRangeValuesWithFlatte()`
 		
 		则返回结果为：
 		```json
@@ -881,7 +881,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"E10:E14"、"A7:B13"、"C4"、 "A3"和"C6:D9"，执行
 		
-		`luckysheet.getRangeAxis()`
+		`tibetsheets.getRangeAxis()`
 		
 		则返回结果为：
 		```json
@@ -908,7 +908,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，执行
 		
-		`luckysheet.getRangeValue()`
+		`tibetsheets.getRangeValue()`
 		
 		则返回结果为：
 		```json
@@ -993,11 +993,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，执行
 		
-		`luckysheet.getRangeHtml()`
+		`tibetsheets.getRangeHtml()`
 		
 		则返回结果为：
 		```html
-		<table data-type="luckysheet_copy_action_table">
+		<table data-type="tibetsheets_copy_action_table">
 			<colgroup width="72px">
 			</colgroup>
 			<colgroup width="72px">
@@ -1046,7 +1046,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，首行为标题取得json
 		
-		`luckysheet.getRangeJson(true)`
+		`tibetsheets.getRangeJson(true)`
 		
 		则返回结果为：
 		```json
@@ -1057,7 +1057,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，首行不为标题取得json
 		
-		`luckysheet.getRangeJson(false)`
+		`tibetsheets.getRangeJson(false)`
 		
 		则返回结果为：
 		```json
@@ -1094,7 +1094,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，一维数组
 		
-		`luckysheet.getRangeArray('oneDimensional')`
+		`tibetsheets.getRangeArray('oneDimensional')`
 		
 		则返回结果为：
 		```json
@@ -1103,7 +1103,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，二维数组
 		
-		`luckysheet.getRangeArray('twoDimensional')`
+		`tibetsheets.getRangeArray('twoDimensional')`
 		
 		则返回结果为：
 		```json
@@ -1115,7 +1115,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:C5"，由 'value1'到'value15'的值组成，得到3	行2列的二维数组数据
 		
-		`luckysheet.getRangeArray('custom', { row: 3, column: 2 })`
+		`tibetsheets.getRangeArray('custom', { row: 3, column: 2 })`
 		
 		则返回结果为：
 		```json
@@ -1188,7 +1188,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，对角线
 		
-		`luckysheet.getRangeDiagonal('normal')`
+		`tibetsheets.getRangeDiagonal('normal')`
 		
 		则返回结果为：
 		```json
@@ -1208,7 +1208,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"，反对角线
 		
-		`luckysheet.getRangeDiagonal('anti')`
+		`tibetsheets.getRangeDiagonal('anti')`
 		
 		则返回结果为：
 		```json
@@ -1227,7 +1227,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 		```
 	- 当前选区为"A1:B2"，对角线偏移1列
 		
-		`luckysheet.getRangeDiagonal('offset', { column: 1 })`
+		`tibetsheets.getRangeDiagonal('offset', { column: 1 })`
 		
 		则返回结果为：
 		```json
@@ -1258,7 +1258,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区为"A1:B2"
 		
-		`luckysheet.getRangeBoolean()`
+		`tibetsheets.getRangeBoolean()`
 		
 		则返回结果为：
 		```json
@@ -1285,28 +1285,28 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 	
 	指定工作表选中一个或多个选区为选中状态并选择是否高亮，支持多种格式设置。
 
-	特别提醒，Luckysheet中涉及到的选区范围设置都可以参考这个设置
+	特别提醒，Tibetsheets中涉及到的选区范围设置都可以参考这个设置
 
 - **示例**:
 
      + 设定当前工作表选区范围`A1:B2`: 
       
-		`luckysheet.setRangeShow("A1:B2")`
+		`tibetsheets.setRangeShow("A1:B2")`
      + 设定选区范围`A1:B2`: 
   		
-		`luckysheet.setRangeShow(["A1:B2"])`
+		`tibetsheets.setRangeShow(["A1:B2"])`
      + 设定选区范围`A1:B2`: 
   
-  		`luckysheet.setRangeShow({row:[0,1],column:[0,1]})`
+  		`tibetsheets.setRangeShow({row:[0,1],column:[0,1]})`
      + 设定选区范围`A1:B2`: 
   
-  		`luckysheet.setRangeShow([{row:[0,1],column:[0,1]}])`
+  		`tibetsheets.setRangeShow([{row:[0,1],column:[0,1]}])`
      + 设定选区范围`A1:B2`和`C3:D4`:  
   
-		`luckysheet.setRangeShow(["A1:B2","C3:D4"])`
+		`tibetsheets.setRangeShow(["A1:B2","C3:D4"])`
      + 设定选区范围`A1:B2`和`D3`: 
   
-  		`luckysheet.setRangeShow([{row:[0,1],column:[0,1]},{row:[2,2],column:[3,3]}])`
+  		`tibetsheets.setRangeShow([{row:[0,1],column:[0,1]},{row:[2,2],column:[3,3]}])`
 
 ------------
 
@@ -1314,7 +1314,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
  
 - **参数**：
 
-	- {Array} [data]: 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Luckysheet格式的对象，参考 [单元格属性表](/zh/guide/cell.html)
+	- {Array} [data]: 要赋值的单元格二维数组数据，每个单元格的值，可以为字符串或数字，或为符合Tibetsheets格式的对象，参考 [单元格属性表](/zh/guide/cell.html)
 	- {PlainObject} [setting]: 可选参数
 		+ {Array | Object | String} [range]: 选区范围,支持选区的格式为`"A1:B2"`、`"sheetName!A1:B2"`或者`{row:[0,1],column:[0,1]}`，只能为单个选区；默认为当前选区
 		+ {Number} [order]: 工作表下标；默认值为当前工作表下标
@@ -1325,7 +1325,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 	
 	将一个单元格数组数据赋值到指定的区域，数据格式同`getRangeValue`方法取到的数据。
 
-	注意一点，通常`getRangeValue`方法只是取得选区数据，但是不包含边框和合并单元格信息，当执行`setRangeValue`的时候，会动态判断上一步是否执行过`getRangeValue`，如果执行过，会将边框和合并单元格信息一并从Luckysheet配置中取得。
+	注意一点，通常`getRangeValue`方法只是取得选区数据，但是不包含边框和合并单元格信息，当执行`setRangeValue`的时候，会动态判断上一步是否执行过`getRangeValue`，如果执行过，会将边框和合并单元格信息一并从Tibetsheets配置中取得。
 
 - **示例**:
 
@@ -1370,7 +1370,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 					}
 				]
 			]
-		luckysheet.setRangeValue(data,{range:"A1:B2"})
+		tibetsheets.setRangeValue(data,{range:"A1:B2"})
 		```
 
 ------------
@@ -1384,7 +1384,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
   	参考 [单元格属性表](/zh/guide/cell.html)的属性值
 	- {String | Number | Object} [value]: 具体的设置值，一个属性会对应多个值，参考 [单元格属性表](/zh/guide/cell.html)的值示例，特殊情况：如果属性类型`attr`是单元格格式`ct`，则设置值`value`应提供`ct.fa`，比如设置`"A1:B2"`单元格的格式为百分比格式：
 	  
-  	  `luckysheet.setRangeFormat("ct", "0.00%", {range:"A1:B2"})`
+  	  `tibetsheets.setRangeFormat("ct", "0.00%", {range:"A1:B2"})`
 
     - {PlainObject} [setting]: 可选参数
     	+ {Object | String} [range]: 设置参数的目标选区范围，支持选区的格式为`"A1:B2"`、`"sheetName!A1:B2"`或者`{row:[0,1],column:[0,1]}`，允许多个选区组成的数组；默认为当前选区
@@ -1397,7 +1397,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
     
   	边框设置时，attr为`"bd"`，value为一个key/value对象，需要同时设置边框类型:`borderType`/边框粗细:`style`/边框颜色:`color`/，比如设置`"A1:B2"`单元格的边框为所有/红色/细：
 	  
-	`luckysheet.setRangeFormat("bd", {borderType: "border-right",style: "1", color: "#ff0000"}, {range:["A1:B2"]})`
+	`tibetsheets.setRangeFormat("bd", {borderType: "border-right",style: "1", color: "#ff0000"}, {range:["A1:B2"]})`
 	
 	完整可选的设置参数如下：
 
@@ -1409,10 +1409,10 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
    - 设置当前工作表`"A1:B2"`范围的单元格文本加粗
 		
-		`luckysheet.setRangeFormat("bl", 1, {range:"A1:B2"})`
+		`tibetsheets.setRangeFormat("bl", 1, {range:"A1:B2"})`
    - 设置第二个工作表的`"B2"`和`"C4:D5"`范围的单元格背景为红色
 		
-		`luckysheet.setRangeFormat("bg", "#ff0000", {range:["B2","C4:D5"], order:1})`
+		`tibetsheets.setRangeFormat("bg", "#ff0000", {range:["B2","C4:D5"], order:1})`
 
 ------------
 
@@ -1439,7 +1439,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 打开第二个工作表"A1:B2"范围的筛选功能
-	`luckysheet.setRangeFilter("open",{range:"A1:B2",order:1})`
+	`tibetsheets.setRangeFilter("open",{range:"A1:B2",order:1})`
 
 ------------
 
@@ -1469,7 +1469,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区 'A1:B2' 设置为合并单元格，类型为全部合并
 		
-		`luckysheet.setRangeMerge("all")`
+		`tibetsheets.setRangeMerge("all")`
 		得到 'A1:B1' 的数据为：
 		```json
 		[
@@ -1515,7 +1515,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 当前选区 'A1:B2' 已为合并单元格，现在要取消合并
 		
-		`luckysheet.cancelRangeMerge()`
+		`tibetsheets.cancelRangeMerge()`
 		
 ------------
 
@@ -1544,7 +1544,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 设置当前工作表当前选区为升序
-   `luckysheet.setRangeSort("asc")`
+   `tibetsheets.setRangeSort("asc")`
 
 ------------
 
@@ -1568,7 +1568,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
    - 设置当前工作表当前选区为自定义排序，数据具有标题行，且按第一列升序第二列降序的规则进行排序
-   `luckysheet.setRangeSortMulti(true,[{ i:0,sort:'asc' },{ i:1,sort:'des' }])`
+   `tibetsheets.setRangeSortMulti(true,[{ i:0,sort:'asc' },{ i:1,sort:'des' }])`
 
 ------------
 
@@ -1624,46 +1624,46 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 突出显示内容大于数字2的单元格
-      `luckysheet.setRangeConditionalFormatDefault("greaterThan",{ type: 'value', content: [2] })`
+      `tibetsheets.setRangeConditionalFormatDefault("greaterThan",{ type: 'value', content: [2] })`
     
 	- 突出显示内容小于单元格A1内容的单元格
-	  `luckysheet.setRangeConditionalFormatDefault("lessThan",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("lessThan",{ type: 'range', content: ['A1'] })`
 
 	- 突出显示内容介于2和10之间的单元格
-	  `luckysheet.setRangeConditionalFormatDefault("betweenness",{ type: 'value', content: [2,10] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("betweenness",{ type: 'value', content: [2,10] })`
 	
 	- 突出显示内容等于单元格A1内容的单元格
-	  `luckysheet.setRangeConditionalFormatDefault("equal",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("equal",{ type: 'range', content: ['A1'] })`
 	
 	- 突出显示内容包含单元格A1内容的单元格
-	  `luckysheet.setRangeConditionalFormatDefault("textContains",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("textContains",{ type: 'range', content: ['A1'] })`
 	
 	- 突出显示日期在 `2020/09/24 - 2020/10/15` 之间的单元格
-      `luckysheet.setRangeConditionalFormatDefault("occurrenceDate",{ type: 'value', content: ['2020/09/24 - 2020/10/15'] })`
+      `tibetsheets.setRangeConditionalFormatDefault("occurrenceDate",{ type: 'value', content: ['2020/09/24 - 2020/10/15'] })`
 
 	- 突出显示重复值的单元格，content为0
-      `luckysheet.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [0] })`
+      `tibetsheets.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [0] })`
 
 	- 突出显示唯一值的单元格，content为1
-      `luckysheet.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [1] })`
+      `tibetsheets.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [1] })`
 	
 	- 突出显示排名前20名的单元格
-      `luckysheet.setRangeConditionalFormatDefault("top",{ type: 'value', content: [20] })`
+      `tibetsheets.setRangeConditionalFormatDefault("top",{ type: 'value', content: [20] })`
 	
 	- 突出显示排名前30%的单元格
-      `luckysheet.setRangeConditionalFormatDefault("topPercent",{ type: 'value', content: [30] })`
+      `tibetsheets.setRangeConditionalFormatDefault("topPercent",{ type: 'value', content: [30] })`
 	
 	- 突出显示排名后15名的单元格
-      `luckysheet.setRangeConditionalFormatDefault("last",{ type: 'value', content: [15] })`
+      `tibetsheets.setRangeConditionalFormatDefault("last",{ type: 'value', content: [15] })`
 	
 	- 突出显示排名后15%的单元格
-      `luckysheet.setRangeConditionalFormatDefault("lastPercent",{ type: 'value', content: [15] })`
+      `tibetsheets.setRangeConditionalFormatDefault("lastPercent",{ type: 'value', content: [15] })`
 	
 	- 突出显示高于平均值的单元格
-      `luckysheet.setRangeConditionalFormatDefault("AboveAverage",{ type: 'value', content: ['AboveAverage'] })`
+      `tibetsheets.setRangeConditionalFormatDefault("AboveAverage",{ type: 'value', content: ['AboveAverage'] })`
 	
 	- 突出显示低于平均值的单元格
-	  `luckysheet.setRangeConditionalFormatDefault("SubAverage",{ type: 'value', content: ['SubAverage'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("SubAverage",{ type: 'value', content: ['SubAverage'] })`
 
 ------------
 
@@ -1780,7 +1780,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 当前选区范围开启条件格式，显示渐变色
-      `luckysheet.setRangeConditionalFormat("dataBar", { format: ["#63c384", "#ffffff"] })`
+      `tibetsheets.setRangeConditionalFormat("dataBar", { format: ["#63c384", "#ffffff"] })`
 
 ------------
 
@@ -1802,7 +1802,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 删除第三个条件格式规则
-      `luckysheet.deleteRangeConditionalFormat(2)`
+      `tibetsheets.deleteRangeConditionalFormat(2)`
     
 ------------
 
@@ -1822,7 +1822,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 清空当前选区内容
-      `luckysheet.clearRange()`
+      `tibetsheets.clearRange()`
     
 ------------
 
@@ -1849,7 +1849,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 删除当前选区并且在删除后，右侧单元格左移
-      `luckysheet.deleteRange('left')`
+      `tibetsheets.deleteRange('left')`
     
 ------------
 
@@ -1885,7 +1885,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
     - 当前选区位置插入空白单元格，并且插入后当前选区单元格右移
-      `luckysheet.insertRange('right')`
+      `tibetsheets.insertRange('right')`
     
 ------------
 
@@ -1919,7 +1919,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
     - 当前选区上下翻转
     		
-		`luckysheet.matrixOperation('flipUpDown')`
+		`tibetsheets.matrixOperation('flipUpDown')`
 
 		原来的选区复制为二维数组：
 		
@@ -1959,7 +1959,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
     - 当前选区所有单元格值加2
     		
-		`luckysheet.matrixCalculation('plus', 2)`
+		`tibetsheets.matrixCalculation('plus', 2)`
 
 		原来的选区复制为二维数组：
 		
@@ -1979,22 +1979,22 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	返回所有工作表配置，格式同工作表配置，得到的结果可用于表格初始化时作为options.data使用。
 
-	所以此API适用于，手动操作配置完一个表格后，将所有工作表信息取出来自行保存，再用于其他地方的表格创建。如果想得到包括工作簿配置在内的所有工作簿数据，推荐使用 [toJson](#toJson())，并且可以直接用于初始化Luckysheet。
+	所以此API适用于，手动操作配置完一个表格后，将所有工作表信息取出来自行保存，再用于其他地方的表格创建。如果想得到包括工作簿配置在内的所有工作簿数据，推荐使用 [toJson](#toJson())，并且可以直接用于初始化Tibetsheets。
 
 - **示例**:
 
 	- 取得第一个工作表的所有基本信息
-	`luckysheet.getAllSheets()[0]`
+	`tibetsheets.getAllSheets()[0]`
 	
 ------------
 
-### getLuckysheetfile()
+### getTibetsheetsfile()
 
 - **说明**：
 
-	返回所有表格数据结构的一维数组`luckysheetfile`，不同于`getAllSheets`方法，此方法得到的工作表参数会包含很多内部使用变量，最明显的区别是表格数据操作会维护`luckysheetfile[i].data`，而初始化数据采用的是`options.data[i].celldata`，所以`luckysheetfile`可用于调试使用，但是不适用初始化表格。
+	返回所有表格数据结构的一维数组`tibetsheetsfile`，不同于`getAllSheets`方法，此方法得到的工作表参数会包含很多内部使用变量，最明显的区别是表格数据操作会维护`tibetsheetsfile[i].data`，而初始化数据采用的是`options.data[i].celldata`，所以`tibetsheetsfile`可用于调试使用，但是不适用初始化表格。
 
-	除此之外，加载过的工作表参数中会增加一个`load = 1`，这个参数在初始化数据的时候需要置为0才行。所以，将`getLuckysheetfile()`得到的数据拿来初始化工作簿，需要做两个工作：
+	除此之外，加载过的工作表参数中会增加一个`load = 1`，这个参数在初始化数据的时候需要置为0才行。所以，将`getTibetsheetsfile()`得到的数据拿来初始化工作簿，需要做两个工作：
 	
 	- celldata转为data，参考:[transToData](/zh/guide/api.html#transtodata-celldata-setting)
 	- load重置为0或者删除此字段
@@ -2004,7 +2004,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 取得第一个工作表的所有调试信息
-	`luckysheet.getLuckysheetfile()[0]`
+	`tibetsheets.getTibetsheetsfile()[0]`
 	
 ------------
 
@@ -2019,7 +2019,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 
-	根据index/order/name，快捷返回指定工作表的配置，同 `luckysheetfile[i]`。如果设置多个参数，优先级为：index > order > name。
+	根据index/order/name，快捷返回指定工作表的配置，同 `tibetsheetsfile[i]`。如果设置多个参数，优先级为：index > order > name。
 	
 ------------
 
@@ -2032,7 +2032,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 
-	快捷返回指定工作表的数据，同 `luckysheetfile[i].data`
+	快捷返回指定工作表的数据，同 `tibetsheetsfile[i].data`
 	
 ------------
 
@@ -2045,7 +2045,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 
-	快捷返回指定工作表的config配置，同 `luckysheetfile[i].config`
+	快捷返回指定工作表的config配置，同 `tibetsheetsfile[i].config`
 
 ------------
 
@@ -2092,7 +2092,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 在最后一个工作表下标位置新增一个空白的工作表
-	`luckysheet.setSheetAdd()`
+	`tibetsheets.setSheetAdd()`
 	
 ------------
 
@@ -2111,7 +2111,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 删除当前工作表
-	`luckysheet.setSheetDelete()`
+	`tibetsheets.setSheetDelete()`
 			
 ------------
 
@@ -2131,7 +2131,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 复制当前工作表到下一个下标位置
-	`luckysheet.setSheetCopy()`
+	`tibetsheets.setSheetCopy()`
 
 ------------
 
@@ -2150,9 +2150,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 隐藏当前工作表
-	`luckysheet.setSheetHide()`
+	`tibetsheets.setSheetHide()`
 	- 隐藏第三个工作表
-	`luckysheet.setSheetHide({order:2})`
+	`tibetsheets.setSheetHide({order:2})`
 
 ------------
 
@@ -2171,7 +2171,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 取消隐藏第三个工作表
-	`luckysheet.setSheetShow({order:2})`
+	`tibetsheets.setSheetShow({order:2})`
 
 ------------
 
@@ -2190,7 +2190,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 切换到第二个工作表
-	`luckysheet.setSheetActive(1)`
+	`tibetsheets.setSheetActive(1)`
 
 ------------
 
@@ -2210,7 +2210,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 修改当前工作表名称为"CellSheet"
-	`luckysheet.setSheetName("CellSheet")`
+	`tibetsheets.setSheetName("CellSheet")`
 
 ------------
 
@@ -2230,7 +2230,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 修改当前工作表名称处的颜色为红色
-	`luckysheet.setSheetColor("#ff0000")`
+	`tibetsheets.setSheetColor("#ff0000")`
 
 ------------
 
@@ -2256,9 +2256,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 当前工作表向左移动一个位置
-	`luckysheet.setSheetMove("left")`
+	`tibetsheets.setSheetMove("left")`
 	- 第二个工作表移动到第四个工作表的下标位置
-	`luckysheet.setSheetMove(3,{order:1})`
+	`tibetsheets.setSheetMove(3,{order:1})`
 
 ------------
 
@@ -2289,7 +2289,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 重排工作表，此工作簿含有3个工作表
 	```js
-	luckysheet.setSheetOrder([
+	tibetsheets.setSheetOrder([
 		{index:'sheet_01',order: 2},
 		{index:'sheet_02',order: 1},
 		{index:'sheet_03',order: 0},
@@ -2317,7 +2317,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	- 设置当前工作表缩放比例为0.5
 	```js
-	luckysheet.setSheetZoom(0.5)
+	tibetsheets.setSheetZoom(0.5)
 	```
 
 ------------
@@ -2337,9 +2337,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 显示当前工作表的网格线
-	`luckysheet.showGridLines()`
+	`tibetsheets.showGridLines()`
 	- 显示第三个工作表的网格线
-	`luckysheet.showGridLines({order:2})`
+	`tibetsheets.showGridLines({order:2})`
 
 ------------
 
@@ -2358,9 +2358,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **示例**:
 
 	- 隐藏当前工作表的网格线
-	`luckysheet.hideGridLines()`
+	`tibetsheets.hideGridLines()`
 	- 隐藏第三个工作表的网格线
-	`luckysheet.hideGridLines({order:2})`
+	`tibetsheets.hideGridLines({order:2})`
 
 ------------
 
@@ -2374,7 +2374,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 	
-	初始化一个Luckysheet，可包含多个工作表，参考 [配置列表](/zh/guide/config.html)
+	初始化一个Tibetsheets，可包含多个工作表，参考 [配置列表](/zh/guide/config.html)
 
 ------------
 
@@ -2777,7 +2777,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 	
-	导出的json字符串可以直接当作`luckysheet.create(options)`初始化工作簿时的参数`options`使用，使用场景在用户自己操作表格后想要手动保存全部的参数，再去别处初始化这个表格使用，类似一个luckysheet专有格式的导入导出。
+	导出的json字符串可以直接当作`tibetsheets.create(options)`初始化工作簿时的参数`options`使用，使用场景在用户自己操作表格后想要手动保存全部的参数，再去别处初始化这个表格使用，类似一个tibetsheets专有格式的导入导出。
 
 ------------
 
@@ -2809,9 +2809,9 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **示例**:
 
-	- 当前选区为`A1:B2`，`luckysheet.getRangeByTxt()`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
-	- `luckysheet.getRangeByTxt("A1:B2")`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
-    - `luckysheet.getRangeByTxt("Cell!A1:B2")`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
+	- 当前选区为`A1:B2`，`tibetsheets.getRangeByTxt()`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
+	- `tibetsheets.getRangeByTxt("A1:B2")`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
+    - `tibetsheets.getRangeByTxt("Cell!A1:B2")`返回：`{column: (2) [0, 1],row: (2) [0, 1]}`
 
 ------------
 
@@ -2827,10 +2827,10 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **示例**:
 
-	- 当前选区为`A1:B3`，`luckysheet.getTxtByRange()`返回：当前选区`"A1:B3"`
-	- `luckysheet.getTxtByRange({column:[0,1],row:[0,2]})`返回：`"A1:B3"`
-	- `luckysheet.getTxtByRange([{column:[0,1],row:[0,2]}])`返回：`"A1:B3"`
-	- `luckysheet.getTxtByRange([{column:[0,1],row:[0,2]},{column:[1,1],row:[1,2]}])`返回：`"A1:B3,B2:B3"`
+	- 当前选区为`A1:B3`，`tibetsheets.getTxtByRange()`返回：当前选区`"A1:B3"`
+	- `tibetsheets.getTxtByRange({column:[0,1],row:[0,2]})`返回：`"A1:B3"`
+	- `tibetsheets.getTxtByRange([{column:[0,1],row:[0,2]}])`返回：`"A1:B3"`
+	- `tibetsheets.getTxtByRange([{column:[0,1],row:[0,2]},{column:[1,1],row:[1,2]}])`返回：`"A1:B3,B2:B3"`
 
 ------------
 
@@ -2854,11 +2854,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 	此方法为获取单元格的值。
 
-	- luckysheet.getcellvalue()：返回当前工作表的所有数据；
-	- luckysheet.getcellvalue(0)：返回当前工作表第1行数据；
-	- luckysheet.getcellvalue(null,0)：返回当前工作表第1列数据；
-	- luckysheet.getcellvalue(0,0)：返回当前工作表第1行第1列单元格的数据的v值；
-	- luckysheet.getcellvalue(1,1,null,'m'): 返回指定data数据的第2行第2列单元格的原始值。
+	- tibetsheets.getcellvalue()：返回当前工作表的所有数据；
+	- tibetsheets.getcellvalue(0)：返回当前工作表第1行数据；
+	- tibetsheets.getcellvalue(null,0)：返回当前工作表第1列数据；
+	- tibetsheets.getcellvalue(0,0)：返回当前工作表第1行第1列单元格的数据的v值；
+	- tibetsheets.getcellvalue(1,1,null,'m'): 返回指定data数据的第2行第2列单元格的原始值。
 	
 	特殊情况：单元格格式为yyyy-MM-dd，type为'v'时会强制取'm'显示值
 
@@ -2866,13 +2866,13 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 ------------
 
-### getluckysheetfile()
+### gettibetsheetsfile()
 
 - **说明**：
 
-	返回所有表格数据结构的一维数组`luckysheetfile`
+	返回所有表格数据结构的一维数组`tibetsheetsfile`
 
-	> 推荐使用新API： [getLuckysheetfile](#getLuckysheetfile())
+	> 推荐使用新API： [getTibetsheetsfile](#getTibetsheetsfile())
 
 ------------
 
@@ -2880,13 +2880,13 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 
-	快捷返回当前表格config配置，每个工作表的config信息仍然包含在luckysheetfile。
+	快捷返回当前表格config配置，每个工作表的config信息仍然包含在tibetsheetsfile。
 	
 	> 推荐使用新API： [getConfig](#getConfig([setting]))
 
 ------------
 
-### getluckysheet_select_save()
+### gettibetsheets_select_save()
 
 - **说明**：
 
@@ -2906,14 +2906,14 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 - **说明**：
 
 	返回某个表格第一个选区的数据。
-	- `luckysheet.getdatabyselection()`: 返回当前工作表当前选区的数据
-	- `luckysheet.getdatabyselection(null,1)`: 返回第2个工作表的当前选区的数据
+	- `tibetsheets.getdatabyselection()`: 返回当前工作表当前选区的数据
+	- `tibetsheets.getdatabyselection(null,1)`: 返回第2个工作表的当前选区的数据
 
 	> 推荐使用新API： [getRangeValue](#getRangeValue([setting]))
 
 ------------
 
-### luckysheetrefreshgrid(scrollWidth, scrollHeight)
+### tibetsheetsrefreshgrid(scrollWidth, scrollHeight)
 
 - **参数**：
 	
@@ -2938,11 +2938,11 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 
-	设置某个单元格的值。可配合`luckysheet.jfrefreshgrid()`刷新查看单元格值改变。
+	设置某个单元格的值。可配合`tibetsheets.jfrefreshgrid()`刷新查看单元格值改变。
 
 	```js
-	luckysheet.setcellvalue(0, 0, luckysheet.flowdata(), 'abc');
-	luckysheet.jfrefreshgrid();
+	tibetsheets.setcellvalue(0, 0, tibetsheets.flowdata(), 'abc');
+	tibetsheets.jfrefreshgrid();
 	```
 
 ------------
@@ -2957,7 +2957,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 	
 ------------
 
-### setluckysheet_select_save(v)
+### settibetsheets_select_save(v)
 
 - **参数**：
 	
@@ -2965,10 +2965,10 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **说明**：
 	
-	设置当前表格选区的值。配合`luckysheet.selectHightlightShow()`可在界面查看选区改变。
+	设置当前表格选区的值。配合`tibetsheets.selectHightlightShow()`可在界面查看选区改变。
 	```js
-	luckysheet.setluckysheet_select_save([{ row: [0, 1], column: [0, 1] }]);
-	luckysheet.selectHightlightShow();
+	tibetsheets.settibetsheets_select_save([{ row: [0, 1], column: [0, 1] }]);
+	tibetsheets.selectHightlightShow();
 	```
 
 	> 推荐使用新API：<a href='#setRangeShow'>setRangeShow</a>
@@ -2999,7 +2999,7 @@ Luckysheet针对常用的数据操作需求，开放了主要功能的API，开�
 
 - **参数**：
 	
-	- {Object} [file]：[luckysheetfile](/zh/guide/sheet.html)
+	- {Object} [file]：[tibetsheetsfile](/zh/guide/sheet.html)
 
 - **说明**：
 	

@@ -10,10 +10,10 @@ import Store from '../store';
 import locale from '../locale/locale';
 
 //定位
-const luckysheetLocationCell = {
+const tibetsheetsLocationCell = {
     createDialog: function(){
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-locationCell-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-locationCell-dialog").remove();
 
         const _locale = locale();
         const locale_location = _locale.findAndReplace;
@@ -91,38 +91,38 @@ const luckysheetLocationCell = {
                       '</div>';
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-locationCell-dialog", 
-            "addclass": "luckysheet-locationCell-dialog", 
+            "id": "tibetsheets-locationCell-dialog", 
+            "addclass": "tibetsheets-locationCell-dialog", 
             "title": locale_location.location, 
             "content": content, 
-            "botton": '<button id="luckysheet-locationCell-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default luckysheet-model-close-btn">'+locale_button.cancel+'</button>', 
+            "botton": '<button id="tibetsheets-locationCell-dialog-confirm" class="btn btn-primary">'+locale_button.confirm+'</button><button class="btn btn-default tibetsheets-model-close-btn">'+locale_button.cancel+'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-locationCell-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
+        let $t = $("#tibetsheets-locationCell-dialog").find(".tibetsheets-modal-dialog-content").css("min-width", 400).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-locationCell-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $("#tibetsheets-locationCell-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
     },
     init: function(){
         let _this = this;
 
         const locale_location = locale().findAndReplace;
 
-        $(document).on("click", "#luckysheet-locationCell-dialog .listItem input:radio", function(e){
-            $("#luckysheet-locationCell-dialog .listItem input:checkbox").prop("disabled", true);
-            $("#luckysheet-locationCell-dialog .listItem .subbox label").css("color", "#666");
+        $(document).on("click", "#tibetsheets-locationCell-dialog .listItem input:radio", function(e){
+            $("#tibetsheets-locationCell-dialog .listItem input:checkbox").prop("disabled", true);
+            $("#tibetsheets-locationCell-dialog .listItem .subbox label").css("color", "#666");
 
             $(this).siblings(".subbox").find("input:checkbox").removeAttr("disabled");
             $(this).siblings(".subbox").find("label").css("color", "#000");
         });
 
-        $(document).off("click.locationCellConfirm").on("click.locationCellConfirm", "#luckysheet-locationCell-dialog #luckysheet-locationCell-dialog-confirm", function(){
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-locationCell-dialog").hide();
+        $(document).off("click.locationCellConfirm").on("click.locationCellConfirm", "#tibetsheets-locationCell-dialog #tibetsheets-locationCell-dialog-confirm", function(){
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-locationCell-dialog").hide();
 
-            let $radio = $("#luckysheet-locationCell-dialog .listItem input:radio:checked");
+            let $radio = $("#tibetsheets-locationCell-dialog .listItem input:radio:checked");
             let id = $radio.attr("id");
 
             if(id == "locationConstant" || id == "locationFormula"){
@@ -160,18 +160,18 @@ const luckysheetLocationCell = {
                 }
 
                 let range;
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].row[0] == Store.tibetsheets_select_save[0].row[1] && Store.tibetsheets_select_save[0].column[0] == Store.tibetsheets_select_save[0].column[1])){
                     //单个单元格
                     range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
                 }
                 else{
-                    range = $.extend(true, [], Store.luckysheet_select_save);
+                    range = $.extend(true, [], Store.tibetsheets_select_save);
                 }
 
                 _this.apply(range, id, value);
             }
             else if(id == "locationStepRow"){
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1])){
+                if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].row[0] == Store.tibetsheets_select_save[0].row[1])){
                     if(isEditMode()){
                         alert(locale_location.locationTiplessTwoRow);
                     }
@@ -181,12 +181,12 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = $.extend(true, [], Store.luckysheet_select_save);
+                let range = $.extend(true, [], Store.tibetsheets_select_save);
 
                 _this.apply(range, "locationStepRow");
             }
             else if(id == "locationStepColumn"){
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].column[0] == Store.tibetsheets_select_save[0].column[1])){
                     if(isEditMode()){
                         alert(locale_location.locationTiplessTwoColumn);
                     }
@@ -196,18 +196,18 @@ const luckysheetLocationCell = {
                     return;                            
                 }
 
-                let range = $.extend(true, [], Store.luckysheet_select_save);
+                let range = $.extend(true, [], Store.tibetsheets_select_save);
 
                 _this.apply(range, "locationStepColumn");
             }
             else{
                 let range;
-                if(Store.luckysheet_select_save.length == 0 || (Store.luckysheet_select_save.length == 1 && Store.luckysheet_select_save[0].row[0] == Store.luckysheet_select_save[0].row[1] && Store.luckysheet_select_save[0].column[0] == Store.luckysheet_select_save[0].column[1])){
+                if(Store.tibetsheets_select_save.length == 0 || (Store.tibetsheets_select_save.length == 1 && Store.tibetsheets_select_save[0].row[0] == Store.tibetsheets_select_save[0].row[1] && Store.tibetsheets_select_save[0].column[0] == Store.tibetsheets_select_save[0].column[1])){
                     //单个单元格
                     range = [{"row": [0, Store.flowdata.length - 1], "column": [0, Store.flowdata[0].length - 1]}];
                 }
                 else{
-                    range = $.extend(true, [], Store.luckysheet_select_save);
+                    range = $.extend(true, [], Store.tibetsheets_select_save);
                 }
 
                 _this.apply(range, id);
@@ -265,8 +265,8 @@ const luckysheetLocationCell = {
         }
         else if(type == "locationCF"){ //条件格式
             let index = getSheetIndex(Store.currentSheetIndex);
-            let ruleArr = Store.luckysheetfile[index]["luckysheet_conditionformat_save"];
-            let data = Store.luckysheetfile[index]["data"];
+            let ruleArr = Store.tibetsheetsfile[index]["tibetsheets_conditionformat_save"];
+            let data = Store.tibetsheetsfile[index]["data"];
 
             if(ruleArr == null || ruleArr.length == 0){
                 if(isEditMode()){
@@ -366,18 +366,18 @@ const luckysheetLocationCell = {
             }
         }
         else{
-            Store.luckysheet_select_save = rangeArr;
+            Store.tibetsheets_select_save = rangeArr;
             selectHightlightShow(); 
 
-            let scrollLeft = $("#luckysheet-cell-main").scrollLeft(), 
-                scrollTop = $("#luckysheet-cell-main").scrollTop();
-            let winH = $("#luckysheet-cell-main").height(), 
-                winW = $("#luckysheet-cell-main").width();
+            let scrollLeft = $("#tibetsheets-cell-main").scrollLeft(), 
+                scrollTop = $("#tibetsheets-cell-main").scrollTop();
+            let winH = $("#tibetsheets-cell-main").height(), 
+                winW = $("#tibetsheets-cell-main").width();
 
-            let r1 = Store.luckysheet_select_save[0]["row"][0],
-                r2 = Store.luckysheet_select_save[0]["row"][1],
-                c1 = Store.luckysheet_select_save[0]["column"][0],
-                c2 = Store.luckysheet_select_save[0]["column"][1];
+            let r1 = Store.tibetsheets_select_save[0]["row"][0],
+                r2 = Store.tibetsheets_select_save[0]["row"][1],
+                c1 = Store.tibetsheets_select_save[0]["column"][0],
+                c2 = Store.tibetsheets_select_save[0]["column"][1];
 
             let row = Store.visibledatarow[r2], 
                 row_pre = r1 - 1 == -1 ? 0 : Store.visibledatarow[r1 - 1];
@@ -385,17 +385,17 @@ const luckysheetLocationCell = {
                 col_pre = c1 - 1 == -1 ? 0 : Store.visibledatacolumn[c1 - 1];
 
             if (col - scrollLeft - winW + 20 > 0) {
-                $("#luckysheet-scrollbar-x").scrollLeft(col - winW + 20);
+                $("#tibetsheets-scrollbar-x").scrollLeft(col - winW + 20);
             }
             else if (col_pre - scrollLeft - 20 < 0) {
-                $("#luckysheet-scrollbar-x").scrollLeft(col_pre - 20);
+                $("#tibetsheets-scrollbar-x").scrollLeft(col_pre - 20);
             }
 
             if (row - scrollTop - winH + 20 > 0) {
-                $("#luckysheet-scrollbar-y").scrollTop(row - winH + 20);
+                $("#tibetsheets-scrollbar-y").scrollTop(row - winH + 20);
             }
             else if (row_pre - scrollTop - 20 < 0) {
-                $("#luckysheet-scrollbar-y").scrollTop(row_pre - 20);
+                $("#tibetsheets-scrollbar-y").scrollTop(row_pre - 20);
             }
         }
     },
@@ -494,4 +494,4 @@ const luckysheetLocationCell = {
     }
 }
 
-export default luckysheetLocationCell;
+export default tibetsheetsLocationCell;

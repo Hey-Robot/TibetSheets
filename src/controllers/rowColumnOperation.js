@@ -1,16 +1,16 @@
 
 import pivotTable from './pivotTable';
-import luckysheetPostil from './postil';
+import tibetsheetsPostil from './postil';
 import imageCtrl from './imageCtrl';
 import menuButton from './menuButton';
 import server from './server';
 import method from '../global/method';
-import { selectHightlightShow, luckysheet_count_show,selectHelpboxFill } from './select';
+import { selectHightlightShow, tibetsheets_count_show,selectHelpboxFill } from './select';
 import { 
     getObjType, 
     showrightclickmenu,
-    luckysheetContainerFocus, 
-    luckysheetfontformat,
+    tibetsheetsContainerFocus, 
+    tibetsheetsfontformat,
     $$
 } from '../utils/util';
 import { getSheetIndex, getRangetxt } from '../methods/get';
@@ -24,7 +24,7 @@ import {
 import { isRealNull, isRealNum, hasPartMC, isEditMode, checkIsAllowEdit } from '../global/validate';
 import { countfunc } from '../global/count';
 import formula from '../global/formula';
-import { luckysheetextendtable, luckysheetdeletetable, luckysheetDeleteCell } from '../global/extend';
+import { tibetsheetsextendtable, tibetsheetsdeletetable, tibetsheetsDeleteCell } from '../global/extend';
 import { 
     jfrefreshgrid, 
     jfrefreshgridall, 
@@ -35,29 +35,29 @@ import tooltip from '../global/tooltip';
 import editor from '../global/editor';
 import locale from '../locale/locale';
 import {getMeasureText,getCellTextInfo} from '../global/getRowlen';
-import { luckysheet_searcharray } from '../controllers/sheetSearch';
+import { tibetsheets_searcharray } from '../controllers/sheetSearch';
 import {isInlineStringCell} from './inlineString';
 import {checkProtectionLockedRangeList, checkProtectionAllSelected,checkProtectionAuthorityNormal  } from './protection';
 import Store from '../store';
-import luckysheetConfigsetting from './luckysheetConfigsetting';
+import tibetsheetsConfigsetting from './tibetsheetsConfigsetting';
 
 export function rowColumnOperationInitial(){
 
     //表格行标题 mouse事件
-    $("#luckysheet-rows-h").mousedown(function (event) {
+    $("#tibetsheets-rows-h").mousedown(function (event) {
         if(!checkProtectionAllSelected(Store.currentSheetIndex)){
             return;
         }
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         //图片 active/cropping
-        if($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")){
+        if($("#tibetsheets-modal-dialog-activeImage").is(":visible") || $("#tibetsheets-modal-dialog-cropping").is(":visible")){
             imageCtrl.cancelActiveImgItem();
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
+        let y = mouse[1] + $("#tibetsheets-rows-h").scrollTop();
 
         let row_location = rowLocation(y), 
             row = row_location[1], 
@@ -66,15 +66,15 @@ export function rowColumnOperationInitial(){
         let col_index = Store.visibledatacolumn.length - 1, 
             col = Store.visibledatacolumn[col_index], col_pre = 0;
 
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
+        $("#tibetsheets-rightclick-menu").hide();
+        $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
 
         //mousedown是右键
         if (event.which == "3") {
             let isright = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let obj_s = Store.luckysheet_select_save[s];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let obj_s = Store.tibetsheets_select_save[s];
 
                 if(obj_s["row"] != null && (row_index >= obj_s["row"][0] && row_index <= obj_s["row"][1]) && (obj_s["column"][0] == 0 && obj_s["column"][1] == Store.flowdata[0].length - 1)){
                     isright = true;
@@ -90,12 +90,12 @@ export function rowColumnOperationInitial(){
         let top = row_pre, height = row - row_pre - 1;
         let rowseleted = [row_index, row_index];
 
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
 
         //公式相关
-        let $input = $("#luckysheet-input-box");
+        let $input = $("#tibetsheets-input-box");
         if (parseInt($input.css("top")) > 0) {
-            if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton() || $("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
+            if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton() || $("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
                 //公式选区
                 let changeparam = menuButton.mergeMoveMain([0, col_index], rowseleted, {"row_focus": row_index, "column_focus": 0}, top, height, col_pre, col);
                 if(changeparam != null){
@@ -154,9 +154,9 @@ export function rowColumnOperationInitial(){
 
                     formula.func_selectedrange = last;
                 }
-                else if(event.ctrlKey && $("#luckysheet-rich-text-editor").find("span").last().text() != ","){
+                else if(event.ctrlKey && $("#tibetsheets-rich-text-editor").find("span").last().text() != ","){
                     //按住ctrl 选择选区时  先处理上一个选区
-                    let vText = $("#luckysheet-rich-text-editor").text() + ",";
+                    let vText = $("#tibetsheets-rich-text-editor").text() + ",";
                     if(vText.length > 0 && vText.substr(0, 1) == "="){
                         vText = formula.functionHTMLGenerate(vText);
 
@@ -169,7 +169,7 @@ export function rowColumnOperationInitial(){
                             formula.functionRangeIndex = textRange;
                         }
 
-                        $("#luckysheet-rich-text-editor").html(vText);
+                        $("#tibetsheets-rich-text-editor").html(vText);
 
                         formula.canceFunctionrangeSelected();
                         formula.createRangeHightlight();
@@ -179,8 +179,8 @@ export function rowColumnOperationInitial(){
                     formula.rangedrag_column_start = false;
                     formula.rangedrag_row_start = false;
 
-                    $("#luckysheet-functionbox-cell").html(vText);
-                    formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
+                    $("#tibetsheets-functionbox-cell").html(vText);
+                    formula.rangeHightlightselected($("#tibetsheets-rich-text-editor"));
 
                     //再进行 选区的选择
                     formula.israngeseleciton();
@@ -219,32 +219,32 @@ export function rowColumnOperationInitial(){
                 if(formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton()){
                     formula.rangeSetValue({ "row": rowseleted, "column": [null, null] });
                 }
-                else if($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")){//if公式生成器
+                else if($("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")){//if公式生成器
                     let range = getRangetxt(Store.currentSheetIndex, { "row": rowseleted, "column": [0, col_index] }, Store.currentSheetIndex);
-                    $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+                    $("#tibetsheets-ifFormulaGenerator-multiRange-dialog input").val(range);
                 }
 
                 formula.rangedrag_row_start = true;
                 formula.rangestart = false;
                 formula.rangedrag_column_start = false;
 
-                $("#luckysheet-formula-functionrange-select").css({ 
+                $("#tibetsheets-formula-functionrange-select").css({ 
                     "left": col_pre, 
                     "width": col - col_pre - 1, 
                     "top": top, 
                     "height": height 
                 }).show();
-                $("#luckysheet-formula-help-c").hide();
+                $("#tibetsheets-formula-help-c").hide();
 
-                luckysheet_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
+                tibetsheets_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
 
                 setTimeout(function(){
                     let currSelection = window.getSelection();
                     let anchorOffset = currSelection.anchorNode;
                     
                     let $editor;
-                    if($("#luckysheet-search-formula-parm").is(":visible")||$("#luckysheet-search-formula-parm-select").is(":visible")){
-                        $editor = $("#luckysheet-rich-text-editor");
+                    if($("#tibetsheets-search-formula-parm").is(":visible")||$("#tibetsheets-search-formula-parm-select").is(":visible")){
+                        $editor = $("#tibetsheets-rich-text-editor");
                         formula.rangechangeindex = formula.data_parm_index;
                     }
                     else{
@@ -259,18 +259,18 @@ export function rowColumnOperationInitial(){
                 return;
             }
             else {
-                formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                Store.luckysheet_rows_selected_status = true;
+                formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+                Store.tibetsheets_rows_selected_status = true;
             }
         }
         else {
-            Store.luckysheet_rows_selected_status = true;
+            Store.tibetsheets_rows_selected_status = true;
         }
 
-        if (Store.luckysheet_rows_selected_status) {
+        if (Store.tibetsheets_rows_selected_status) {
             if(event.shiftKey){
                 //按住shift点击行索引选取范围
-                let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]); //选区最后一个
+                let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]); //选区最后一个
 
                 let top = 0, height = 0, rowseleted = [];
                 if (last.top > row_pre) {
@@ -304,10 +304,10 @@ export function rowColumnOperationInitial(){
                 last["top_move"] = top;
                 last["height_move"] = height;
 
-                Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
             }
             else if(event.ctrlKey){
-                Store.luckysheet_select_save.push({ 
+                Store.tibetsheets_select_save.push({ 
                     "left": colLocationByIndex(0)[0],
                     "width": colLocationByIndex(0)[1] - colLocationByIndex(0)[0] - 1,
                     "top": top,
@@ -324,8 +324,8 @@ export function rowColumnOperationInitial(){
                 });
             }
             else{
-                Store.luckysheet_select_save.length = 0;
-                Store.luckysheet_select_save.push({ 
+                Store.tibetsheets_select_save.length = 0;
+                Store.tibetsheets_select_save.push({ 
                     "left": colLocationByIndex(0)[0],
                     "width": colLocationByIndex(0)[1] - colLocationByIndex(0)[0] - 1,
                     "top": top,
@@ -345,7 +345,7 @@ export function rowColumnOperationInitial(){
             selectHightlightShow();
 
             //允许编辑后的后台更新时
-            server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+            server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
         }
 
         selectHelpboxFill();
@@ -355,30 +355,30 @@ export function rowColumnOperationInitial(){
             countfunc();
         }, 101);
     }).mousemove(function (event) {
-        if (Store.luckysheet_rows_selected_status || Store.luckysheet_rows_change_size || Store.luckysheet_select_status) {
-            $("#luckysheet-rows-h-hover").hide();
+        if (Store.tibetsheets_rows_selected_status || Store.tibetsheets_rows_change_size || Store.tibetsheets_select_status) {
+            $("#tibetsheets-rows-h-hover").hide();
             return;
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
+        let y = mouse[1] + $("#tibetsheets-rows-h").scrollTop();
 
         let row_location = rowLocation(y), 
             row = row_location[1], 
             row_pre = row_location[0], 
             row_index = row_location[2];
 
-        $("#luckysheet-rows-h-hover").css({ "top": row_pre, "height": row - row_pre - 1, "display": "block" });
+        $("#tibetsheets-rows-h-hover").css({ "top": row_pre, "height": row - row_pre - 1, "display": "block" });
 
         if (y < row - 1 && y >= row - 5) {
-            $("#luckysheet-rows-change-size").css({ "top": row - 3, "opacity": 0 });
+            $("#tibetsheets-rows-change-size").css({ "top": row - 3, "opacity": 0 });
         }
         else {
-            $("#luckysheet-rows-change-size").css("opacity", 0);
+            $("#tibetsheets-rows-change-size").css("opacity", 0);
         }
     }).mouseleave(function (event) {
-        $("#luckysheet-rows-h-hover").hide();
-        $("#luckysheet-rows-change-size").css("opacity", 0);
+        $("#tibetsheets-rows-h-hover").hide();
+        $("#tibetsheets-rows-change-size").css("opacity", 0);
     }).mouseup(function (event) {
         if (event.which == 3) {
             // *如果禁止前台编辑，则中止下一步操作
@@ -389,57 +389,57 @@ export function rowColumnOperationInitial(){
                 return;
             }
 
-            $("#luckysheet-cols-rows-shift").hide();
-            Store.luckysheetRightHeadClickIs = "row";
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.row);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.height);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.top);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.bottom);
+            $("#tibetsheets-cols-rows-shift").hide();
+            Store.tibetsheetsRightHeadClickIs = "row";
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-word").text(locale().rightclick.row);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-size").text(locale().rightclick.height);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-left").text(locale().rightclick.top);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-right").text(locale().rightclick.bottom);
 
-            $("#luckysheet-cols-rows-add").show();
-            $("#luckysheet-cols-rows-data").show();
-            $("#luckysheet-cols-rows-shift").hide();
-            $("#luckysheet-cols-rows-handleincell").hide();
+            $("#tibetsheets-cols-rows-add").show();
+            $("#tibetsheets-cols-rows-data").show();
+            $("#tibetsheets-cols-rows-shift").hide();
+            $("#tibetsheets-cols-rows-handleincell").hide();
 
-            $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'block';
-            $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'block';
 
             // 自定义右键菜单：向上向下增加行，删除行，隐藏显示行，设置行高
-            const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
+            const cellRightClickConfig = tibetsheetsConfigsetting.cellRightClickConfig;
 
             // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
             if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight && !cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.chart && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data && !cellRightClickConfig.cellFormat){
                 return;
             }
 
-            $$('#luckysheet-top-left-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
-            $$('#luckysheet-bottom-right-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
-            $$('#luckysheet-del-selected').style.display = cellRightClickConfig.deleteRow ? 'block' : 'none';
-            $$('#luckysheet-hide-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
-            $$('#luckysheet-show-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
-            $$('#luckysheet-column-row-width-selected').style.display = cellRightClickConfig.rowHeight ? 'block' : 'none';
+            $$('#tibetsheets-top-left-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
+            $$('#tibetsheets-bottom-right-add-selected').style.display = cellRightClickConfig.insertRow ? 'block' : 'none';
+            $$('#tibetsheets-del-selected').style.display = cellRightClickConfig.deleteRow ? 'block' : 'none';
+            $$('#tibetsheets-hide-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
+            $$('#tibetsheets-show-selected').style.display = cellRightClickConfig.hideRow ? 'block' : 'none';
+            $$('#tibetsheets-column-row-width-selected').style.display = cellRightClickConfig.rowHeight ? 'block' : 'none';
 
             // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
             if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
 
                 if(!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight){
-                    $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
                 }
 
             }
 
             // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
             if(!cellRightClickConfig.insertRow && !cellRightClickConfig.deleteRow && !cellRightClickConfig.hideRow && !cellRightClickConfig.rowHeight){
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
             }
 
             if(!cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.chart && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data && !cellRightClickConfig.cellFormat){
-                $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
             }
             
-            showrightclickmenu($("#luckysheet-rightclick-menu"), $(this).offset().left + 46, event.pageY);
-            Store.luckysheet_cols_menu_status = true;
+            showrightclickmenu($("#tibetsheets-rightclick-menu"), $(this).offset().left + 46, event.pageY);
+            Store.tibetsheets_cols_menu_status = true;
 
             //行高默认值
             let cfg = $.extend(true, {}, Store.config);
@@ -447,11 +447,11 @@ export function rowColumnOperationInitial(){
                 cfg["rowlen"] = {};
             }
 
-            let first_rowlen = cfg["rowlen"][Store.luckysheet_select_save[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.luckysheet_select_save[0].row[0]];
+            let first_rowlen = cfg["rowlen"][Store.tibetsheets_select_save[0].row[0]] == null ? Store.defaultrowlen : cfg["rowlen"][Store.tibetsheets_select_save[0].row[0]];
             let isSame = true;
 
-            for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                let s = Store.luckysheet_select_save[i];
+            for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                let s = Store.tibetsheets_select_save[i];
                 let r1 = s.row[0], r2 = s.row[1];
 
                 for(let r = r1; r <= r2; r++){
@@ -465,24 +465,24 @@ export function rowColumnOperationInitial(){
             }
 
             if(isSame){
-                $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val(first_rowlen);
+                $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val(first_rowlen);
             }
             else{
-                $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val("");
+                $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val("");
             }
         }
     });
     
     //表格列标题 mouse事件
-    $("#luckysheet-cols-h-c").mousedown(function (event) {
+    $("#tibetsheets-cols-h-c").mousedown(function (event) {
         if(!checkProtectionAllSelected(Store.currentSheetIndex)){
             return;
         }
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         //图片 active/cropping
-        if($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")){
+        if($("#tibetsheets-modal-dialog-activeImage").is(":visible") || $("#tibetsheets-modal-dialog-cropping").is(":visible")){
             imageCtrl.cancelActiveImgItem();
         }
 
@@ -498,16 +498,16 @@ export function rowColumnOperationInitial(){
 
         Store.orderbyindex = col_index;//排序全局函数
 
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-sheet-list, #luckysheet-rightclick-sheet-menu").hide();
-        $("#luckysheet-filter-menu, #luckysheet-filter-submenu").hide();
+        $("#tibetsheets-rightclick-menu").hide();
+        $("#tibetsheets-sheet-list, #tibetsheets-rightclick-sheet-menu").hide();
+        $("#tibetsheets-filter-menu, #tibetsheets-filter-submenu").hide();
 
         //mousedown是右键
         if (event.which == "3") {
             let isright = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let obj_s = Store.luckysheet_select_save[s];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let obj_s = Store.tibetsheets_select_save[s];
 
                 if(obj_s["column"] != null && (col_index >= obj_s["column"][0] && col_index <= obj_s["column"][1]) && (obj_s["row"][0] == 0 && obj_s["row"][1] == Store.flowdata.length - 1)){
                     isright = true;
@@ -523,12 +523,12 @@ export function rowColumnOperationInitial(){
         let left = col_pre, width = col - col_pre - 1;
         let columnseleted = [col_index, col_index];
 
-        Store.luckysheet_scroll_status = true;
+        Store.tibetsheets_scroll_status = true;
 
         //公式相关
-        let $input = $("#luckysheet-input-box");
+        let $input = $("#tibetsheets-input-box");
         if (parseInt($input.css("top")) > 0) {
-            if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton() || $("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
+            if (formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton() || $("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")) {
                 //公式选区
                 let changeparam = menuButton.mergeMoveMain(columnseleted, [0, row_index], {"row_focus": 0, "column_focus": col_index}, row_pre, row, left, width);
                 if(changeparam != null){
@@ -587,9 +587,9 @@ export function rowColumnOperationInitial(){
 
                     formula.func_selectedrange = last;
                 }
-                else if(event.ctrlKey && $("#luckysheet-rich-text-editor").find("span").last().text() != ","){
+                else if(event.ctrlKey && $("#tibetsheets-rich-text-editor").find("span").last().text() != ","){
                     //按住ctrl 选择选区时  先处理上一个选区
-                    let vText = $("#luckysheet-rich-text-editor").text() + ",";
+                    let vText = $("#tibetsheets-rich-text-editor").text() + ",";
                     if(vText.length > 0 && vText.substr(0, 1) == "="){
                         vText = formula.functionHTMLGenerate(vText);
 
@@ -602,7 +602,7 @@ export function rowColumnOperationInitial(){
                             formula.functionRangeIndex = textRange;
                         }
 
-                        $("#luckysheet-rich-text-editor").html(vText);
+                        $("#tibetsheets-rich-text-editor").html(vText);
 
                         formula.canceFunctionrangeSelected();
                         formula.createRangeHightlight();
@@ -612,8 +612,8 @@ export function rowColumnOperationInitial(){
                     formula.rangedrag_column_start = false;
                     formula.rangedrag_row_start = false;
 
-                    $("#luckysheet-functionbox-cell").html(vText);
-                    formula.rangeHightlightselected($("#luckysheet-rich-text-editor"));
+                    $("#tibetsheets-functionbox-cell").html(vText);
+                    formula.rangeHightlightselected($("#tibetsheets-rich-text-editor"));
 
                     //再进行 选区的选择
                     formula.israngeseleciton();
@@ -652,40 +652,40 @@ export function rowColumnOperationInitial(){
                 if(formula.rangestart || formula.rangedrag_column_start || formula.rangedrag_row_start || formula.israngeseleciton()){
                     formula.rangeSetValue({ "row": [null, null], "column": columnseleted });
                 }
-                else if($("#luckysheet-ifFormulaGenerator-multiRange-dialog").is(":visible")){//if公式生成器
+                else if($("#tibetsheets-ifFormulaGenerator-multiRange-dialog").is(":visible")){//if公式生成器
                     let range = getRangetxt(Store.currentSheetIndex, { "row": [0, row_index], "column": columnseleted }, Store.currentSheetIndex);
-                    $("#luckysheet-ifFormulaGenerator-multiRange-dialog input").val(range);
+                    $("#tibetsheets-ifFormulaGenerator-multiRange-dialog input").val(range);
                 }
 
                 formula.rangedrag_column_start = true;
                 formula.rangestart = false;
                 formula.rangedrag_row_start = false;
 
-                $("#luckysheet-formula-functionrange-select").css({ 
+                $("#tibetsheets-formula-functionrange-select").css({ 
                     "left": left, 
                     "width": width, 
                     "top": row_pre, 
                     "height": row - row_pre - 1 
                 }).show();
-                $("#luckysheet-formula-help-c").hide();
+                $("#tibetsheets-formula-help-c").hide();
 
-                luckysheet_count_show(left, row_pre, width, row - row_pre - 1, [0, row_index], columnseleted);
+                tibetsheets_count_show(left, row_pre, width, row - row_pre - 1, [0, row_index], columnseleted);
 
                 return;
             }
             else {
-                formula.updatecell(Store.luckysheetCellUpdate[0], Store.luckysheetCellUpdate[1]);
-                Store.luckysheet_cols_selected_status = true;
+                formula.updatecell(Store.tibetsheetsCellUpdate[0], Store.tibetsheetsCellUpdate[1]);
+                Store.tibetsheets_cols_selected_status = true;
             }
         }
         else {
-            Store.luckysheet_cols_selected_status = true;
+            Store.tibetsheets_cols_selected_status = true;
         }
 
-        if (Store.luckysheet_cols_selected_status) {
+        if (Store.tibetsheets_cols_selected_status) {
             if(event.shiftKey){
                 //按住shift点击列索引选取范围
-                let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]); //选区最后一个
+                let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]); //选区最后一个
 
                 let left = 0, width = 0, columnseleted = [];
                 if (last.left > col_pre) {
@@ -719,11 +719,11 @@ export function rowColumnOperationInitial(){
                 last["left_move"] = left;
                 last["width_move"] = width;
 
-                Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+                Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
             }
             else if(event.ctrlKey){
                 //选区添加
-                Store.luckysheet_select_save.push({ 
+                Store.tibetsheets_select_save.push({ 
                     "left": left, 
                     "width": width, 
                     "top": rowLocationByIndex(0)[0], 
@@ -740,8 +740,8 @@ export function rowColumnOperationInitial(){
                 });
             }
             else{
-                Store.luckysheet_select_save.length = 0;
-                Store.luckysheet_select_save.push({ 
+                Store.tibetsheets_select_save.length = 0;
+                Store.tibetsheets_select_save.push({ 
                     "left": left, 
                     "width": width, 
                     "top": rowLocationByIndex(0)[0], 
@@ -761,7 +761,7 @@ export function rowColumnOperationInitial(){
             selectHightlightShow();
 
             //允许编辑后的后台更新时
-            server.saveParam("mv", Store.currentSheetIndex, Store.luckysheet_select_save);
+            server.saveParam("mv", Store.currentSheetIndex, Store.tibetsheets_select_save);
         }
         
         selectHelpboxFill();
@@ -771,52 +771,52 @@ export function rowColumnOperationInitial(){
             countfunc();
         }, 101);
 
-        if (Store.luckysheet_cols_menu_status) {
-            $("#luckysheet-rightclick-menu").hide();
-            $("#luckysheet-cols-h-hover").hide();
-            $("#luckysheet-cols-menu-btn").hide();
-            Store.luckysheet_cols_menu_status = false;
+        if (Store.tibetsheets_cols_menu_status) {
+            $("#tibetsheets-rightclick-menu").hide();
+            $("#tibetsheets-cols-h-hover").hide();
+            $("#tibetsheets-cols-menu-btn").hide();
+            Store.tibetsheets_cols_menu_status = false;
         }
         event.stopPropagation();
     }).mousemove(function (event) {
-        if (Store.luckysheet_cols_selected_status || Store.luckysheet_select_status) {
-            $("#luckysheet-cols-h-hover").hide();
-            $("#luckysheet-cols-menu-btn").hide();
+        if (Store.tibetsheets_cols_selected_status || Store.tibetsheets_select_status) {
+            $("#tibetsheets-cols-h-hover").hide();
+            $("#tibetsheets-cols-menu-btn").hide();
             return;
         }
 
-        if (Store.luckysheet_cols_menu_status || Store.luckysheet_cols_change_size) {
+        if (Store.tibetsheets_cols_menu_status || Store.tibetsheets_cols_change_size) {
             return;
         }
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let x = mouse[0] + $("#luckysheet-cols-h-c").scrollLeft();
+        let x = mouse[0] + $("#tibetsheets-cols-h-c").scrollLeft();
 
         let col_location = colLocation(x), 
             col = col_location[1], 
             col_pre = col_location[0], 
             col_index = col_location[2];
 
-        $("#luckysheet-cols-h-hover").css({ "left": col_pre, "width": col - col_pre - 1, "display": "block" });
-        $("#luckysheet-cols-menu-btn").css({ "left": col - 19, "display": "block" });
+        $("#tibetsheets-cols-h-hover").css({ "left": col_pre, "width": col - col_pre - 1, "display": "block" });
+        $("#tibetsheets-cols-menu-btn").css({ "left": col - 19, "display": "block" });
 
-        $("#luckysheet-cols-change-size").css({ "left": col - 5 });
+        $("#tibetsheets-cols-change-size").css({ "left": col - 5 });
         if (x < col && x >= col - 5) {
-            $("#luckysheet-cols-change-size").css({ "opacity": 0 });
-            $("#luckysheet-cols-menu-btn").hide();
+            $("#tibetsheets-cols-change-size").css({ "opacity": 0 });
+            $("#tibetsheets-cols-menu-btn").hide();
         }
         else {
-            $("#luckysheet-change-size-line").hide();
-            $("#luckysheet-cols-change-size").css("opacity", 0);
+            $("#tibetsheets-change-size-line").hide();
+            $("#tibetsheets-cols-change-size").css("opacity", 0);
         }
     }).mouseleave(function (event) {
-        if (Store.luckysheet_cols_menu_status || Store.luckysheet_cols_change_size) {
+        if (Store.tibetsheets_cols_menu_status || Store.tibetsheets_cols_change_size) {
             return;
         }
 
-        $("#luckysheet-cols-h-hover").hide();
-        $("#luckysheet-cols-menu-btn").hide();
-        $("#luckysheet-cols-change-size").css("opacity", 0);
+        $("#tibetsheets-cols-h-hover").hide();
+        $("#tibetsheets-cols-menu-btn").hide();
+        $("#tibetsheets-cols-change-size").css("opacity", 0);
     }).mouseup(function (event) {
         if (event.which == 3) {
             // *如果禁止前台编辑，则中止下一步操作
@@ -827,56 +827,56 @@ export function rowColumnOperationInitial(){
                 return;
             }
 
-            Store.luckysheetRightHeadClickIs = "column";
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.column);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.width);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
-            $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+            Store.tibetsheetsRightHeadClickIs = "column";
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-word").text(locale().rightclick.column);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-size").text(locale().rightclick.width);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-left").text(locale().rightclick.left);
+            $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-right").text(locale().rightclick.right);
 
-            $("#luckysheet-cols-rows-add").show();
-            $("#luckysheet-cols-rows-data").show();
-            $("#luckysheet-cols-rows-shift").hide();
-            $("#luckysheet-cols-rows-handleincell").hide();
+            $("#tibetsheets-cols-rows-add").show();
+            $("#tibetsheets-cols-rows-data").show();
+            $("#tibetsheets-cols-rows-shift").hide();
+            $("#tibetsheets-cols-rows-handleincell").hide();
 
-            $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'block';
-            $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'block';
+            $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'block';
 
             // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
-            const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
+            const cellRightClickConfig = tibetsheetsConfigsetting.cellRightClickConfig;
 
             // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
             if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth && !cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.chart && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data && !cellRightClickConfig.cellFormat){
                 return;
             }
 
-            $$('#luckysheet-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-            $$('#luckysheet-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-            $$('#luckysheet-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
-            $$('#luckysheet-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-            $$('#luckysheet-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-            $$('#luckysheet-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
+            $$('#tibetsheets-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+            $$('#tibetsheets-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+            $$('#tibetsheets-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
+            $$('#tibetsheets-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+            $$('#tibetsheets-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+            $$('#tibetsheets-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
 
             // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
             if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
 
                 if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-                    $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                    $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
                 }
 
             }
 
             // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
             if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-                $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
             }
 
             if(!cellRightClickConfig.clear && !cellRightClickConfig.matrix && !cellRightClickConfig.sort && !cellRightClickConfig.filter && !cellRightClickConfig.chart && !cellRightClickConfig.image && !cellRightClickConfig.link && !cellRightClickConfig.data && !cellRightClickConfig.cellFormat){
-                $$('#luckysheet-cols-rows-data .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-data .tibetsheets-menuseparator').style.display = 'none';
             }
             
-            showrightclickmenu($("#luckysheet-rightclick-menu"), event.pageX, $(this).offset().top + 18);
-            Store.luckysheet_cols_menu_status = true;
+            showrightclickmenu($("#tibetsheets-rightclick-menu"), event.pageX, $(this).offset().top + 18);
+            Store.tibetsheets_cols_menu_status = true;
 
             //列宽默认值
             let cfg = $.extend(true, {}, Store.config);
@@ -884,11 +884,11 @@ export function rowColumnOperationInitial(){
                 cfg["columnlen"] = {};
             }
 
-            let first_collen = cfg["columnlen"][Store.luckysheet_select_save[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.luckysheet_select_save[0].column[0]];
+            let first_collen = cfg["columnlen"][Store.tibetsheets_select_save[0].column[0]] == null ? Store.defaultcollen : cfg["columnlen"][Store.tibetsheets_select_save[0].column[0]];
             let isSame = true;
 
-            for(let i = 0; i < Store.luckysheet_select_save.length; i++){
-                let s = Store.luckysheet_select_save[i];
+            for(let i = 0; i < Store.tibetsheets_select_save.length; i++){
+                let s = Store.tibetsheets_select_save[i];
                 let c1 = s.column[0], c2 = s.column[1];
 
                 for(let c = c1; c <= c2; c++){
@@ -902,45 +902,45 @@ export function rowColumnOperationInitial(){
             }
 
             if(isSame){
-                $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val(first_collen);
+                $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val(first_collen);
             }
             else{
-                $("#luckysheet-cols-rows-add").find("input[type='number'].rcsize").val("");
+                $("#tibetsheets-cols-rows-add").find("input[type='number'].rcsize").val("");
             }
         }
     });
 
     //表格行标题 改变行高按钮
-    $("#luckysheet-rows-change-size").mousedown(function (event) {
+    $("#tibetsheets-rows-change-size").mousedown(function (event) {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
             return
         }
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         //图片 active/cropping
-        if($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")){
+        if($("#tibetsheets-modal-dialog-activeImage").is(":visible") || $("#tibetsheets-modal-dialog-cropping").is(":visible")){
             imageCtrl.cancelActiveImgItem();
         }
         
-        $("#luckysheet-input-box").hide();
-        $("#luckysheet-rows-change-size").css({ "opacity": 1 });
+        $("#tibetsheets-input-box").hide();
+        $("#tibetsheets-rows-change-size").css({ "opacity": 1 });
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let y = mouse[1] + $("#luckysheet-rows-h").scrollTop();
+        let y = mouse[1] + $("#tibetsheets-rows-h").scrollTop();
 
-        let scrollLeft = $("#luckysheet-cell-main").scrollLeft();
-        let winW = $("#luckysheet-cell-main").width();
+        let scrollLeft = $("#tibetsheets-cell-main").scrollLeft();
+        let winW = $("#tibetsheets-cell-main").width();
 
         let row_location = rowLocation(y), 
             row = row_location[1], 
             row_pre = row_location[0], 
             row_index = row_location[2];
 
-        Store.luckysheet_rows_change_size = true;
-        Store.luckysheet_scroll_status = true;
-        $("#luckysheet-change-size-line").css({ 
+        Store.tibetsheets_rows_change_size = true;
+        Store.tibetsheets_scroll_status = true;
+        $("#tibetsheets-change-size-line").css({ 
             "height": "1px", 
             "border-width": 
             "0 0px 1px 0", 
@@ -950,35 +950,35 @@ export function rowColumnOperationInitial(){
             "display": "block", 
             "cursor": "ns-resize" 
         });
-        $("#luckysheet-sheettable, #luckysheet-rows-h, #luckysheet-rows-h canvas").css("cursor", "ns-resize");
-        Store.luckysheet_rows_change_size_start = [row_pre, row_index];
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-rows-h-hover").hide();
-        $("#luckysheet-cols-menu-btn").hide();
+        $("#tibetsheets-sheettable, #tibetsheets-rows-h, #tibetsheets-rows-h canvas").css("cursor", "ns-resize");
+        Store.tibetsheets_rows_change_size_start = [row_pre, row_index];
+        $("#tibetsheets-rightclick-menu").hide();
+        $("#tibetsheets-rows-h-hover").hide();
+        $("#tibetsheets-cols-menu-btn").hide();
         event.stopPropagation();
     });
 
     //表格列标题 改变列宽按钮
-    $("#luckysheet-cols-change-size").mousedown(function (event) {
+    $("#tibetsheets-cols-change-size").mousedown(function (event) {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
             return
         }
         //有批注在编辑时
-        luckysheetPostil.removeActivePs();
+        tibetsheetsPostil.removeActivePs();
 
         //图片 active/cropping
-        if($("#luckysheet-modal-dialog-activeImage").is(":visible") || $("#luckysheet-modal-dialog-cropping").is(":visible")){
+        if($("#tibetsheets-modal-dialog-activeImage").is(":visible") || $("#tibetsheets-modal-dialog-cropping").is(":visible")){
             imageCtrl.cancelActiveImgItem();
         }
 
-        $("#luckysheet-input-box").hide();
-        $("#luckysheet-cols-change-size").css({ "opacity": 1 });
+        $("#tibetsheets-input-box").hide();
+        $("#tibetsheets-cols-change-size").css({ "opacity": 1 });
 
         let mouse = mouseposition(event.pageX, event.pageY);
-        let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
-        let scrollTop = $("#luckysheet-cell-main").scrollTop();
-        let winH = $("#luckysheet-cell-main").height();
+        let scrollLeft = $("#tibetsheets-cols-h-c").scrollLeft();
+        let scrollTop = $("#tibetsheets-cell-main").scrollTop();
+        let winH = $("#tibetsheets-cell-main").height();
         let x = mouse[0] + scrollLeft;
 
         let row_index = Store.visibledatarow.length - 1, 
@@ -988,9 +988,9 @@ export function rowColumnOperationInitial(){
             col_pre = col_location[0], 
             col_index = col_location[2];
 
-        Store.luckysheet_cols_change_size = true;
-        Store.luckysheet_scroll_status = true;
-        $("#luckysheet-change-size-line").css({ 
+        Store.tibetsheets_cols_change_size = true;
+        Store.tibetsheets_scroll_status = true;
+        $("#tibetsheets-change-size-line").css({ 
             "height": winH + scrollTop, 
             "border-width": "0 1px 0 0", 
             "top": 0, 
@@ -999,95 +999,95 @@ export function rowColumnOperationInitial(){
             "display": "block", 
             "cursor": "ew-resize" 
         });
-        $("#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas").css("cursor", "ew-resize");
-        Store.luckysheet_cols_change_size_start = [col_pre, col_index];
-        $("#luckysheet-rightclick-menu").hide();
-        $("#luckysheet-cols-h-hover").hide();
-        $("#luckysheet-cols-menu-btn").hide();
-        Store.luckysheet_cols_dbclick_times = 0;
+        $("#tibetsheets-sheettable, #tibetsheets-cols-h-c, .tibetsheets-cols-h-cells, .tibetsheets-cols-h-cells canvas").css("cursor", "ew-resize");
+        Store.tibetsheets_cols_change_size_start = [col_pre, col_index];
+        $("#tibetsheets-rightclick-menu").hide();
+        $("#tibetsheets-cols-h-hover").hide();
+        $("#tibetsheets-cols-menu-btn").hide();
+        Store.tibetsheets_cols_dbclick_times = 0;
         event.stopPropagation();
     }).dblclick(function () {
-        luckysheetcolsdbclick();
+        tibetsheetscolsdbclick();
     });
 
     // 列标题的下拉箭头
-    $("#luckysheet-cols-menu-btn").click(function (event) {
+    $("#tibetsheets-cols-menu-btn").click(function (event) {
         // *如果禁止前台编辑，则中止下一步操作
         if (!checkIsAllowEdit()) {
             tooltip.info("", locale().pivotTable.errorNotAllowEdit);
             return
         }
-        let $menu = $("#luckysheet-rightclick-menu");
+        let $menu = $("#tibetsheets-rightclick-menu");
         let offset = $(this).offset();
-        $("#luckysheet-cols-rows-shift").show();
-        Store.luckysheetRightHeadClickIs = "column";
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-word").text(locale().rightclick.column);
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
-        $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+        $("#tibetsheets-cols-rows-shift").show();
+        Store.tibetsheetsRightHeadClickIs = "column";
+        $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-word").text(locale().rightclick.column);
+        $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-left").text(locale().rightclick.left);
+        $("#tibetsheets-rightclick-menu .tibetsheets-cols-rows-shift-right").text(locale().rightclick.right);
 
-        $("#luckysheet-cols-rows-add").show();
-        $("#luckysheet-cols-rows-data").hide();
-        $("#luckysheet-cols-rows-shift").show();
-        $("#luckysheet-cols-rows-handleincell").hide();
+        $("#tibetsheets-cols-rows-add").show();
+        $("#tibetsheets-cols-rows-data").hide();
+        $("#tibetsheets-cols-rows-shift").show();
+        $("#tibetsheets-cols-rows-handleincell").hide();
 
-        $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'block';
-        $$('#luckysheet-cols-rows-shift .luckysheet-menuseparator').style.display = 'block';
+        $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'block';
+        $$('#tibetsheets-cols-rows-shift .tibetsheets-menuseparator').style.display = 'block';
 
         // 自定义右键菜单：向左向右增加列，删除列，隐藏显示列，设置列宽
-        const cellRightClickConfig = luckysheetConfigsetting.cellRightClickConfig;
+        const cellRightClickConfig = tibetsheetsConfigsetting.cellRightClickConfig;
 
         // 如果全部按钮都隐藏，则整个菜单容器也要隐藏
         if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste && !cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth && !cellRightClickConfig.sort){
             return;
         }
 
-        $$('#luckysheet-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-        $$('#luckysheet-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
-        $$('#luckysheet-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
-        $$('#luckysheet-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-        $$('#luckysheet-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
-        $$('#luckysheet-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
+        $$('#tibetsheets-top-left-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+        $$('#tibetsheets-bottom-right-add-selected').style.display = cellRightClickConfig.insertColumn ? 'block' : 'none';
+        $$('#tibetsheets-del-selected').style.display = cellRightClickConfig.deleteColumn ? 'block' : 'none';
+        $$('#tibetsheets-hide-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+        $$('#tibetsheets-show-selected').style.display = cellRightClickConfig.hideColumn ? 'block' : 'none';
+        $$('#tibetsheets-column-row-width-selected').style.display = cellRightClickConfig.columnWidth ? 'block' : 'none';
 
         // 1. 当一个功能菜单块上方的功能块按钮都隐藏的时候，下方的功能块的顶部分割线也需要隐藏
         if(!cellRightClickConfig.copy && !cellRightClickConfig.copyAs && !cellRightClickConfig.paste){
-            $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+            $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
 
             if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-                $$('#luckysheet-cols-rows-shift .luckysheet-menuseparator').style.display = 'none';
+                $$('#tibetsheets-cols-rows-shift .tibetsheets-menuseparator').style.display = 'none';
             }
 
         }
 
         // 2. 当一个功能菜单块内所有的按钮都隐藏的时候，它顶部的分割线也需要隐藏掉
         if(!cellRightClickConfig.insertColumn && !cellRightClickConfig.deleteColumn && !cellRightClickConfig.hideColumn && !cellRightClickConfig.columnWidth){
-            $$('#luckysheet-cols-rows-add .luckysheet-menuseparator').style.display = 'none';
+            $$('#tibetsheets-cols-rows-add .tibetsheets-menuseparator').style.display = 'none';
         }
 
         if(!cellRightClickConfig.sort){
-            $$('#luckysheet-cols-rows-shift .luckysheet-menuseparator').style.display = 'none';
+            $$('#tibetsheets-cols-rows-shift .tibetsheets-menuseparator').style.display = 'none';
         }
 
         showrightclickmenu($menu, offset.left, offset.top + 18);
-        Store.luckysheet_cols_menu_status = true;
+        Store.tibetsheets_cols_menu_status = true;
     });
 
     //向左增加列，向上增加行
-    // $("#luckysheet-add-lefttop, #luckysheet-add-lefttop_t").click(function (event) {
-    $("#luckysheet-top-left-add-selected").click(function (event) {
+    // $("#tibetsheets-add-lefttop, #tibetsheets-add-lefttop_t").click(function (event) {
+    $("#tibetsheets-top-left-add-selected").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
 
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
         
         const _locale = locale();
         const locale_drag = _locale.drag;
         const locale_info = _locale.info;
         
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1124,52 +1124,52 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][0];
+        let st_index = Store.tibetsheets_select_save[0][Store.tibetsheetsRightHeadClickIs][0];
 		if(!method.createHookFunction("rowInsertBefore",  st_index, value, "lefttop")){ 
 			return; 
 		}
-		luckysheetextendtable(Store.luckysheetRightHeadClickIs, st_index, value, "lefttop");
+		tibetsheetsextendtable(Store.tibetsheetsRightHeadClickIs, st_index, value, "lefttop");
     });
 
 
     // When you right-click a cell, a row is inserted before the row by default
-    $("#luckysheetColsRowsHandleAdd_row").click(function (event) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheetsColsRowsHandleAdd_row").click(function (event) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         if(Store.allowEdit===false){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0].row[0];
+        let st_index = Store.tibetsheets_select_save[0].row[0];
 		if(!method.createHookFunction("rowInsertBefore",  st_index, 1, "lefttop")){ 
 			return; 
 		}
-        luckysheetextendtable('row', st_index, 1, "lefttop");
+        tibetsheetsextendtable('row', st_index, 1, "lefttop");
 
 
     })
-    $("#luckysheetColsRowsHandleAdd_column").click(function (event) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheetsColsRowsHandleAdd_column").click(function (event) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         if(Store.allowEdit===false){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0].column[0];
-        luckysheetextendtable('column', st_index, 1, "lefttop");
+        let st_index = Store.tibetsheets_select_save[0].column[0];
+        tibetsheetsextendtable('column', st_index, 1, "lefttop");
 
 
     })
 
     // custom right-click a cell buttton click
-    $(".luckysheetColsRowsHandleAdd_custom").click(function (clickEvent) {
-        $("#luckysheet-rightclick-menu").hide();
+    $(".tibetsheetsColsRowsHandleAdd_custom").click(function (clickEvent) {
+        $("#tibetsheets-rightclick-menu").hide();
         const cellRightClickConfig =
-          luckysheetConfigsetting.cellRightClickConfig;
-        const rowIndex = Store.luckysheet_select_save[0].row[0];
-        const columnIndex = Store.luckysheet_select_save[0].column[0];
+          tibetsheetsConfigsetting.cellRightClickConfig;
+        const rowIndex = Store.tibetsheets_select_save[0].row[0];
+        const columnIndex = Store.tibetsheets_select_save[0].column[0];
         if (
           cellRightClickConfig.customs[
             Number(clickEvent.currentTarget.dataset.index)
@@ -1186,22 +1186,22 @@ export function rowColumnOperationInitial(){
         
     });
     // Add the row up, and click the text area to trigger the confirmation instead of clicking the confirmation button to enhance the experience
-    // $("#luckysheet-addTopRows").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:first-child").click(function (event) {
+    // $("#tibetsheets-addTopRows").click(function (event) {
+    // $("#tibetsheetsColsRowsHandleAdd_sub .tibetsheets-cols-menuitem:first-child").click(function (event) {
 
     //     // Click input element, don't comfirm 
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
 
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     const _locale = locale();
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
         
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.tibetsheets_select_save.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -1236,34 +1236,34 @@ export function rowColumnOperationInitial(){
     //         return;
     //     }
 
-    //     let st_index = Store.luckysheet_select_save[0].row[0];
-    //     luckysheetextendtable('row', st_index, value, "lefttop");
+    //     let st_index = Store.tibetsheets_select_save[0].row[0];
+    //     tibetsheetsextendtable('row', st_index, value, "lefttop");
 
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     $("#tibetsheetsColsRowsHandleAdd_sub").hide();
     // })
 
     // // input输入时阻止冒泡，禁止父级元素的确认事件触发
-    // $("input.luckysheet-mousedown-cancel").click(function(event) {
+    // $("input.tibetsheets-mousedown-cancel").click(function(event) {
     //     event.stopPropagation;
     // })
 
 
-    // $("#luckysheet-addLeftCols").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(3)").click(function (event) {
+    // $("#tibetsheets-addLeftCols").click(function (event) {
+    // $("#tibetsheetsColsRowsHandleAdd_sub .tibetsheets-cols-menuitem:nth-child(3)").click(function (event) {
 
     //     // Click input element, don't comfirm 
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
 
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     const _locale = locale();
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
         
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.tibetsheets_select_save.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -1298,30 +1298,30 @@ export function rowColumnOperationInitial(){
     //         return;
     //     }
 
-    //     let st_index = Store.luckysheet_select_save[0].column[0];
-    //     luckysheetextendtable('column', st_index, value, "lefttop");
+    //     let st_index = Store.tibetsheets_select_save[0].column[0];
+    //     tibetsheetsextendtable('column', st_index, value, "lefttop");
 
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     $("#tibetsheetsColsRowsHandleAdd_sub").hide();
         
     // })
 
     //向右增加列，向下增加行
-    // $("#luckysheet-add-rightbottom, #luckysheet-add-rightbottom_t").click(function (event) {
-    $("#luckysheet-bottom-right-add-selected").click(function (event) {
+    // $("#tibetsheets-add-rightbottom, #tibetsheets-add-rightbottom_t").click(function (event) {
+    $("#tibetsheets-bottom-right-add-selected").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
 
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const _locale = locale();
         const locale_drag = _locale.drag;
         const locale_info = _locale.info;
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1357,29 +1357,29 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][1];
+        let st_index = Store.tibetsheets_select_save[0][Store.tibetsheetsRightHeadClickIs][1];
 		if(!method.createHookFunction("rowInsertBefore",  st_index, value, "rightbottom")){
 			return; 
 		}
-        luckysheetextendtable(Store.luckysheetRightHeadClickIs, st_index, value, "rightbottom");
+        tibetsheetsextendtable(Store.tibetsheetsRightHeadClickIs, st_index, value, "rightbottom");
     });
 
-    // $("#luckysheet-addBottomRows").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(2)").click(function (event) {
+    // $("#tibetsheets-addBottomRows").click(function (event) {
+    // $("#tibetsheetsColsRowsHandleAdd_sub .tibetsheets-cols-menuitem:nth-child(2)").click(function (event) {
 
     //      // Click input element, don't comfirm 
     //      if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
 
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     const _locale = locale();
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
 
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.tibetsheets_select_save.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -1415,27 +1415,27 @@ export function rowColumnOperationInitial(){
     //         return;
     //     }
 
-    //     let st_index = Store.luckysheet_select_save[0].row[1];
-    //     luckysheetextendtable('row', st_index, value, "rightbottom");
+    //     let st_index = Store.tibetsheets_select_save[0].row[1];
+    //     tibetsheetsextendtable('row', st_index, value, "rightbottom");
 
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     $("#tibetsheetsColsRowsHandleAdd_sub").hide();
 
     // });
-    // $("#luckysheet-addRightCols").click(function (event) {
-    // $("#luckysheetColsRowsHandleAdd_sub .luckysheet-cols-menuitem:nth-child(4)").click(function (event) {
+    // $("#tibetsheets-addRightCols").click(function (event) {
+    // $("#tibetsheetsColsRowsHandleAdd_sub .tibetsheets-cols-menuitem:nth-child(4)").click(function (event) {
 
     //     // Click input element, don't comfirm 
     //     if(event.target.nodeName === 'INPUT'){
     //         return;
     //     }
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     const _locale = locale();
     //     const locale_drag = _locale.drag;
     //     const locale_info = _locale.info;
 
-    //     if(Store.luckysheet_select_save.length > 1){
+    //     if(Store.tibetsheets_select_save.length > 1){
     //         if(isEditMode()){
     //             alert(locale_drag.noMulti);
     //         }
@@ -1471,22 +1471,22 @@ export function rowColumnOperationInitial(){
     //         return;
     //     }
 
-    //     let st_index = Store.luckysheet_select_save[0].column[1];
-    //     luckysheetextendtable('column', st_index, value, "rightbottom");
+    //     let st_index = Store.tibetsheets_select_save[0].column[1];
+    //     tibetsheetsextendtable('column', st_index, value, "rightbottom");
 
-    //     $("#luckysheetColsRowsHandleAdd_sub").hide();
+    //     $("#tibetsheetsColsRowsHandleAdd_sub").hide();
 
     // });
     
     //删除选中行列
-    $("#luckysheet-del-selected, #luckysheet-del-selected_t").click(function (event) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-del-selected, #tibetsheets-del-selected_t").click(function (event) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
-            if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheets_select_save.length > 1){
+            if(Store.tibetsheetsRightHeadClickIs == "row"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1494,7 +1494,7 @@ export function rowColumnOperationInitial(){
                     tooltip.info(locale_drag.noMulti, "");
                 }
             }
-            else if(Store.luckysheetRightHeadClickIs == "column"){
+            else if(Store.tibetsheetsRightHeadClickIs == "column"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1505,21 +1505,21 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][0], 
-            ed_index = Store.luckysheet_select_save[0][Store.luckysheetRightHeadClickIs][1];
+        let st_index = Store.tibetsheets_select_save[0][Store.tibetsheetsRightHeadClickIs][0], 
+            ed_index = Store.tibetsheets_select_save[0][Store.tibetsheetsRightHeadClickIs][1];
         if(!method.createHookFunction("rowDeleteBefore", st_index, ed_index)){
         	return; 
         }
-		luckysheetdeletetable(Store.luckysheetRightHeadClickIs, st_index, ed_index);
+		tibetsheetsdeletetable(Store.tibetsheetsRightHeadClickIs, st_index, ed_index);
     });
-    $("#luckysheet-delRows").click(function (event) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-delRows").click(function (event) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
-            if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheets_select_save.length > 1){
+            if(Store.tibetsheetsRightHeadClickIs == "row"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1527,7 +1527,7 @@ export function rowColumnOperationInitial(){
                     tooltip.info(locale_drag.noMulti, "");
                 }
             }
-            else if(Store.luckysheetRightHeadClickIs == "column"){
+            else if(Store.tibetsheetsRightHeadClickIs == "column"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1538,21 +1538,21 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0].row[0], 
-            ed_index = Store.luckysheet_select_save[0].row[1];
+        let st_index = Store.tibetsheets_select_save[0].row[0], 
+            ed_index = Store.tibetsheets_select_save[0].row[1];
 		if(!method.createHookFunction("rowDeleteBefore", st_index, ed_index)){
 			return; 
 		}
-        luckysheetdeletetable('row', st_index, ed_index);
+        tibetsheetsdeletetable('row', st_index, ed_index);
     })
-    $("#luckysheet-delCols").click(function (event) {
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-delCols").click(function (event) {
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
-            if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheets_select_save.length > 1){
+            if(Store.tibetsheetsRightHeadClickIs == "row"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1560,7 +1560,7 @@ export function rowColumnOperationInitial(){
                     tooltip.info(locale_drag.noMulti, "");
                 }
             }
-            else if(Store.luckysheetRightHeadClickIs == "column"){
+            else if(Store.tibetsheetsRightHeadClickIs == "column"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1571,22 +1571,22 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let st_index = Store.luckysheet_select_save[0].column[0], 
-            ed_index = Store.luckysheet_select_save[0].column[1];
-        luckysheetdeletetable('column', st_index, ed_index);
+        let st_index = Store.tibetsheets_select_save[0].column[0], 
+            ed_index = Store.tibetsheets_select_save[0].column[1];
+        tibetsheetsdeletetable('column', st_index, ed_index);
     })
 
     //隐藏选中行列
-    $("#luckysheet-hide-selected").click(function (event) {
+    $("#tibetsheets-hide-selected").click(function (event) {
 
        
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
-            if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheets_select_save.length > 1){
+            if(Store.tibetsheetsRightHeadClickIs == "row"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1594,7 +1594,7 @@ export function rowColumnOperationInitial(){
                     tooltip.info(locale_drag.noMulti, "");
                 }
             }
-            else if(Store.luckysheetRightHeadClickIs == "column"){
+            else if(Store.tibetsheetsRightHeadClickIs == "column"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1606,7 +1606,7 @@ export function rowColumnOperationInitial(){
         }
 
         // 隐藏行
-        if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheetsRightHeadClickIs == "row"){
             
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
                 return;
@@ -1617,9 +1617,9 @@ export function rowColumnOperationInitial(){
                 cfg["rowhidden"] = {};
             }
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0],
+                    r2 = Store.tibetsheets_select_save[s].row[1];
 
                 for(let r = r1; r <= r2; r++){
                     cfg["rowhidden"][r] = 0;
@@ -1640,7 +1640,7 @@ export function rowColumnOperationInitial(){
         
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
         
             server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
         
@@ -1649,7 +1649,7 @@ export function rowColumnOperationInitial(){
 
         }
         // 隐藏列
-        else if(Store.luckysheetRightHeadClickIs == "column"){
+        else if(Store.tibetsheetsRightHeadClickIs == "column"){
 
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
                 return;
@@ -1660,9 +1660,9 @@ export function rowColumnOperationInitial(){
                 cfg["colhidden"] = {};
             }
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let c1 = Store.tibetsheets_select_save[s].column[0],
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 for(let c = c1; c <= c2; c++){
                     cfg["colhidden"][c] = 0;
@@ -1683,7 +1683,7 @@ export function rowColumnOperationInitial(){
         
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
         
             server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
         
@@ -1694,15 +1694,15 @@ export function rowColumnOperationInitial(){
     });
 
      //取消隐藏选中行列
-     $("#luckysheet-show-selected").click(function (event) {
+     $("#tibetsheets-show-selected").click(function (event) {
 
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
-            if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheets_select_save.length > 1){
+            if(Store.tibetsheetsRightHeadClickIs == "row"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1710,7 +1710,7 @@ export function rowColumnOperationInitial(){
                     tooltip.info(locale_drag.noMulti, "");
                 }
             }
-            else if(Store.luckysheetRightHeadClickIs == "column"){
+            else if(Store.tibetsheetsRightHeadClickIs == "column"){
                 if(isEditMode()){
                     alert(locale_drag.noMulti);
                 }
@@ -1722,7 +1722,7 @@ export function rowColumnOperationInitial(){
         }
 
         // 取消隐藏行
-        if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheetsRightHeadClickIs == "row"){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
                 return;
             }
@@ -1732,9 +1732,9 @@ export function rowColumnOperationInitial(){
                 return;
             }
     
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0],
-                    r2 = Store.luckysheet_select_save[s].row[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0],
+                    r2 = Store.tibetsheets_select_save[s].row[1];
     
                 for(let r = r1; r <= r2; r++){
                     delete cfg["rowhidden"][r];
@@ -1755,14 +1755,14 @@ export function rowColumnOperationInitial(){
         
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
         
             server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
         
             //行高、列宽 刷新  
             jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
         }
-        else if(Store.luckysheetRightHeadClickIs == "column"){
+        else if(Store.tibetsheetsRightHeadClickIs == "column"){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
                 return;
             }
@@ -1772,9 +1772,9 @@ export function rowColumnOperationInitial(){
                 return;
             }
     
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let c1 = Store.luckysheet_select_save[s].column[0],
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let c1 = Store.tibetsheets_select_save[s].column[0],
+                    c2 = Store.tibetsheets_select_save[s].column[1];
     
                 for(let c = c1; c <= c2; c++){
                     delete cfg["colhidden"][c];
@@ -1795,7 +1795,7 @@ export function rowColumnOperationInitial(){
         
             //config
             Store.config = cfg;
-            Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+            Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
         
             server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
         
@@ -1805,22 +1805,22 @@ export function rowColumnOperationInitial(){
 
      })
     //隐藏、显示行
-    // $("#luckysheet-hidRows").click(function (event) {
+    // $("#tibetsheets-hidRows").click(function (event) {
     //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
     //         return;
     //     }
 
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     let cfg = $.extend(true, {}, Store.config);
     //     if(cfg["rowhidden"] == null){
     //         cfg["rowhidden"] = {};
     //     }
 
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let r1 = Store.luckysheet_select_save[s].row[0],
-    //             r2 = Store.luckysheet_select_save[s].row[1];
+    //     for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+    //         let r1 = Store.tibetsheets_select_save[s].row[0],
+    //             r2 = Store.tibetsheets_select_save[s].row[1];
 
     //         for(let r = r1; r <= r2; r++){
     //             cfg["rowhidden"][r] = 0;
@@ -1841,28 +1841,28 @@ export function rowColumnOperationInitial(){
     
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
     //     server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
     
     //     //行高、列宽 刷新  
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
-    // $("#luckysheet-showHidRows").click(function (event) {
+    // $("#tibetsheets-showHidRows").click(function (event) {
     //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
     //         return;
     //     }
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     let cfg = $.extend(true, {}, Store.config);
     //     if(cfg["rowhidden"] == null){
     //         return;
     //     }
 
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let r1 = Store.luckysheet_select_save[s].row[0],
-    //             r2 = Store.luckysheet_select_save[s].row[1];
+    //     for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+    //         let r1 = Store.tibetsheets_select_save[s].row[0],
+    //             r2 = Store.tibetsheets_select_save[s].row[1];
 
     //         for(let r = r1; r <= r2; r++){
     //             delete cfg["rowhidden"][r];
@@ -1883,7 +1883,7 @@ export function rowColumnOperationInitial(){
     
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
     //     server.saveParam("cg", Store.currentSheetIndex, cfg["rowhidden"], { "k": "rowhidden" });
     
@@ -1892,21 +1892,21 @@ export function rowColumnOperationInitial(){
     // })
 
     //隐藏、显示列
-    // $("#luckysheet-hidCols").click(function (event) {
+    // $("#tibetsheets-hidCols").click(function (event) {
     //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
     //         return;
     //     }
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     let cfg = $.extend(true, {}, Store.config);
     //     if(cfg["colhidden"] == null){
     //         cfg["colhidden"] = {};
     //     }
 
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let c1 = Store.luckysheet_select_save[s].column[0],
-    //             c2 = Store.luckysheet_select_save[s].column[1];
+    //     for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+    //         let c1 = Store.tibetsheets_select_save[s].column[0],
+    //             c2 = Store.tibetsheets_select_save[s].column[1];
 
     //         for(let c = c1; c <= c2; c++){
     //             cfg["colhidden"][c] = 0;
@@ -1927,28 +1927,28 @@ export function rowColumnOperationInitial(){
     
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
     //     server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
     
     //     //行高、列宽 刷新  
     //     jfrefreshgrid_rhcw(Store.flowdata.length, Store.flowdata[0].length);
     // })
-    // $("#luckysheet-showHidCols").click(function (event) {
+    // $("#tibetsheets-showHidCols").click(function (event) {
     //     if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
     //         return;
     //     }
-    //     $("#luckysheet-rightclick-menu").hide();
-    //     luckysheetContainerFocus();
+    //     $("#tibetsheets-rightclick-menu").hide();
+    //     tibetsheetsContainerFocus();
 
     //     let cfg = $.extend(true, {}, Store.config);
     //     if(cfg["colhidden"] == null){
     //         return;
     //     }
 
-    //     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-    //         let c1 = Store.luckysheet_select_save[s].column[0],
-    //             c2 = Store.luckysheet_select_save[s].column[1];
+    //     for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+    //         let c1 = Store.tibetsheets_select_save[s].column[0],
+    //             c2 = Store.tibetsheets_select_save[s].column[1];
 
     //         for(let c = c1; c <= c2; c++){
     //             delete cfg["colhidden"][c];
@@ -1969,7 +1969,7 @@ export function rowColumnOperationInitial(){
     
     //     //config
     //     Store.config = cfg;
-    //     Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+    //     Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
     
     //     server.saveParam("cg", Store.currentSheetIndex, cfg["colhidden"], { "k": "colhidden" });
     
@@ -1978,13 +1978,13 @@ export function rowColumnOperationInitial(){
     // })
 
     //删除单元格（左移、上移）
-    $("#luckysheet-delCellsMoveLeft").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-delCellsMoveLeft").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -1994,20 +1994,20 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let str = Store.luckysheet_select_save[0].row[0],
-            edr = Store.luckysheet_select_save[0].row[1],
-            stc = Store.luckysheet_select_save[0].column[0],
-            edc = Store.luckysheet_select_save[0].column[1];
+        let str = Store.tibetsheets_select_save[0].row[0],
+            edr = Store.tibetsheets_select_save[0].row[1],
+            stc = Store.tibetsheets_select_save[0].column[0],
+            edc = Store.tibetsheets_select_save[0].column[1];
 
-        luckysheetDeleteCell('moveLeft', str, edr, stc, edc);
+        tibetsheetsDeleteCell('moveLeft', str, edr, stc, edc);
     });
-    $("#luckysheet-delCellsMoveUp").click(function (event) {
-        $("body .luckysheet-cols-menu").hide();
-        luckysheetContainerFocus();
+    $("#tibetsheets-delCellsMoveUp").click(function (event) {
+        $("body .tibetsheets-cols-menu").hide();
+        tibetsheetsContainerFocus();
 
         const locale_drag = locale().drag;
 
-        if(Store.luckysheet_select_save.length > 1){
+        if(Store.tibetsheets_select_save.length > 1){
             if(isEditMode()){
                 alert(locale_drag.noMulti);
             }
@@ -2017,38 +2017,38 @@ export function rowColumnOperationInitial(){
             return;
         }
 
-        let str = Store.luckysheet_select_save[0].row[0],
-            edr = Store.luckysheet_select_save[0].row[1],
-            stc = Store.luckysheet_select_save[0].column[0],
-            edc = Store.luckysheet_select_save[0].column[1];
+        let str = Store.tibetsheets_select_save[0].row[0],
+            edr = Store.tibetsheets_select_save[0].row[1],
+            stc = Store.tibetsheets_select_save[0].column[0],
+            edc = Store.tibetsheets_select_save[0].column[1];
 
-        luckysheetDeleteCell('moveUp', str, edr, stc, edc);
+        tibetsheetsDeleteCell('moveUp', str, edr, stc, edc);
     });
 
     //清除单元格内容
-    $("#luckysheet-delete-text").click(function(){
+    $("#tibetsheets-delete-text").click(function(){
 
-        if(!checkProtectionLockedRangeList(Store.luckysheet_select_save, Store.currentSheetIndex)){
+        if(!checkProtectionLockedRangeList(Store.tibetsheets_select_save, Store.currentSheetIndex)){
             return;
         }
 
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         if(Store.allowEdit===false){
             return;
         }
 
-        if(Store.luckysheet_select_save.length > 0){
+        if(Store.tibetsheets_select_save.length > 0){
             let d = editor.deepCopyFlowData(Store.flowdata);
 
             let has_PartMC = false;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 if(hasPartMC(Store.config, r1, r2, c1, c2)){
                     has_PartMC = true;
@@ -2068,13 +2068,13 @@ export function rowColumnOperationInitial(){
 
                 return;
             }
-            const hyperlinkMap = Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].hyperlink;
+            const hyperlinkMap = Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].hyperlink;
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0], 
-                    r2 = Store.luckysheet_select_save[s].row[1];
-                let c1 = Store.luckysheet_select_save[s].column[0], 
-                    c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0], 
+                    r2 = Store.tibetsheets_select_save[s].row[1];
+                let c1 = Store.tibetsheets_select_save[s].column[0], 
+                    c2 = Store.tibetsheets_select_save[s].column[1];
 
                 for(let r = r1; r <= r2; r++){
                     for(let c = c1; c <= c2; c++){
@@ -2108,28 +2108,28 @@ export function rowColumnOperationInitial(){
                 }
             }
 
-            jfrefreshgrid(d, Store.luckysheet_select_save);
+            jfrefreshgrid(d, Store.tibetsheets_select_save);
 
             // 清空编辑框的内容
-            // 备注：在functionInputHanddler方法中会把该标签的内容拷贝到 #luckysheet-functionbox-cell
-            $("#luckysheet-rich-text-editor").html("");
+            // 备注：在functionInputHanddler方法中会把该标签的内容拷贝到 #tibetsheets-functionbox-cell
+            $("#tibetsheets-rich-text-editor").html("");
         }
     });
 
     //行高列宽设置
-    // $("#luckysheet-rows-cols-changesize").click(function(){
-    $("#luckysheet-column-row-width-selected").click(function (event) {
+    // $("#tibetsheets-rows-cols-changesize").click(function(){
+    $("#tibetsheets-column-row-width-selected").click(function (event) {
 
         // Click input element, don't comfirm 
         if(event.target.nodeName === 'INPUT'){
             return;
         }
         
-        $("#luckysheet-rightclick-menu").hide();
-        luckysheetContainerFocus();
+        $("#tibetsheets-rightclick-menu").hide();
+        tibetsheetsContainerFocus();
 
         // let size = parseInt($(this).siblings("input[type='number']").val().trim());
-        let size = parseInt($(this).closest('.luckysheet-cols-menuitem').find("input[type='number']").val().trim());
+        let size = parseInt($(this).closest('.tibetsheets-cols-menuitem').find("input[type='number']").val().trim());
         
         const locale_info = locale().info;
 
@@ -2143,7 +2143,7 @@ export function rowColumnOperationInitial(){
         let type;
         let images = null;
 
-        if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheetsRightHeadClickIs == "row"){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatRows")){
                 return;
             }
@@ -2164,9 +2164,9 @@ export function rowColumnOperationInitial(){
                 cfg["rowlen"] = {};
             }
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let r1 = Store.luckysheet_select_save[s].row[0];
-                let r2 = Store.luckysheet_select_save[s].row[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let r1 = Store.tibetsheets_select_save[s].row[0];
+                let r2 = Store.tibetsheets_select_save[s].row[1];
 
                 for(let r = r1; r <= r2; r++){
                     cfg["rowlen"][r] = size;
@@ -2175,7 +2175,7 @@ export function rowColumnOperationInitial(){
                 }
             }
         }
-        else if(Store.luckysheetRightHeadClickIs == "column"){
+        else if(Store.tibetsheetsRightHeadClickIs == "column"){
             if(!checkProtectionAuthorityNormal(Store.currentSheetIndex, "formatColumns")){
                 return;
             }
@@ -2196,9 +2196,9 @@ export function rowColumnOperationInitial(){
                 cfg["columnlen"] = {};
             }
 
-            for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-                let c1 = Store.luckysheet_select_save[s].column[0];
-                let c2 = Store.luckysheet_select_save[s].column[1];
+            for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+                let c1 = Store.tibetsheets_select_save[s].column[0];
+                let c2 = Store.tibetsheets_select_save[s].column[1];
 
                 for(let c = c1; c <= c2; c++){
                     cfg["columnlen"][c] = size;
@@ -2223,19 +2223,19 @@ export function rowColumnOperationInitial(){
 
         //config
         Store.config = cfg;
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].config = Store.config;
 
         //images
-        Store.luckysheetfile[getSheetIndex(Store.currentSheetIndex)].images = images;
+        Store.tibetsheetsfile[getSheetIndex(Store.currentSheetIndex)].images = images;
         server.saveParam("all", Store.currentSheetIndex, images, { "k": "images" });
         imageCtrl.images = images;
         imageCtrl.allImagesShow();
 
-        if(Store.luckysheetRightHeadClickIs == "row"){
+        if(Store.tibetsheetsRightHeadClickIs == "row"){
             server.saveParam("cg", Store.currentSheetIndex, cfg["rowlen"], { "k": "rowlen" });
             jfrefreshgrid_rhcw(Store.flowdata.length, null);
         }
-        else if(Store.luckysheetRightHeadClickIs == "column"){
+        else if(Store.tibetsheetsRightHeadClickIs == "column"){
             server.saveParam("cg", Store.currentSheetIndex, cfg["columnlen"], { "k": "columnlen" });
             jfrefreshgrid_rhcw(null, Store.flowdata[0].length);
         }
@@ -2243,20 +2243,20 @@ export function rowColumnOperationInitial(){
 }
 
 
-function luckysheetcolsdbclick() {
-    Store.luckysheet_cols_change_size = false;
+function tibetsheetscolsdbclick() {
+    Store.tibetsheets_cols_change_size = false;
 
-    $("#luckysheet-change-size-line").hide();
-    $("#luckysheet-cols-change-size").css("opacity", 0);
-    $("#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas").css("cursor", "default");
+    $("#tibetsheets-change-size-line").hide();
+    $("#tibetsheets-cols-change-size").css("opacity", 0);
+    $("#tibetsheets-sheettable, #tibetsheets-cols-h-c, .tibetsheets-cols-h-cells, .tibetsheets-cols-h-cells canvas").css("cursor", "default");
 
     let mouse = mouseposition(event.pageX, event.pageY);
-    let scrollLeft = $("#luckysheet-cols-h-c").scrollLeft();
+    let scrollLeft = $("#tibetsheets-cols-h-c").scrollLeft();
     let x = mouse[0] + scrollLeft;
     
     let colIndex = colLocation(x)[2];
     let d = editor.deepCopyFlowData(Store.flowdata);
-    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+    let canvas = $("#tibetsheetsTableContent").get(0).getContext("2d");
 
     let cfg = $.extend(true, {}, Store.config);
     if (cfg["columnlen"] == null) {
@@ -2264,17 +2264,17 @@ function luckysheetcolsdbclick() {
     }
 
     let matchColumn = {};
-    let scrollTop = $("#luckysheet-cell-main").scrollTop(), drawHeight = Store.luckysheetTableContentHW[1];
-    let dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
-    let dataset_row_ed = luckysheet_searcharray(Store.visibledatarow, scrollTop + drawHeight);
+    let scrollTop = $("#tibetsheets-cell-main").scrollTop(), drawHeight = Store.tibetsheetsTableContentHW[1];
+    let dataset_row_st = tibetsheets_searcharray(Store.visibledatarow, scrollTop);
+    let dataset_row_ed = tibetsheets_searcharray(Store.visibledatarow, scrollTop + drawHeight);
     dataset_row_ed += dataset_row_ed - dataset_row_st;
     if(dataset_row_ed>=d.length){
         dataset_row_ed = d.length-1;
     }
 
-    for(let s = 0; s < Store.luckysheet_select_save.length; s++){
-        let c1 = Store.luckysheet_select_save[s].column[0], 
-            c2 = Store.luckysheet_select_save[s].column[1];
+    for(let s = 0; s < Store.tibetsheets_select_save.length; s++){
+        let c1 = Store.tibetsheets_select_save[s].column[0], 
+            c2 = Store.tibetsheets_select_save[s].column[1];
 
         if (colIndex < c1 || colIndex > c2) {
             if(colIndex in matchColumn){//此列已计算过
@@ -2290,7 +2290,7 @@ function luckysheetcolsdbclick() {
                     continue;
                 }
 
-                // let fontset = luckysheetfontformat(cell);
+                // let fontset = tibetsheetsfontformat(cell);
                 // canvas.font = fontset;
 
                 // let value = getcellvalue(r, colIndex, d, "m").toString(); //单元格文本
@@ -2338,7 +2338,7 @@ function luckysheetcolsdbclick() {
                         continue;
                     }
 
-                    // let fontset = luckysheetfontformat(cell);
+                    // let fontset = tibetsheetsfontformat(cell);
                     // canvas.font = fontset;
 
                     // let value = getcellvalue(r, c, d, "m").toString(); //单元格文本
@@ -2379,7 +2379,7 @@ function luckysheetcolsdbclick() {
         }
     }
    
-    jfrefreshgridall(Store.flowdata[0].length, Store.flowdata.length, Store.flowdata, cfg, Store.luckysheet_select_save, "resizeC", "columnlen");
+    jfrefreshgridall(Store.flowdata[0].length, Store.flowdata.length, Store.flowdata, cfg, Store.tibetsheets_select_save, "resizeC", "columnlen");
 }
 
 /**
@@ -2390,7 +2390,7 @@ function luckysheetcolsdbclick() {
  */
 // Delete row api
 export function deleteRows(type, st_index, ed_index){
-    Store.luckysheetRightHeadClickIs = "column";
+    Store.tibetsheetsRightHeadClickIs = "column";
 }
 
 // Delete column api

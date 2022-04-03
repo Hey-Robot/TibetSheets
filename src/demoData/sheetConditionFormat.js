@@ -6102,14 +6102,14 @@ window.sheetConditionFormat = {
 	}],
 	"ch_width": 4748,
 	"rh_height": 1790,
-	"luckysheet_select_save": [{
+	"tibetsheets_select_save": [{
 		"row": [0, 0],
 		"column": [0, 0]
 	}],
-	"luckysheet_selection_range": [],
+	"tibetsheets_selection_range": [],
 	"scrollLeft": 0,
 	"scrollTop": 0,
-	"luckysheet_conditionformat_save": [{
+	"tibetsheets_conditionformat_save": [{
 		"type": "default",
 		"cellrange": [{
 			"row": [2, 7],

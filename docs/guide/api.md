@@ -1,11 +1,11 @@
 # API
 
-Luckysheet has opened up the main function API for common data operation requirements, and developers can do any docking development according to their needs.
+Tibetsheets has opened up the main function API for common data operation requirements, and developers can do any docking development according to their needs.
 
 Use note:
-1. When script is introduced globally, all APIs are mounted under the window.luckysheet object, which can be printed and seen in the browser console; when npm is introduced, all APIs are also mounted under the luckysheet object
+1. When script is introduced globally, all APIs are mounted under the window.tibetsheets object, which can be printed and seen in the browser console; when npm is introduced, all APIs are also mounted under the tibetsheets object
 2. The first parameter of the `success` callback function is the return value of the API method
-3. If you need a new API, please submit it to github [Issues](https://github.com/mengshukeji/Luckysheet/issues/new/choose), and decide whether to open the new API according to the number of likes
+3. If you need a new API, please submit it to github [Issues](https://github.com/mengshukeji/Tibetsheets/issues/new/choose), and decide whether to open the new API according to the number of likes
 4. The required `order` parameter in the API method is the value of `order` in the worksheet object, not `index`
 
 ## Cell operation
@@ -31,11 +31,11 @@ Use note:
 
 	- Returns the v value of the data in the first row and first column of the current worksheet
 		
-		`luckysheet.getCellValue(0, 0)`
+		`tibetsheets.getCellValue(0, 0)`
 
 	- Returns the original value of the cell in the second row and second column of the specified data.
 		
-		`luckysheet.getCellValue(1, 1, {type:"m"})`
+		`tibetsheets.getCellValue(1, 1, {type:"m"})`
 
 ------------
 
@@ -45,7 +45,7 @@ Use note:
 
 	- {Number} [row]: The row number of the cell; an integer starting from 0, 0 means the first row
 	- {Number} [column]: The number of the column where the cell is located; an integer starting from 0, 0 means the first column
-	- {Object| String| Number} [value]: The value to be set; it can be a string or a number, or an object conforming to the Luckysheet cell format, refer to [cell attribute table](/zh/guide/cell.html )
+	- {Object| String| Number} [value]: The value to be set; it can be a string or a number, or an object conforming to the Tibetsheets cell format, refer to [cell attribute table](/zh/guide/cell.html )
 	- {PlainObject} [setting]: Optional parameters
     	+ {Number} [order]: Worksheet subscript; the default value is the current worksheet subscript
     	+ {Boolean} [isRefresh]: Whether to refresh the interface; the default is `true`; used to control throttling when multiple cells are assigned, the previous cell should be set to `false`, and the last cell is set Is `true`.
@@ -55,21 +55,21 @@ Use note:
 
 	Set the value of a cell, you can also set the entire cell object, which is used to set multiple cell properties at the same time.
 
-	If you need to update the formula, you can also assign a value here. Luckysheet will actively calculate this formula internally and add it to the formula chain, and finally refresh the interface.
+	If you need to update the formula, you can also assign a value here. Tibetsheets will actively calculate this formula internally and add it to the formula chain, and finally refresh the interface.
 
 - **Usage**:
 
   - Set the value of cell "A1" in the current worksheet to "1"
-  `luckysheet.setCellValue(0, 0, 1);`
+  `tibetsheets.setCellValue(0, 0, 1);`
 
   - Set the current worksheet "B1" cell value to the formula "=sum(A1)"
-  `luckysheet.setCellValue(0, 1, "=sum(A1)");`
+  `tibetsheets.setCellValue(0, 1, "=sum(A1)");`
 
-  - Set the cell "C1" of the current worksheet to the formula "=sum(A1:B1" with a red background. The cell object can have no `v` and `m` values. Luckysheet will automatically calculate the result according to the formula information. With `v` and `m` values ​​that have not been updated or are non-formula results, Luckysheet will still calculate the prepared results based on the data actually associated with the formula.
-  	`luckysheet.setCellValue(0, 2, {f: "=sum(A1:B1)", bg:"#FF0000"})`
+  - Set the cell "C1" of the current worksheet to the formula "=sum(A1:B1" with a red background. The cell object can have no `v` and `m` values. Tibetsheets will automatically calculate the result according to the formula information. With `v` and `m` values ​​that have not been updated or are non-formula results, Tibetsheets will still calculate the prepared results based on the data actually associated with the formula.
+  	`tibetsheets.setCellValue(0, 2, {f: "=sum(A1:B1)", bg:"#FF0000"})`
 
 	Set the "C1" cell again and the new formula can still take effect
-		`luckysheet.setCellValue(0, 2, {f: "=sum(A1)", bg:"#00FF00"})`
+		`tibetsheets.setCellValue(0, 2, {f: "=sum(A1)", bg:"#00FF00"})`
 
 ------------
 ### clearCell(row, column [,setting])
@@ -90,7 +90,7 @@ Use note:
 - **Usage**:
 
     - Clear the contents of cell `B2`
-      `luckysheet.clearCell(1,1)`
+      `tibetsheets.clearCell(1,1)`
     
 ------------
 
@@ -118,7 +118,7 @@ Use note:
 - **Usage**:
 
     - Delete the current cell and after deleting, the right cell moves to the left
-      `luckysheet.deleteCell('left')`
+      `tibetsheets.deleteCell('left')`
     
 ------------
 
@@ -132,7 +132,7 @@ Use note:
     - {String} [attr]: attribute type, refer to attribute value of [cell attribute table](/zh/guide/cell.html)
     - {String | Number | Object} [value]: Specific setting value, one attribute will correspond to multiple values, refer to the value example of [cell attribute table](/zh/guide/cell.html), if the attribute type is ` Attr` is the cell format `ct`, then the setting value `value` should provide a ct object, such as: `{fa:"General", t:"g"}`, for example, set the format of cell A1 to percentage format:
 	  
-  	  `luckysheet.setCellFormat(0, 0, "ct", {fa:"0.00%", t:"n"})`
+  	  `tibetsheets.setCellFormat(0, 0, "ct", {fa:"0.00%", t:"n"})`
 
 	- {PlainObject} [setting]: optional parameters
         + {Number} [order]: Worksheet subscript; the default value is the current worksheet subscript
@@ -146,7 +146,7 @@ Use note:
     
 	When setting the border, attr is `"bd"`, value is a key/value object, and the border type: `borderType`/border thickness:`style`/border color:`color` need to be set at the same time, such as setting A1 unit The border of the grid is all/red/thin:
 
-	`luckysheet.setCellFormat(0, 0, "bd", {borderType: "border-right",style: "1", color: "#ff0000"})`
+	`tibetsheets.setCellFormat(0, 0, "bd", {borderType: "border-right",style: "1", color: "#ff0000"})`
 
 	The complete optional setting parameters are as follows:
 
@@ -157,11 +157,11 @@ Use note:
 - **Usage**:
 
     - Set the current worksheet A1 cell text bold
-    `luckysheet.setCellFormat(0, 0, "bl", 1)`
+    `tibetsheets.setCellFormat(0, 0, "bl", 1)`
     - Set the B2 cell background of the second worksheet to red
-    `luckysheet.setCellFormat(1, 1, "bg", "#ff0000", {order:1})`
+    `tibetsheets.setCellFormat(1, 1, "bg", "#ff0000", {order:1})`
     - Set the value of cell "A1" of the current worksheet to "abc"
-    `luckysheet.setCellFormat(0, 0,'v','abc');`
+    `tibetsheets.setCellFormat(0, 0,'v','abc');`
 
 ------------
 
@@ -185,9 +185,9 @@ Use note:
 - **Usage**:
 
     - Find the string `"value"` in the current worksheet
-    `luckysheet.find("value")`
+    `tibetsheets.find("value")`
 	- Find cells in the current worksheet whose formula contains `"SUM"`
-    `luckysheet.find("SUM",{type:"f"})`
+    `tibetsheets.find("SUM",{type:"f"})`
 
 ------------
 
@@ -212,7 +212,7 @@ Use note:
 - **Usage**:
 
      - Find the string `"value"` in the current worksheet and replace it with `"out"`
-    	`luckysheet.replace("value", "out")`
+    	`tibetsheets.replace("value", "out")`
 
 ------------
 
@@ -231,7 +231,7 @@ Use note:
 - **Usage**:
 
    - Manually trigger to exit edit mode
-   		`luckysheet.exitEditMode()`
+   		`tibetsheets.exitEditMode()`
 
 ------------
 
@@ -262,11 +262,11 @@ Use note:
 
    - Freeze the first row
 
-		`luckysheet.setHorizontalFrozen(false)`
+		`tibetsheets.setHorizontalFrozen(false)`
 
    - Frozen to `B5` selection
 
-		`luckysheet.setHorizontalFrozen(true, { range: 'B5' })`
+		`tibetsheets.setHorizontalFrozen(true, { range: 'B5' })`
 
 ------------
 
@@ -295,7 +295,7 @@ Use note:
 
    - Freeze the first column
 
-		`luckysheet.setVerticalFrozen(false)`
+		`tibetsheets.setVerticalFrozen(false)`
 
 ------------
 
@@ -322,10 +322,10 @@ Use note:
 
 	If you want to use this API to set the freeze after the workbook is initialized, you can execute it in the hook function after the workbook is created, such as:
 	```js
-	luckysheet.create({
+	tibetsheets.create({
 		hook:{
 			workbookCreateAfter:function(){
-				luckysheet.setBothFrozen(false);
+				tibetsheets.setBothFrozen(false);
 			}
 		}
 	});
@@ -334,7 +334,7 @@ Use note:
 
    - Frozen ranks
 
-		`luckysheet.setBothFrozen(false)`
+		`tibetsheets.setBothFrozen(false)`
 
 ------------
 
@@ -355,7 +355,7 @@ Use note:
 
    - Cancel freeze
 
-		`luckysheet.cancelFrozen()`
+		`tibetsheets.cancelFrozen()`
 
 ------------
 
@@ -379,7 +379,7 @@ Use note:
 
    - Insert a blank line at the position of line 2
 
-		`luckysheet.insertRow(1)`
+		`tibetsheets.insertRow(1)`
 
 ------------
 
@@ -403,7 +403,7 @@ Use note:
 
    - Insert 3 blank rows in column 1
 
-		`luckysheet.insertRow(0, { number: 3 })`
+		`tibetsheets.insertRow(0, { number: 3 })`
 
 ------------
 
@@ -429,7 +429,7 @@ Use note:
 
    - Delete 2-4 lines
 
-		`luckysheet.deleteRow(1, 3)`
+		`tibetsheets.deleteRow(1, 3)`
 
 ------------
 
@@ -454,7 +454,7 @@ Use note:
 
    - Delete 2-4 columns
 
-		`luckysheet.deleteColumn(1, 3)`
+		`tibetsheets.deleteColumn(1, 3)`
 
 ------------
 
@@ -479,7 +479,7 @@ Use note:
 
    - Hide 2-4 rows
 
-		`luckysheet.hideRow(1, 3)`
+		`tibetsheets.hideRow(1, 3)`
 
 ------------
 
@@ -504,7 +504,7 @@ Use note:
 
    - Hide 2-4 columns
 
-		`luckysheet.hideColumn(1, 3)`
+		`tibetsheets.hideColumn(1, 3)`
 
 ------------
 
@@ -527,7 +527,7 @@ Use note:
 
    - Display 2-4 lines
 
-		`luckysheet.showRow(1, 3)`
+		`tibetsheets.showRow(1, 3)`
 
 ------------
 
@@ -551,7 +551,7 @@ Use note:
 
    - Display 2-4 columns
 
-		`luckysheet.showColumn(1, 3)`
+		`tibetsheets.showColumn(1, 3)`
 
 ------------
 
@@ -575,7 +575,7 @@ Use note:
 
    - Set the height of the first row to 50px and the height of the second row to 60px
 
-		`luckysheet.setRowHeight({0：50，1：60})`
+		`tibetsheets.setRowHeight({0：50，1：60})`
 
 ------------
 
@@ -599,7 +599,7 @@ Use note:
 
    - Set the width of the first column to 50px and the width of the second column to 60px
 
-		`luckysheet.setColumnWidth({0：50，1：60})`
+		`tibetsheets.setColumnWidth({0：50，1：60})`
 
 ------------
 
@@ -623,7 +623,7 @@ Use note:
 
    - The height of the first row is 50px, the height of the second row is 60px, get these values
 
-		`luckysheet.getRowHeight([0,1])`
+		`tibetsheets.getRowHeight([0,1])`
 		Return to get
 		`{0：50，1：60}`
 
@@ -649,7 +649,7 @@ Use note:
 
    - The width of the first column is 50px, the width of the second column is 60px, get these values
 
-		`luckysheet.getColumnWidth([0,1])`
+		`tibetsheets.getColumnWidth([0,1])`
 		Return to get
 		`{0：50，1：60}`
 
@@ -673,7 +673,7 @@ Use note:
 
    - Returns the default row height of the current worksheet
 
-		`luckysheet.getDefaultRowHeight()`
+		`tibetsheets.getDefaultRowHeight()`
 		Return to get
 		`19`
 
@@ -697,7 +697,7 @@ Use note:
 
    - Returns the default column width of the current worksheet
 
-		`luckysheet.getDefaultColWidth()`
+		`tibetsheets.getDefaultColWidth()`
 		Return to get
 		`73`
 
@@ -716,7 +716,7 @@ Use note:
 
 	- The current selection is "A1:B2" and "B4:C5", execute
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		The returned result is:
 		```json
@@ -739,7 +739,7 @@ Use note:
 
 	- Select the specified area in the table, and then execute
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		The returned result is:
 		```json
@@ -753,7 +753,7 @@ Use note:
 
 	- Select the area above in the table and execute
 		
-		`luckysheet.getRangeWithFlatten()`
+		`tibetsheets.getRangeWithFlatten()`
 		
 		The returned result is:
 		```json
@@ -779,7 +779,7 @@ Use note:
 
 	- Select the specified area in the table, and then execute
 		
-		`luckysheet.getRange()`
+		`tibetsheets.getRange()`
 		
 		The returned result is:
 		```json
@@ -793,7 +793,7 @@ Use note:
 
 	- Select the area above in the table and execute
 		
-		`luckysheet.getRangeValuesWithFlatte()`
+		`tibetsheets.getRangeValuesWithFlatte()`
 		
 		The returned result is:
 		```json
@@ -892,7 +892,7 @@ Use note:
 
 	- The current selection is"E10:E14"、"A7:B13"、"C4"、 "A3" and "C6:D9", execute
 		
-		`luckysheet.getRangeAxis()`
+		`tibetsheets.getRangeAxis()`
 		
 		The returned result is:
 		```json
@@ -919,7 +919,7 @@ Use note:
 
 	- The current selection is "A1:B2", execute
 		
-		`luckysheet.getRangeValue()`
+		`tibetsheets.getRangeValue()`
 		
 		The returned result is:
 		```json
@@ -1006,11 +1006,11 @@ Use note:
 
 	- The current selection is "A1:B2", execute
 		
-		`luckysheet.getRangeHtml()`
+		`tibetsheets.getRangeHtml()`
 		
 		The returned result is:
 		```html
-		<table data-type="luckysheet_copy_action_table">
+		<table data-type="tibetsheets_copy_action_table">
 			<colgroup width="72px">
 			</colgroup>
 			<colgroup width="72px">
@@ -1058,7 +1058,7 @@ Use note:
 
 	- The current selection is "A1:B2", the first row is the title to get json
 		
-		`luckysheet.getRangeJson(true)`
+		`tibetsheets.getRangeJson(true)`
 		
 		The returned result is:
 		```json
@@ -1069,7 +1069,7 @@ Use note:
 
 	- The current selection is "A1:B2", the first row is not title to get json
 		
-		`luckysheet.getRangeJson(false)`
+		`tibetsheets.getRangeJson(false)`
 		
 		The returned result is:
 		```json
@@ -1110,7 +1110,7 @@ Use note:
 
 	- The current selection is "A1:B2", a one-dimensional array
 		
-		`luckysheet.getRangeArray('oneDimensional')`
+		`tibetsheets.getRangeArray('oneDimensional')`
 		
 		The returned result is:
 		```json
@@ -1119,7 +1119,7 @@ Use note:
 
 	- The current selection is "A1:B2", a two-dimensional array
 		
-		`luckysheet.getRangeArray('twoDimensional')`
+		`tibetsheets.getRangeArray('twoDimensional')`
 		
 		The returned result is:
 		```json
@@ -1131,7 +1131,7 @@ Use note:
 
 	- The current selection area is "A1:C5", which is composed of values from'value1' to'value15', and obtains a two-dimensional array data with 3 rows and 2 columns
 		
-		`luckysheet.getRangeArray('custom', { row: 3, column: 2 })`
+		`tibetsheets.getRangeArray('custom', { row: 3, column: 2 })`
 		
 		The returned result is:
 		```json
@@ -1204,7 +1204,7 @@ Use note:
 
 	- The current selection is "A1:B2", diagonal
 		
-		`luckysheet.getRangeDiagonal('normal')`
+		`tibetsheets.getRangeDiagonal('normal')`
 		
 		The returned result is:
 		```json
@@ -1224,7 +1224,7 @@ Use note:
 
 	- The current selection is "A1:B2", against the diagonal
 		
-		`luckysheet.getRangeDiagonal('anti')`
+		`tibetsheets.getRangeDiagonal('anti')`
 		
 		The returned result is:
 		```json
@@ -1243,7 +1243,7 @@ Use note:
 		```
 	- The current selection is "A1:B2", and the diagonal is offset by 1 column
 		
-		`luckysheet.getRangeDiagonal('offset', { column: 1 })`
+		`tibetsheets.getRangeDiagonal('offset', { column: 1 })`
 		
 		The returned result is:
 		```json
@@ -1274,7 +1274,7 @@ Use note:
 
 	- The current selection is "A1:B2"
 		
-		`luckysheet.getRangeBoolean()`
+		`tibetsheets.getRangeBoolean()`
 		
 		The returned result is:
 		```json
@@ -1300,28 +1300,28 @@ Use note:
 	
 	Specify one or more selection areas in the worksheet to be selected and choose whether to highlight or not. Multiple format settings are supported.
 
-	Special reminder, the selection range setting involved in Luckysheet can refer to this setting
+	Special reminder, the selection range setting involved in Tibetsheets can refer to this setting
 
 - **Usage**:
 
      + Set the current worksheet selection area `A1:B2`: 
       
-		`luckysheet.setRangeShow("A1:B2")`
+		`tibetsheets.setRangeShow("A1:B2")`
      + Set selection range `A1:B2`:
   		
-		`luckysheet.setRangeShow(["A1:B2"])`
+		`tibetsheets.setRangeShow(["A1:B2"])`
      + Set selection range `A1:B2`: 
   
-  		`luckysheet.setRangeShow({row:[0,1],column:[0,1]})`
+  		`tibetsheets.setRangeShow({row:[0,1],column:[0,1]})`
      + Set selection range `A1:B2`:
   
-  		`luckysheet.setRangeShow([{row:[0,1],column:[0,1]}])`
+  		`tibetsheets.setRangeShow([{row:[0,1],column:[0,1]}])`
      + Set the selection range `A1:B2` and `C3:D4`:
   
-		`luckysheet.setRangeShow(["A1:B2","C3:D4"])`
+		`tibetsheets.setRangeShow(["A1:B2","C3:D4"])`
      + Set the selection range `A1:B2` and `D3`:
   
-  		`luckysheet.setRangeShow([{row:[0,1],column:[0,1]},{row:[2,2],column:[3,3]}])`
+  		`tibetsheets.setRangeShow([{row:[0,1],column:[0,1]},{row:[2,2],column:[3,3]}])`
 
 ------------
 
@@ -1329,7 +1329,7 @@ Use note:
 
 - **Parameter**：
 
-	- {Array} [data]: The data of a two-dimensional array of cells to be assigned. The value of each cell can be a string or a number, or an object conforming to the Luckysheet format. Refer to [cell attribute table](/zh /guide/cell.html)
+	- {Array} [data]: The data of a two-dimensional array of cells to be assigned. The value of each cell can be a string or a number, or an object conforming to the Tibetsheets format. Refer to [cell attribute table](/zh /guide/cell.html)
 	- {PlainObject} [setting]: optional parameters
     	+ {Array | Object | String} [range]: The range of the selection, the format of the supported selection is `"A1:B2"`, `"sheetName!A1:B2"` or `{row:[0,1],column: [0,1]}`, can only be a single selection; the default is the current selection
     	+ {Number} [order]: Worksheet subscript; the default value is the current worksheet subscript
@@ -1340,7 +1340,7 @@ Use note:
 	
 	Assign a cell array data to the specified area, the data format is the same as the data obtained by the `getRangeValue` method.
 
-	Note that usually the `getRangeValue` method only obtains the selection data, but does not include the border and merged cell information. When the `setRangeValue` is executed, it will dynamically determine whether the previous step has executed the `getRangeValue`, if executed, the border will be Obtained from Luckysheet configuration together with the merged cell information.
+	Note that usually the `getRangeValue` method only obtains the selection data, but does not include the border and merged cell information. When the `setRangeValue` is executed, it will dynamically determine whether the previous step has executed the `getRangeValue`, if executed, the border will be Obtained from Tibetsheets configuration together with the merged cell information.
 
 - **Usage**:
 
@@ -1385,7 +1385,7 @@ Use note:
 					}
 				]
 			]
-		luckysheet.setRangeValue(data,{range:"A1:B2"})
+		tibetsheets.setRangeValue(data,{range:"A1:B2"})
 		```
 
 ------------
@@ -1399,7 +1399,7 @@ Use note:
    	Refer to the attribute value of [cell attribute table](/zh/guide/cell.html)
 	- {String | Number | Object} [value]: Specific setting value, one attribute will correspond to multiple values, refer to the value example of [cell attribute table](/zh/guide/cell.html), special case: if The attribute type `attr` is the cell format `ct`, then the setting value `value` should provide `ct.fa`, for example, set the cell format of `"A1:B2"` to percentage format:
 	To
-	`luckysheet.setRangeFormat("ct", "0.00%", {range:"A1:B2"})`
+	`tibetsheets.setRangeFormat("ct", "0.00%", {range:"A1:B2"})`
 
     - {PlainObject} [setting]: optional parameters
         + {Object | String} [range]: Set the target selection range of the parameter. The supported selection format is `"A1:B2"`, `"sheetName!A1:B2"` or `{row:[0,1], column:[0,1]}`, allows an array of multiple selections; the default is the current selection
@@ -1412,7 +1412,7 @@ Use note:
     
   	When setting the border, attr is `"bd"`, value is a key/value object, and the border type: `borderType`/border thickness:`style`/border color:`color` need to be set at the same time, such as setting `" A1:B2"`The border of the cell is all/red/thin:
 	
-	`luckysheet.setRangeFormat("bd", {borderType: "border-right",style: "1", color: "#ff0000"}, {range:["A1:B2"]})`
+	`tibetsheets.setRangeFormat("bd", {borderType: "border-right",style: "1", color: "#ff0000"}, {range:["A1:B2"]})`
 	
 	The complete optional setting parameters are as follows:
 
@@ -1424,10 +1424,10 @@ Use note:
 
    - Set the cell text in the current worksheet `"A1:B2"` range to be bold
 		
-		`luckysheet.setRangeFormat("bl", 1, {range:"A1:B2"})`
+		`tibetsheets.setRangeFormat("bl", 1, {range:"A1:B2"})`
    - Set the background of the cells in the range of `"B2"` and `"C4:D5"` of the second worksheet to red
 		
-		`luckysheet.setRangeFormat("bg", "#ff0000", {range:["B2","C4:D5"], order:1})`
+		`tibetsheets.setRangeFormat("bg", "#ff0000", {range:["B2","C4:D5"], order:1})`
 
 ------------
 
@@ -1456,7 +1456,7 @@ Use note:
 - **Usage**:
 
 	- Open the filter function of the second worksheet "A1:B2"
-	`luckysheet.setRangeFilter("open",{range:"A1:B2",order:1})`
+	`tibetsheets.setRangeFilter("open",{range:"A1:B2",order:1})`
 
 ------------
 
@@ -1486,7 +1486,7 @@ Use note:
 
 	- The current selection'A1:B2' is set to merge cells, the type is merge all
 		
-		`luckysheet.setRangeMerge("all")`
+		`tibetsheets.setRangeMerge("all")`
 		The data of'A1:B1' is:
 		```json
 		[
@@ -1532,7 +1532,7 @@ Use note:
 
 	- The current selection'A1:B2' is already a merged cell, now you want to cancel the merge
 		
-		`luckysheet.cancelRangeMerge()`
+		`tibetsheets.cancelRangeMerge()`
 		
 ------------
 
@@ -1561,7 +1561,7 @@ Use note:
 - **Usage**:
 
    - Set the current selection of the current worksheet to ascending order
-   `luckysheet.setRangeSort("asc")`
+   `tibetsheets.setRangeSort("asc")`
 
 ------------
 
@@ -1585,7 +1585,7 @@ Use note:
 - **Usage**:
 
    - Set the current selection of the current worksheet to a custom sort, the data has a header row, and it is sorted according to the rules of the first column ascending order and the second column descending order
-   `luckysheet.setRangeSortMulti(true,[{ i:0,sort:'asc' },{ i:1,sort:'des' }])`
+   `tibetsheets.setRangeSortMulti(true,[{ i:0,sort:'asc' },{ i:1,sort:'des' }])`
 
 ------------
 
@@ -1641,46 +1641,46 @@ Use note:
 - **Usage**:
 
     - Highlight cells with content greater than the number 2
-      `luckysheet.setRangeConditionalFormatDefault("greaterThan",{ type: 'value', content: [2] })`
+      `tibetsheets.setRangeConditionalFormatDefault("greaterThan",{ type: 'value', content: [2] })`
     
 	- Highlight the cells whose content is less than the content of cell A1
-	  `luckysheet.setRangeConditionalFormatDefault("lessThan",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("lessThan",{ type: 'range', content: ['A1'] })`
 
 	- Highlight cells with content between 2 and 10
-	  `luckysheet.setRangeConditionalFormatDefault("betweenness",{ type: 'value', content: [2,10] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("betweenness",{ type: 'value', content: [2,10] })`
 	
 	- Highlight the cell whose content is equal to the content of cell A1
-	  `luckysheet.setRangeConditionalFormatDefault("equal",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("equal",{ type: 'range', content: ['A1'] })`
 	
 	- Highlight the cell that contains the content of cell A1
-	  `luckysheet.setRangeConditionalFormatDefault("textContains",{ type: 'range', content: ['A1'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("textContains",{ type: 'range', content: ['A1'] })`
 	
 	- Highlight cells with dates between `2020/09/24-2020/10/15`
-      `luckysheet.setRangeConditionalFormatDefault("occurrenceDate",{ type: 'value', content: ['2020/09/24 - 2020/10/15'] })`
+      `tibetsheets.setRangeConditionalFormatDefault("occurrenceDate",{ type: 'value', content: ['2020/09/24 - 2020/10/15'] })`
 
 	- Highlight cells with repeated values, content is 0
-      `luckysheet.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [0] })`
+      `tibetsheets.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [0] })`
 
 	- Highlight the cell with unique value, content is 1
-      `luckysheet.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [1] })`
+      `tibetsheets.setRangeConditionalFormatDefault("duplicateValue",{ type: 'value', content: [1] })`
 	
 	- Highlight the top 20 cells
-      `luckysheet.setRangeConditionalFormatDefault("top",{ type: 'value', content: [20] })`
+      `tibetsheets.setRangeConditionalFormatDefault("top",{ type: 'value', content: [20] })`
 	
 	- Highlight the top 30% of cells
-      `luckysheet.setRangeConditionalFormatDefault("topPercent",{ type: 'value', content: [30] })`
+      `tibetsheets.setRangeConditionalFormatDefault("topPercent",{ type: 'value', content: [30] })`
 	
 	- Highlight the bottom 15 cells
-      `luckysheet.setRangeConditionalFormatDefault("last",{ type: 'value', content: [15] })`
+      `tibetsheets.setRangeConditionalFormatDefault("last",{ type: 'value', content: [15] })`
 	
 	- Highlight the bottom 15% of cells
-      `luckysheet.setRangeConditionalFormatDefault("lastPercent",{ type: 'value', content: [15] })`
+      `tibetsheets.setRangeConditionalFormatDefault("lastPercent",{ type: 'value', content: [15] })`
 	
 	- Highlight cells that are above average
-      `luckysheet.setRangeConditionalFormatDefault("AboveAverage",{ type: 'value', content: ['AboveAverage'] })`
+      `tibetsheets.setRangeConditionalFormatDefault("AboveAverage",{ type: 'value', content: ['AboveAverage'] })`
 	
 	- Highlight cells below average
-	  `luckysheet.setRangeConditionalFormatDefault("SubAverage",{ type: 'value', content: ['SubAverage'] })`
+	  `tibetsheets.setRangeConditionalFormatDefault("SubAverage",{ type: 'value', content: ['SubAverage'] })`
 
 ------------
 
@@ -1797,7 +1797,7 @@ Use note:
 - **Usage**:
 
     - Conditional formatting is enabled for the current selection area, showing gradient
-      `luckysheet.setRangeConditionalFormat("dataBar", { format: ["#63c384", "#ffffff"] })`
+      `tibetsheets.setRangeConditionalFormat("dataBar", { format: ["#63c384", "#ffffff"] })`
 
 ------------
 
@@ -1822,7 +1822,7 @@ Use note:
 - **Usage**:
 
     - Delete the third conditional formatting rule
-      `luckysheet.deleteRangeConditionalFormat(2)`
+      `tibetsheets.deleteRangeConditionalFormat(2)`
     
 ------------
 
@@ -1845,7 +1845,7 @@ Use note:
 - **Usage**:
 
     - Clear the content of the current selection
-      `luckysheet.clearRange()`
+      `tibetsheets.clearRange()`
     
 ------------
 
@@ -1875,7 +1875,7 @@ Use note:
 - **Usage**:
 
     - Delete the current selection and after deleting, the right cell moves to the left
-      `luckysheet.deleteRange('left')`
+      `tibetsheets.deleteRange('left')`
     
 ------------
 
@@ -1911,7 +1911,7 @@ Use note:
 - **Usage**:
 
     - Insert a blank cell at the current selection position, and move the current selection cell to the right after inserting
-      `luckysheet.insertRange('right')`
+      `tibetsheets.insertRange('right')`
     
 ------------
 
@@ -1948,7 +1948,7 @@ Use note:
 
     - Flip current selection upside down
     		
-		`luckysheet.matrixOperation('flipUpDown')`
+		`tibetsheets.matrixOperation('flipUpDown')`
 
 		Copy the original selection as a two-dimensional array:
 		
@@ -1991,7 +1991,7 @@ Use note:
 
     - Add 2 to the value of all cells in the current selection
     		
-		`luckysheet.matrixCalculation('plus', 2)`
+		`tibetsheets.matrixCalculation('plus', 2)`
 
 		Copy the original selection as a two-dimensional array:
 		
@@ -2012,22 +2012,22 @@ Use note:
 
 	Return all worksheet configurations, the format is the same as the worksheet configuration, and the results obtained can be used as options.data when the form is initialized.
 
-	Therefore, this API is suitable for manually operating and configuring a table, and then taking out all the worksheet information to save it, and then use it for table creation in other places. If you want to get all the workbook data including the workbook configuration, it is recommended to use [toJson](#toJson()), and it can be directly used to initialize Luckysheet.
+	Therefore, this API is suitable for manually operating and configuring a table, and then taking out all the worksheet information to save it, and then use it for table creation in other places. If you want to get all the workbook data including the workbook configuration, it is recommended to use [toJson](#toJson()), and it can be directly used to initialize Tibetsheets.
 
 - **Usage**:
 
 	- Get all the basic information of the first worksheet
-	`luckysheet.getAllSheets()[0]`
+	`tibetsheets.getAllSheets()[0]`
 	
 ------------
 
-### getLuckysheetfile()
+### getTibetsheetsfile()
 
 - **Explanation**：
 
-	Returns a one-dimensional array `luckysheetfile` of all table data structures. Unlike the `getAllSheets` method, the worksheet parameters obtained by this method will contain many internal variables. The most obvious difference is that the table data operation will maintain `luckysheetfile[i]. data`, and the initialization data uses `options.data[i].celldata`, so `luckysheetfile` can be used for debugging, but the initialization table is not applicable.
+	Returns a one-dimensional array `tibetsheetsfile` of all table data structures. Unlike the `getAllSheets` method, the worksheet parameters obtained by this method will contain many internal variables. The most obvious difference is that the table data operation will maintain `tibetsheetsfile[i]. data`, and the initialization data uses `options.data[i].celldata`, so `tibetsheetsfile` can be used for debugging, but the initialization table is not applicable.
 
-	In addition, a `load = 1` will be added to the loaded worksheet parameters, this parameter needs to be set to 0 when initializing the data. Therefore, to initialize the workbook with the data obtained by `getLuckysheetfile()`, two tasks need to be done:
+	In addition, a `load = 1` will be added to the loaded worksheet parameters, this parameter needs to be set to 0 when initializing the data. Therefore, to initialize the workbook with the data obtained by `getTibetsheetsfile()`, two tasks need to be done:
 
     - Convert celldata to data, refer to: [transToData](/zh/guide/api.html#transtodata-celldata-setting)
     - Load reset to 0 or delete this field
@@ -2037,7 +2037,7 @@ Use note:
 - **Usage**:
 
 	- Get all the debugging information of the first worksheet
-	`luckysheet.getLuckysheetfile()[0]`
+	`tibetsheets.getTibetsheetsfile()[0]`
 	
 ------------
 
@@ -2054,7 +2054,7 @@ Use note:
 
 - **Explanation**：
 
-	According to index/order/name, quickly return the configuration of the specified worksheet, same as `luckysheetfile[i]`. If multiple parameters are set, the priority is: index> order> name.
+	According to index/order/name, quickly return the configuration of the specified worksheet, same as `tibetsheetsfile[i]`. If multiple parameters are set, the priority is: index> order> name.
 	
 ------------
 
@@ -2070,7 +2070,7 @@ Use note:
 
 - **Explanation**：
 
-	Quickly return the data of the specified worksheet, same as `luckysheetfile[i].data`
+	Quickly return the data of the specified worksheet, same as `tibetsheetsfile[i].data`
 	
 ------------
 
@@ -2083,7 +2083,7 @@ Use note:
 
 - **Explanation**：
 
-	Quickly return to the config configuration of the specified worksheet, same as `luckysheetfile[i].config`
+	Quickly return to the config configuration of the specified worksheet, same as `tibetsheetsfile[i].config`
 
 ------------
 
@@ -2130,7 +2130,7 @@ Use note:
 - **Usage**:
 
 	- Add a blank worksheet at the subscript position of the last worksheet
-	`luckysheet.setSheetAdd()`
+	`tibetsheets.setSheetAdd()`
 	
 ------------
 
@@ -2152,7 +2152,7 @@ Use note:
 - **Usage**:
 
 	- Delete current worksheet
-	`luckysheet.setSheetDelete()`
+	`tibetsheets.setSheetDelete()`
 			
 ------------
 
@@ -2175,7 +2175,7 @@ Use note:
 - **Usage**:
 
 	- Copy the current worksheet to the next subscript position
-	`luckysheet.setSheetCopy()`
+	`tibetsheets.setSheetCopy()`
 
 ------------
 
@@ -2197,9 +2197,9 @@ Use note:
 - **Usage**:
 
 	- Hide current worksheet
-	`luckysheet.setSheetHide(true)`
+	`tibetsheets.setSheetHide(true)`
 	- Hide the third worksheet
-	`luckysheet.setSheetHide({order:2})`
+	`tibetsheets.setSheetHide({order:2})`
 
 ------------
 
@@ -2221,7 +2221,7 @@ Use note:
 - **Usage**:
 
 	- Unhide the third worksheet
-	`luckysheet.setSheetShow({order:2})`
+	`tibetsheets.setSheetShow({order:2})`
 
 ------------
 
@@ -2242,7 +2242,7 @@ Use note:
 - **Usage**:
 
 	- Switch to the second worksheet
-	`luckysheet.setSheetActive(1)`
+	`tibetsheets.setSheetActive(1)`
 
 ------------
 
@@ -2265,7 +2265,7 @@ Use note:
 - **Usage**:
 
 	- Modify the name of the current worksheet to "CellSheet"
-	`luckysheet.setSheetName("CellSheet")`
+	`tibetsheets.setSheetName("CellSheet")`
 
 ------------
 
@@ -2287,7 +2287,7 @@ Use note:
 - **Usage**:
 
 	- Modify the color of the current worksheet name to red
-	`luckysheet.setSheetColor("#ff0000")`
+	`tibetsheets.setSheetColor("#ff0000")`
 
 ------------
 
@@ -2313,9 +2313,9 @@ Use note:
 - **Usage**:
 
 	- Move the current worksheet one position to the left
-	`luckysheet.setSheetMove("left")`
+	`tibetsheets.setSheetMove("left")`
 	- Move the second worksheet to the subscript position of the fourth worksheet
-	`luckysheet.setSheetMove(3,{order:1})`
+	`tibetsheets.setSheetMove(3,{order:1})`
 
 ------------
 
@@ -2349,7 +2349,7 @@ Use note:
 
 	- Rearrange the worksheets, this workbook contains 3 worksheets
 	```js
-	luckysheet.setSheetOrder([
+	tibetsheets.setSheetOrder([
 		{index:'sheet_01',order: 2},
 		{index:'sheet_02',order: 1},
 		{index:'sheet_03',order: 0},
@@ -2379,7 +2379,7 @@ Use note:
 
 	- Set the current worksheet zoom ratio to 0.5
 	```js
-	luckysheet.setSheetZoom(0.5)
+	tibetsheets.setSheetZoom(0.5)
 	```
 
 ------------
@@ -2399,9 +2399,9 @@ Use note:
 - **Usage**:
 
 	- Show the grid lines of the current worksheet
-	`luckysheet.showGridLines()`
+	`tibetsheets.showGridLines()`
 	- Show the grid lines of the third worksheet
-	`luckysheet.showGridLines({order:2})`
+	`tibetsheets.showGridLines({order:2})`
 
 ------------
 
@@ -2420,9 +2420,9 @@ Use note:
 - **Usage**:
 
 	- Hide grid lines of current worksheet
-	`luckysheet.hideGridLines()`
+	`tibetsheets.hideGridLines()`
 	- Hide the grid lines of the third worksheet
-	`luckysheet.hideGridLines({order:2})`
+	`tibetsheets.hideGridLines({order:2})`
 
 ------------
 
@@ -2438,7 +2438,7 @@ Use note:
 
 - **Explanation**：
 	
-	Initialize a Luckysheet, which can contain multiple worksheets, refer to [Configuration List](/zh/guide/config.html)
+	Initialize a Tibetsheets, which can contain multiple worksheets, refer to [Configuration List](/zh/guide/config.html)
 
 ------------
 
@@ -2793,7 +2793,7 @@ Use note:
 
 - **Explanation**：
 	
-	The exported json string can be directly used as the parameter `options` when the workbook is initialized by `luckysheet.create(options)`. The usage scenario is to manually save all the parameters after the user manipulates the table, and then initialize the table elsewhere. Use, similar to the import and export of a luckysheet proprietary format.
+	The exported json string can be directly used as the parameter `options` when the workbook is initialized by `tibetsheets.create(options)`. The usage scenario is to manually save all the parameters after the user manipulates the table, and then initialize the table elsewhere. Use, similar to the import and export of a tibetsheets proprietary format.
 
 ------------
 
@@ -2816,11 +2816,11 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 	This method is to get the value of the cell.
 
-	- luckysheet.getcellvalue(): returns all data of the current worksheet;
-	- luckysheet.getcellvalue(0): returns the data of the first row of the current worksheet;
-	- luckysheet.getcellvalue(null,0): returns the data in the first column of the current worksheet;
-	- luckysheet.getcellvalue(0,0): returns the v value of the cell data in the first row and the first column of the current worksheet;
-	- luckysheet.getcellvalue(1,1,null,'m'): Returns the original value of the cell in the second row and second column of the specified data.
+	- tibetsheets.getcellvalue(): returns all data of the current worksheet;
+	- tibetsheets.getcellvalue(0): returns the data of the first row of the current worksheet;
+	- tibetsheets.getcellvalue(null,0): returns the data in the first column of the current worksheet;
+	- tibetsheets.getcellvalue(0,0): returns the v value of the cell data in the first row and the first column of the current worksheet;
+	- tibetsheets.getcellvalue(1,1,null,'m'): Returns the original value of the cell in the second row and second column of the specified data.
 	 
 	Special case: the cell format is yyyy-MM-dd, when the type is'v', the display value of'm' will be mandatory
 
@@ -2828,13 +2828,13 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 ------------
 
-### getluckysheetfile()
+### gettibetsheetsfile()
 
 - **Explanation**：
 
-	Returns a one-dimensional array `luckysheetfile` of all table data structures
+	Returns a one-dimensional array `tibetsheetsfile` of all table data structures
 
-	> Recommend to use new API: [getLuckysheetfile](#getLuckysheetfile())
+	> Recommend to use new API: [getTibetsheetsfile](#getTibetsheetsfile())
 
 ------------
 
@@ -2842,13 +2842,13 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 - **Explanation**：
 
-	Quickly return to the current sheet config configuration, the config information of each worksheet is still contained in the luckysheetfile.
+	Quickly return to the current sheet config configuration, the config information of each worksheet is still contained in the tibetsheetsfile.
 	 
 	> Recommend to use new API: [getConfig](#getConfig([setting]))
 
 ------------
 
-### getluckysheet_select_save()
+### gettibetsheets_select_save()
 
 - **Explanation**：
 
@@ -2868,14 +2868,14 @@ To maintain compatibility, the old version of the API is still supported, but it
 - **Explanation**：
 
 	Returns the data of the first selection in a table.
-	- `luckysheet.getdatabyselection()`: Returns the data of the current selection of the current worksheet
-	- `luckysheet.getdatabyselection(null,1)`: Returns the data of the current selection of the second worksheet
+	- `tibetsheets.getdatabyselection()`: Returns the data of the current selection of the current worksheet
+	- `tibetsheets.getdatabyselection(null,1)`: Returns the data of the current selection of the second worksheet
 
 	> Recommend to use the new API: [getRangeValue](#getRangeValue([setting]))
 
 ------------
 
-### luckysheetrefreshgrid(scrollWidth, scrollHeight)
+### tibetsheetsrefreshgrid(scrollWidth, scrollHeight)
 
 - **Parameter**：
 	
@@ -2899,11 +2899,11 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 - **Explanation**：
 
-	Set the value of a cell. Can be used with `luckysheet.jfrefreshgrid()` to refresh and view cell value changes.
+	Set the value of a cell. Can be used with `tibetsheets.jfrefreshgrid()` to refresh and view cell value changes.
 
 	```js
-	luckysheet.setcellvalue(0, 0, luckysheet.flowdata(), 'abc');
-	luckysheet.jfrefreshgrid();
+	tibetsheets.setcellvalue(0, 0, tibetsheets.flowdata(), 'abc');
+	tibetsheets.jfrefreshgrid();
 	```
 
 ------------
@@ -2918,7 +2918,7 @@ To maintain compatibility, the old version of the API is still supported, but it
 		
 ------------
 
-### setluckysheet_select_save(v)
+### settibetsheets_select_save(v)
 
 - **Parameter**：
 	
@@ -2926,10 +2926,10 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 - **Explanation**：
 	
-	Set the value of the current table selection area. With `luckysheet.selectHightlightShow()`, you can view the selection changes in the interface.
+	Set the value of the current table selection area. With `tibetsheets.selectHightlightShow()`, you can view the selection changes in the interface.
 	```js
-	luckysheet.setluckysheet_select_save([{ row: [0, 1], column: [0, 1] }]);
-	luckysheet.selectHightlightShow();
+	tibetsheets.settibetsheets_select_save([{ row: [0, 1], column: [0, 1] }]);
+	tibetsheets.selectHightlightShow();
 	```
 
 	> Recommend to use new API:<a href='#setRangeShow'>setRangeShow</a>
@@ -2960,7 +2960,7 @@ To maintain compatibility, the old version of the API is still supported, but it
 
 - **Parameter**：
 	
-	- {Object} [file]：[luckysheetfile](/zh/guide/sheet.html)
+	- {Object} [file]：[tibetsheetsfile](/zh/guide/sheet.html)
 
 - **Explanation**：
 	

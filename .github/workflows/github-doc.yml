@@ -1,4 +1,4 @@
-name: Luckysheet docs github pages deploy
+name: Tibetsheets docs github pages deploy
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
           npm install gulp -g
           npm run docs:build
       
-      - name: Deploy LuckysheetDocs to GitHub Pages # 发布docs 到github pages
+      - name: Deploy TibetsheetsDocs to GitHub Pages # 发布docs 到github pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
         with:
-          repo: mengshukeji/LuckysheetDocs
+          repo: mengshukeji/TibetsheetsDocs
           target_branch: gh-pages
           build_dir: docs/.vuepress/dist
         env:

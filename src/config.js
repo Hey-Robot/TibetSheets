@@ -1,8 +1,8 @@
 /**
- * The default luckysheet config object.
+ * The default tibetsheets config object.
  */
 export default {
-    container: "luckysheet", //容器的ID
+    container: "tibetsheets", //容器的ID
     loading:{}, //自定义loading
     column: 60, //空表格默认的列数量
     row: 84, //空表格默认的行数据量
@@ -16,7 +16,7 @@ export default {
     pointEditZoom: 1, //编辑器表格编辑时缩放比例
     // menu: "undo|redo|freezenrow|freezencolumn|download|share|chart|pivot",
     data: [{ "name": "Sheet1", color: "", "status": "1", "order": "0", "data": [], "config": {}, "index":0 }, { "name": "Sheet2", color: "", "status": "0", "order": "1", "data": [], "config": {}, "index":1  }, { "name": "Sheet3", color: "", "status": "0", "order": "2", "data": [], "config": {}, "index":2  }], //客户端sheet数据[sheet1, sheet2, sheet3]
-    title: "Luckysheet Demo", //表格的名称
+    title: "Tibetsheets Demo", //表格的名称
     userInfo:false,// 右上角的用户信息展示样式，支持 1. boolean类型：false:不展示，ture:展示默认 '<i style="font-size:16px;color:#ff6a00;" class="fa fa-taxi" aria-hidden="true"></i> rabbit' ，2. HTML模板字符串或者普通字符串，如：'<i style="font-size:16px;color:#ff6a00;" class="fa fa-taxi" aria-hidden="true"></i> Lucky'或者'用户名'， 3. 对象格式，设置 userImage：用户头像地址 和 userName：用户名 4. 不设置或者设置undefined同设置false
     userMenuItem: [{url:"www.baidu.com", "icon":'<i class="fa fa-folder" aria-hidden="true"></i>', "name":"我的表格"}, {url:"www.baidu.com", "icon":'<i class="fa fa-sign-out" aria-hidden="true"></i>', "name":"退出登陆"}], //点击右上角的用户信息弹出的菜单
     myFolderUrl: "www.baidu.com", //左上角<返回按钮的链接
@@ -24,13 +24,13 @@ export default {
     fullscreenmode: true, //是否全屏模式，非全屏模式下，标记框不会强制选中。
     devicePixelRatio: window.devicePixelRatio, //设备比例，比例越大表格分标率越高
     allowEdit: true, //是否允许前台编辑
-    loadUrl: "", // 配置loadUrl的地址，luckysheet会通过ajax请求表格数据，默认载入status为1的sheet数据中的所有data，其余的sheet载入除data字段外的所有字段
+    loadUrl: "", // 配置loadUrl的地址，tibetsheets会通过ajax请求表格数据，默认载入status为1的sheet数据中的所有data，其余的sheet载入除data字段外的所有字段
     loadSheetUrl: "", //配置loadSheetUrl的地址，参数为gridKey（表格主键） 和 index（sheet主键合集，格式为[1,2,3]），返回的数据为sheet的data字段数据集合
     gridKey: "", // 表格唯一标识符
     updateUrl: "", //表格数据的更新地址
     updateImageUrl: "", //缩略图的更新地址
     allowUpdate: false, //是否允许编辑后的后台更新
-    functionButton: "", //右上角功能按钮，例如'<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">下载</button>    <button id="" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">分享</button>    <button id="luckysheet-share-btn-title" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">秀数据</button>'
+    functionButton: "", //右上角功能按钮，例如'<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">下载</button>    <button id="" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">分享</button>    <button id="tibetsheets-share-btn-title" class="btn btn-primary btn-danger" style="    padding:3px 6px;    font-size: 12px;    margin-right: 10px;">秀数据</button>'
     showConfigWindowResize: true, //图表和数据透视表的配置会在右侧弹出，设置弹出后表格是否会自动缩进
     enableAddRow: true,//允许添加行
     enableAddBackTop: true,//允许回到顶部

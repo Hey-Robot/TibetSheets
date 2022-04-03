@@ -10,7 +10,7 @@ import Store from '../store';
 import locale from '../locale/locale';
 
 //分列
-const luckysheetSplitColumn = {
+const tibetsheetsSplitColumn = {
     createDialog: function(){
         let _this = this;
 
@@ -19,8 +19,8 @@ const luckysheetSplitColumn = {
         const locale_punctuation = _locale.punctuation;
         const locale_button = _locale.button;
 
-        $("#luckysheet-modal-dialog-mask").show();
-        $("#luckysheet-splitColumn-dialog").remove();
+        $("#tibetsheets-modal-dialog-mask").show();
+        $("#tibetsheets-splitColumn-dialog").remove();
 
         let content = '<div class="box">' +
                         '<div class="boxTitle">'+locale_splitText.splitDelimiters+'</div>' +
@@ -58,19 +58,19 @@ const luckysheetSplitColumn = {
                       '</div>';
 
         $("body").first().append(replaceHtml(modelHTML, { 
-            "id": "luckysheet-splitColumn-dialog", 
-            "addclass": "luckysheet-splitColumn-dialog", 
+            "id": "tibetsheets-splitColumn-dialog", 
+            "addclass": "tibetsheets-splitColumn-dialog", 
             "title": locale_splitText.splitTextTitle, 
             "content": content, 
-            "botton": '<button id="luckysheet-splitColumn-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default luckysheet-model-close-btn">'+ locale_button.cancel +'</button>', 
+            "botton": '<button id="tibetsheets-splitColumn-dialog-confirm" class="btn btn-primary">'+ locale_button.confirm +'</button><button class="btn btn-default tibetsheets-model-close-btn">'+ locale_button.cancel +'</button>', 
             "style": "z-index:100003" 
         }));
-        let $t = $("#luckysheet-splitColumn-dialog").find(".luckysheet-modal-dialog-content").css("min-width", 400).end(), 
+        let $t = $("#tibetsheets-splitColumn-dialog").find(".tibetsheets-modal-dialog-content").css("min-width", 400).end(), 
             myh = $t.outerHeight(), 
             myw = $t.outerWidth();
         let winw = $(window).width(), winh = $(window).height();
         let scrollLeft = $(document).scrollLeft(), scrollTop = $(document).scrollTop();
-        $("#luckysheet-splitColumn-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
+        $("#tibetsheets-splitColumn-dialog").css({ "left": (winw + scrollLeft - myw) / 2, "top": (winh + scrollTop - myh) / 3 }).show();
 
         let dataArr = _this.getDataArr();
         _this.dataPreview(dataArr);
@@ -81,12 +81,12 @@ const luckysheetSplitColumn = {
         const locale_splitText = _locale.splitText;
 
         //数据预览
-        $(document).off("change.SPCinpcheckbox").on("change.SPCcheckbox", "#luckysheet-splitColumn-dialog .box input[type='checkbox']", function(){
+        $(document).off("change.SPCinpcheckbox").on("change.SPCcheckbox", "#tibetsheets-splitColumn-dialog .box input[type='checkbox']", function(){
             let regStr = _this.getRegStr();
             let dataArr = _this.getDataArr(regStr);
             _this.dataPreview(dataArr);
         });
-        $(document).off("keyup.SPCinptext").on("keyup.SPCinptext", "#luckysheet-splitColumn-dialog .box input[type='text']", function(){
+        $(document).off("keyup.SPCinptext").on("keyup.SPCinptext", "#tibetsheets-splitColumn-dialog .box input[type='text']", function(){
             if($(this).siblings("input[type='checkbox']").is(":checked")){
                 let regStr = _this.getRegStr();
                 let dataArr = _this.getDataArr(regStr);
@@ -95,15 +95,15 @@ const luckysheetSplitColumn = {
         })
 
         //确定按钮
-        $(document).off("click.SPCconfirm").on("click.SPCconfirm", "#luckysheet-splitColumn-dialog #luckysheet-splitColumn-dialog-confirm", function(){
-            $("#luckysheet-modal-dialog-mask").hide();
-            $("#luckysheet-splitColumn-dialog").hide();
+        $(document).off("click.SPCconfirm").on("click.SPCconfirm", "#tibetsheets-splitColumn-dialog #tibetsheets-splitColumn-dialog-confirm", function(){
+            $("#tibetsheets-modal-dialog-mask").hide();
+            $("#tibetsheets-splitColumn-dialog").hide();
 
             let regStr = _this.getRegStr();
             let dataArr = _this.getDataArr(regStr);
 
-            let r = Store.luckysheet_select_save[0].row[0];
-            let c = Store.luckysheet_select_save[0].column[0];
+            let r = Store.tibetsheets_select_save[0].row[0];
+            let c = Store.tibetsheets_select_save[0].column[0];
 
             if(dataArr[0].length == 1){
                 return;
@@ -143,8 +143,8 @@ const luckysheetSplitColumn = {
             }
         }
 
-        let st_r = Store.luckysheet_select_save[0].row[0], 
-            st_c = Store.luckysheet_select_save[0].column[0];
+        let st_r = Store.tibetsheets_select_save[0].row[0], 
+            st_c = Store.tibetsheets_select_save[0].column[0];
 
         let range = [{ "row": [st_r, st_r + dataArr.length - 1], "column": [st_c, st_c + dataArr[0].length - 1] }]
 
@@ -152,7 +152,7 @@ const luckysheetSplitColumn = {
         selectHightlightShow();
     },
     dataPreview: function(dataArr){
-        $("#luckysheet-splitColumn-dialog #splitColumnData").empty();
+        $("#tibetsheets-splitColumn-dialog #splitColumnData").empty();
 
         let trHtml = '';
 
@@ -168,12 +168,12 @@ const luckysheetSplitColumn = {
 
         let tableHtml = '<table>' + trHtml + '</table>';
 
-        $("#luckysheet-splitColumn-dialog #splitColumnData").append(tableHtml);
+        $("#tibetsheets-splitColumn-dialog #splitColumnData").append(tableHtml);
     },
     getRegStr: function(){
         let regStr = '', mark = 0;
 
-        $("#luckysheet-splitColumn-dialog .box input[type='checkbox']:checked").each(function(i, e){
+        $("#tibetsheets-splitColumn-dialog .box input[type='checkbox']:checked").each(function(i, e){
             let $id = $(e).attr("id");
 
             if($id == "splitColumn_type_01"){ //Tab键
@@ -227,9 +227,9 @@ const luckysheetSplitColumn = {
 
         let arr = [];
 
-        let r1 = Store.luckysheet_select_save[0].row[0];
-        let r2 = Store.luckysheet_select_save[0].row[1];
-        let c = Store.luckysheet_select_save[0].column[0];
+        let r1 = Store.tibetsheets_select_save[0].row[0];
+        let r2 = Store.tibetsheets_select_save[0].row[1];
+        let c = Store.tibetsheets_select_save[0].column[0];
 
         if(regStr != null && regStr != ""){
             let reg = new RegExp(regStr, "g");
@@ -320,4 +320,4 @@ const luckysheetSplitColumn = {
     }
 }
 
-export default luckysheetSplitColumn;
+export default tibetsheetsSplitColumn;

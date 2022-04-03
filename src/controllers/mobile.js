@@ -1,7 +1,7 @@
 import { rowLocation, colLocation, mouseposition } from '../global/location';
 import { selectHightlightShow } from './select';
 import menuButton from './menuButton';
-import luckysheetFreezen from './freezen';
+import tibetsheetsFreezen from './freezen';
 import Store from '../store';
 
 //设备是移动端
@@ -10,45 +10,45 @@ export default function mobileinit(){
     Store.cellMainSrollBarSize = 0;
 
     //滑动滚动表格
-    let luckysheet_touchmove_status = false,
-        luckysheet_touchmove_startPos = {},
-        luckysheet_touchhandle_status = false,
+    let tibetsheets_touchmove_status = false,
+        tibetsheets_touchmove_startPos = {},
+        tibetsheets_touchhandle_status = false,
         _scrollTimer = null;
-    $(document).on("touchstart", "#luckysheet-grid-window-1", function(event){
+    $(document).on("touchstart", "#tibetsheets-grid-window-1", function(event){
         clearInterval(_scrollTimer);//clear timer
-        luckysheet_touchmove_status = true;
+        tibetsheets_touchmove_status = true;
 
         let touch = event.originalEvent.targetTouches[0];
-        luckysheet_touchmove_startPos = {
+        tibetsheets_touchmove_startPos = {
             x: touch.pageX,
             y: touch.pageY,
             vy:0, //vy可以理解为滑动的力度
             moveType:"y",
         }
     })
-    $(document).on("touchmove", "#luckysheet-grid-window-1", function(event){
+    $(document).on("touchmove", "#tibetsheets-grid-window-1", function(event){
         if(event.originalEvent.targetTouches.length > 1 || (event.scale && event.scale !== 1)){
             return;
         }
 
         let touch = event.originalEvent.targetTouches[0];
 
-        if(luckysheet_touchmove_status){//滚动
-            let slideX = touch.pageX - luckysheet_touchmove_startPos.x;
-            let slideY = touch.pageY - luckysheet_touchmove_startPos.y;
+        if(tibetsheets_touchmove_status){//滚动
+            let slideX = touch.pageX - tibetsheets_touchmove_startPos.x;
+            let slideY = touch.pageY - tibetsheets_touchmove_startPos.y;
 
-            luckysheet_touchmove_startPos.x = touch.pageX;
-            luckysheet_touchmove_startPos.y = touch.pageY;
+            tibetsheets_touchmove_startPos.x = touch.pageX;
+            tibetsheets_touchmove_startPos.y = touch.pageY;
 
-            let scrollLeft = $("#luckysheet-scrollbar-x").scrollLeft();
-            let scrollTop = $("#luckysheet-scrollbar-y").scrollTop();
+            let scrollLeft = $("#tibetsheets-scrollbar-x").scrollLeft();
+            let scrollTop = $("#tibetsheets-scrollbar-y").scrollTop();
 
             // console.log("start",scrollTop, slideY,touch.pageY);
 
             scrollLeft -= slideX;
             scrollTop -= slideY;
 
-            // console.log(touch,touch.pageY, luckysheet_touchmove_startPos.y, slideY);
+            // console.log(touch,touch.pageY, tibetsheets_touchmove_startPos.y, slideY);
 
             if(scrollLeft < 0){
                 scrollLeft = 0;
@@ -58,23 +58,23 @@ export default function mobileinit(){
                 scrollTop = 0;
             }
             
-            $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
+            $("#tibetsheets-scrollbar-y").scrollTop(scrollTop);
 
-            luckysheet_touchmove_startPos.vy_y = slideY;
-            luckysheet_touchmove_startPos.scrollTop = scrollTop;
+            tibetsheets_touchmove_startPos.vy_y = slideY;
+            tibetsheets_touchmove_startPos.scrollTop = scrollTop;
 
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+            $("#tibetsheets-scrollbar-x").scrollLeft(scrollLeft);
 
-            luckysheet_touchmove_startPos.vy_x = slideX;
+            tibetsheets_touchmove_startPos.vy_x = slideX;
 
-            luckysheet_touchmove_startPos.scrollLeft = scrollLeft;
+            tibetsheets_touchmove_startPos.scrollLeft = scrollLeft;
    
 
         }
-        else if(luckysheet_touchhandle_status){//选区
+        else if(tibetsheets_touchhandle_status){//选区
             let mouse = mouseposition(touch.pageX, touch.pageY);
-            let x = mouse[0] + $("#luckysheet-cell-main").scrollLeft();
-            let y = mouse[1] + $("#luckysheet-cell-main").scrollTop();
+            let x = mouse[0] + $("#tibetsheets-cell-main").scrollLeft();
+            let y = mouse[1] + $("#tibetsheets-cell-main").scrollTop();
 
             let row_location = rowLocation(y), 
                 row = row_location[1], 
@@ -85,7 +85,7 @@ export default function mobileinit(){
                 col_pre = col_location[0], 
                 col_index = col_location[2];
 
-            let last = $.extend(true, {}, Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1]);
+            let last = $.extend(true, {}, Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1]);
 
             let top = 0, height = 0, rowseleted = [];
             if (last.top > row_pre) {
@@ -159,20 +159,20 @@ export default function mobileinit(){
             last["top_move"] = top;
             last["height_move"] = height;
 
-            Store.luckysheet_select_save[Store.luckysheet_select_save.length - 1] = last;
+            Store.tibetsheets_select_save[Store.tibetsheets_select_save.length - 1] = last;
 
             selectHightlightShow();
             
-            luckysheetFreezen.scrollFreezen();
+            tibetsheetsFreezen.scrollFreezen();
         }
 
         event.stopPropagation();
     })
     $(document).on("touchend", function(event){
-        if(luckysheet_touchmove_status){
-            let vy_x = Math.abs(luckysheet_touchmove_startPos.vy_x), friction_x = ((vy_x >> 31) * 2 + 1) * 0.25;
+        if(tibetsheets_touchmove_status){
+            let vy_x = Math.abs(tibetsheets_touchmove_startPos.vy_x), friction_x = ((vy_x >> 31) * 2 + 1) * 0.25;
 
-            let vy_y = Math.abs(luckysheet_touchmove_startPos.vy_y), friction_y = ((vy_y >> 31) * 2 + 1) * 0.25;
+            let vy_y = Math.abs(tibetsheets_touchmove_startPos.vy_y), friction_y = ((vy_y >> 31) * 2 + 1) * 0.25;
             if(vy_x>0 || vy_y>0){
                 _scrollTimer = setInterval(function () {//
                     vy_x -= friction_x;//力度按 惯性的大小递减
@@ -185,23 +185,23 @@ export default function mobileinit(){
                         vy_y = 0;
                     }
          
-                    if(luckysheet_touchmove_startPos.vy_y>0){
-                        luckysheet_touchmove_startPos.scrollTop -= vy_y;
+                    if(tibetsheets_touchmove_startPos.vy_y>0){
+                        tibetsheets_touchmove_startPos.scrollTop -= vy_y;
                     }
                     else{
-                        luckysheet_touchmove_startPos.scrollTop += vy_y;
+                        tibetsheets_touchmove_startPos.scrollTop += vy_y;
                     }
             
-                    $("#luckysheet-scrollbar-y").scrollTop(luckysheet_touchmove_startPos.scrollTop);
+                    $("#tibetsheets-scrollbar-y").scrollTop(tibetsheets_touchmove_startPos.scrollTop);
             
-                    if(luckysheet_touchmove_startPos.vy_x>0){
-                        luckysheet_touchmove_startPos.scrollLeft -= vy_x;
+                    if(tibetsheets_touchmove_startPos.vy_x>0){
+                        tibetsheets_touchmove_startPos.scrollLeft -= vy_x;
                     }
                     else{
-                        luckysheet_touchmove_startPos.scrollLeft += vy_x;
+                        tibetsheets_touchmove_startPos.scrollLeft += vy_x;
                     }
             
-                    $("#luckysheet-scrollbar-x").scrollLeft(luckysheet_touchmove_startPos.scrollLeft);
+                    $("#tibetsheets-scrollbar-x").scrollLeft(tibetsheets_touchmove_startPos.scrollLeft);
          
                     if(vy_x<=0 && vy_y<=0){
                         clearInterval(_scrollTimer);
@@ -210,16 +210,16 @@ export default function mobileinit(){
             }
 
         }
-        luckysheet_touchmove_status = false;
-        // luckysheet_touchmove_startPos = {};
+        tibetsheets_touchmove_status = false;
+        // tibetsheets_touchmove_startPos = {};
 
-        luckysheet_touchhandle_status = false;
+        tibetsheets_touchhandle_status = false;
     })
 
     //滑动选择选区
-    $(document).on("touchstart", ".luckysheet-cs-touchhandle", function(event){
-        luckysheet_touchhandle_status = true;
-        luckysheet_touchmove_status = false;
+    $(document).on("touchstart", ".tibetsheets-cs-touchhandle", function(event){
+        tibetsheets_touchhandle_status = true;
+        tibetsheets_touchmove_status = false;
         // console.log(1111111111);
         event.stopPropagation();
     })  
