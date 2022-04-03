@@ -1,6 +1,9 @@
 import './utils/math'
 import { tibetsheets } from './core'
 import __firefox from './utils/polyfill'
+import "uuid"
+
+// window.uuid = uuid;
 // import $ from "jquery"
 
 

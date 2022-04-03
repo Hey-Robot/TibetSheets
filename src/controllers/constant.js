@@ -902,8 +902,9 @@ const tibetsheetslodingHTML = function (target, coverConfig) {
             close: close
         }
     }
+    const uuid = "_" + Math.random() + "_" + Math.random() + "_";
     const imageHtml = tibetsheetsloadingImage(config);
-    const id = "tibetsheets-loading-" + uuid.v4();
+    const id = "tibetsheets-loading-" + uuid;
     const loadingHtml = `
         <div class="tibetsheets-loading-content"> 
             <div class="${config.imageClass} tibetsheets-loading-image">
