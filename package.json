@@ -1,6 +1,6 @@
 {
   "name": "tibetsheets",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "main": "dist/tibetsheets.cjs.js",
   "module": "dist/tibetsheets.esm.js",
   "browser": "dist/tibetsheets.umd.js",
