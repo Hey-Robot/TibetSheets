@@ -1,6 +1,23 @@
-<div align="center">
 
-![logo](/docs/.vuepress/public/img/logo_text.png)
+<div align="center">
+        
+# Tibet Sheets
+开源电子表格网络应用。
+<br>
+        
+<a href="https://www.economist.com/china/2022/04/02/deciphering-a-tibetan-pop-stars-self-immolation">
+  <img src="https://user-images.githubusercontent.com/9451001/161445678-a8b9ce29-7ee7-49c3-b4fc-fc66975cf3ef.jpg" alt="Learn More">
+</a>
+
+<br>
+<br>   
+<br>   
+分叉自。
+<br>     
+        
+<a href="https://github.com/mengshukeji/luckysheet">
+ <img src="https://github.com/mengshukeji/luckysheet/blob/master/docs/.vuepress/public/img/logo_text.png" alt="Learn More">
+</a>
 
 </div>
 
@@ -9,7 +26,7 @@
 简体中文 | [English](./README.md)
 
 ## 介绍
-🚀Tibetsheets ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。
+🚀 Tibetsheets ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。
 
 ## 相关链接
  | 源码   | 文档 | Demo | 插件Demo | 论坛 |
